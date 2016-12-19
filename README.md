@@ -1,4 +1,4 @@
-# A template for writing scientific papers
+# Stimulated Emission Imaging paper
 View it in action here:
 https://andrewgyork.github.io/publication-template/
 
