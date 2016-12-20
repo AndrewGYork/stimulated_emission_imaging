@@ -10,13 +10,13 @@ def main():
     # and repetition_average_expt_and_control.py
 
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_8'):
-        os.mkdir('./../images/figure_5')
+    if not os.path.isdir('./../images/figure_6'):
+        os.mkdir('./../images/figure_6')
 
     filename = (
-        './../../stimulated_emission_data/figure_5/dataset_green_1500mW.tif')
+        './../../stimulated_emission_data/figure_6/dataset_red_300mW.tif')
     filename_ctrl = (
-        './../../stimulated_emission_data/figure_5/dataset_green_0mW.tif')
+        './../../stimulated_emission_data/figure_6/dataset_red_0mW.tif')
     data = np_tif.tif_to_array(filename).astype(np.float64)
     data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
 
@@ -56,7 +56,7 @@ def main():
         ))
     # from the image where red/green are simultaneous, subtract the
     # average of images taken when the delay magnitude is greatest
-    STE_stack = (
+    depletion_stack = (
         data[:,2,:,:] - # zero red/green delay
         0.5 * (data[:,0,:,:] + data[:,4,:,:]) # max red/green delay
         )
@@ -65,7 +65,7 @@ def main():
         0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,4,:,:]) # max red/green delay
         )
     # darkfield image (no STE) stack
-    darkfield_stack = 0.5 * (data[:,0,:,:] + data[:,4,:,:])
+    fluorescence_stack = 0.5 * (data[:,0,:,:] + data[:,4,:,:])
 
     # save processed stacks
 ##    np_tif.array_to_tif(STE_stack,'STE_stack.tif')
@@ -73,76 +73,76 @@ def main():
 ##    np_tif.array_to_tif(darkfield_stack,'darkfield_stack.tif')
 
     # plot darkfield and stim emission signal
-    top = 1
-    bot = 116
-    left = 74
-    right = 249
-    darkfield_cropped = darkfield_stack[:,top:bot,left:right]
-    STE_cropped = (STE_stack[:,top:bot,left:right] -
+    top = 0
+    bot = 106
+    left = 92
+    right = 240
+    fluorescence_cropped = fluorescence_stack[:,top:bot,left:right] - 102
+    depletion_cropped = (depletion_stack[:,top:bot,left:right] -
                    crosstalk_stack[:,top:bot,left:right])
 
-    for z_num in range(STE_cropped.shape[0]):
-        # filter darkfield and STE images
-        STE_image = STE_cropped[z_num,:,:]
-        STE_image = STE_image.reshape(
-            1,STE_image.shape[0],STE_image.shape[1])
-        STE_image = annular_filter(STE_image,r1=0,r2=0.03)
-        STE_image = STE_image[0,:,:]
-        darkfield_image = darkfield_cropped[z_num,:,:]
-        darkfield_image = darkfield_image.reshape(
-            1,darkfield_image.shape[0],darkfield_image.shape[1])
-        darkfield_image = annular_filter(darkfield_image,r1=0,r2=0.03)
-        darkfield_image = darkfield_image[0,:,:]
+    for z_num in range(depletion_cropped.shape[0]):
+        # filter fluorescence and depletion images
+        depletion_image = depletion_cropped[z_num,:,:]
+        depletion_image = depletion_image.reshape(
+            1,depletion_image.shape[0],depletion_image.shape[1])
+        depletion_image = annular_filter(depletion_image,r1=0,r2=0.03)
+        depletion_image = depletion_image[0,:,:]
+        fluorescence_image = fluorescence_cropped[z_num,:,:]
+        fluorescence_image = fluorescence_image.reshape(
+            1,fluorescence_image.shape[0],fluorescence_image.shape[1])
+        fluorescence_image = annular_filter(fluorescence_image,r1=0,r2=0.03)
+        fluorescence_image = fluorescence_image[0,:,:]
 
         # generate and save plot
-        STE_image[0,0] = -149 # cheap way to conserve colorbar
-        darkfield_image[0,0] = 63060 #cheap way to conserve colorbar
+        depletion_image[0,0] = -38 # cheap way to conserve colorbar
+        fluorescence_image[0,0] = 380 #cheap way to conserve colorbar
         fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2,figsize=(19,5))
 
-        cax0 = ax0.imshow(darkfield_image, cmap=plt.cm.gray)
+        cax0 = ax0.imshow(fluorescence_image, cmap=plt.cm.gray)
         ax0.axis('off')
         cbar0 = fig.colorbar(cax0,ax=ax0)
-        ax0.set_title('Darkfield image of nanodiamond')
+        ax0.set_title('Fluorescence image of nanodiamond')
 
-        cax1 = ax1.imshow(STE_image, cmap=plt.cm.gray)
+        cax1 = ax1.imshow(depletion_image, cmap=plt.cm.gray)
         cbar1 = fig.colorbar(cax1, ax = ax1)
-        ax1.set_title('Scattered light intensity decreased due to stim. emission')
+        ax1.set_title('Fluorescence intensity decreased due to stim. emission')
         ax1.axis('off')
-        plt.savefig('./../images/figure_5/darkfield_STE_image_' +
+        plt.savefig('./../images/figure_6/fluorescence_depletion_image_' +
                     str(z_num)+'.svg')
     
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 38
-    bot = 74
-    left = 144
-    right = 177
-    STE_signal = (
-        STE_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
+    top = 18
+    bot = 78
+    left = 133
+    right = 188
+    depletion_signal = (
+        depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     crosstalk_signal = (
         crosstalk_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    darkfield_signal = (
-        darkfield_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
+    fluorescence_signal = (
+        fluorescence_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     
     # plot signal v z
-    z_list = a = np.arange(-1400,1401,200)
+    z_list = a = np.arange(-1400,2301,200)
     plt.figure()
-    plt.plot(z_list,darkfield_signal,'.-',color='black')
-    plt.title('Darkfield image main lobe brightness')
+    plt.plot(z_list,fluorescence_signal,'.-',color='black')
+    plt.title('Fluorescence image main lobe brightness')
     plt.xlabel('Z (nm)')
     plt.ylabel('Average intensity (CMOS pixel counts)')
     plt.grid()
-##    plt.savefig('darkfield_v_z.svg')
+
     plt.figure()
-    plt.plot(z_list,STE_signal,'.-',label='STE signal',color='blue')
+    plt.plot(z_list,depletion_signal,'.-',label='depletion signal',color='blue')
     plt.plot(z_list,crosstalk_signal,'.-',label='AOM crosstalk',color='green')
-    plt.title('Stimulated emission signal main lobe intensity')
+    plt.title('Depletion signal main lobe intensity')
     plt.xlabel('Z (nm)')
-    plt.ylabel('Change in scattered light signal (CMOS pixel counts)')
+    plt.ylabel('Change in fluorescence signal (CMOS pixel counts)')
     plt.legend(loc='lower right')
     plt.grid()
-##    plt.savefig('darkfield_STE_v_z.svg')
+
 ##    plt.show()
     
 

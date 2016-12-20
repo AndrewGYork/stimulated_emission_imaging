@@ -10,10 +10,10 @@ def main():
     # and repetition_average_expt_and_control.py
 
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_4'):
-        os.mkdir('./../images/figure_4')
-    if not os.path.isdir('./../images/figure_5'):
-        os.mkdir('./../images/figure_5')
+    if not os.path.isdir('./../images/figure_1'):
+        os.mkdir('./../images/figure_1')
+    if not os.path.isdir('./../images/figure_2'):
+        os.mkdir('./../images/figure_2')
 
     num_reps = 200 # number of times a power/delay stack was taken
     num_delays = 5
@@ -41,9 +41,9 @@ def main():
     red_powers = red_powers * red_max_mW / max(red_powers)
     red_powers = np.around(red_powers).astype(int)
 
-    filename = './../../stimulated_emission_data/figure_4_5/dataset.tif'
+    filename = './../../stimulated_emission_data/figure_1_2/dataset.tif'
     filename_ctrl = (
-        './../../stimulated_emission_data/figure_4_5/dataset_green_blocked.tif')
+        './../../stimulated_emission_data/figure_1_2/dataset_green_blocked.tif')
     data = np_tif.tif_to_array(filename).astype(np.float64)
     data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
 
@@ -135,7 +135,7 @@ def main():
     cbar1 = fig.colorbar(cax1, ax = ax1)
     ax1.set_title('Scattered light intensity decreased due to stim. emission')
     ax1.axis('off')
-    plt.savefig('./../images/figure_4/darkfield_STE_image.svg')
+    plt.savefig('./../images/figure_1/darkfield_STE_image.svg')
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
@@ -177,7 +177,7 @@ def main():
     plt.legend(loc='lower left')
     plt.ylim(-45, 10)
     plt.grid()
-    plt.savefig('./../images/figure_5/STE_v_green_power.svg')
+    plt.savefig('./../images/figure_2/STE_v_green_power.svg')
     plt.show()
     
 

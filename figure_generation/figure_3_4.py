@@ -10,10 +10,10 @@ def main():
     # and repetition_average_expt_and_control.py
 
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_6'):
-        os.mkdir('./../images/figure_6')
-    if not os.path.isdir('./../images/figure_7'):
-        os.mkdir('./../images/figure_7')
+    if not os.path.isdir('./../images/figure_3'):
+        os.mkdir('./../images/figure_3')
+    if not os.path.isdir('./../images/figure_4'):
+        os.mkdir('./../images/figure_4')
 
     num_reps = 10 # number of times a power/delay stack was taken
     num_delays = 5
@@ -41,7 +41,7 @@ def main():
     red_powers = red_powers * red_max_mW / max(red_powers)
     red_powers = np.around(red_powers).astype(int)
 
-    filename = './../../stimulated_emission_data/figure_6_7/dataset.tif'
+    filename = './../../stimulated_emission_data/figure_3_4/dataset.tif'
     data = np_tif.tif_to_array(filename).astype(np.float64)
 
     # get rid of overexposed rows at top and bottom of images
@@ -109,7 +109,7 @@ def main():
     cbar1 = fig.colorbar(cax1, ax = ax1)
     ax1.set_title('Fluorescence intensity decreased due to stim. emission')
     ax1.axis('off')
-    plt.savefig('./../images/figure_6/fluorescence_depletion_image.svg')
+    plt.savefig('./../images/figure_3/fluorescence_depletion_image.svg')
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
@@ -139,7 +139,7 @@ def main():
     plt.ylabel('Fluorescence light signal (CMOS pixel counts)')
     plt.legend(loc='lower right')
     plt.grid()
-    plt.savefig('./../images/figure_7/fluorescence_v_green_power.svg')    
+    plt.savefig('./../images/figure_4/fluorescence_v_green_power.svg')    
     
     plt.figure()
     for (pow_num,gr_pow) in enumerate(green_powers):
