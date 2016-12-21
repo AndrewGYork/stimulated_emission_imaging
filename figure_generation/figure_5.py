@@ -10,7 +10,7 @@ def main():
     # and repetition_average_expt_and_control.py
 
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_8'):
+    if not os.path.isdir('./../images/figure_5'):
         os.mkdir('./../images/figure_5')
 
     filename = (
