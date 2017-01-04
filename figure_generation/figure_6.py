@@ -96,7 +96,9 @@ def main():
 
         # generate and save plot
         depletion_image[0,0] = -38 # cheap way to conserve colorbar
+        depletion_image[0,1] = 1 # cheap way to conserve colorbar
         fluorescence_image[0,0] = 380 #cheap way to conserve colorbar
+        fluorescence_image[0,1] = 0 #cheap way to conserve colorbar
         fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2,figsize=(19,5))
 
         cax0 = ax0.imshow(fluorescence_image, cmap=plt.cm.gray)
@@ -110,6 +112,7 @@ def main():
         ax1.axis('off')
         plt.savefig('./../images/figure_6/fluorescence_depletion_image_' +
                     str(z_num)+'.svg')
+        plt.close()
     
     
     # average points around center lobe of the nanodiamond image to get

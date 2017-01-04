@@ -114,6 +114,7 @@ def main():
         ax1.axis('off')
         plt.savefig('./../images/figure_7/phase_STE_image_' +
                     str(angle_num)+'.svg')
+        plt.close()
     
     
     # average points around center lobe of the nanodiamond image to get
@@ -156,7 +157,7 @@ def main():
     plt.legend(loc='lower right')
     plt.grid()
 ##    plt.savefig('darkfield_STE_v_z.svg')
-##    plt.show()
+    plt.show()
     
 
     return None

@@ -95,8 +95,10 @@ def main():
         darkfield_image = darkfield_image[0,:,:]
 
         # generate and save plot
+        STE_image[0,1] = 10 # cheap way to conserve colorbar
         STE_image[0,0] = -149 # cheap way to conserve colorbar
-        darkfield_image[0,0] = 63060 #cheap way to conserve colorbar
+        darkfield_image[0,1] = -200 #cheap way to conserve colorbar
+        darkfield_image[0,0] = 64060 #cheap way to conserve colorbar
         fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2,figsize=(19,5))
 
         cax0 = ax0.imshow(darkfield_image, cmap=plt.cm.gray)
@@ -110,6 +112,7 @@ def main():
         ax1.axis('off')
         plt.savefig('./../images/figure_5/darkfield_STE_image_' +
                     str(z_num)+'.svg')
+        plt.close()
     
     
     # average points around center lobe of the nanodiamond image to get
