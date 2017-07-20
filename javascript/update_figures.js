@@ -7,7 +7,13 @@ function update_figure_2() {
   image.src = filename;
 }
 
-
+// Figure 4 interactively loads static images, stored locally
+function update_figure_4() {
+  var my_powers = document.getElementById("Figure_4_data_subset").value;
+  var filename = "./images/figure_4/STE_v_" + my_powers + ".svg";
+  var image = document.getElementById("Figure_4_image");
+  image.src = filename;
+}
 
 
 // Figure 5 interactively loads static images, stored locally
