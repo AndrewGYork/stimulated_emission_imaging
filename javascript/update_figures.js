@@ -39,3 +39,11 @@ function update_figure_6() {
   var image = document.getElementById("Figure_6_image");
   image.src = filename;
 }
+
+// Figure 7 interactively loads static images, stored locally
+function update_figure_7() {
+  var angle = document.getElementById("Figure_7_angle").value;
+  var filename = "./images/figure_7/STE_crimson_bead_" + angle + "_phase.svg";
+  var image = document.getElementById("Figure_7_image");
+  image.src = filename;
+}
