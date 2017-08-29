@@ -7,6 +7,14 @@ function update_figure_2() {
   image.src = filename;
 }
 
+// Figure 3 interactively loads static images, stored locally
+function update_figure_3() {
+  var sample_type = document.getElementById("Figure_3_sample_type").value;
+  var filename = "./images/figure_3/fluorescence_depletion_" + sample_type + ".svg";
+  var image = document.getElementById("Figure_3_image");
+  image.src = filename;
+}
+
 // Figure 5 interactively loads static images, stored locally
 function update_figure_4() {
   var my_powers = document.getElementById("Figure_5_data_subset").value;
