@@ -16,10 +16,10 @@ function update_figure_3() {
 }
 
 // Figure 5 interactively loads static images, stored locally
-function update_figure_4() {
+function update_figure_5() {
   var my_powers = document.getElementById("Figure_5_data_subset").value;
-  var filename = "./images/figure_4/STE_v_" + my_powers + ".svg";
-  var image = document.getElementById("Figure_4_image");
+  var filename = "./images/figure_5/STE_v_" + my_powers + ".svg";
+  var image = document.getElementById("Figure_5_image");
   image.src = filename;
 }
 
