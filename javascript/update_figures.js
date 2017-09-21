@@ -50,10 +50,10 @@ function update_figure_7() {
 }
 
 
-// Figure S3 interactively loads static images, stored locally
-function update_figure_S3() {
-  var angle = document.getElementById("Figure_S3_angle").value;
-  var filename = "./images/figure_S3/phase_STE_image_" + angle + ".svg";
-  var image = document.getElementById("Figure_S3_image");
+// Figure S8 interactively loads static images, stored locally
+function update_figure_S8() {
+  var angle = document.getElementById("Figure_S8_angle").value;
+  var filename = "./images/figure_S8/phase_STE_image_" + angle + ".svg";
+  var image = document.getElementById("Figure_S8_image");
   image.src = filename;
 }
