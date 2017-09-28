@@ -14,7 +14,7 @@ def main():
         os.mkdir('./../images/figure_3')
 
     num_reps = 10 # number of times a power/delay stack was taken
-    num_delays = 5
+    num_delays = 3
     image_h = 128
     image_w = 380
 
@@ -22,9 +22,9 @@ def main():
     # red max power is 300 mW
     # green max power is 1450 mW
     # green powers calibrated using camera
-    green_max_mW = 1450
+    green_max_mW = 1330
     green_powers = np.array(
-        (113.9,119.6,124.5,135,145.5,159.5,175.3,193.1,234.5,272.2,334.1,385.7,446.1))
+        (113.9,124.5,145.5,175.3,234.5,334.1,446.1))
     green_powers = green_powers - min(green_powers)
     green_powers = green_powers * green_max_mW / max(green_powers)
     green_powers = np.around(green_powers).astype(int)
@@ -33,12 +33,13 @@ def main():
     red_bg = 26.6
     red_max_mW = 300
     red_powers = np.array(
-        (26.6, 113, 198, 276, 353, 438, 537))
+        (26.6, 537))
     red_powers -= red_bg
     red_powers = red_powers * red_max_mW / max(red_powers)
     red_powers = np.around(red_powers).astype(int)
 
-    filename = './../../stimulated_emission_data/figure_3/dataset.tif'
+    filename = (
+        './../../stimulated_emission_data/figure_3b/dataset_green_all_powers_up.tif')
     data = np_tif.tif_to_array(filename).astype(np.float64)
 
     # get rid of overexposed rows at top and bottom of images
@@ -47,7 +48,6 @@ def main():
 
     # reshape to hyperstack
     data = data.reshape((
-        len(red_powers),
         len(green_powers),
         num_delays,
         data.shape[1],
@@ -57,14 +57,14 @@ def main():
     # from the image where red/green are simultaneous, subtract the
     # average of images taken when the delay magnitude is greatest
     depletion_stack = (
-        data[:,:,2,:,:] - # zero red/green delay
-        0.5 * (data[:,:,0,:,:] + data[:,:,4,:,:]) # max red/green delay
-##        data[:,:,0,:,:] # max red/green delay
+        data[:,1,:,:] - # zero red/green delay
+        0.5 * (data[:,0,:,:] + data[:,2,:,:]) # max red/green delay
         )
 
-    # fluorescence image (no STE) stack
-    fluorescence_stack = 0.5 * (data[:,:,0,:,:] + data[:,:,4,:,:])
-    depleted_stack = data[:,:,2,:,:] # zero red/green delay
+    # fluorescence image (no STE depletion) stack
+    fluorescence_stack = 0.5 * (data[:,0,:,:] + data[:,2,:,:])
+    # fluorescence image (with STE depletion) stack
+    depleted_stack = data[:,1,:,:] # zero red/green delay
 
     # save processed stacks
 ##    tif_shape = (
@@ -86,31 +86,31 @@ def main():
     left_bg = 10
     right_bg = 20
     fluorescence_signal_bg = (
-        fluorescence_stack[:,:,top_bg:bot_bg,left_bg:right_bg
-                           ].mean(axis=3).mean(axis=2)
+        fluorescence_stack[:,top_bg:bot_bg,left_bg:right_bg
+                           ].mean(axis=2).mean(axis=1)
         )
     depleted_signal_bg = (
-        depleted_stack[:,:,top_bg:bot_bg,left_bg:right_bg
-                       ].mean(axis=3).mean(axis=2)
+        depleted_stack[:,top_bg:bot_bg,left_bg:right_bg
+                       ].mean(axis=2).mean(axis=1)
         )
     # crop, bg subtract, and spatially filter image
     top = 0
     bot = 112
-    left = 122
-    right = 249
-    fluorescence_cropped = (fluorescence_stack[-1,-1,top:bot,left:right] -
-                            fluorescence_signal_bg[-1,-1])
+    left = 95 + 15
+    right = 255 - 15
+    fluorescence_cropped = (fluorescence_stack[-1,top:bot,left:right] -
+                            fluorescence_signal_bg[-1])
     fluorescence_cropped = fluorescence_cropped.reshape(
         1,fluorescence_cropped.shape[0],fluorescence_cropped.shape[1])
     fluorescence_cropped = annular_filter(fluorescence_cropped,r1=0,r2=0.03)
     fluorescence_cropped = fluorescence_cropped[0,:,:]
-    depletion_cropped = depletion_stack[-1,-1,top:bot,left:right]
+    depletion_cropped = depletion_stack[-1,top:bot,left:right]
     depletion_cropped = depletion_cropped.reshape(
         1,depletion_cropped.shape[0],depletion_cropped.shape[1])
     depletion_cropped = annular_filter(depletion_cropped,r1=0,r2=0.03)
     depletion_cropped = depletion_cropped[0,:,:]
-    fluorescence_cropped[101:107,5:34] = 200 # scale bar
-    depletion_cropped[101:107,5:34] = -20 # scale bar
+    fluorescence_cropped[101:107,5:34] = np.max(fluorescence_cropped) # scale bar
+    depletion_cropped[101:107,5:34] = np.min(depletion_cropped) # scale bar
 
 ##    fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2,figsize=(16,5))
 ##
@@ -123,52 +123,55 @@ def main():
 ##    cbar1 = fig.colorbar(cax1, ax = ax1)
 ##    ax1.set_title('Fluorescence intensity decreased due to stim. emission')
 ##    ax1.axis('off')
-##    plt.savefig('./../images/figure_3/fluorescence_depletion_image.svg')
+##    plt.show()
+##    plt.savefig('./../images/figure_3b/fluorescence_depletion_image.svg')
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 31
-    bot = 84
-    left = 160
-    right = 215
+    top = 34
+    bot = 80
+    left = 152
+    right = 200
     depletion_signal = (
-        depletion_stack[:,:,top:bot,left:right].mean(axis=3).mean(axis=2))
+        depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = (
-        depleted_stack[:,:,top:bot,left:right].mean(axis=3).mean(axis=2))
+        depleted_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = depleted_signal - depleted_signal_bg
     fluorescence_signal = (
-        fluorescence_stack[:,:,top:bot,left:right].mean(axis=3).mean(axis=2))
+        fluorescence_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     fluorescence_signal = fluorescence_signal - fluorescence_signal_bg
 ##    np_tif.array_to_tif(STE_signal,'STE_signal_array.tif')
 ##    np_tif.array_to_tif(crosstalk_signal,'crosstalk_signal_array.tif')
 ##    np_tif.array_to_tif(darkfield_signal,'darkfield_signal_array.tif')
     
     # plot signal
-    mW_per_kex = 950
+    mW_per_kex = 1050
     kex = green_powers / mW_per_kex
 
-    mW_per_kdep = 950
+    mW_per_kdep = 1250
     kdep = red_powers[-1] / mW_per_kdep
 
-    brightness = 120
+    brightness = 73
     model_fl = kex / (1 + kex)
     model_fl_dep = kex / (1 + kex + kdep)
 
-    nd_brightness = depleted_signal[0,:]
-    nd_brightness_depleted = depleted_signal[-1,:]
+##    nd_brightness = depleted_signal[0,:]
+    nd_brightness = fluorescence_signal
+##    nd_brightness_depleted = depleted_signal[-1,:]
+    nd_brightness_depleted = depleted_signal
     
     plt.figure()
     plt.plot(kex,nd_brightness/brightness,'o',
-             label='N-v fluorescence', color='green')
+             label='Crimson bead fluorescence', color='green')
     plt.plot(kex,nd_brightness_depleted/brightness,'o',
              label='Depleted fluorescence', color='red')
     plt.plot(kex, model_fl, '-',
-             label='N-v fluorescence (model)', color='green')
+             label='Crimson bead fluorescence (model)', color='green')
     plt.plot(kex, model_fl_dep, '-',
              label='Depleted fluorescence (model)', color='red')
     plt.xlabel('k_ex = excitation power (mW) / %i\n'%(mW_per_kex))
     plt.ylabel('Excitation fraction')
-    plt.axis([-0.01,1.6,-0.01,0.7])
+    plt.axis([-0.01,1.4,-0.01,0.65])
     plt.legend(loc='lower right')
 ##    plt.title("k_ex  = mW/%i\n"%(mW_per_kex) + "k_dep = mW/%i"%(mW_per_kdep))
     plt.grid()
@@ -176,7 +179,7 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray)
     plt.xticks([])
     plt.yticks([])
-    plt.savefig('./../images/figure_3/fluorescence_depletion_nd.svg')
+    plt.savefig('./../images/figure_3/fluorescence_depletion_dye.svg')
     plt.show()
     
 
