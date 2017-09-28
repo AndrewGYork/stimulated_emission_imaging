@@ -147,7 +147,7 @@ def main():
         0,
         0,
         ])
-    green_pulse = (1 - green_pulse) * np.amin(thermal_signal)
+##    green_pulse = (1 - green_pulse) * np.amin(thermal_signal)
     dt = 1e-9
     green_pulse_tail = 5e-5
     green_pulse_time_axis = np.array([
@@ -163,25 +163,36 @@ def main():
     
     # plot signal v phase
     max_delay_num = 28
-    plt.figure(figsize = (12.5,4.5))
-    plt.plot(
+    fig = plt.figure(figsize = (12.5,4.5))
+    ax = fig.add_subplot(111)
+    lns1 = ax.plot(
         red_delays[0:max_delay_num]*1e3,
         thermal_signal[0:max_delay_num],
         'o-',color='red',
         label='Delayed phase contrast signal',
         )
-    plt.plot(
+    ax2 = ax.twinx()
+    lns2 = ax2.plot(
         green_pulse_time_axis*1e3,
         green_pulse,
         '-',color='green',
         label='Excitation laser duration',
         )
-    plt.xlim(-0.25,5.75)
-    plt.ylim(-400,25)
-    plt.xlabel('Time (ms)')
-    plt.ylabel('Average pixel count')
-    plt.legend(loc='lower right')
-    plt.grid()
+
+    lns = lns1 + lns2
+    labs = [l.get_label() for l in lns]
+    ax.legend(lns, labs, loc='lower right')
+
+    ax.grid()
+    ax.set_xlabel('Time (ms)')
+    ax.set_ylabel('Average pixel count', color='red')
+    ax.tick_params('y', colors='red')
+    ax2.set_ylabel('Laser power (arb. units)', color='green')
+    ax2.tick_params('y', colors='green')
+    ax.set_xlim([-0.25,5.75])
+    ax.set_ylim(-400,25)
+    ax2.set_ylim([-0.05,1.1])
+
     a = plt.axes([.18, .13, .18, .18])
     plt.imshow(thermal_first, cmap=plt.cm.gray)
     plt.xticks([])
