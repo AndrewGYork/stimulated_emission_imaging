@@ -48,13 +48,16 @@ The real text begins here.
 <section>
 <h1>Research Article</h1>
 <h2>Stimulated Emission Imaging</h2>
-<p></p>
-<p class="author_list">Sanjay R. Varma<sup>1*</sup> and Andrew G. York<sup>1&dagger;</sup></p>
-<p></p>
-<p class="author_affiliations"><sup>1</sup>Calico Life Sciences LLC, South San Francisco, CA 94080, USA</p>
-<p></p>
-<p class="contact_email"><sup>*</sup>Email: <a href="mailto:sanjay@calicolabs.com" target="_self">sanjay@calicolabs.com</a></p>
-<p class="contact_email"><sup>&dagger;</sup>Email: <a href="mailto:andrew.g.york@gmail.com" target="_self">andrew.g.york@gmail.com</a></p>
+
+<p class="author_list">Sanjay R. Varma and Andrew G. York</p>
+<!-- <p class="author_list">Sanjay R. Varma<sup>1*</sup> and Andrew G. York<sup>1&dagger;</sup></p> -->
+
+<p class="author_affiliations">Calico Life Sciences LLC, South San Francisco, CA 94080, USA</p>
+<!-- <p class="author_affiliations"><sup>1</sup>Calico Life Sciences LLC, South San Francisco, CA 94080, USA</p> -->
+
+<p class="contact_email">Email: <a href="mailto:sanjay@calicolabs.com" target="_self">sanjay@calicolabs.com</a></p>
+<!-- <p class="contact_email"><sup>*</sup>Email: <a href="mailto:sanjay@calicolabs.com" target="_self">sanjay@calicolabs.com</a></p> -->
+<!-- <p class="contact_email"><sup>&dagger;</sup>Email: <a href="mailto:andrew.g.york@gmail.com" target="_self">andrew.g.york@gmail.com</a></p> -->
 <h4>Abstract</h4>
 <p class="abstract">We demonstrate experimental proof that stimulated emission is distinguishable from the stimulating beam. It has a point-like PSF (point spread function) and coherently interacts with the stimulating beam.</p>
 
@@ -62,12 +65,13 @@ The real text begins here.
 Introduction</h3>
 <p>Fluorescence is a powerful and widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein/antibody expression and binding, sequance genes, and measure concentration of chemicals. All of this is possible in spite of the fact that fluorescence signal is weak. Fluorescence is spontaneous emission of light from an electronically excited molecule (a fluorophore), and the rate of light emitted from the fluorophore is limited by the spontaneous decay rate of the excited molecule. The excited state lifetime of a fluorophore is usually ~1-10 ns. Fortunately, fluorescent light can be imaged with acceptable contrast because its limited spectral bandwidth allows efficient filtering of optical noise sources like excitation light.
 </p>
-<p>The slow spontaneous emission rate of fluorophores fundamentally limits our ability to quantify low-abundance cellular compounds, to view sub-cellular structures that are difficult to label, and to resolve fast sub-cellular events [refs?]. Stimulated emission is a different radiative decay process that is instantaneously initiated by incident light with optical frequency within the spectral bandwidth of the spontaneous emission [Einstein ref]. Through the use of sub-nanosecond pulsed excitation and stimulation light, stimulated emission has a potential effective signal rate many orders of magnitude higher than that of spontaneous emission.
+<p>The slow spontaneous emission rate of fluorophores fundamentally limits our ability to quantify low-abundance cellular compounds, to view sub-cellular structures that are difficult to label, and to resolve fast sub-cellular events [refs?]. Stimulated emission is a different radiative decay process that is instantaneously initiated by incident light with optical frequency within the spectral bandwidth of the spontaneous emission [
+<a class="citation" title="Einstein, A. On the quantum theory of radiation. Phys Z 18, 121 (1917).">Einstein 1917</a>
+]. Because it is an instantaneous process, stimulated emission has a potential effective signal rate many orders of magnitude higher than that of spontaneous emission.
 </p>
 <p>In spite of the high signal rate, stimulated emission from fluorophores has never been imaged onto a camera. There are two reasons for this.
 </p>
-<p>[Or...] In spite of the high signal rate of stimulated emission, wide-field stimulated emission images have never been captured. There are two reasons for this.
-</p>
+
 <p>First, the stimulating beam is a spectrally identical background to stimulated emission and would easily flood a detector in an optical system designed to image fluorescent light. Even so, Min et al. were able to use point-scanned optical excitation and stimulation beams to resolve stimulated emission from a distribution of chromophores, which do not emit spontaneously due to faster internal non-radiative decay processes [ref Min 2009]. They used lock-in averaging to resolve the signal on top of the vastly brighter background. [Why can't they look at fluorophores? Maybe they don't because they think the STE signal is too low in comparison.]
 </p>
 <p>Second, stimulated emission is considered indistinguishable from the stimulating beam not only in color, but in directivity [ref]. Stimulated emission is thought to assume the mode of the stimulating electrical field [ref]. This is true in typical laser gain media; when dense, isotropically-distributed, excited fluorophores are illuminated by a stimulating electromagnetic field that is collimated, the output constructively interferes in the forward direction and is also collmated. Collimated beams are well-approximated by plane waves, and do not contain spatial information. On the other hand, sparsely distributed electromagnetic emitters have a dipole-like emission pattern and, when illuminated by a plane wave, emit light that can be imaged.
@@ -147,7 +151,9 @@ Experimental design</h3>
 
 <h3>
 Fluorescence and stimulated emission depletion</h3>
-<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral filter that discriminates against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images are taken with 700/5 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 420/4 ms camera exposure. We observe increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam is introduced. The At the maximum available excitation beam and stimulation beam powers, we observe 8% depletion for both N-v and crimson dye fluorescence. We used a three-level atom model rate equation to roughtly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape [<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier García de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>], and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, we are near to the saturation regime of excitation, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">Axial views</a> of the N-v center fluorescence from a nanodiamond are available in the appendix.
+<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral filter that discriminates against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images are taken with 700/5 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 420/4 ms camera exposure. We observe increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam is introduced. The At the maximum available excitation beam and stimulation beam powers, we observe 8% depletion for both N-v and crimson dye fluorescence. We used a three-level atom model rate equation to roughtly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape [
+<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier García de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>
+], and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, we are near to the saturation regime of excitation, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">Axial views</a> of the N-v center fluorescence from a nanodiamond are available in the appendix.
 </p>
 
 <figure id="Figure_3">
