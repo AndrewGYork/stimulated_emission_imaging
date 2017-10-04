@@ -56,6 +56,8 @@ p.author_affiliations {
 }
 
 p.contact_email {
+  /* added margin formatting (Sanjay 4 Oct 2017) */
+  margin:0 0 0px;
   font-style: italic;
 }
 
