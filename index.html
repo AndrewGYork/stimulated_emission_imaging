@@ -196,7 +196,27 @@ Dark-field imaging of stimulated emission</h3>
 <p>The result in Figure 4 seems counterintuitive. Why would stimulated emission, which we hope to image in addition to the scattered light, make the scattered light image darker? This could happen if the scattered electric field destructively interferes with the stimulated emission electric field. Interference is possible because both stimulated emission and scattered light have a distinct phase relationship with the incident electric field.
 </p>
 
-<p>To predict this phase relationship, we start with incident electric field \(E_0e^{i\omega t + \phi_0}\), stimulated emission field \(E_{stim}e^{i\omega t + \phi_{stim}}\), and scattered field \(E_{scat}e^{i\omega t + \phi_{scat}}\). Because stimulated emission is an instantaneous process, there is no delay between the incident electric field  and the stimulated emission electric field , so \((\phi_{stim} - \phi_0) = 0\). We also know elastic scattered light has a minimum \((\phi_{scat} - \phi_0) \ge \pi\) phase delay with respect to the incident electric field [<a class="citation" href="http://dx.doi.org/10.1126/science.121.3141.345" title="Zernike, Frits. &quot;How I discovered phase contrast.&quot; Science 121, no. 3141 (1955): 345-349.">Zernike 1955</a>], and larger shift for scattering particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d<<\frac{\lambda}{\pi}\). Our diameter \(d\approx 100\,nm\) nanodiamonds are slightly larger than the small diameter approximation allows for \(\lambda=721\,nm\). To approximate the additional refractive phase shift, we note that the refractive index of diamond \(n_{diamond}=2.42\), while the mounting medium \(n_{oil}=1.52\), with a difference \(\Delta n=0.9\). The refractive phase difference \(\delta d=\delta n d_{diamond}=\)  \(d\approx 100 nm\frac{\lambda}{4}\), so for a scattered electric field , \(\phi_{scat} - \phi_0  =  \phi_{scat} - \phi_{stim}  = \Delta\phi\), and \(90^\circ<\Delta\phi<180^\circ\). Because of the > 90&deg; phase delay between stimulated emission and scattering, the two electric fields should destructively interfere.
+<p>To predict this phase relationship, we start with incident electric field \(E_0e^{i\omega t + \phi_0}\), stimulated emission field \(E_{stim}e^{i\omega t + \phi_{stim}}\), and scattered field \(E_{scat}e^{i\omega t + \phi_{scat}}\). Because stimulated emission is an instantaneous process, there is no delay between the incident electric field  and the stimulated emission electric field:
+<div>
+	$$\begin{equation}\phi_{stim} - \phi_0 = 0 \end{equation}$$
+</div>
+We also know elastic scattered light has a minimum \(\frac{\pi}{2}\) phase delay with respect to the incident electric field [<a class="citation" href="http://dx.doi.org/10.1126/science.121.3141.345" title="Zernike, Frits. &quot;How I discovered phase contrast.&quot; Science 121, no. 3141 (1955): 345-349.">Zernike 1955</a>], and larger shift for scattering particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d<<\frac{\lambda}{\pi}\), so:
+<div>
+	$$\begin{equation}\phi_{scat} - \phi_0 = \phi_{scat} - \phi_{stim} \ge \frac{\pi}{2} \end{equation}$$
+</div>
+Our diameter \(d\approx 100\,nm\) nanodiamonds are slightly larger than the small diameter approximation allows for \(\lambda=721\,nm\). To approximate the additional refractive phase shift, we note that the refractive index of diamond \(n_{diamond}=2.42\), while the mounting medium \(n_{oil}=1.52\), with a difference \(\Delta n_{refractive}=0.9\). The refractive phase difference is then:
+<div>
+	$$\begin{equation}\Delta\phi_{refractive} = \frac{2\pi d\Delta n_{refractive}}{\lambda} \approx 0.8 \end{equation}$$
+</div>
+We can then estimate the relative phase between scattered and stimulated emission:
+<div>
+	$$\begin{equation}\Delta\phi = \phi_{scat} - \phi_{stim} \approx \frac{\pi}{2} + \Delta\phi_{refractive} \approx 2.4 \end{equation}$$
+</div>
+This fulfills the requirement for destructive interference:
+<div>
+	$$\begin{equation} \frac{\pi}{2} \lt \Delta\phi \lt \frac{3\pi}{2} \end{equation}$$
+</div>
+
 </p>
 
 <p>We undertook a series of control experiments to rule out other possible sources of decreased scattered light image brightness and ascertain that it is a hallmark of dark-field imaging of stimulated emission from N-v centers in nanodiamonds.
