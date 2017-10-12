@@ -112,7 +112,7 @@ def main():
 
         cax1 = ax1.imshow(STE_image, cmap=plt.cm.gray)
         cbar1 = fig.colorbar(cax1, ax = ax1)
-        ax1.set_title('Change in phase contrast image due to stim. emission')
+        ax1.set_title('Change in phase contrast image due to N-v excitation')
         ax1.axis('off')
         plt.savefig('./../images/figure_A9/phase_STE_image_' +
                     str(angle_num)+'.svg')
@@ -159,7 +159,7 @@ def main():
     plt.legend(loc='lower right')
     plt.grid()
 ##    plt.savefig('darkfield_STE_v_z.svg')
-    plt.show()
+##    plt.show()
     
 
     return None
