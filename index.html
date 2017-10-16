@@ -97,7 +97,7 @@ Introduction</h3>
  [<a class="citation" href="https://www.nobelprize.org/nobel_prizes/physics/laureates/1964/prokhorov-lecture.html" title="Aleksandr M. Prokhorov. &quot;Nobel Lecture: Quantum Electronics.&quot; (1964) Nobelprize.org. Nobel Media AB 2014. Web.">Prokhorov 1964</a>]
 </blockquote><p></p>
 
-<p>Stimulated emission is considered indistinguishable from the stimulating beam not only in color, but in "directivity." Since the emission PSF defines the directivity of the emission, according to the above quote, we may assume the stimulated emission PSF is the same as the stimulating beam. Figure 1b below illustrates this case.
+<p>Stimulated emission is considered indistinguishable from the stimulating beam not only in color, but in "directivity." Since the emission PSF defines the directivity of the emission, according to the above quote, we may assume the stimulated emission PSF is the same as that of the stimulating beam. Figure 1b below illustrates this case.
 </p>
 
 <figure id="Figure_1b">
@@ -110,12 +110,27 @@ Introduction</h3>
 <figcaption><strong>Figure 1 (B): Stimulated emission cannot be imaged if its PSF is identical to that of the incoming beam.</strong> This animation shows stimulated emission cannot be imaged if its directivity is identical to that of the collimated stimulating beam. A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit, which in turn amplifies the entire beam. The dark-field beam block attenuates the amplified stimulating beam. Any light that reaches the camera would not form an image.</figcaption>
 </figure><p></p>
 
-<p>Figure 1b illustrates amplification of the stimulating beam. Amplification occurs in typical laser gain media: when dense, isotropically-distributed, excited fluorophores are illuminated by a stimulating electromagnetic field that is collimated, the output constructively interferes in the forward direction and is also collmated. However, in the case of the animation, which illustrates emission from a single fluorophore, the emitted light appears to instantaneously join the entire beam, which would seem to violate causality.
+<p>Figure 1b illustrates amplification of the stimulating beam. Amplification occurs in typical laser gain media: when dense, isotropically-distributed, excited fluorophores are illuminated by a stimulating electromagnetic field that is collimated, the output constructively interferes in the forward direction and is also collmated. However, in the case of the animation, which illustrates emission from a single fluorophore, the emitted light instantaneously joins the entire beam, which would appear to violate causality.
 </p>
 
-<p>Single electromagnetic emitters have a dipole-like emission pattern, and therefore a point-like PSF. When such emitters are illuminated by a plane wave, their near-spherically propagating emission contains information about their location, and therefore, they can be imaged. Figure 1c below illustrates what might happen if stimulated emission had a point-like PSF.
+<p>Single electromagnetic emitters have a dipole-like emission pattern, and therefore a point-like PSF. When such emitters are illuminated by a plane wave, their near-spherically propagating emission contains information about their location, and therefore, they can be imaged. Wide-field imaging is fundamentally possible because dipole radiation is multi-directional, as opposed to plane wave-like illumination, which is monodirectional. Figure 1c below illustrates what might happen if stimulated emission had a point-like PSF.
 </p>
 
+<figure id="Figure_1c">
+<video controls autoplay loop muted style="width:100%;" id="Figure_1a_video"
+ poster="./images/figure_1a/img71.png">
+ <source src="./images/figure_1a/fig_1a_video.mp4" type="video/mp4">
+ Your browser doesn't support HTML5 MP4 video.
+</video>
+
+<figcaption><strong>Figure 1 (C): Stimulated emission can be imaged if it has a point-like PSF.</strong> This animation shows stimulated emission can be imaged if it has a point-like point spread function (PSF). A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit. The dark-field beam block attenuates the stimulating beam and transmits the stimulated emission. The stimulated emission continues to form an image on the camera.</figcaption>
+</figure><p></p>
+
+<p>We believe that stimulated emission from sub-wavelength sized particles (like fluorophores) must have a point-like emission point spread function (PSF), and therefore, that the emission contains information about the location of the source. In this sense, we believe the directivity of stimulated emission is not identical to that of the stimulating beam, and that imaging stimulated emission should be possible. This has been theoretically explored [<a class="citation" href="http://dx.doi.org/10.1119/1.12956" title="Cray, Melissa, Mei-Li Shih, and Peter W. Milonni. &quot;Stimulated emission, absorption, and interference.&quot; American Journal of Physics 50, no. 11 (1982): 1016-1021.">Cray 1982</a>, <a class="citation" href="http://dx.doi.org/10.1088/0963-9659/2/5/014" title="Vahala, Kerry J. &quot;Stimulated emission from single quantum dipoles.&quot; Pure and Applied Optics: Journal of the European Optical Society Part A 2, no. 5 (1993): 549.">Vahala 1993</a>] but not experimentally approached.
+</p>
+
+<p>he spatial frequency bandwidth of stimulated emission from a fluorophore should be greater than that of the incident stimulating electromagnetic field, and the two fields should be separable as long as the stimulating beam is not confined to a diffraction-limited focus of the imaging system.
+</p>
 
 <p>One good reason is that the stimulating beam is a spectrally identical background to stimulated emission and would easily flood a detector in an optical system designed to image fluorescent light. Even so, Min et al. were able to use point-scanned optical excitation and stimulation beams to resolve stimulated emission from a distribution of chromophores, which do not emit spontaneously due to faster internal non-radiative decay processes [<a class="citation" href="http://dx.doi.org/10.1038/nature08438" title="Min, Wei, Sijia Lu, Shasha Chong, Rahul Roy, Gary Holtom, and Xiaoliang Sunney Xie. &quot;Imaging chromophores with undetectable fluorescence by stimulated emission microscopy.&quot; (2009).">Min 2009</a>]. They used lock-in averaging to resolve the signal on top of the vastly brighter background.
 </p>
@@ -126,32 +141,15 @@ Introduction</h3>
 
 
 
-<p>Wide-field imaging is fundamentally possible because dipole radiation is multi-directional, as opposed to plane wave-like illumination, which is monodirectional. If one believes the directivity of stimulated emission, even from a single emitter, is the same as that of the stimulating beam, then one must also believe imaging stimulated emission is impossible.
+<p> If one believes the directivity of stimulated emission, even from a single emitter, is the same as that of the stimulating beam, then one must also believe imaging stimulated emission is impossible.
 </p>
 
-<p>We disagree. We believe that stimulated emission from sub-wavelength sized particles (like fluorophores) must have a point-like emission point spread function (PSF). This has been theoretically explored [<a class="citation" href="http://dx.doi.org/10.1119/1.12956" title="Cray, Melissa, Mei-Li Shih, and Peter W. Milonni. &quot;Stimulated emission, absorption, and interference.&quot; American Journal of Physics 50, no. 11 (1982): 1016-1021.">Cray 1982</a>, <a class="citation" href="http://dx.doi.org/10.1088/0963-9659/2/5/014" title="Vahala, Kerry J. &quot;Stimulated emission from single quantum dipoles.&quot; Pure and Applied Optics: Journal of the European Optical Society Part A 2, no. 5 (1993): 549.">Vahala 1993</a>] but not experimentally approached. The spatial frequency bandwidth of stimulated emission from a fluorophore should be greater than that of the incident stimulating electromagnetic field, and the two fields should be separable as long as the stimulating beam is not confined to a diffraction-limited focus of the imaging system.
-</p>
+
 
 <p>Dark-field microscopy [<a class="citation" title="Siedentopf, H., and R. Zsigmondy. &quot;Visualization and size measurement of ultramicroscopic particles, with special application to gold-colored ruby glass.&quot; Ann Phys 10 (1903): 1-39.">Siedentopf 1903</a>] is a technique commonly used to separate high spatial frequency light from wide-field illumination in order to enhance the signal contrast of scattered light. The animations in Figure 1 represent a dark-field imaging scheme to separate stimulated emission from the stimulating beam. In Figure 1a, stimulated emission has a point-like PSF and can be imaged on the detector. In Figure 1b, stimulated emission mimics the plane-wave like mode of the stimulating beam and does not reach or form an image on the detector.
 </p>
 
-<figure id="Figure_1a">
-<video controls autoplay loop muted style="width:100%;" id="Figure_1a_video"
- poster="./images/figure_1a/img71.png">
- <source src="./images/figure_1a/fig_1a_video.mp4" type="video/mp4">
- Your browser doesn't support HTML5 MP4 video.
-</video>
 
-<figcaption><strong>Figure 1 (A): Stimulated emission can be imaged if it has a point-like PSF.</strong> This animation shows stimulated emission can be imaged if it has a point-like point spread function (PSF). A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit. The dark-field beam block attenuates the stimulating beam and transmits the stimulated emission. The stimulated emission continues to form an image on the camera.</figcaption>
-
-<video controls autoplay loop muted style="width:100%;" id="Figure_1b_video"
- poster="./images/figure_1b/img71.png">
- <source src="./images/figure_1b/fig_1b_video.mp4" type="video/mp4">
- Your browser doesn't support HTML5 MP4 video.
-</video>
-
-<figcaption><strong>Figure 1 (B): Stimulated emission cannot be imaged if it is identical to the mode of the incoming beam.</strong> This animation shows stimulated emission cannot be imaged if it joins the optical mode of the collimated stimulating beam. A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit, which in turn amplifies the entire beam. The dark-field beam block attenuates the amplified stimulating beam. Any light that reaches the camera would not form an image.</figcaption>
-</figure><p></p>
 
 <p>A major difference between spontaneous and stimulated emission is that stimulated emission is coherent light; it has a well-defined phase relationship [is in phase with] with the stimulating electrical field. Phase contrast imaging [<a class="citation" href="http://dx.doi.org/10.1016/S0031-8914(42)80035-X" title="Zernike, Frits. &quot;Phase contrast, a new method for the microscopic observation of transparent objects.&quot; Physica 9, no. 7 (1942): 686-698.">Zernike 1942</a>] is a technique in which scattered light from the image object is allowed to interfere with transmitted light, unlike dark-field imaging, which attempts to minimize transmitted light. When the interference between transmitted and scattered light is maximized, the only limit on signal-to-noise ratio (SNR) of the scattering object is the dynamic range of the detector. Because stimulated emission, like scattered light, is coherent, phase contrast imaging is an ideal technique to boost SNR compared to dark-field imaging.
 </p>
