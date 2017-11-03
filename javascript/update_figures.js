@@ -1,3 +1,13 @@
+
+// Figure 1a interactively loads mp4 video, stored locally
+function update_figure_1a() {
+  var figure_1a_microscope_type = document.getElementById("figure_1a_microscope_type").value;
+  var filename = "./images/figure_1a/" + figure_1a_microscope_type + "/fig_1a_video.mp4";
+  document.getElementById('Figure_1a_video').setAttribute("src",filename)
+  document.getElementById('Figure_1a_video').load();
+  document.getElementById('Figure_1a_video').play();
+}
+
 // Figure 2 interactively loads static images, stored locally
 function update_figure_2() {
   var sample_type = document.getElementById("Figure_2_sample_type").value;
