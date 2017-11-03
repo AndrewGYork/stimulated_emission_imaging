@@ -117,7 +117,14 @@ Introduction</h3>
  <source src="./images/figure_1b/dark_field/fig_1b_video.mp4" type="video/mp4">
  Your browser doesn't support HTML5 MP4 video.
 </video>
-
+<table class="figure_controls">
+  <tr>
+  <td>Microscope type: </td><td><select id="figure_1b_microscope_type" onchange="update_figure_1b()">
+    <option value="dark_field" selected="selected">Dark-field</option>
+    <option value="phase_contrast">Phase contrast</option>
+  </select></td>
+    </tr>
+</table>
 <figcaption><strong>Figure 1 (B): Stimulated emission cannot be imaged if its PSF is identical to that of the incoming beam.</strong> This animation shows stimulated emission cannot be imaged if its directivity is identical to that of the collimated stimulating beam. A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit, which in turn amplifies the entire beam. The dark-field beam block attenuates the amplified stimulating beam. Any light that reaches the camera would not form an image.</figcaption>
 </figure><p></p>
 
@@ -133,7 +140,14 @@ Introduction</h3>
  <source src="./images/figure_1c/dark_field/fig_1c_video.mp4" type="video/mp4">
  Your browser doesn't support HTML5 MP4 video.
 </video>
-
+<table class="figure_controls">
+  <tr>
+  <td>Microscope type: </td><td><select id="figure_1c_microscope_type" onchange="update_figure_1c()">
+    <option value="dark_field" selected="selected">Dark-field</option>
+    <option value="phase_contrast">Phase contrast</option>
+  </select></td>
+    </tr>
+</table>
 <figcaption><strong>Figure 1 (C): Stimulated emission can be imaged if it has a point-like PSF.</strong> This animation shows stimulated emission can be imaged if it has a point-like point spread function (PSF). A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit. The dark-field beam block attenuates the stimulating beam and transmits the stimulated emission. The stimulated emission continues to form an image on the camera.</figcaption>
 </figure><p></p>
 
