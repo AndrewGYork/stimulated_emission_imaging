@@ -102,22 +102,24 @@ where \(B_{21}\) and \(B_{12}\) are constants and \(\rho(\omega)\) is the radiat
   </select></td>
     </tr>
 </table>
-<figcaption><strong>Figure 1 (A): What should imaging stimulated emission look like?</strong> A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit. The dark-field beam block attenuates the stimulating beam. Where will the stimulated emission go, and will it form an image?</figcaption>
+<figcaption><strong>Figure 1 (A): What should imaging stimulated emission look like?</strong> A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit. The dark-field beam block attenuates the stimulating beam. Where will the stimulated emission go, and will it form an image? With <code>Microscope type: Phase contrast</code> selected, the dark-field beam block is replaced with a partially transmissive phase delay optic.</figcaption>
 </figure><p></p>
 
-<p><strong>describe the figure and reinforce the question</strong>If stimulated emission imaging is possible, the emitted light must have a well-defined point spread function (PSF). What is the emission PSF? We first search for the answer in our common understanding of the nature of stimulated emission, summarized below in A. M. Prokhorov's 1964 Nobel Lecture:
+<p><strong>describe the figure and reinforce the question</strong>In Figure 1a, a single fluorophore is excited by a collimated green excitation laser pulse. Later, a collimated red stimulating laser pulse comes into contact with the excited fluorophore and stimulates it to optically emit. With <code>Microscope type: Dark-field</code> selected, the stimulating pulse is blocked. What is the shape in space and time of the stimulated emission? We must answer this question in order to predict whether stimulated emission imaging is possible. We look for an answer in this excerpt from A. M. Prokhorov's 1964 Nobel Lecture:
 </p>
 
 <blockquote>“The phenomenon of stimulated emission occurs when an excited atom emits due to interaction with an external field (quantum). Then two quanta are involved: one is the external one, the other is emitted by the atom itself. Those two quanta are indistinguishable, i.e. their frequency and directivity coincide.”
  [<a class="citation" href="https://www.nobelprize.org/nobel_prizes/physics/laureates/1964/prokhorov-lecture.html" title="Aleksandr M. Prokhorov. &quot;Nobel Lecture: Quantum Electronics.&quot; (1964) Nobelprize.org. Nobel Media AB 2014. Web.">Prokhorov 1964</a>]
 </blockquote><p></p>
 
-<blockquote>“50 years later Hell said “... in this process, called stimulated emission, a photon encountering an excited molecule produces a copy of itself, thus adding another photon of the same colour and propagation direction to the beam.”
-Hell, Stefan W., and Eva Rittweger. ``Microscopy: Light from the dark.'' Nature 461.7267 (2009): 1069-1070.”
- [<a class="citation" href="https://www.nobelprize.org/nobel_prizes/physics/laureates/1964/prokhorov-lecture.html" title="Aleksandr M. Prokhorov. &quot;Nobel Lecture: Quantum Electronics.&quot; (1964) Nobelprize.org. Nobel Media AB 2014. Web.">Prokhorov 1964</a>]
+<p>The common understanding of the spatiotemporal nature of stimulated emission remained similar 45 years later:
+</p>
+
+<blockquote>“... in this process, called stimulated emission, a photon encountering an excited molecule produces a copy of itself, thus adding another photon of the same colour and propagation direction to the beam.”
+ [<a class="citation" href="http://dx.doi.org/10.1038/4611069a" title="Hell, Stefan W., and Eva Rittweger. &quot;Microscopy: Light from the dark.&quot; Nature 461, no. 7267 (2009): 1069-1070.">Hell 2009</a>]
 </blockquote><p></p>
 
-<p><strong>first answer: same directivity</strong>Stimulated emission is considered indistinguishable from the stimulating beam not only in color, but in "directivity." Since the emission PSF defines the directivity of the emission, according to the above quote, we may assume the stimulated emission PSF is the same as that of the stimulating beam. Figure 1b below illustrates this case.
+<p><strong>first answer: same directivity</strong>Stimulated emission is considered indistinguishable from the stimulating beam not only in color, but in "directivity." The stimulating laser pulse is collimated, and therefore mono-directional. According to the above quotes, we may assume that the stimulated emission has the same shape as the stimulating pulse. Figure 1b below illustrates this case.
 </p>
 
 <figure id="Figure_1b">
@@ -134,7 +136,7 @@ Hell, Stefan W., and Eva Rittweger. ``Microscopy: Light from the dark.'' Nature 
   </select></td>
     </tr>
 </table>
-<figcaption><strong>Figure 1 (B): Stimulated emission cannot be imaged if its PSF is identical to that of the incoming beam.</strong> This animation shows stimulated emission cannot be imaged if its directivity is identical to that of the collimated stimulating beam. A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit, which in turn amplifies the entire beam. The dark-field beam block attenuates the amplified stimulating beam. Any light that reaches the camera would not form an image.</figcaption>
+<figcaption><strong>Figure 1 (B): Stimulated emission cannot be imaged if it is identical to the the incoming beam.</strong> This animation shows stimulated emission cannot be imaged if its directivity is identical to that of the collimated stimulating beam. A collimated green excitation pulse excites a point fluorophore. A collimated red stimulating pulse then comes into contact with the excited fluorophore and causes it to optically emit, which in turn amplifies the entire beam. The dark-field beam block attenuates the amplified stimulating beam. Any light that reaches the camera would not form an image. With <code>Microscope type: Phase contrast</code> selected, the dark-field beam block is replaced with a partially transmissive phase delay optic. In phase contrast mode, the attenuated emission is collimated when it reaches the camera and contains no information about the location of the fluorophore.</figcaption>
 </figure><p></p>
 
 <p><strong>monodirectivity implications: does not contain info about location and violates causality</strong>Figure 1b illustrates amplification of the stimulating beam. Amplification occurs in typical laser gain media: when dense, isotropically-distributed, excited fluorophores are illuminated by a stimulating electromagnetic field that is collimated, the output constructively interferes in the forward direction and is also collmated. However, in the case of the animation, which illustrates emission from a single fluorophore, the emitted light instantaneously joins the entire beam, which would appear to violate causality.
