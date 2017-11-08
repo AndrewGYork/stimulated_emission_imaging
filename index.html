@@ -68,17 +68,27 @@ Introduction</h3>
 <p><strong>Fluorescence is useful</strong>Fluorescence is a widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein/antibody expression and binding, sequence genes, and measure concentration of chemicals.
 </p>
 
-<p><strong>Rate constant limit</strong>Fluorescence is emission of light from an energetically excited material (excited state energy \(\varepsilon_2\)) when it spontaneously decays to a lower energy state (\(\varepsilon_1\)). For a group of excited molecules (fluorophores), if the excited state population is \(N_2(t)\) and the ground state population is \(N_1(t)\), the total rate of emission is:
-<div>
-	$$\begin{equation}-\frac{\partial N_2(t)}{\partial t} = A_{21}N_2(t) \end{equation}$$
-</div>
-The spontaneous emission rate constant \(A_{21}\) of a fluorophore is governed by the spontaneous decay lifetime of its excited state \(\tau_{21}\): \(A_{21}=1/\tau_{21}\). For most commonly used fluorophores, \(\tau_{21}\) is confined between 0.5 ns and 5 ns [<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]. For example, the genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{21}\) of 3.2 ns and 4.0 ns, respectively [<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>]. Because the spontaneous emission rate constant is finite, the spontaneous emission rate of a group of fluorophores will saturate at a high rate of excitation.
+<p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state. For a group of \(N\) excited molecules (fluorophores), if the excited state population probability is \(n_2(t)\), the total rate of emission is \(A_{23}Nn_2(t)\). The spontaneous emission rate constant \(A_{23}\) 
+
+[<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>, 
+
+<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
+
+ of a fluorophore is governed by the spontaneous decay lifetime of its excited state \(\tau_{21}\): \(A_{21}=1/\tau_{21}\). For most commonly used fluorophores, \(\tau_{21}\) is confined between 0.5 ns and 5 ns 
+ 
+ [<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
+ 
+ . For example, the genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{21}\) of 3.2 ns and 4.0 ns, respectively 
+ 
+ [<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>]
+ 
+ . Because the spontaneous emission rate constant is finite, the spontaneous emission rate of a group of fluorophores is maximized when 100% of the fluorophores are excited.
 </p>
 
 <p><strong>Concentration--> rate limit</strong>Fluorescent signal from biological samples can be enhanced by increasing the number of fluorophores (e.g. over-expression or multiple tags). However, these techniques can diminish the biological relevance of the image (actin reference?). The spontaneous emission rate of fluorophores fundamentally limits our ability to quantify low-abundance proteins, to view sub-cellular structures whose function is impaired by excessive fluorescent tags, and to resolve fast sub-cellular events.
 </p>
 
-<p><strong>Stimulated emission faster rate</strong>Stimulated emission is a different radiative decay process in an excited fluorophore. This emission is induced by incident light with optical frequency \(\omega\) such that \(\hbar\omega=\varepsilon_2-\varepsilon_1\) [<a class="citation" title="Einstein, A. On the quantum theory of radiation. Phys Z 18, 121 (1917).">Einstein 1917</a>]. The total rate of emission is now:
+<p><strong>Stimulated emission faster rate</strong>Stimulated emission is a different radiative decay process in an excited fluorophore. This emission is induced by incident light with optical frequency \(\omega\) such that \(\hbar\omega=\varepsilon_2-\varepsilon_1\) [<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>]. The total rate of emission is now:
 <div>
 	$$\begin{equation}-\frac{\partial N_2(t)}{\partial t} = A_{21}N_2(t) + B_{21}\rho(\omega)N_2(t) - B_{12}\rho(\omega)N_1(t)\end{equation}$$
 </div>
