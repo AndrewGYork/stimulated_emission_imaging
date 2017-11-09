@@ -68,24 +68,27 @@ Introduction</h3>
 <p><strong>Fluorescence is useful</strong>Fluorescence is a widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein/antibody expression and binding, sequence genes, and measure concentration of chemicals.
 </p>
 
-<p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state. For a group of \(N\) excited molecules (fluorophores), if the excited state population probability is \(n_2(t)\), the total rate of emission is \(A_{23}Nn_2(t)\). The spontaneous emission rate constant \(A_{23}\) 
+<p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state. For a group of \(N\) fluorophores, the total emission rate is \(n_2N/\tau_{fluor}\), where \(n_2\) is the excited state population fraction and \(1/\tau_{fluor}\) is the spontaneous emission rate constant  
 
-[<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>, 
+[<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>,
 
-<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
+ <a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>].
 
- of a fluorophore is governed by the spontaneous decay lifetime of its excited state \(\tau_{21}\): \(A_{21}=1/\tau_{21}\). For most commonly used fluorophores, \(\tau_{21}\) is confined between 0.5 ns and 5 ns 
+ The genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{fluor}\) of 3.2 ns and 4.0 ns, respectively 
  
- [<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
+ [<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>].
  
- . For example, the genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{21}\) of 3.2 ns and 4.0 ns, respectively 
+  \(\tau_{fluor}\) depends weakly on the environment (e.g. pH, temperature), but for typical fluorophores used in microscopy, \(\tau_{fluor}\) ranges from 0.5 ns to 5 ns 
+ [<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io/tree/24b4fc8f82f3dff74a77f65c38332bb4778c9120" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
  
- [<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>]
- 
- . Because the spontaneous emission rate constant is finite, the spontaneous emission rate of a group of fluorophores is maximized when 100% of the fluorophores are excited.
+  and is not easily tuned.
 </p>
 
-<p><strong>Concentration--> rate limit</strong>Fluorescent signal from biological samples can be enhanced by increasing the number of fluorophores (e.g. over-expression or multiple tags). However, these techniques can diminish the biological relevance of the image (actin reference?). The spontaneous emission rate of fluorophores fundamentally limits our ability to quantify low-abundance proteins, to view sub-cellular structures whose function is impaired by excessive fluorescent tags, and to resolve fast sub-cellular events.
+<p><strong>Concentration--> rate limit</strong>The accuracy of a fluorescence measurement depends on the amount of fluorescent emission; more is better 
+
+[<a class="citation" href="https://doi.org/10.1007/978-0-387-45524-2_2" title="Pawley, James B. &quot;Fundamental limits in confocal microscopy.&quot; In Handbook of biological confocal microscopy, pp. 20-42. Springer US, 2006.">Pawley 2006</a>].
+
+ What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts&mdash;especially for biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to quantify low-abundance proteins, to view sub-cellular structures whose function is impaired by excessive fluorescent tags, and to resolve fast sub-cellular events.
 </p>
 
 <p><strong>Stimulated emission faster rate</strong>Stimulated emission is a different radiative decay process in an excited fluorophore. This emission is induced by incident light with optical frequency \(\omega\) such that \(\hbar\omega=\varepsilon_2-\varepsilon_1\) [<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>]. The total rate of emission is now:
