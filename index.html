@@ -68,11 +68,13 @@ Introduction</h3>
 <p><strong>Fluorescence is useful</strong>Fluorescence is a widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein/antibody expression and binding, sequence genes, and measure concentration of chemicals.
 </p>
 
-<p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state. For a group of \(N\) fluorophores, the total emission rate is \(n_2N/\tau_{fluor}\), where \(n_2\) is the excited state population fraction and \(1/\tau_{fluor}\) is the spontaneous emission rate constant  
+<p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state 
 
-[<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>,
+[<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>].
 
- <a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>].
+ For a group of \(N\) fluorophores, the total emission rate is \(n_2N/\tau_{fluor}\), where \(n_2\) is the excited state population fraction and \(1/\tau_{fluor}\) is the spontaneous emission rate constant  
+
+[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>].
 
  The genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{fluor}\) of 3.2 ns and 4.0 ns, respectively 
  
@@ -88,17 +90,27 @@ Introduction</h3>
 
 [<a class="citation" href="https://doi.org/10.1007/978-0-387-45524-2_2" title="Pawley, James B. &quot;Fundamental limits in confocal microscopy.&quot; In Handbook of biological confocal microscopy, pp. 20-42. Springer US, 2006.">Pawley 2006</a>].
 
- What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts&mdash;especially for biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to quantify low-abundance proteins, to view sub-cellular structures whose function is impaired by excessive fluorescent tags, and to resolve fast sub-cellular events.
+ What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts&mdash;especially for biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to quantify low-abundance proteins, to view sub-cellular structures whose function is impaired by excessive fluorescent tagging, and to resolve fast sub-cellular events.
 </p>
 
-<p><strong>Stimulated emission faster rate</strong>Stimulated emission is a different radiative decay process in an excited fluorophore. This emission is induced by incident light with optical frequency \(\omega\) such that \(\hbar\omega=\varepsilon_2-\varepsilon_1\) [<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>]. The total rate of emission is now:
-<div>
-	$$\begin{equation}-\frac{\partial N_2(t)}{\partial t} = A_{21}N_2(t) + B_{21}\rho(\omega)N_2(t) - B_{12}\rho(\omega)N_1(t)\end{equation}$$
-</div>
-where \(B_{21}\) and \(B_{12}\) are equal constants and \(\rho(\omega)\) is the radiation density of the incident stimulating light. The contribution due to stimulated emission depends on the intensity of the stimulating light and the difference between \(N_2(t)\) and \(N_1(t)\). With sufficiently intense stimulating light and \(N_2(t)>N_1(t)\) (population inversion), the stimulated emission rate can be orders of magnitude higher than that of spontaneous emission [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]. .
+
+
+<p><strong>Stimulated emission faster rate</strong>Stimulated emission, an alternative radiative decay process, is the emission of light from an energetically excited material, triggered by light applied to the material 
+
+[<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>].
+
+ The rate of stimulated emission is \(h_{stim}\sigma_{23}n_2N\), where \(h_{stim}\) is the intensity of the stimulating light and \(\sigma_{23}\) is the cross-section for the optical transition 
+ 
+ [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>].
+ 
+  The stimulated emission rate is easily tunable. A stimulation beam of 200 mW/&micro;m<sup>2</sup> causes a stimulated emission rate that competes with the spontaneous emission rate of the Atto647 fluorophore 
+  
+  [<a class="citation" href="http://dx.doi.org/10.1038/nmeth1108" title="Willig, Katrin I., Benjamin Harke, Rebecca Medda, and Stefan W. Hell. &quot;STED microscopy with continuous wave beams.&quot; Nature methods 4, no. 11 (2007): 915-918.">Willig 2007</a>].
+  
+   With sufficiently intense stimulation light, the stimulated emission rate can be orders of magnitude higher than that of spontaneous emission.
 </p>
 
-<p><strong>Ask the question</strong>Because of the higher signal rate, it would seem that imaging stimulated emission from fluorophores could be advantageous compared to spontaneous emission. How would imaging stimulated emission work? Figure 1a below is an animation that asks this question.
+<p><strong>Ask the question</strong>Because of the higher emission rate, it would seem that imaging stimulated emission from fluorophores could be advantageous compared to spontaneous emission. How would imaging stimulated emission work? Figure 1a below is an animation that asks this question.
 </p>
 
 <figure id="Figure_1a">
