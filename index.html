@@ -68,29 +68,30 @@ Introduction</h3>
 <p><strong>Fluorescence is useful</strong>Fluorescence is a widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein/antibody expression and binding, sequence genes, and measure concentration of chemicals.
 </p>
 
-<p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state 
+<p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state
 
 [<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>].
 
- For a group of \(N\) fluorophores, the total emission rate is \(n_2N/\tau_{fluor}\), where \(n_2\) is the excited state population fraction and \(1/\tau_{fluor}\) is the spontaneous emission rate constant  
+For a group of \(N\) fluorophores, the total emission rate is \(n_2N/\tau_{fluor}\), where \(n_2\) is the excited state population fraction and \(1/\tau_{fluor}\) is the spontaneous emission rate constant
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>].
 
- The genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{fluor}\) of 3.2 ns and 4.0 ns, respectively 
- 
- [<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>].
- 
-  \(\tau_{fluor}\) depends weakly on the environment (e.g. pH, temperature), but for typical fluorophores used in microscopy, \(\tau_{fluor}\) ranges from 0.5 ns to 5 ns 
- [<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io/tree/24b4fc8f82f3dff74a77f65c38332bb4778c9120" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
- 
-  and is not easily tuned.
+The genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{fluor}\) of 3.2 ns and 4.0 ns, respectively
+
+[<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>].
+
+\(\tau_{fluor}\) depends weakly on the environment (e.g. pH, temperature), but for typical fluorophores used in microscopy, \(\tau_{fluor}\) ranges from 0.5 ns to 5 ns
+
+[<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io/tree/24b4fc8f82f3dff74a77f65c38332bb4778c9120" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
+
+and is not easily tuned.
 </p>
 
-<p><strong>Concentration--> rate limit</strong>The accuracy of a fluorescence measurement depends on the amount of fluorescent emission; more is better 
+<p><strong>Concentration--> rate limit</strong>The accuracy of a fluorescence measurement depends on the amount of fluorescent emission; more is better
 
 [<a class="citation" href="https://doi.org/10.1007/978-0-387-45524-2_2" title="Pawley, James B. &quot;Fundamental limits in confocal microscopy.&quot; In Handbook of biological confocal microscopy, pp. 20-42. Springer US, 2006.">Pawley 2006</a>].
 
- What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts&mdash;especially for biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to quantify low-abundance proteins, to view sub-cellular structures whose function is impaired by excessive fluorescent tagging, and to resolve fast sub-cellular events.
+What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts&mdash;especially for biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to quantify low-abundance proteins, to view sub-cellular structures whose function is impaired by excessive fluorescent tagging, and to resolve fast sub-cellular events.
 </p>
 
 
@@ -137,14 +138,18 @@ With sufficiently intense stimulation light, the stimulated emission rate can be
 </p>
 
 <blockquote>"The phenomenon of stimulated emission occurs when an excited atom emits due to interaction with an external field (quantum). Then two quanta are involved: one is the external one, the other is emitted by the atom itself. Those two quanta are indistinguishable, i.e. their frequency and directivity coincide."
- [<a class="citation" href="https://www.nobelprize.org/nobel_prizes/physics/laureates/1964/prokhorov-lecture.html" title="Aleksandr M. Prokhorov. &quot;Nobel Lecture: Quantum Electronics.&quot; (1964) Nobelprize.org. Nobel Media AB 2014. Web.">Prokhorov 1964</a>]
+
+[<a class="citation" href="https://www.nobelprize.org/nobel_prizes/physics/laureates/1964/prokhorov-lecture.html" title="Aleksandr M. Prokhorov. &quot;Nobel Lecture: Quantum Electronics.&quot; (1964) Nobelprize.org. Nobel Media AB 2014. Web.">Prokhorov 1964</a>]
+
 </blockquote><p></p>
 
 <p>The common understanding of the spatiotemporal nature of stimulated emission remained similar 45 years later:
 </p>
 
 <blockquote>"... in this process, called stimulated emission, a photon encountering an excited molecule produces a copy of itself, thus adding another photon of the same colour and propagation direction to the beam."
- [<a class="citation" href="http://dx.doi.org/10.1038/4611069a" title="Hell, Stefan W., and Eva Rittweger. &quot;Microscopy: Light from the dark.&quot; Nature 461, no. 7267 (2009): 1069-1070.">Hell 2009</a>]
+
+[<a class="citation" href="http://dx.doi.org/10.1038/4611069a" title="Hell, Stefan W., and Eva Rittweger. &quot;Microscopy: Light from the dark.&quot; Nature 461, no. 7267 (2009): 1069-1070.">Hell 2009</a>]
+
 </blockquote><p></p>
 
 <p><strong>first answer: same directivity</strong>Stimulated emission is considered indistinguishable from the stimulating beam not only in color, but in "directivity." In our example, the stimulating laser pulse is collimated, and therefore mono-directional. After reading the above two quotes, one might assume that the stimulated emission has the same shape as the stimulating pulse. Figure 1b below illustrates this case.
@@ -197,11 +202,11 @@ With sufficiently intense stimulation light, the stimulated emission rate can be
 
 [<a class="citation" href="http://dx.doi.org/10.1119/1.12956" title="Cray, Melissa, Mei-Li Shih, and Peter W. Milonni. &quot;Stimulated emission, absorption, and interference.&quot; American Journal of Physics 50, no. 11 (1982): 1016-1021.">Cray 1982</a>, <a class="citation" href="http://dx.doi.org/10.1088/0963-9659/2/5/014" title="Vahala, Kerry J. &quot;Stimulated emission from single quantum dipoles.&quot; Pure and Applied Optics: Journal of the European Optical Society Part A 2, no. 5 (1993): 549.">Vahala 1993</a>],
 
- but we are not aware of any experimental effort to answer our question. Detecting stimulated emission has been used by Min et al. for microscopy 
- 
- [<a class="citation" href="http://dx.doi.org/10.1038/nature08438" title="Min, Wei, Sijia Lu, Shasha Chong, Rahul Roy, Gary Holtom, and Xiaoliang Sunney Xie. &quot;Imaging chromophores with undetectable fluorescence by stimulated emission microscopy.&quot; (2009).">Min 2009</a>],
+but we are not aware of any experimental effort to answer our question. Detecting stimulated emission has been used by Min et al. for microscopy
 
- but their approach is not relevant to our question.
+[<a class="citation" href="http://dx.doi.org/10.1038/nature08438" title="Min, Wei, Sijia Lu, Shasha Chong, Rahul Roy, Gary Holtom, and Xiaoliang Sunney Xie. &quot;Imaging chromophores with undetectable fluorescence by stimulated emission microscopy.&quot; (2009).">Min 2009</a>],
+
+but their approach is not relevant to our question.
 </p>
 
 <p><strong>we did dark-field and phase contrast</strong>We built a microscope and used it in dark-field and phase contrast modalities to attempt to image stimulated emission from Nitrogen-vacancy (N-v) centers in nanodiamonds, as well as from fluorescent dyed polystyrene beads. The results indicate that stimulated emission has a point-like point spread function (PSF), and that it can be detected through coherent interference with the stimulating electrical field.
@@ -236,22 +241,22 @@ Experimental design</h3>
   </select></td>
     </tr>
 </table>
-<figcaption><strong>Figure 2: Experimental setup. (A)</strong> Labeled photograph of the imaging setup. 1-Collinear excitation (green) and stimulation (red) beam path, 2-Illumination objective, 3-Sample and holder, 4-100x imaging objective, 5-Excitation blocking filter, 6-Tube lens f = 100 mm, 7-Lens f = 40 mm, 8-Rotating phase plate, 9-Lens f = 100 mm, 10-Lens f = 50 mm, 11-Partial/full dark-field beam block, 12-Lens f = 300 mm, 13-Emission band pass filter, 14-PCO Edge 4.2 SCMOS camera. <strong>(B)</strong> Schematic of the imaging setup. Toggle between different imaging modalities and fluorescent sample types. Fluorescent spectra downloaded from 
+<figcaption><strong>Figure 2: Experimental setup. (A)</strong> Labeled photograph of the imaging setup. 1-Collinear excitation (green) and stimulation (red) beam path, 2-Illumination objective, 3-Sample and holder, 4-100x imaging objective, 5-Excitation blocking filter, 6-Tube lens f = 100 mm, 7-Lens f = 40 mm, 8-Rotating phase plate, 9-Lens f = 100 mm, 10-Lens f = 50 mm, 11-Partial/full dark-field beam block, 12-Lens f = 300 mm, 13-Emission band pass filter, 14-PCO Edge 4.2 SCMOS camera. <strong>(B)</strong> Schematic of the imaging setup. Toggle between different imaging modalities and fluorescent sample types. Fluorescent spectra downloaded from
 
 [<a class="citation" href="https://commons.wikimedia.org/wiki/File%3ANVple.JPG" title="By Materialscientist (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0) or GFDL (http://www.gnu.org/copyleft/fdl.html)], via Wikimedia Commons. Online. Accessed 16 October, 2017.">Materialscientist</a>]
 
- and 
- 
- [<a class="citation" href="https://www.thermofisher.com/order/catalog/product/F8806" title="FluoSpheres&trade; Carboxylate-Modified Microspheres, 0.2 &micro;m, crimson fluorescent (625/645), 2% solids, Catalog # F8806. Online. Accessed 16 October, 2017.">ThermoFisher</a>].
- 
- </figcaption>
+and
+
+[<a class="citation" href="https://www.thermofisher.com/order/catalog/product/F8806" title="FluoSpheres&trade; Carboxylate-Modified Microspheres, 0.2 &micro;m, crimson fluorescent (625/645), 2% solids, Catalog # F8806. Online. Accessed 16 October, 2017.">ThermoFisher</a>].
+
+</figcaption>
 </figure><p></p>
 
-<p><strong>sample description</strong>We imaged nanodiamonds doped with N-v centers and crimson fluorescent dyed beads. The excitation and stimulation laser wavelengths were chosen to match the absorption and emission spectra of both of these samples. The nanodiamonds have 80 nm average diameter (provided by Keir Neumann, National Institute of Health, Bethesda, MD). A representative transmission electron microscope <a href="./appendix.html#Fluorescent_samples_and_mounting">image</a> of the nanodiamonds is available in the appendix. Crimson fluorescent dyed polystyrene beads 
+<p><strong>sample description</strong>We imaged nanodiamonds doped with N-v centers and crimson fluorescent dyed beads. The excitation and stimulation laser wavelengths were chosen to match the absorption and emission spectra of both of these samples. The nanodiamonds have 80 nm average diameter (provided by Keir Neumann, National Institute of Health, Bethesda, MD). A representative transmission electron microscope <a href="./appendix.html#Fluorescent_samples_and_mounting">image</a> of the nanodiamonds is available in the appendix. Crimson fluorescent dyed polystyrene beads
 
 [<a class="citation" href="https://www.thermofisher.com/order/catalog/product/F8806" title="FluoSpheres™ Carboxylate-Modified Microspheres, 0.2 µm, crimson fluorescent (625/645), 2% solids, Catalog # F8806">ThermoFisher</a>]
 
- have 200 nm diameter. The nanodiamonds and beads were mounted in between a 1 mm thick glass window and 0.2 mm thick cover glass. Mounting protocol <a href="./appendix.html#Fluorescent_samples_and_mounting">details</a> are also included in the appendix.
+have 200 nm diameter. The nanodiamonds and beads were mounted in between a 1 mm thick glass window and 0.2 mm thick cover glass. Mounting protocol <a href="./appendix.html#Fluorescent_samples_and_mounting">details</a> are also included in the appendix.
 </p>
 
 <p><strong>filters</strong>For fluorescence and depletion imaging, we paired an excitation stop filter with a wide band pass filter (600-680 nm) that stops excitation and stimulation beams but passes roughly half of the fluorescence from the samples. For stimulated emission imaging, we used the excitation stop filter along with a narrow (10 nm) pass filter centered at 720 nm.
@@ -265,11 +270,11 @@ Experimental design</h3>
 
 <h3>
 Fluorescence and stimulated emission depletion</h3>
-<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral filter that discriminates against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images are taken with 700/5 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 420/4 ms camera exposure. We observe increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam is introduced. The At the maximum available excitation beam and stimulation beam powers, we observe 8% depletion for both N-v and crimson dye fluorescence. We used a three-level atom model rate equation to roughtly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape 
+<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral filter that discriminates against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images are taken with 700/5 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 420/4 ms camera exposure. We observe increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam is introduced. The At the maximum available excitation beam and stimulation beam powers, we observe 8% depletion for both N-v and crimson dye fluorescence. We used a three-level atom model rate equation to roughtly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
 
 [<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
 
- and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, we are near to the saturation regime of excitation, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. An <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">axial view</a> of the N-v center fluorescence from a nanodiamond is available in the appendix.
+and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, we are near to the saturation regime of excitation, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. An <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">axial view</a> of the N-v center fluorescence from a nanodiamond is available in the appendix.
 </p>
 
 <figure id="Figure_3">
@@ -289,11 +294,11 @@ Fluorescence and stimulated emission depletion</h3>
 <h3>
 Dark-field imaging of stimulated emission</h3>
 
-<p><strong>darkfield setup additional explanation</strong>We used dark-field imaging 
+<p><strong>darkfield setup additional explanation</strong>We used dark-field imaging
 
 [<a class="citation" title="Siedentopf, H., and R. Zsigmondy. &quot;Visualization and size measurement of ultramicroscopic particles, with special application to gold-colored ruby glass.&quot; Ann Phys 10 (1903): 1-39.">Siedentopf 1903</a>]
 
- to attempt to image stimulated emission from N-v centers in nanodiamonds. Dark-field imaging is a technique commonly used to separate high spatial frequency light from wide-field illumination in order to enhance the signal contrast of scattered light. If stimulated emission from a point-like particle has a point-like PSF, then the spatial frequency bandwidth of the emission should be greater than that of the incident stimulating electromagnetic field, and the two fields should be separable as long as the stimulating beam is not confined to a diffraction-limited focus of the imaging system.
+to attempt to image stimulated emission from N-v centers in nanodiamonds. Dark-field imaging is a technique commonly used to separate high spatial frequency light from wide-field illumination in order to enhance the signal contrast of scattered light. If stimulated emission from a point-like particle has a point-like PSF, then the spatial frequency bandwidth of the emission should be greater than that of the incident stimulating electromagnetic field, and the two fields should be separable as long as the stimulating beam is not confined to a diffraction-limited focus of the imaging system.
 </p>
 
 <p>The dark-field filter (a chrome disc in a back focal plane of our imaging system) is a high-pass filter in the Fourier domain. This means that it preferentially passes light with high spatial frequency (i.e. small features in the image plane) while attenuating transmitted light. Most of the stimulating beam does not interact with the nanodiamonds and is attenuated. The image light is comprised of the elastically scattered light from the stimulating beam incident on the nanodiamonds, and possibly stimulated emission light from the N-v centers. Both of these signals are the same color as the stimulating beam, so they both pass through the narrow (10 nm wide) emission filter centered at 720 nm wavelength. Because diamond has a relatively high refractive index of 2.4 and the nanodiamonds are large, the scattered light is very bright and can saturate the dynamic range of the camera in less than one millisecond.
@@ -314,11 +319,11 @@ Dark-field imaging of stimulated emission</h3>
 <div>
 	$$\begin{equation}\phi_{stim} = \phi_0 \end{equation}$$
 </div>
-We also know elastic scattered light has a minimum \(\frac{\pi}{2}\) phase delay with respect to the incident electric field 
+We also know elastic scattered light has a minimum \(\frac{\pi}{2}\) phase delay with respect to the incident electric field
 
 [<a class="citation" href="http://dx.doi.org/10.1126/science.121.3141.345" title="Zernike, Frits. &quot;How I discovered phase contrast.&quot; Science 121, no. 3141 (1955): 345-349.">Zernike 1955</a>],
 
- and larger shift for scattering particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d<<\frac{\lambda}{\pi}\), so:
+and larger shift for scattering particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d<<\frac{\lambda}{\pi}\), so:
 <div>
 	$$\begin{equation}\phi_{scat} - \phi_0 \ge \frac{\pi}{2} \end{equation}$$
 </div>
@@ -410,21 +415,21 @@ This fulfills the requirement for destructive interference:
 <h3>
 Phase contrast imaging of stimulated emission</h3>
 
-<p><strong>phase contrast could work</strong>Phase contrast imaging 
+<p><strong>phase contrast could work</strong>Phase contrast imaging
 
 [<a class="citation" href="http://dx.doi.org/10.1016/S0031-8914(42)80035-X" title="Zernike, Frits. &quot;Phase contrast, a new method for the microscopic observation of transparent objects.&quot; Physica 9, no. 7 (1942): 686-698.">Zernike 1942</a>]
 
- is a technique by which scattered light from the image object is allowed to interfere with transmitted light, unlike dark-field imaging, which solely attempts to minimize transmitted light. When the interference between transmitted and scattered light is maximized, the signal-to-noise ratio (SNR) of the scattered light is limited only by the dynamic range of the detector. Because stimulated emission, like scattered light, is coherent, phase contrast imaging could be an ideal technique to explore the coherence of the signal we measured in the dark-field imaging scheme. We adapted our setup to attempt phase contrast imaging as described in the experimental design section.
+is a technique by which scattered light from the image object is allowed to interfere with transmitted light, unlike dark-field imaging, which solely attempts to minimize transmitted light. When the interference between transmitted and scattered light is maximized, the signal-to-noise ratio (SNR) of the scattered light is limited only by the dynamic range of the detector. Because stimulated emission, like scattered light, is coherent, phase contrast imaging could be an ideal technique to explore the coherence of the signal we measured in the dark-field imaging scheme. We adapted our setup to attempt phase contrast imaging as described in the experimental design section.
 </p>
 
 <p><strong>nanodiamonds not ideal</strong>Nanodiamonds doped with N-v centers are not an ideal candidate for phase contrast imaging of stimulated emission. In dark-field imaging of the nanodiamonds, the magnitude of the elastically scattered light dominates that of the signal we hope to be stimulated emission. The scattered light is coherent, so in phase contrast imaging, the magnitude of the interference term between the transmitted light background and the scattered light would still dominate that between transmitted light and stimulated emission. As with the dark-field results discussed earlier, any stimulated emission would be visible only as a small perturbation of the scattered light signal. We experimentally confirmed this hypothesis, and have made the <a href="./appendix.html#Phase_contrast_imaging_of_a_nanodiamond_doped_with_N-v_centers">results</a> available in the appendix.
 </p>
 
-<p><strong>index matching beads and description of result</strong>One way to minimize scattered light without decreasing stimulated emission is to match the refractive index of the mounting medium to that of the fluorescent objects. Index matching media are not readily available for diamond particles (\(n=2.42\)), but off-the-shelf matching media 
+<p><strong>index matching beads and description of result</strong>One way to minimize scattered light without decreasing stimulated emission is to match the refractive index of the mounting medium to that of the fluorescent objects. Index matching media are not readily available for diamond particles (\(n=2.42\)), but off-the-shelf matching media
 
 [<a class="citation" href="http://www.cargille.com/meltmount.shtml" title="Cargille Mounting Media. Online. Accessed 16 October, 2017.">Cargille Labs</a>]
 
- are available for imaging standards with lower refractive index, such as polystyrene beads (\(n\approx 1.6\)). We used the phase contrast imaging system to empirically determine the fractional mixture of different mounting media to minimize scattered light from crimson dyed polystyrene beads (please see supp mat for procedure). We then measured phase contrast images of the index-matched beads. In Figure 7, we show phase contrast images of the crimson beads embedded in different mixtures of index matching media, as well as the change of the the scattered and transmitted light background due to excitation of the crimson dye. We tilted the phase plate to two angles that maximally enhanced the signal contrast, one of which caused the sign of the excitation-related signal to reverse. As expected, if the phase contrast image of the bead's scattered light was barely visible, the sign of the scattered light signal was also reversed by the rotated phase plate. The phase contrast images were taken with 5 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 4 ms camera exposure. The displayed images are an average of two camera exposures.
+are available for imaging standards with lower refractive index, such as polystyrene beads (\(n\approx 1.6\)). We used the phase contrast imaging system to empirically determine the fractional mixture of different mounting media to minimize scattered light from crimson dyed polystyrene beads (please see supp mat for procedure). We then measured phase contrast images of the index-matched beads. In Figure 7, we show phase contrast images of the crimson beads embedded in different mixtures of index matching media, as well as the change of the the scattered and transmitted light background due to excitation of the crimson dye. We tilted the phase plate to two angles that maximally enhanced the signal contrast, one of which caused the sign of the excitation-related signal to reverse. As expected, if the phase contrast image of the bead's scattered light was barely visible, the sign of the scattered light signal was also reversed by the rotated phase plate. The phase contrast images were taken with 5 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 4 ms camera exposure. The displayed images are an average of two camera exposures.
 </p>
 
 <figure id="Figure_7">
@@ -471,11 +476,11 @@ Discussion</h3>
 <p><strong>flow cytometry + imaging</strong>No saturation limit on emission would greatly aid measuring fluorophores in flow cytometry devices, which usually have only microseconds to collect as much signal as possible. Additionally, coherently detected signals do not require low read noise detectors, so one could imagine replacing the fast, low noise, point detectors currently part of flow cytometry devices with array detectors that are just as fast. Flow cytometry that outputs images instead of one-dimensional signals would break the Poisson loading limit while also measuring valuable multi-dimensional information (e.g. aggregation).
 </p>
 
-<p><strong>minimize bleaching</strong>Because stimulated emission can be extracted from an excited fluorophore in less time than spontaneous emission, the fluorophore would spend less time in the excited state for the same amount of optical output. Photobleaching, in some cases, is thought to depend on the amount of time spent in the excited state 
+<p><strong>minimize bleaching</strong>Because stimulated emission can be extracted from an excited fluorophore in less time than spontaneous emission, the fluorophore would spend less time in the excited state for the same amount of optical output. Photobleaching, in some cases, is thought to depend on the amount of time spent in the excited state
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OE.23.003770" title="Li, Weixing, Simon C. Stein, Ingo Gregor, and J&ouml;rg Enderlein. &quot;Ultra-stable and versatile widefield cryo-fluorescence microscope for single-molecule localization with sub-nanometer accuracy.&quot; Optics express 23, no. 3 (2015): 3770-3783.">Li 2015</a>].
 
- Stimulated emission imaging could significantly enhance the signal available from fluorophores subject to photobleaching due to inter-molecular collisions while in the excited state.
+Stimulated emission imaging could significantly enhance the signal available from fluorophores subject to photobleaching due to inter-molecular collisions while in the excited state.
 </p>
 
 <h3>
