@@ -65,7 +65,7 @@ The real text begins here.
 <h3>
 Introduction</h3>
 
-<p><strong>Fluorescence is useful</strong>Fluorescence is a widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein/antibody expression and binding, sequence genes, and measure concentration of chemicals.
+<p><strong>Fluorescence is useful</strong>Fluorescence is a widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein expression and distribution, sequence genes, and measure concentration of chemicals.
 </p>
 
 <p><strong>Rate constant limit</strong>Fluorescence is the emission of light from an energetically excited material as it spontaneously decays to a lower energy state
@@ -80,18 +80,18 @@ The genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 48
 
 [<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>].
 
-\(\tau_{fluor}\) depends weakly on the environment (e.g. pH, temperature), but for typical fluorophores used in microscopy, \(\tau_{fluor}\) ranges from 0.5 ns to 5 ns
+\(\tau_{fluor}\) depends on the environment (e.g. pH, temperature), but for typical fluorophores used in microscopy, \(\tau_{fluor}\) ranges from 0.5 ns to 5 ns
 
 [<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io/tree/24b4fc8f82f3dff74a77f65c38332bb4778c9120" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
 
 and is not easily tuned.
 </p>
 
-<p><strong>Concentration--> rate limit</strong>The accuracy of a fluorescence measurement depends on the amount of fluorescent emission; more is better
+<p><strong>Concentration--> rate limit</strong>The accuracy of a fluorescence measurement improves as the amount of fluorescent emission increases
 
 [<a class="citation" href="https://doi.org/10.1007/978-0-387-45524-2_2" title="Pawley, James B. &quot;Fundamental limits in confocal microscopy.&quot; In Handbook of Biological Confocal Microscopy, pp. 20-42. Springer US, 2006.">Pawley 2006</a>].
 
-What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts&mdash;especially for biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to resolve fast sub-cellular dynamics, especially when quantifying low-abundance proteins or viewing structures whose function is impaired by excessive fluorescent tagging.
+What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts in biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to resolve fast sub-cellular dynamics, especially when quantifying low-abundance proteins or viewing structures whose function is impaired by excessive fluorescent tagging.
 </p
 
 <p><strong>Stimulated emission faster rate</strong>Stimulated emission, an alternative radiative decay process, is the emission of light from an energetically excited material, triggered by light applied to the material 
@@ -222,7 +222,7 @@ while pulsed stimulating light with similar average power yields \(h_{stim}\sigm
 <figcaption><strong>EDIT THIS Figure 1 (C): Stimulated emission can be imaged if it propagates multi-directionally.</strong> This animation shows stimulated emission can be imaged if it propagates from its source in a direction distinct from the stimulating beam. A green light pulse excites a point fluorophore (small circle, left). A red light pulse then comes into contact with the excited fluorophore and causes it to optically emit. The dark-field beam block attenuates the stimulating beam and transmits the stimulated emission. The stimulated emission continues to form an image on the camera. With <code>Microscope type: Phase contrast</code> selected, the dark-field beam block is replaced with a partially transmissive phase delay optic. In phase contrast mode, the attenuated stimulating beam is collimated when it reaches the camera and coherently interferes with the stimulated emission to form a phase contrast image.</figcaption>
 </figure><p></p>
 
-<p><strong>implications of point-like emission: different "directivity," contains location info, does not appear to violate causality, coherence (multiple emitters or suggest coherent background)</strong>In this model, the energy originating from the fluorophore propagates spherically outwards. Unlike the stimulating pulse, some of the stimulated emission continues past the beam block and forms an image of the fluorophore on the camera (Fig. 1c with <code>Microscope type: Dark-field</code> selected). If an attenuating beam block is substituted for the opaque one (Fig. 1c with <code>Microscope type: Phase contrast</code> selected), the attenuated stimulating pulse forms a uniform background on the camera that coherently interferes with the stimulated emission image. While this model describes stimulated emission that is causally related to its source, it is not obvious how the spherical stimulated emission can be considered to have the same field distribution
+<p><strong>implications of point-like emission: different "directivity," contains location info, does not appear to violate causality, coherence (multiple emitters or suggest coherent background)</strong>In this model, the energy originating from the fluorophore propagates spherically outwards. Unlike the stimulating pulse, some of the stimulated emission continues past the beam block and forms an image of the fluorophore on the camera (Fig. 1c with <code>Microscope type: Dark-field</code> selected). If an attenuating beam block is substituted for the opaque one (Fig. 1c with <code>Microscope type: Phase contrast</code> selected), the attenuated stimulating pulse forms a uniform background on the camera that coherently interferes with the stimulated emission. While this model describes stimulated emission that is causally related to its source, it is not obvious how the spherical stimulated emission can be considered to have the same field distribution
 
 [<a class="citation" href="https://www.nobelprize.org/nobel_prizes/physics/laureates/1964/townes-lecture.html" title="Charles H. Townes. &quot;Nobel Lecture: Production of Coherent Radiation by Atoms and Molecules.&quot; (1964) Nobelprize.org. Nobel Media AB 2014. Web. 28 Nov 2017">Townes 1964</a>]
 
