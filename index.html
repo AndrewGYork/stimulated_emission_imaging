@@ -134,7 +134,7 @@ while pulsed stimulating light with similar average power yields \(h_{stim}\sigm
 <figcaption><strong>EDIT THIS Figure 1 (A): What should imaging stimulated emission look like?</strong> A green light pulse excites a point fluorophore (small circle, left). A red light pulse then comes into contact with the excited fluorophore and causes it to optically emit. The dark-field beam block attenuates the stimulating beam. Where will the stimulated emission go, and will it form an image? With <code>Microscope type: Phase contrast</code> selected, the dark-field beam block is replaced with a partially transmissive phase delay optic.</figcaption>
 </figure><p></p>
 
-<p><strong>describe the figure and reinforce the question</strong>In Figure 1a, a single fluorophore (small circle, left) is energetically excited by a pulse of green light. Next, a pulse of red light stimulates the fluorophore to emit this energy as red light. A small, opaque beam block (black rectangle, center) absorbs the stimulating pulse (Fig. 1a with <code>Microscope type: Dark-field</code> selected). Where will the stimulated emission go? Will any of it reach the camera? Will it form an image of the fluorophore on the camera? More generally, what is the shape in space and time of the stimulated emission from an isolated, point-like emitter?
+<p><strong>describe the figure and reinforce the question</strong>In Figure 1a, a single fluorophore (small circle, left) is energetically excited by a pulse of green light. Next, a pulse of red light stimulates the fluorophore to emit this energy as red light. A small, opaque beam block (black rectangle, center) absorbs the stimulating pulse (Fig. 1a with <code>Microscope type: Dark-field</code> selected). Where will the stimulated emission go? Will any of it reach the camera? Will it form an image of the fluorophore on the camera? More generally, what is the shape in space and time of stimulated emission from an isolated, point-like emitter?
 </p>
 
 <p>In their 1964 Nobel lectures on stimulated emission, Townes and Prokhorov remarked:
@@ -240,54 +240,26 @@ and
 theoretically explored a related question by modeling point-like stimulated emitters as classical oscillating dipoles. This reasonable assumption is consistent with the model in Fig. 1c, but to our knowledge, no experimental work has directly tested it.
 </p>
 
-<p>Min 2009 and Dellwig 2012 proposed stimulated emission as an improved contrast mechanism compared to fluorescence, and they imaged fluorophores in biological samples via stimulated emission. They assumed that stimulated emission is indistinguishable from the stimulating beam (consistent with the model in Fig. 1b.) and used single-pixel detectors to measure the change in intensity of the stimulating beam due to stimulated emission. Unfortunately, a single-pixel measurement does not reveal to the shape of stimulated emission, making it difficult to rule out Fig. 1b or 1c based on their work.
-</p>
+<p>Min and Dellwig proposed stimulated emission as an improved contrast mechanism compared to fluorescence, and they imaged fluorophores in biological samples via stimulated emission
 
-<p>Gather 2011 and Chen 2017 used fluorophores in biological samples as the gain medium of a laser cavity, and imaged the stimulated emission onto multi-pixel detectors. Unfortunately, in these measurements, the shape of the stimulating beam is complicated due to laser feedback from the inhomogeneously distributed gain medium. As a result, it would be difficult to use that experimental design to separately characterize the stimulating beam and the emitted field.
-</p>
-
-<p>Gather 2011 and Chen 2017 used multi-pixel detectors to image fluorophores in biological samples via stimulated emission. In these experiments, the sample's fluorophores act as the gain medium of a laser cavity. Unfortunately, the shape stimulating beam is complicated due to laser feedback from the inhomogeneously distributed gain medium. As a result, it would be difficult to use that experimental design to separately characterize the stimulating beam and the emitted field.
-</p>
-
-
-<p>Detection of stimulated emission has previously been used for imaging fluorescent tags in a sample. In some cases [Min 2009, Dellwig 2012], the emission was captured with a single-pixel detector, so these experiments could not probe the shape of the emission. In other cases [Gather 2011, Chen 2017], stimulated emission was recorded with a multi-pixel detector, but in those experiments, the shape of the stimulating beam was complicated due to cavity feedback with inhomogeneous fluorophores used as a gain medium. As a result, it would be difficult to use that experimental design to separately characterize the stimulating beam and the emitted field.
-</p>
-
-<p>We designed and conducted a set of simple experiments to attempt to answer our question.
-</p>
-
-<p>Detecting stimulated emission has been used for microscopy
 
 [<a class="citation" href="http://dx.doi.org/10.1038/nature08438" title="Min, Wei, Sijia Lu, Shasha Chong, Rahul Roy, Gary Holtom, and Xiaoliang Sunney Xie. &quot;Imaging chromophores with undetectable fluorescence by stimulated emission microscopy.&quot; (2009).">Min 2009</a>,
 
-<a class="citation" href="http://dx.doi.org/10.1117/1.JBO.17.1.011009" title="Dellwig, Thilo, Po-Yen Lin, and Fu-Jen Kao. &quotLong-distance fluorescence lifetime imaging using stimulated emission.&quot Journal of biomedical optics 17, no. 1 (2012): 0110091-0110096.">Dellwig 2012</a>],
+<a class="citation" href="http://dx.doi.org/10.1117/1.JBO.17.1.011009" title="Dellwig, Thilo, Po-Yen Lin, and Fu-Jen Kao. &quotLong-distance fluorescence lifetime imaging using stimulated emission.&quot Journal of biomedical optics 17, no. 1 (2012): 0110091-0110096.">Dellwig 2012</a>].
 
-but those approaches use point-scanned stimulation light and a single pixel detector, so the shape of stimulated emission is not probed.
+They assumed that stimulated emission is indistinguishable from the stimulating beam (consistent with the model in Fig. 1b.) and used single-pixel detection to measure the change in intensity of the stimulating beam due to stimulated emission. Unfortunately, such measurements do not reveal the shape of stimulated emission, making it difficult to rule out Fig. 1b or 1c.
 </p>
 
-<p>Fluorophores have been used as laser gain media for wide-field imaging
+<p>Gather and Chen used fluorophores in biological samples as the gain medium of an optically pumped laser cavity, and imaged the stimulated emission onto a multi-pixel detector
 
 [<a class="citation" href="http://dx.doi.org/10.1038/nphoton.2011.99" title="Gather, Malte C., and Seok Hyun Yun. &quot;Single-cell biological lasers.&quot; Nature Photonics 5, no. 7 (2011): 406-410.">Gather 2011</a>,
 
-<a class="citation" href="http://dx.doi.org/10.1038/s41551-017-0128-3" title="Chen, Yu-Cheng, Xiaotian Tan, Qihan Sun, Qiushu Chen, Wenjie Wang, and Xudong Fan. &quot;Laser-emission imaging of nuclear biomarkers for high-contrast cancer screening and immunodiagnosis.&quot; Nature Biomedical Engineering 1, no. 9 (2017): 724.">Chen 2017</a>],
+<a class="citation" href="http://dx.doi.org/10.1038/s41551-017-0128-3" title="Chen, Yu-Cheng, Xiaotian Tan, Qihan Sun, Qiushu Chen, Wenjie Wang, and Xudong Fan. &quot;Laser-emission imaging of nuclear biomarkers for high-contrast cancer screening and immunodiagnosis.&quot; Nature Biomedical Engineering 1, no. 9 (2017): 724.">Chen 2017</a>].
 
-but those techniques also do not answer our question because since the shape of the stimulation beam is complicated and not separately characterized from the emitted field.
+Their stimulating beam shape was determined by a complicated combination of cavity feedback, sample refractive index, and fluorophore distribution. Since they simultaneously measured the stimulating beam and the stimulated emission, but did not separately characterize their shapes, it is similarly difficult to rule out Fig. 1b or 1c based on these measurements.
 </p>
 
-<p>.... we designed a simple set of experiments to ...
-</p>
-
-
-
-<p>
-, we designed and conducted a set of simple experiments to attempt to answer the question.
-</p>
-
-
-
-
-
-<p><strong>we did dark-field and phase contrast</strong>We built a microscope and used it in dark-field and phase contrast modalities to attempt to image stimulated emission from Nitrogen-vacancy (N-v) centers in nanodiamonds, as well as from fluorescent dyed polystyrene beads. The results indicate that stimulated emission propagates spherically and can be detected through coherent interference with the stimulating electrical field.
+<p><strong>we did dark-field and phase contrast</strong>We designed and conducted a set of experiments to clearly ask the question: What is the shape in space and time of stimulated emission from an isolated, point-like emitter? We built a microscope and used it in dark-field and phase contrast modalities to attempt to image stimulated emission from Nitrogen-vacancy (N-v) centers in nanodiamonds, as well as from fluorescent dyed polystyrene beads. The results indicate that stimulated emission propagates spherically and can be detected through coherent interference with the stimulating electrical field.
 </p>
 
 
