@@ -334,7 +334,7 @@ are also included in the appendix.
 
 <h3>
 Fluorescence and stimulated emission depletion</h3>
-<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral filter that discriminated against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images were taken with a train of 700/5 simultaneous ~1.25 &micro;s stimulation and excitation laser pulses over a 420/4 ms camera exposure. The inset fluorescence images were taken with maximum excitation power, and the points on the plot indicate average brightness of the main lobe of the image. We observed increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam (maximum stimulation power) was additionally turned on. At the maximum available excitation beam and stimulation beam powers, we observed 8% depletion for both N-v and crimson dye fluorescence. We used a four-level atom model rate equation to roughtly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
+<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral window that discriminated against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images were taken with a train of 700/5 simultaneous ~1.25 &micro;s stimulation and excitation laser pulses over a 420/4 ms camera exposure. The inset fluorescence images were taken with maximum excitation power, and the points on the plot indicate average brightness of the main lobe of the image. We observed increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam (maximum stimulation power) was additionally turned on. At the maximum available excitation beam and stimulation beam powers, we observed 8% depletion for both N-v and crimson dye fluorescence. We used a four-level atom model rate equation to roughtly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
 
 [<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
 
@@ -375,7 +375,7 @@ Dark-field imaging of stimulated emission</h3>
 <p><strong>wtf decrease in signal</strong>The result in Figure 4 seems counterintuitive. Why would stimulated emission, which we hope to image in addition to the scattered light, make the scattered light image darker? This could happen if the scattered electric field destructively interferes with the stimulated emission electric field. Interference is possible because both stimulated emission and scattered light are coherent with the incident electric field, and therefore have a distinct phase relationship with each other.
 </p>
 
-<p><strong>why we expect destructive interference</strong>To predict this phase relationship, we start with incident electric field \(E_0e^{i\omega t + \phi_0}\), stimulated emission field \(E_{stim}e^{i\omega t + \phi_{stim}}\), and scattered field \(E_{scat}e^{i\omega t + \phi_{scat}}\). Because stimulated emission is considered an instantaneous process
+<p><strong>why we expect destructive interference</strong>To predict this phase relationship, we start with incident electric field \(E_0e^{i\omega t + \phi_0}\), stimulated emission field \(E_{stim}e^{i\omega t + \phi_{stim}}\), and scattered field \(E_{scat}e^{i\omega t + \phi_{scat}}\). Because stimulated emission is considered a nearly instantaneous process
 
 [<a class="citation" href="https://www.nobelprize.org/nobel_prizes/physics/laureates/1964/townes-lecture.html" title="Charles H. Townes. &quot;Nobel Lecture: Production of Coherent Radiation by Atoms and Molecules.&quot; (1964) Nobelprize.org. Nobel Media AB 2014. Web. 28 Nov 2017">Townes 1964</a>],
 
@@ -383,15 +383,15 @@ there is no delay between the incident electric field  and the stimulated emissi
 <div>
 	$$\begin{equation}\phi_{stim} = \phi_0 \end{equation}$$
 </div>
-We also know elastic scattered light has a minimum \(\frac{\pi}{2}\) phase delay with respect to the incident electric field
+We also know elastically scattered light has a minimum \(\frac{\pi}{2}\) phase delay with respect to the incident electric field
 
 [<a class="citation" href="http://dx.doi.org/10.1126/science.121.3141.345" title="Zernike, Frits. &quot;How I discovered phase contrast.&quot; Science 121, no. 3141 (1955): 345-349.">Zernike 1955</a>],
 
-and larger delay for scattering particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d<<\frac{\lambda}{\pi}\), so:
+and larger delay for light scattered by particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d<<\frac{\lambda}{\pi}\), so:
 <div>
 	$$\begin{equation}\phi_{scat} - \phi_0 \ge \frac{\pi}{2} \end{equation}$$
 </div>
-Our diameter \(d\approx 80\,nm\) nanodiamonds are slightly larger than the small diameter approximation allows for \(\lambda=721\,nm\). To estimate the additional refractive phase shift, we note that the refractive index of diamond \(n_{diamond}=2.42\), while the mounting medium \(n_{oil}=1.52\), with a difference \(\Delta n_{refractive}=0.9\). The approximate phase difference due to different refractive optical path lengths is:
+Our diameter \(d\sim 80\,nm\) nanodiamonds are slightly larger than the small diameter approximation allows for \(\lambda=721\,nm\). To estimate the additional refractive phase shift, we note that the refractive index of diamond \(n_{diamond}=2.42\), while the mounting medium \(n_{oil}=1.52\), with a difference \(\Delta n_{refractive}=0.9\). The approximate phase difference due to different refractive optical path lengths is:
 <div>
 	$$\begin{equation}\Delta\phi_{refractive} \sim \frac{2\pi d\Delta n_{refractive}}{\lambda} \approx 0.6 \end{equation}$$
 </div>
