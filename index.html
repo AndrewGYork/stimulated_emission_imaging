@@ -275,8 +275,8 @@ Experimental design</h3>
 <table class="figure_controls">
   <tr>
   <td>Imaging method: </td><td><select id="Figure_2_imaging_method" onchange="update_figure_2()">
-    <option value="fluorescence">Imaging fluorescent light</option>
-	<option value="fluorescence_depletion">Imaging depleted fluorescent light</option>
+    <option value="fluorescence">Fluorescence imaging</option>
+	<option value="fluorescence_depletion">Fluorescence depletion imaging</option>
 	<option value="darkfield">Dark-field imaging of scattered light</option>
     <option value="darkfield_ste" selected="selected">Dark-field imaging of stimulated emission and scattered light</option>
 	<option value="phase_contrast">Phase contrast imaging of scattered light</option>
@@ -308,6 +308,9 @@ and
 <p><strong>spatial filters</strong>The back focal plane is incoveniently located inside the objective, but the relay lenses create two accessible images of the back focal plane where we place spatial filters. For dark-field imaging, we use a small <a href="./appendix.html#Parts_list">chrome disc</a> to block the stimulation beam (Figure 2b with <code>Imaging method: Dark-field...</code> selected). For phase contrast imaging, we use a small <a href="./appendix.html#Parts_list">chrome annulus</a> to attenuate the stimulation beam, and a <a href="./appendix.html#Parts_list">drilled glass slide</a> to apply a relative phase shift between the stimulation beam and light emitted from point-like sources in the sample (Figure 2b with <code>Imaging method: Phase contrast...</code> selected). Rotating the glass slide adjusts the phase shift, and changing to an annulus with a different inner diameter adjusts the attenuation.
 </p>
 
+<p><strong>filters</strong>A <a href="./appendix.html#Parts_list">spectral filter</a> immediately after the collection objective blocks the excitation beam. For fluorescence or fluorescence depletion imaging, a <a href="./appendix.html#Parts_list">band-pass filter</a> stops the stimulation beam and passes roughly half of the fluorescence emission band (Figure 2b with <code>Imaging method: Fluorescence...</code> selected). For stimulated emission or scattered light imaging, a <a href="./appendix.html#Parts_list">notch filter</a> stops >99% of the fluorescent light and passes the stimulation beam, scattered light, and stimulated emission (Figure 2b with <code>Imaging method: Dark-field...</code> or <code>Imaging method: Phase contrast...</code> selected).
+</p>
+
 <p><strong>sample description</strong>We imaged
 
 <a href="./appendix.html#Fluorescent_samples_and_mounting">nanodiamonds doped with N-v centers</a>
@@ -327,10 +330,12 @@ of the nanodiamonds is available in the appendix. The fluorescent beads have 200
 are also included in the appendix.
 </p>
 
-<p><strong>filters</strong>For fluorescence and depletion imaging, we used a set of filters that stopped the excitation and stimulation beams but passed roughly half of the fluorescence from the samples (transmission window 600-680 nm). For stimulated emission imaging, we used two filters: a longpass filter to stop the excitation beam along with a narrow (10 nm) pass filter centered at 720 nm to pass stimulated emission but reject most of the fluorescent light.
-</p>
+
 
 <p>A detailed <a href="./appendix.html#Parts_list">list of parts</a> for the experiment (e.g. lasers, objectives and filters) is available in the appendix.
+</p>
+
+<p>For fluorescence and depletion imaging, we used a set of filters that stopped the excitation and stimulation beams but passed roughly half of the fluorescence from the samples (transmission window 600-680 nm). For stimulated emission imaging, we used two filters: a longpass filter to stop the excitation beam along with a narrow (10 nm) pass filter centered at 720 nm to pass stimulated emission but reject most of the fluorescent light.
 </p>
 
 <h3>
