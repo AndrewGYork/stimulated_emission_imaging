@@ -104,7 +104,7 @@ Parts list</h3>
 <table>
   <tr><th>Supplier</th>				<th>Part</th>
   <th>Description</th>
-  <tr><td>Opto-Engine</td>					<td>MLL-F-532-2.5W</td>
+  <tr id="green_laser"><td>Opto-Engine</td>					<td>MLL-F-532-2.5W</td>
   <td>2.5 Watt CW laser with 532 nm wavelength</td>
   <tr id="red_laser"><td>Opto-Engine</td>					<td>MRL-FN-721-300mW</td>
   <td>300 milliWatt CW laser with 721 nm wavelength</td>
@@ -122,31 +122,35 @@ Parts list</h3>
   <td>Analog RF driver for 721 nm laser acousto-optic modulator</td>
   <tr><td>Chroma</td>						<td>ZT532rdc</td>
   <td>Dichroic beamsplitter to used to combine 532 nm (45&deg; reflected) and 721 nm (transmitted) laser beams</td>
-  <tr><td>Chroma</td>						<td>ZET532NF</td>
+  <tr id="excitation_stop_filter"><td>Chroma</td>						<td>ZET532NF</td>
   <td>Notch filter to block 532 nm excitation light after sample illumination</td>
-  <tr><td>Chroma</td>						<td>ET720/10m</td>
+  <tr id="narrow_pass_filter"><td>various</td>						<td><a href="./appendix.html#ET720/10m">ET720/10m</a>,<a href="./appendix.html#FELH0600">FELH0600</a></td>
+  <td>Filter set used to block fluorescence and pass stimulated emission</td>
+  <tr id="wide_pass_filter"><td>various</td>						<td><a href="./appendix.html#ET680sp-2P8">ET680sp-2P8</a>,<a href="./appendix.html#FESH0700">FESH0700</a>,<a href="./appendix.html#FELH0600">FELH0600</a></td>
+  <td>Filter set used to block stimulated emission and pass fluorescence</td>
+  <tr id="ET720/10m"><td>Chroma</td>						<td>ET720/10m</td>
   <td>10 nm narrow bandpass filter centered at 720 nm to block fluorescence and pass stimulated emission</td>
-  <tr><td>Chroma</td>						<td>ET680sp-2P8</td>
-  <td>Shortpass filter to block stimulated emission and allow fluorescence (used in combination with Thorlabs FESH0700)</td>
-  <tr><td>Thorlabs</td>						<td>FESH0700</td>
-  <td>Shortpass filter to block stimulated emission and allow fluorescence (used in combination with Chroma ET680sp-2P8)</td>
-  <tr><td>Thorlabs</td>						<td>FELH0600</td>
+  <tr id="ET680sp-2P8"><td>Chroma</td>						<td>ET680sp-2P8</td>
+  <td>Shortpass filter to block stimulated emission and allow fluorescence</td>
+  <tr id="FESH0700"><td>Thorlabs</td>						<td>FESH0700</td>
+  <td>Shortpass filter to block stimulated emission and allow fluorescence</td>
+  <tr id="FELH0600"><td>Thorlabs</td>						<td>FELH0600</td>
   <td>Longpass filter to block excitation and allow stimulated emission and fluorescence</td>
-  <tr><td>Mitutoyo (Edmund Optics)</td>						<td>46-144</td>
+  <tr id="illumination_objective"><td>Mitutoyo (Edmund Optics)</td>						<td>46-144</td>
   <td>10X plan apo infinity corrected long working distance objective used for sample illumination</td>
-  <tr><td>Leica</td>						<td>HCX PL APO 100x/1.40-0.70 OIL</td>
+  <tr id="collection_objective"><td>Leica</td>						<td>HCX PL APO 100x/1.40-0.70 OIL</td>
   <td>100X plan apo NA = 1.4 objective used for imaging</td>
-  <tr><td>Thorlabs</td>						<td>AC254-100-B-ML</td>
+  <tr id="lens_f_100_B"><td>Thorlabs</td>						<td>AC254-100-B-ML</td>
   <td>100 mm focal length tube lens following Leica 100X imaging objective lens</td>
-  <tr><td>Thorlabs</td>						<td>AC254-040-B-ML</td>
+  <tr id="lens_f_40"><td>Thorlabs</td>						<td>AC254-040-B-ML</td>
   <td>40 mm focal length lens following Thorlabs 100mm tube lens and before phase plate</td>
-  <tr><td>Thorlabs</td>						<td>AC254-100-A-ML</td>
+  <tr id="lens_f_100_A"><td>Thorlabs</td>						<td>AC254-100-A-ML</td>
   <td>100 mm focal length lens following phase plate</td>
-  <tr><td>Thorlabs</td>						<td>AC254-050-B-ML</td>
+  <tr id="lens_f_50"><td>Thorlabs</td>						<td>AC254-050-B-ML</td>
   <td>50 mm focal length lens following 100 mm focal length lens and before chrome mask</td>
-  <tr><td>Thorlabs</td>						<td>AC254-300-A-ML</td>
+  <tr id="lens_f_300"><td>Thorlabs</td>						<td>AC254-300-A-ML</td>
   <td>300 mm focal length lens following chrome mask and before camera</td>
-  <tr><td>PCO</td>						<td>edge4.2.WAT</td>
+  <tr id="camera"><td>PCO</td>						<td>edge4.2.WAT</td>
   <td>PCO.edge 4.2 water-cooled rolling shutter sCMOS camera</td>
   <tr><td>Thorlabs</td>						<td>PE4</td>
   <td>Piezoelectric actuator to position sample axially</td>
