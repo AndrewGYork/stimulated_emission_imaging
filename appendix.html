@@ -104,42 +104,52 @@ Parts list</h3>
 <table>
   <tr><th>Supplier</th>				<th>Part</th>
   <th>Description</th>
-  <tr id="green_laser"><td>Opto-Engine</td>					<td>MLL-F-532-2.5W</td>
-  <td>2.5 Watt CW laser with 532 nm wavelength</td>
-  <tr id="red_laser"><td>Opto-Engine</td>					<td>MRL-FN-721-300mW</td>
-  <td>300 milliWatt CW laser with 721 nm wavelength</td>
-  <tr><td>Thorlabs</td>						<td>AHWP05M-600</td>
-  <td>Achromatic half wave plates used to tune polarization of 532 nm and 721 nm lasers</td>
-  <tr><td>Thorlabs</td>						<td>GT10-A</td>
-  <td>Glan Taylor calcite polarizer visible anti-reflection coated to clean up 532 nm laser polarization prior to AOM</td>
-  <tr><td>Thorlabs</td>						<td>GT10-B</td>
-  <td>Glan Taylor calcite polarizer near-IR anti-reflection coated to clean up 721 nm laser polarization prior to AOM</td>
+  <tr><td>Chroma</td>						<td>ZT532rdc</td>
+  <td>Dichroic beamsplitter to used to combine 532 nm (45&deg; reflected) and 721 nm (transmitted) laser beams</td>
+  <tr id="excitation_stop_filter"><td>Chroma</td>						<td>ZET532NF</td>
+  <td>Notch filter to block 532 nm excitation light after sample illumination</td>
+  <tr id="ET720/10m"><td>Chroma</td>						<td>ET720/10m</td>
+  <td>10 nm narrow bandpass filter centered at 720 nm to block fluorescence and pass stimulated emission</td>
+  <tr id="ET680sp-2P8"><td>Chroma</td>						<td>ET680sp-2P8</td>
+  <td>Shortpass filter to block stimulated emission and allow fluorescence</td>
   <tr><td>Gooch &amp; Housego</td>						<td>AOMO 3200-125</td>
   <td>Visible wavelength acousto-optic modulator crystal (one for the 532 nm laser and one for the 721 nm laser)</td>
   <tr><td>Gooch &amp; Housego</td>						<td>1080AF-AINA-1.0 HCR</td>
   <td>Analog RF driver for 532 nm laser acousto-optic modulator</td>
   <tr><td>Gooch &amp; Housego</td>						<td>1080AF-AINA-2.5 HCR</td>
   <td>Analog RF driver for 721 nm laser acousto-optic modulator</td>
-  <tr><td>Chroma</td>						<td>ZT532rdc</td>
-  <td>Dichroic beamsplitter to used to combine 532 nm (45&deg; reflected) and 721 nm (transmitted) laser beams</td>
-  <tr id="excitation_stop_filter"><td>Chroma</td>						<td>ZET532NF</td>
-  <td>Notch filter to block 532 nm excitation light after sample illumination</td>
-  <tr id="narrow_pass_filter"><td>various</td>						<td><a href="./appendix.html#ET720/10m">ET720/10m</a>, <a href="./appendix.html#FELH0600">FELH0600</a></td>
-  <td>Filter set used to block fluorescence and pass stimulated emission</td>
-  <tr id="wide_pass_filter"><td>various</td>						<td><a href="./appendix.html#ET680sp-2P8">ET680sp-2P8</a>, <a href="./appendix.html#FESH0700">FESH0700</a>, <a href="./appendix.html#FELH0600">FELH0600</a></td>
-  <td>Filter set used to block stimulated emission and pass fluorescence</td>
-  <tr id="ET720/10m"><td>Chroma</td>						<td>ET720/10m</td>
-  <td>10 nm narrow bandpass filter centered at 720 nm to block fluorescence and pass stimulated emission</td>
-  <tr id="ET680sp-2P8"><td>Chroma</td>						<td>ET680sp-2P8</td>
-  <td>Shortpass filter to block stimulated emission and allow fluorescence</td>
+  <tr id="collection_objective"><td>Leica</td>						<td>HCX PL APO 100x/1.40-0.70 OIL</td>
+  <td>100X plan apo NA = 1.4 objective used for imaging</td>
+  <tr id="illumination_objective"><td>Mitutoyo (Edmund Optics)</td>						<td>46-144</td>
+  <td>10X plan apo infinity corrected long working distance objective used for sample illumination</td>
+  <tr><td>National Instruments</td>						<td>NI PCI-6733</td>
+  <td>Analog output board to trigger the camera and AOMs</td>
+  <tr><td>National Instruments</td>						<td>BNC-2110</td>
+  <td>Connector block to interface with NI PCI-6733 analog output board</td>
+  <tr id="green_laser"><td>Opto-Engine</td>					<td>MLL-F-532-2.5W</td>
+  <td>2.5 Watt CW laser with 532 nm wavelength</td>
+  <tr id="red_laser"><td>Opto-Engine</td>					<td>MRL-FN-721-300mW</td>
+  <td>300 milliWatt CW laser with 721 nm wavelength</td>
+  <tr id="camera"><td>PCO</td>						<td>edge4.2.WAT</td>
+  <td>PCO.edge 4.2 water-cooled rolling shutter sCMOS camera</td>
+  <tr id="chrome_disc"><td>Photo Sciences Inc.</td>						<td>custom (<a href="http://www.photo-sciences.com/">website</a>)</td>
+  <td>512 &micro;m diameter, OD5 chrome disc plated on 2.38 mm thick glass plate</td>
+  <tr id="chrome_annulus"><td>Photo Sciences Inc.</td>						<td>custom (<a href="http://www.photo-sciences.com/">website</a>)</td>
+  <td>512 &micro;m outer diameter, 9 &micro;m inner diameter, OD5 chrome annulus with 0.6% transmission plated on 2.38 mm thick glass plate</td>
+  <tr id="phase_plate"><td>Potomac Photonics</td>						<td>custom (<a href="https://www.potomac-laser.com/">website</a>)</td>
+  <td>0.18 thick cover glass with a 90 &micro;m diameter hole drilled by laser</td>
+  <tr><td>San Mateo Electronics</td>						<td>LM324N</td>
+  <td>Operational Amplifiers (set up as buffer amps) to supply amplified current to AOM drivers from analog out board</td>
+  <tr><td>San Mateo Electronics</td>						<td>LM7824</td>
+  <td>24V regulator for LM324N buffer amps</td>
+  <tr><td>Thorlabs</td>						<td>PE4</td>
+  <td>Piezoelectric actuator to position sample axially</td>
+  <tr><td>Thorlabs</td>						<td>MDT694B</td>
+  <td>Controller for Thorlabs PE4 piezoelectric actuator</td>
   <tr id="FESH0700"><td>Thorlabs</td>						<td>FESH0700</td>
   <td>Shortpass filter to block stimulated emission and allow fluorescence</td>
   <tr id="FELH0600"><td>Thorlabs</td>						<td>FELH0600</td>
   <td>Longpass filter to block excitation and allow stimulated emission and fluorescence</td>
-  <tr id="illumination_objective"><td>Mitutoyo (Edmund Optics)</td>						<td>46-144</td>
-  <td>10X plan apo infinity corrected long working distance objective used for sample illumination</td>
-  <tr id="collection_objective"><td>Leica</td>						<td>HCX PL APO 100x/1.40-0.70 OIL</td>
-  <td>100X plan apo NA = 1.4 objective used for imaging</td>
   <tr id="lens_f_100_B"><td>Thorlabs</td>						<td>AC254-100-B-ML</td>
   <td>100 mm focal length tube lens following Leica 100X imaging objective lens</td>
   <tr id="lens_f_40"><td>Thorlabs</td>						<td>AC254-040-B-ML</td>
@@ -150,25 +160,19 @@ Parts list</h3>
   <td>50 mm focal length lens following 100 mm focal length lens and before chrome mask</td>
   <tr id="lens_f_300"><td>Thorlabs</td>						<td>AC254-300-A-ML</td>
   <td>300 mm focal length lens following chrome mask and before camera</td>
-  <tr id="camera"><td>PCO</td>						<td>edge4.2.WAT</td>
-  <td>PCO.edge 4.2 water-cooled rolling shutter sCMOS camera</td>
-  <tr><td>Thorlabs</td>						<td>PE4</td>
-  <td>Piezoelectric actuator to position sample axially</td>
-  <tr><td>Thorlabs</td>						<td>MDT694B</td>
-  <td>Controller for Thorlabs PE4 piezoelectric actuator</td>
-  <tr><td>National Instruments</td>						<td>NI PCI-6733</td>
-  <td>Analog output board to trigger the camera and AOMs</td>
-  <tr><td>National Instruments</td>						<td>BNC-2110</td>
-  <td>Connector block to interface with NI PCI-6733 analog output board</td>
-  <tr><td>San Mateo Electronics</td>						<td>LM324N</td>
-  <td>Operational Amplifiers (set up as buffer amps) to supply amplified current to AOM drivers from analog out board</td>
-  <tr><td>San Mateo Electronics</td>						<td>LM7824</td>
-  <td>24V regulator for LM324N buffer amps</td>
+  <tr><td>Thorlabs</td>						<td>AHWP05M-600</td>
+  <td>Achromatic half wave plates used to tune polarization of 532 nm and 721 nm lasers</td>
+  <tr><td>Thorlabs</td>						<td>GT10-A</td>
+  <td>Glan Taylor calcite polarizer visible anti-reflection coated to clean up 532 nm laser polarization prior to AOM</td>
+  <tr><td>Thorlabs</td>						<td>GT10-B</td>
+  <td>Glan Taylor calcite polarizer near-IR anti-reflection coated to clean up 721 nm laser polarization prior to AOM</td>
+  <tr id="narrow_pass_filter"><td>various</td>						<td><a href="./appendix.html#ET720/10m">ET720/10m</a>, <a href="./appendix.html#FELH0600">FELH0600</a></td>
+  <td>Filter set used to block fluorescence and pass stimulated emission</td>
+  <tr id="wide_pass_filter"><td>various</td>						<td><a href="./appendix.html#ET680sp-2P8">ET680sp-2P8</a>, <a href="./appendix.html#FESH0700">FESH0700</a>, <a href="./appendix.html#FELH0600">FELH0600</a></td>
+  <td>Filter set used to block stimulated emission and pass fluorescence</td>
   </table>
   
-  <p><strong>TO DO: add chrome mask and phase mask, add id for linking to individual table items from main article (a 0.18 µm thick cover glass with a 90 µm diameter hole drilled by laser)
-
-512 &micro;m outer diameter and 9 &micro;m inner diameter 0.6% transmission</strong>
+  <p><strong>TO DO: add id for linking to individual table items from main article</strong>
   </p>
 
 <h3 id="Crimson_dyed_polystyrene_bead_fluorescence">
