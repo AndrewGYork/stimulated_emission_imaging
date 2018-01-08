@@ -92,7 +92,7 @@ and is not easily tuned.
 [<a class="citation" href="https://doi.org/10.1007/978-0-387-45524-2_2" title="Pawley, James B. &quot;Fundamental limits in confocal microscopy.&quot; In Handbook of Biological Confocal Microscopy, pp. 20-42. Springer US, 2006.">Pawley 2006</a>].
 
 What are the limits on fluorescent emission? \(n_2\) is controlled by excitation power, but cannot exceed 1. \(N\) can be increased via over-expression or multiple tagging, but this often causes undesired artifacts in biological samples. Increasing exposure time increases fluorescent signal but degrades time resolution. Therefore, a fixed \(\tau_{fluor}\) represents a practical limit to our ability to resolve fast sub-cellular dynamics, especially when quantifying low-abundance proteins or viewing structures whose function is impaired by excessive fluorescent tagging.
-</p
+</p>
 
 <p>Stimulated emission, an alternative radiative decay process, is the emission of light from an energetically excited material, triggered by light applied to the material 
 
@@ -245,7 +245,7 @@ theoretically explored a related question by modeling point-like stimulated emit
 
 [<a class="citation" href="http://dx.doi.org/10.1038/nature08438" title="Min, Wei, Sijia Lu, Shasha Chong, Rahul Roy, Gary Holtom, and Xiaoliang Sunney Xie. &quot;Imaging chromophores with undetectable fluorescence by stimulated emission microscopy.&quot; (2009).">Min 2009</a>,
 
-<a class="citation" href="http://dx.doi.org/10.1117/1.JBO.17.1.011009" title="Dellwig, Thilo, Po-Yen Lin, and Fu-Jen Kao. &quotLong-distance fluorescence lifetime imaging using stimulated emission.&quot Journal of biomedical optics 17, no. 1 (2012): 0110091-0110096.">Dellwig 2012</a>].
+<a class="citation" href="http://dx.doi.org/10.1117/1.JBO.17.1.011009" title="Dellwig, Thilo, Po-Yen Lin, and Fu-Jen Kao. &quot;Long-distance fluorescence lifetime imaging using stimulated emission.&quot; Journal of biomedical optics 17, no. 1 (2012): 0110091-0110096.">Dellwig 2012</a>].
 
 They assumed that stimulated emission is indistinguishable from the stimulating beam (consistent with the model in Fig. 1b.) and used single-pixel detection to measure the change in intensity of the stimulating beam due to stimulated emission. Unfortunately, such measurements do not reveal the shape of stimulated emission, making it difficult to rule out Fig. 1b or 1c.
 </p>
@@ -323,26 +323,15 @@ and
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
 
 reduces to:
-
+</p>
 <div>
 	$$\begin{equation} \frac{dn_{0}}{dt} = -\frac{dn_{2}}{dt} = \left(h_{stim}\sigma_{23} + \frac{1}{\tau_{fluor}}\right)n_2 - h_{exc}\sigma_{01}n_0 \end{equation}$$
 </div>
-
+<p>
 We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), and also the proportionality between measured fluorescence (in camera counts per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
-
 </p>
 
-<p><strong>what did we do?</strong>
-</p>
-
-<p><strong>did our observations confirm our expectations?</strong>
-</p>
-
-<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral window that discriminated against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images were taken with a train of 700/5 simultaneous ~1.25 &micro;s stimulation and excitation laser pulses over a 420/4 ms camera exposure. The inset fluorescence images were taken with maximum excitation power, and the points on the plot indicate average brightness of the main lobe of the image. We observed increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam (maximum stimulation power) was additionally turned on. At the maximum available excitation beam and stimulation beam powers, we observed 8% depletion for both N-v and crimson dye fluorescence. We used a four-level atom model rate equation to roughtly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
-
-[<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
-
-and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, excitation is near to the saturation regime, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. An <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">axial view</a> of the N-v center fluorescence from a nanodiamond is available in the appendix.
+<p><strong>what did we do?</strong>We observed our fluorophores in the presence of the excitation and stimulation beams through a spectral filter that transmitted fluorescence but blocked the excitation and stimulation light (as in Figure 2b with <code>Imaging method: Fluorescence...</code> selected). We exposed the nanodiamonds to a train of 700 simultaneous excitation and stimulation pulses over a 420 ms camera exposure. We exposed the beads to a train of 5 simultaneous excitation  (power?) and stimulation (power?) laser pulses over a 4 ms camera exposure. Figure 3 shows the fluorescence from the nanodiamonds and beads measured with increasing excitation power with and without the full stimulation power. Each point on the plot indicates the average brightness of the bright central lobe of the fluorescence image (selected by ?x? pixels). The inset images were taken with maximum excitation power and no stimulation power. (how did you deal with bleaching) (link to python script that took the data)
 </p>
 
 <p><strong>TO DO: get a new "signal" y axis and change "depleted fluorescence" to "depleted ______ fluorescence"</strong></p>
@@ -360,6 +349,27 @@ and bleaching of the crimson dye caused difficulty in repeatably measuring fluor
 </table>
 <figcaption><strong>Figure 3:</strong> Fluorescence from a N-v nanodiamond or a crimson dyed bead with increasing excitation power, with (red) and without (green) stimulated emission depletion. Each point represents the average brightness per pixel of the main lobe of the fluorescent image and is normalized to the estimated excitation fraction. The experimental data is fit by a rate equation model for a three-level atom. Inset: Image of fluorescence from a nanodiamond or bead with maximum excitation power (scale bar: 250 nm). This figure was generated by <code>/figure_generation/figure_3.py</code> and <code>/figure_generation/figure_3b.py</code>.</figcaption>
 </figure><p></p>
+
+<p><strong>did our observations confirm our expectations?</strong>At equilibrium, \(\frac{dn_{0}}{dt} = \frac{dn_{2}}{dt} = 0\), yielding:</p>
+
+<div>
+	$$\begin{equation} n_2 = \frac{h_{exc}\sigma_{01}}{h_{exc}\sigma_{01} + h_{stim}\sigma_{23} + \frac{1}{\tau_{fluor}}} \end{equation}$$
+</div>
+
+<p>
+We observed increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam was additionally turned on. At the maximum available excitation beam and stimulation beam powers, we observed 8% depletion for both N-v and crimson dye fluorescence. We used a four-level atom model rate equation to roughly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
+
+[<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
+
+and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, excitation is near to the saturation regime, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. An <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">axial view</a> of the N-v center fluorescence from a nanodiamond is available in the appendix.
+</p>
+
+<p>To confirm that we excited fluorescence in our samples and generated stimulated emission, we observed fluorescence through a wide spectral window that discriminated against excitation and stimulation beams. Figure 3 shows fluorescence measured from N-v centers in a nanodiamond for varying excitation power and with/without the stimulation beam (the online version and <a href="./appendix.html#Crimson_dyed_polystyrene_bead_fluorescence">appendix</a> also show fluorescence from crimson dyed polystyrene beads). The N-v/crimson bead fluorescence images were taken with a train of 700/5 simultaneous ~1.25 &micro;s stimulation and excitation laser pulses over a 420/4 ms camera exposure. The inset fluorescence images were taken with maximum excitation power, and the points on the plot indicate average brightness of the main lobe of the image. We observed increasing fluorescence with increasing excitation power, and decreased fluorescence when the stimulating beam (maximum stimulation power) was additionally turned on. At the maximum available excitation beam and stimulation beam powers, we observed 8% depletion for both N-v and crimson dye fluorescence. We used a four-level atom model rate equation to roughly fit the experimental data. From this model, we estimate a maximum excitation fraction of 0.6 for both the N-v centers and the crimson dye. The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
+
+[<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
+
+and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, excitation is near to the saturation regime, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. An <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">axial view</a> of the N-v center fluorescence from a nanodiamond is available in the appendix.
+</p>
 
 <h4>
 Dark-field imaging of stimulated emission</h4>
@@ -393,7 +403,7 @@ We also know elastically scattered light has a minimum \(\frac{\pi}{2}\) phase d
 
 [<a class="citation" href="http://dx.doi.org/10.1126/science.121.3141.345" title="Zernike, Frits. &quot;How I discovered phase contrast.&quot; Science 121, no. 3141 (1955): 345-349.">Zernike 1955</a>],
 
-and larger delay for light scattered by particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d<<\frac{\lambda}{\pi}\), so:
+and larger delay for light scattered by particles that do not have a sufficiently small diameter for the Rayleigh approximation \(d\ll \frac{\lambda}{\pi}\), so:
 <div>
 	$$\begin{equation}\phi_{scat} - \phi_0 \ge \frac{\pi}{2} \end{equation}$$
 </div>
@@ -405,12 +415,14 @@ We can then estimate the relative phase between scattered light and stimulated e
 <div>
 	$$\begin{equation}\Delta\phi = \phi_{scat} - \phi_{stim} \sim \frac{\pi}{2} + \Delta\phi_{refractive} \approx 2.2 \end{equation}$$
 </div>
+<p>
 This fulfills the requirement for destructive interference:
+</p>
 <div>
 	$$\begin{equation} \frac{\pi}{2} \lt \Delta\phi \lt \frac{3\pi}{2} \end{equation}$$
 </div>
 
-</p>
+
 
 <p><strong>we did other controls</strong>We performed a series of control experiments to rule out other possible sources of decreased scattered light image brightness and ascertain that it is a hallmark of dark-field imaging of stimulated emission from N-v centers in our nanodiamonds.
 </p>
