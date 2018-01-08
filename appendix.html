@@ -125,39 +125,39 @@ Parts list</h3>
   <tr id="ET680sp-2P8"><td>Chroma</td>						<td>ET680sp-2P8</td>
   <td>Shortpass filter to block stimulated emission and allow fluorescence</td>
   <tr id="AOM"><td>Gooch &amp; Housego</td>						<td>AOMO 3200-125</td>
-  <td>Visible wavelength acousto-optic modulator crystal (one for the 532 nm laser and one for the 721 nm laser)</td>
-  <tr><td>Gooch &amp; Housego</td>						<td>1080AF-AINA-1.0 HCR</td>
-  <td>Analog RF driver for 532 nm laser acousto-optic modulator</td>
-  <tr><td>Gooch &amp; Housego</td>						<td>1080AF-AINA-2.5 HCR</td>
-  <td>Analog RF driver for 721 nm laser acousto-optic modulator</td>
+  <td>Visible wavelength acousto-optic modulator crystal (one for the 532 nm laser and one for the 721 nm laser). RF supplied by <a href="./appendix.html#green_AOM_driver">green</a> and <a href="./appendix.html#red_AOM_driver">red</a> AOM drivers.</td>
+  <tr id="green_AOM_driver"><td>Gooch &amp; Housego</td>						<td>1080AF-AINA-1.0 HCR</td>
+  <td>Analog RF driver for 532 nm laser <a href="./appendix.html#AOM">acousto-optic modulator</a>. Triggered by <a href="./appendix.html#analog_out_card">analog out card</a> with a <a href="./appendix.html#buffer_amp">buffer amplifier</a> for higher current.</td>
+  <tr id="red_AOM_driver"><td>Gooch &amp; Housego</td>						<td>1080AF-AINA-2.5 HCR</td>
+  <td>Analog RF driver for 721 nm laser <a href="./appendix.html#AOM">acousto-optic modulator</a>. Triggered by <a href="./appendix.html#analog_out_card">analog out card</a> with a <a href="./appendix.html#buffer_amp">buffer amplifier</a> for higher current.</td>
   <tr id="collection_objective"><td>Leica</td>						<td>HCX PL APO 100x/1.40-0.70 OIL</td>
   <td>100X plan apo NA = 1.4 objective used for imaging</td>
   <tr id="illumination_objective"><td>Mitutoyo</td>						<td>Edmund optics part #46-144</td>
   <td>10X plan apo infinity corrected long working distance objective used for sample illumination</td>
-  <tr><td>National Instruments</td>						<td>NI PCI-6733</td>
-  <td>Analog output board to trigger the camera and AOMs</td>
-  <tr><td>National Instruments</td>						<td>BNC-2110</td>
-  <td>Connector block to interface with NI PCI-6733 analog output board</td>
+  <tr id="analog_out_card"><td>National Instruments</td>						<td>NI PCI-6733</td>
+  <td>Analog output board to trigger the camera and AOMs. <a href="./appendix.html#bnc_connector_block">BNC connector block</a> interface.</td>
+  <tr id="bnc_connector_block"><td>National Instruments</td>						<td>BNC-2110</td>
+  <td>Connector block to interface with <a href="./appendix.html#analog_out_card">analog output board</a></td>
   <tr id="green_laser"><td>Opto-Engine</td>					<td>MLL-F-532-2.5W</td>
   <td>2.5 Watt CW laser with 532 nm wavelength</td>
   <tr id="red_laser"><td>Opto-Engine</td>					<td>MRL-FN-721-300mW</td>
   <td>0.3 Watt CW laser with 721 nm wavelength</td>
   <tr id="camera"><td>PCO</td>						<td>edge4.2.WAT</td>
-  <td>PCO.edge 4.2 water-cooled rolling shutter sCMOS camera</td>
+  <td>PCO.edge 4.2 water-cooled rolling shutter sCMOS camera. Triggered by <a href="./appendix.html#analog_out_card">analog output board</a>.</td>
   <tr id="chrome_disc"><td>Photo Sciences Inc.</td>						<td>custom (<a href="http://www.photo-sciences.com/">website</a>)</td>
   <td>512 &micro;m diameter, OD5 chrome disc plated on 2.38 mm thick glass plate. Discs with other diameters are plated nearby on the same substrate.</td>
   <tr id="chrome_annulus"><td>Photo Sciences Inc.</td>						<td>custom (<a href="http://www.photo-sciences.com/">website</a>)</td>
   <td>512 &micro;m outer diameter, 9 &micro;m inner diameter, OD5 chrome annulus plated on 2.38 mm thick glass plate. Annuli with different inner and outer diameters are plated nearby on the same substrate. (The annulus we used passes a small fraction of the transmitted beam, which diverges more strongly due to the 9 &micro;m hole. The net effect is ~150-fold attenuation of the coherent background intensity.)</td>
   <tr id="phase_plate"><td>Potomac Photonics</td>						<td>custom (<a href="https://www.potomac-laser.com/">website</a>)</td>
   <td>0.18 mm thick cover glass with a 90 &micro;m diameter hole drilled by laser (the "phase plate" in Figure 2)</td>
-  <tr><td>San Mateo Electronics</td>						<td>LM324N</td>
-  <td>Operational Amplifiers (set up as buffer amps) to supply amplified current to AOM drivers from analog out board</td>
-  <tr><td>San Mateo Electronics</td>						<td>LM7824</td>
-  <td>24V regulator for LM324N buffer amps</td>
-  <tr><td>Thorlabs</td>						<td>PE4</td>
-  <td>Piezoelectric actuator to position sample axially</td>
-  <tr><td>Thorlabs</td>						<td>MDT694B</td>
-  <td>Controller for Thorlabs PE4 piezoelectric actuator</td>
+  <tr id="buffer_amp"><td>San Mateo Electronics</td>						<td>LM324N</td>
+  <td>Operational amplifiers (set up as buffer amplifiers) to supply amplified current to AOM drivers from analog out board. Voltage stabilized by <a href="./appendix.html#24V_regulator">24 Volt regulator</a></td>
+  <tr id="24V_regulator"><td>San Mateo Electronics</td>						<td>LM7824</td>
+  <td>24V regulator for <a href="./appendix.html#buffer_amp">buffer amps</a></td>
+  <tr id="piezo_actuator"><td>Thorlabs</td>						<td>PE4</td>
+  <td>Piezoelectric actuator to position sample axially. Controlled by <a href="./appendix.html#piezo_controller">piezo controller</a>.</td>
+  <tr id="piezo_controller"><td>Thorlabs</td>						<td>MDT694B</td>
+  <td>Serial port-driven controller for Thorlabs <a href="./appendix.html#piezo_actuator">piezoelectric actuator</a>.</td>
   <tr id="FESH0700"><td>Thorlabs</td>						<td>FESH0700</td>
   <td>Shortpass filter to block stimulated emission and allow fluorescence</td>
   <tr id="FELH0600"><td>Thorlabs</td>						<td>FELH0600</td>
