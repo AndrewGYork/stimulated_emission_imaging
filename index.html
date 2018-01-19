@@ -318,23 +318,23 @@ and
 
 <h4>Fluorescence and stimulated emission depletion</h4>
 
-<p><strong>what are our expectations?</strong>Given our modest laser intensities, we expect vibrational relaxation rates (\(1/\tau_{vibr}\)) to dominate excitation, fluorescence, and stimulated emission rates. In the limit \(\tau_{vibr} \ll \left\{\tau_{fluor}, h_{stim}\sigma_{23}, h_{exc}\sigma_{01}\right\}\), the model from
+<p><strong>what are our expectations?</strong>Fluorophore vibrational relaxation rate constants \(1/\tau_{vibr}\) dominate their spontaneous emission rate constants \(1/\tau_{fluor}\), and given our modest laser intensities,they also dominate excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
 
 reduces to:
 </p>
 <div>
-	$$\begin{equation} \frac{dn_{0}}{dt} = -\frac{dn_{2}}{dt} = \left(h_{stim}\sigma_{23} + \frac{1}{\tau_{fluor}}\right)n_2 - h_{exc}\sigma_{01}n_0 \end{equation}$$
+	$$\begin{equation} \frac{dn_{2}}{dt} = h_{exc}\sigma_{01}(1-n_2) - h_{stim}\sigma_{23}n_2 - \frac{1}{\tau_{fluor}}n_2 \end{equation}$$
 </div>
 <p>
-where \(h_{exc}\) is the intensity of the excitation light and \(\sigma_{01}\) is the cross-section for optical excitation. We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), and also the proportionality between measured fluorescence (in camera counts per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
+We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), as well as the proportionality between measured fluorescence (in camera counts per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
 </p>
 
-<p><strong>what did we do?</strong>We observed our fluorophores in the presence of the excitation and stimulation beams through a spectral filter that transmitted fluorescence but blocked the excitation and stimulation light (as in Figure 2b with <code>Imaging method: Fluorescence...</code> selected). We exposed the nanodiamonds to a train of 700 pairs of excitation and stimulation pulses over a single camera exposure, and we exposed the beads to a train of 5 pairs of excitation and stimulation pulses. In both cases, the pulses were spaced in time by 600 &micro;s. The excitation pulse peak power was tuned over a range of values up to ~1.4 W. The stimulation power was either 0 mW or 300 mW. Figure 3 shows the fluorescence from the nanodiamonds and beads measured with increasing excitation power and with and without the full stimulation power. Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 450 nm). The inset images were taken with maximum excitation power and no stimulation power. (how did you deal with bleaching) (link to python script that took the data)
+<p><strong>what did we do?</strong>We imaged our fluorophores as illustrated in Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected. We exposed the samples to a train of simultaneous excitation and stimulation pulses over a single camera exposure, with 600 &micro;s between consecutive pulse pairs. We used 700 pulse pairs per exposure for the nanodiamonds, and 5 for the beads. We tuned the peak excitation power from 0 to ~1.4 W for stimulation powers of 0 and 300 mW while measuring fluorescence (Figure 3). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 450 nm). The inset images were taken with maximum excitation power and no stimulation power. <strong>TO DO: link to python script that took the data</strong>
 </p>
 
-<p><strong>TO DO: get a new "signal" y axis and change "depleted fluorescence" to "depleted ______ fluorescence"</strong></p>
+<p><strong>TO DO: get a new "signal" y axis and change "depleted fluorescence" to "depleted ______ fluorescence" AND make dotted rectangle around inset image AND make large/bold font axes labels.</strong></p>
 
 <figure id="Figure_3">
 <img src="./images/figure_3/fluorescence_depletion_nd.svg"
@@ -350,7 +350,7 @@ where \(h_{exc}\) is the intensity of the excitation light and \(\sigma_{01}\) i
 <figcaption><strong>Figure 3:</strong> Fluorescence from a N-v nanodiamond or a crimson dyed bead with increasing excitation power, with (red) and without (green) stimulated emission depletion. Each point represents the average brightness per pixel of the main lobe of the fluorescent image and is normalized to the estimated excitation fraction. The experimental data is fit by a rate equation model for a three-level atom. Inset: Image of fluorescence from a nanodiamond or bead with maximum excitation power (scale bar: 250 nm). This figure was generated by <code>/figure_generation/figure_3.py</code> and <code>/figure_generation/figure_3b.py</code>.</figcaption>
 </figure><p></p>
 
-<p><strong>did our observations confirm our expectations?</strong>At equilibrium, \(\frac{dn_{0}}{dt} = \frac{dn_{2}}{dt} = 0\), yielding:</p>
+<p><strong>did our observations confirm our expectations?</strong>At equilibrium, \(\frac{dn_{2}}{dt} = 0\), yielding:</p>
 
 <div>
 	$$\begin{equation} n_2 = \frac{h_{exc}\sigma_{01}}{h_{exc}\sigma_{01} + h_{stim}\sigma_{23} + \frac{1}{\tau_{fluor}}} \end{equation}$$
