@@ -322,15 +322,21 @@ and
 
 <p><strong>what do we expect? </strong>We expect stimulated emission (unlike fluorescence) to coherently interfere with the stimulating beam. Phase contrast microscopy of index-matched beads allows us to test that expectation (Figure 2b with <code>Imaging method: Phase contrast imaging of stimulated emission...</code> and <code>Fluorescent sample type: Beads...</code> selected). Because index matching minimizes scattering, this closely resembles our thought experiment (Figure 1a with <code>Microscope type: Phase contrast</code> selected), where the stimulating beam provides a bright, uniform, coherent background for the stimulated emission to interfere with.
 </p>
-<p>If the model in Figure 1b is accurate, we expect this background to become (slightly) uniformly brighter due to stimulated emission when the bead is excited. Tuning the angle of the phase plate would not change the camera signal, because the stimulated emission would overlap perfectly with the stimulating beam, which does not contact the plate.
+<p>If the model in Figure 1b is accurate, we expect this background to become (slightly) uniformly brighter when the bead is excited, due to stimulated emission. Tuning the angle of the phase plate would not change the camera signal, because the stimulated emission would overlap perfectly with the stimulating beam, which does not contact the plate.
 </p>
-<p>If the model in Figure 1c is accurate, we expect stimulated emission to form an image of the excited bead on the camera, and we expect this image to coherently interfere with the stimulation beam background. Rotating the phase plate would apply a phase shift to the stimulated emission, tuning the magnitude and sign of the interference. Tuning the amount of scattered light by slightly mismatching the refractive index of the beads would allow us to estimate the relative phase between transmitted, scattered, and stimulated light.
+<p>If the model in Figure 1c is accurate, we expect stimulated emission to form an image of the excited bead on the camera, and we expect this image to coherently interfere with the stimulation beam background. Rotating the phase plate would apply a phase shift to the stimulated emission, tuning the magnitude and sign of the interference. Additionally tuning the amount of scattered light (by slightly mismatching the refractive index of the bead's mounting medium) would allow us to estimate the relative phase between transmitted, scattered, and stimulated light.
 
 
 </p>
 
 
-<p><strong>what did we do? </strong>We used the phase contrast imaging system (Figure 2b with <code>Imaging method: Phase contrast...</code> selected) to empirically determine the fractional mixture of different mounting media to minimize scattered light from the beads (<a href="./appendix.html#Crimson_dyed_polystyrene_bead_properties_and_mounting">procedure</a>). We then measured phase contrast images of the index-matched beads with and without the excitation beam. In Figure 7, we show phase contrast images of the crimson beads embedded in different mixtures of index matching media, as well as the change of the the scattered and transmitted light background due to excitation of the crimson dye. We tilted the phase plate to two angles that maximally enhanced the signal contrast, one of which caused the sign of the excitation-related signal to reverse. As expected, if the phase contrast image of the bead's scattered light was visible, the sign of the scattered light signal was also reversed by the rotated phase plate. The phase contrast images were taken with a train of 5 simultaneous stimulation and excitation laser pulses, each at peak intensity with ~1.25 &mu;s duration, over a 4 ms camera exposure. The displayed images are an average of two camera exposures.
+<p><strong>what did we do? </strong>We used <code>Imaging method: Phase contrast imaging of scattered light</code> (Figure 2b) to <a href="./appendix.html#Crimson_dyed_polystyrene_bead_properties_and_mounting">empirically determine</a> the fractional mixture of different mounting media to minimize scattered light from the beads. The top row of Figure 7 shows three phase contrast images of isolated beads: one with bead refractive index greater than the mounting medium (left), one with well-matched mounting medium (center), and one with bead refractive index less than the mounting medium (right). For one phase plate angle (Figure 7 with <code>Phase angle: 0</code> selected), the leftmost bead appears as a bright spot, the rightmost bead appears as a dark spot, and the index-matched bead scatters minimal light, so no bead is apparent. For another phase plate angle (Figure 7 with <code>Phase angle: &pi;</code> selected), the brightness of the left and right images are reversed, and the well-matched bead remains invisible.
+</p>
+
+<p>We then measured phase contrast images of the beads 
+</p>
+
+<p>We then measured phase contrast images of the index-matched beads with and without the excitation beam. In Figure 7, we show phase contrast images of the crimson beads embedded in different mixtures of index matching media, as well as the change of the the scattered and transmitted light background due to excitation of the crimson dye. We tilted the phase plate to two angles that maximally enhanced the signal contrast, one of which caused the sign of the excitation-related signal to reverse. As expected, if the phase contrast image of the bead's scattered light was visible, the sign of the scattered light signal was also reversed by the rotated phase plate. The phase contrast images were taken with a train of 5 simultaneous stimulation and excitation laser pulses, each at peak intensity with ~1.25 &mu;s duration, over a 4 ms camera exposure. The displayed images are an average of two camera exposures.
 </p>
 
 <figure id="Figure_7">
@@ -340,7 +346,7 @@ and
   <tr>
   <td>Phase angle: </td><td><select id="Figure_7_angle" onchange="update_figure_7()">
     <option value="zero" selected="selected">0</option>
-    <option value="pi">Pi</option>
+    <option value="pi">&pi;</option>
   </select></td><td>(Adjust the phase of the transmitted light relative to scattered light)</td>
     </tr>
 </table>
