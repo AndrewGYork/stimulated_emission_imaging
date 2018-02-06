@@ -414,13 +414,20 @@ We'd like to confirm that our fluorescent signals are consistent with this model
 <p><strong>TO DO: get a new "signal" y axis and change "depleted fluorescence" to "depleted ______ fluorescence" AND make dotted rectangle around inset image AND make large/bold font axes labels AND put "nanodiamond" or "bead" on inset.</strong></p>
 
 <figure id="Figure_3">
-<img src="./images/figure_3/fluorescence_depletion_nd.svg"
+<img src="./images/figure_3/fluorescence_depletion_nd_rate_optimal.svg"
  alt="Figure 3" id="Figure_3_image">
  <table class="figure_controls">
   <tr>
   <td>Sample type: </td><td><select id="Figure_3_sample_type" onchange="update_figure_3()">
     <option value="nd" selected="selected">N-v doped nanodiamonds</option>
     <option value="dye">Crimson fluorescent beads</option>
+  </select></td>
+    </tr>
+  <tr>
+  <td>Fit parameters: </td><td><select id="Figure_3_fit_parameter" onchange="update_figure_3()">
+    <option value="lo">Rate constant 20&percnt; lower</option>  
+    <option value="optimal" selected="selected">Optimal rate constant</option>
+    <option value="hi">Rate constant 20&percnt; higher</option>
   </select></td>
     </tr>
 </table>
