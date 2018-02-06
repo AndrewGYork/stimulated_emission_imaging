@@ -39,7 +39,8 @@ function update_figure_2() {
 // Figure 3 interactively loads static images, stored locally
 function update_figure_3() {
   var sample_type = document.getElementById("Figure_3_sample_type").value;
-  var filename = "./images/figure_3/fluorescence_depletion_" + sample_type + ".svg";
+  var fit_parameter = document.getElementById("Figure_3_fit_parameter").value;
+  var filename = "./images/figure_3/fluorescence_depletion_" + sample_type + "_rate_" + fit_parameter + ".svg";
   var image = document.getElementById("Figure_3_image");
   image.src = filename;
 }
