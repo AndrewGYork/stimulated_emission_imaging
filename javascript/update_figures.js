@@ -1,4 +1,3 @@
-
 // Figure 1a interactively loads mp4 video, stored locally
 function update_figure_1a() {
   var figure_1a_microscope_type = document.getElementById("figure_1a_microscope_type").value;
@@ -34,7 +33,6 @@ function update_figure_2() {
   var image = document.getElementById("Figure_2b_image");
   image.src = filename;
 }
-
 
 // Figure 3 interactively loads static images, stored locally
 function update_figure_3() {
