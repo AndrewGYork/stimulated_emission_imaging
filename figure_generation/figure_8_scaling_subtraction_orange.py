@@ -14,26 +14,26 @@ def main():
     reps_avgd = 1
     reps_per_set = int(num_reps/reps_avgd)
     num_delays = 3
-##    sets = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-    sets = ['a', 'b']
-##    image_center = [
-##        [57,190],
-##        [65,190],
-##        [69,186],
-##        [70,184],
-##        [75,182],
-##        [76,182],
-##        [77,181]]
+    dark_counts = 100
+    sets = ['a', 'b', 'c']
     image_center = [
-        [57,190], [65, 190]]
+        [52, 192], [52, 192], [52, 192]]
     assert len(sets) == len(image_center)
     height = 128
     width = 380
     lbhw = 28 # half width of box around main image lobe
-    bg_up = 9
-    bg_down = 115
-    bg_left = 335
-    bg_right = 373
+    # get bg level for brightness calibration across all data sets
+    ref_data_set = 'a'
+    ref_rep_num = 2
+    ref_delay_num = 2
+    ref_filename = (
+        './../../stimulated_emission_data/figure_8/' + 'dataset_orange_' +
+        ref_data_set + '_' + str(reps_avgd) + '_rep_avg.tif')
+    set_data = np_tif.tif_to_array(
+        ref_filename).astype(np.float64) - dark_counts
+    set_data = set_data.reshape(reps_per_set,num_delays,height,width)
+    bg_level_global = get_bg_level(set_data[ref_rep_num, ref_delay_num, :, :])
+    
 
     all_STE_images = np.zeros((reps_per_set*len(sets),height,width))
     STE_signal = np.zeros((reps_per_set*len(sets)))
@@ -42,18 +42,44 @@ def main():
     for my_index, my_set in enumerate(sets):
         filename = (
             './../../stimulated_emission_data/figure_8/' +
-            'dataset_' + my_set + '_' + str(reps_avgd) + '_rep_avg.tif')
-        set_data = np_tif.tif_to_array(filename).astype(np.float64)
+            'dataset_orange_' + my_set + '_' + str(reps_avgd) + '_rep_avg.tif')
+        set_data = np_tif.tif_to_array(
+            filename).astype(np.float64) - dark_counts
         assert set_data.shape == (reps_per_set*num_delays,height,width)
         set_data = set_data.reshape(reps_per_set,num_delays,height,width)
+
+        # get zero delay and max delay images
+        zero_delay_images = set_data[:, 1, :, :]
+        max_delay_images = set_data[:, 0:3:2, :, :].mean(axis=1)
+
+        # local intensity calibration
+        bg_level_local = get_bg_level(max_delay_images)
+        level_local = get_bg_level(zero_delay_images)
+        local_calibration_factor = bg_level_local / level_local
+        local_calibration_factor = local_calibration_factor[
+            :, None, None]
+        zero_delay_images = zero_delay_images * local_calibration_factor
+
+        # intensity calibration across all data sets
+        # for zero delay images
+        level_local = get_bg_level(zero_delay_images)
+        global_calibration_factor = bg_level_global / level_local
+        global_calibration_factor = global_calibration_factor[
+            :, None, None]
+        zero_delay_images = zero_delay_images * global_calibration_factor
+        # for max delay images
+        global_bg_calibration_factor = bg_level_global / bg_level_local
+        global_bg_calibration_factor = global_bg_calibration_factor[
+            :, None, None]
+        max_delay_images = max_delay_images * global_bg_calibration_factor
+
+        # local range in global set
         begin = my_index * reps_per_set
         end = begin + reps_per_set
 
         # stim emission image is the image with green/red simultaneous minus
         # image with/red green not simultaneous
-        STE_image_set = (
-            set_data[:, 1, :, :] -
-            0.5 * (set_data[:, 0, :, :] + set_data[:, 2, :, :]))
+        STE_image_set = zero_delay_images - max_delay_images
         all_STE_images[begin:end] = STE_image_set
 
         # average points around main STE image lobe and add to STE_signal list
@@ -64,12 +90,12 @@ def main():
             ste_x - lbhw:ste_x + lbhw
             ].mean(axis=2).mean(axis=1)
 
-        # average lots of points away from STE image
-        bg_signal[begin:end] = STE_image_set[
-            :, bg_up:bg_down, bg_left:bg_right].mean(axis=2).mean(axis=1)
+##        # average lots of points away from STE image
+##        bg_signal[begin:end] = STE_image_set[
+##            :, bg_up:bg_down, bg_left:bg_right].mean(axis=2).mean(axis=1)
 
-    # correct STE signal for stimulating beam power fluctuations
-    STE_signal -= bg_signal
+##    # correct STE signal for stimulating beam power fluctuations
+##    STE_signal -= bg_signal
 
     # dust particle in 
 
@@ -188,6 +214,26 @@ def main():
 
 
     return None
+
+def get_bg_level(data):
+    num_regions = 2
+    
+    # region 1
+    bg_up = 5#9
+    bg_down = 123#115
+    bg_left = 285#335
+    bg_right = 379#373
+    bg_level = data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
+
+    # region 2
+    bg_up = 5
+    bg_down = 123
+    bg_left = 1
+    bg_right = 81
+    bg_level += data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
+
+    return(bg_level / num_regions)
+    
 
 def annular_filter(x, r1, r2):
     assert r2 > r1 >= 0

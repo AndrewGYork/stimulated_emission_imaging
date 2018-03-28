@@ -5,31 +5,26 @@ import matplotlib.pyplot as plt
 
 def main():
 
-    assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_8'):
-        os.mkdir('./../images/figure_8')
+##    assert os.path.isdir('./../images')
+##    if not os.path.isdir('./../images/figure_8'):
+##        os.mkdir('./../images/figure_8')
 
     crop_rows = 3 # these image rows tend to saturate
     num_reps = 3000 #original number of reps
     reps_avgd = 1
     reps_per_set = int(num_reps/reps_avgd)
     num_delays = 3
-##    sets = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-    sets = ['a', 'b']
-##    image_center = [
-##        [57,190],
-##        [65,190],
-##        [69,186],
-##        [70,184],
-##        [75,182],
-##        [76,182],
-##        [77,181]]
+    sets = ['a', 'b', 'c', 'd', 'e']
     image_center = [
-        [57,190], [65, 190]]
+        [86,196],
+        [91,193],
+        [99,188],
+        [103,186],
+        [108,181]]
     assert len(sets) == len(image_center)
     height = 128
     width = 380
-    lbhw = 28 # half width of box around main image lobe
+    lbhw = 13 # half width of box around main image lobe
     bg_up = 9
     bg_down = 115
     bg_left = 335
@@ -41,7 +36,7 @@ def main():
     
     for my_index, my_set in enumerate(sets):
         filename = (
-            './../../stimulated_emission_data/figure_8/' +
+            './../../stimulated_emission_data/figure_8/STE_depletion/' +
             'dataset_' + my_set + '_' + str(reps_avgd) + '_rep_avg.tif')
         set_data = np_tif.tif_to_array(filename).astype(np.float64)
         assert set_data.shape == (reps_per_set*num_delays,height,width)
@@ -49,11 +44,8 @@ def main():
         begin = my_index * reps_per_set
         end = begin + reps_per_set
 
-        # stim emission image is the image with green/red simultaneous minus
-        # image with/red green not simultaneous
-        STE_image_set = (
-            set_data[:, 1, :, :] -
-            0.5 * (set_data[:, 0, :, :] + set_data[:, 2, :, :]))
+        # for fluorescence images just average all three images in delay scan
+        STE_image_set = set_data.mean(axis=1)
         all_STE_images[begin:end] = STE_image_set
 
         # average points around main STE image lobe and add to STE_signal list
