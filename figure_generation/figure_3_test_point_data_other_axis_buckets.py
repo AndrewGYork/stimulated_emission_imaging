@@ -36,11 +36,14 @@ def main():
     red_powers = np.around(red_powers).astype(int)
 
     # load data
-
-    filename = ('./../../stimulated_emission_data/figure_3/data_point_signal.tif')
-    data = np_tif.tif_to_array(filename).astype(np.float64)
-    bg_filename = ('./../../stimulated_emission_data/figure_3/data_point_bg.tif')
-    bg = np_tif.tif_to_array(bg_filename).astype(np.float64)
+    data = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2016_11_14_modulated_imaging_depletion_nanodiamond_7' +
+        '/data_point_signal.tif').astype(np.float64)
+    bg = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2016_11_14_modulated_imaging_depletion_nanodiamond_7' +
+        '/data_point_bg.tif').astype(np.float64)
 
     data = data - bg
     
@@ -76,10 +79,12 @@ def main():
 
     # make inset image of representative data
     # image is already cropped, averaged (10 reps) and bg subtracted
-    inset_image_filename = './../../stimulated_emission_data/figure_3/representative_image_avg.tif'
-    inset_image = np_tif.tif_to_array(inset_image_filename).astype(np.float64)
+    inset_image = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2016_11_14_modulated_imaging_depletion_nanodiamond_7' +
+        '/representative_image_avg.tif').astype(np.float64)
     inset_image = inset_image[0,:,:]
-    inset_image = bucket(inset_image, bucket_size=(6, 6))
+    inset_image = bucket(inset_image, bucket_size=(8, 8))
     inset_image[-2:-1, 1:6] = np.max(inset_image) # scale bar
     
     # plot signal along with fit
@@ -158,9 +163,9 @@ def main():
     plt.imshow(inset_image, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1.2, 2,'Nanodiamond',fontsize=14,color='white',fontweight='bold')
+    a.text(0.4, 1.5,'Nanodiamond',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.4, 5.7), 8, 8,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6, 3.9), 6, 6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_nd_rate_optimal.svg')
     plt.show()
@@ -244,9 +249,9 @@ def main():
     plt.imshow(inset_image, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1.2, 2,'Nanodiamond',fontsize=14,color='white',fontweight='bold')
+    a.text(0.4, 1.5,'Nanodiamond',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.4, 5.7), 8, 8,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6, 3.9), 6, 6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_nd_rate_lo.svg')
     plt.show()
@@ -330,9 +335,9 @@ def main():
     plt.imshow(inset_image, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1.2, 2,'Nanodiamond',fontsize=14,color='white',fontweight='bold')
+    a.text(0.4, 1.5,'Nanodiamond',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.4, 5.7), 8, 8,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6, 3.9), 6, 6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_nd_rate_hi.svg')
     plt.show()

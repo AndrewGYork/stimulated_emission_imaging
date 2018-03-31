@@ -40,9 +40,10 @@ def main():
     red_powers = red_powers * red_max_mW / max(red_powers)
     red_powers = np.around(red_powers).astype(int)
 
-    filename = (
-        './../../stimulated_emission_data/figure_3c/dataset_green_all_powers_up.tif')
-    data = np_tif.tif_to_array(filename).astype(np.float64)
+    data = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2018_03_05_STE_depletion_orange_bead_15_low_power' +
+        '/dataset_green_all_powers_up.tif').astype(np.float64)
 
     # get rid of overexposed rows at top and bottom of images
     less_rows = 3
@@ -90,16 +91,16 @@ def main():
     right = left + 130
     fluorescence_cropped = (fluorescence_stack[-1,top:bot,left:right] -
                             fluorescence_signal_bg[-1])
-    fluorescence_cropped = bucket(fluorescence_cropped, bucket_size=(6, 6))
+    fluorescence_cropped = bucket(fluorescence_cropped, bucket_size=(8, 8))
     depletion_cropped = depletion_stack[-1,top:bot,left:right]
-    depletion_cropped = bucket(fluorescence_cropped, bucket_size=(6, 6))
+    depletion_cropped = bucket(fluorescence_cropped, bucket_size=(8, 8))
     
     fluorescence_cropped[-2:-1, 1:6] = np.max(fluorescence_cropped) # scale bar
     depletion_cropped[-2:-1, 1:6] = np.min(depletion_cropped) # scale bar
 
 
     # IMPORTANT PARAMETER FOR FIT BELOW /1.2 - 73, reg 81 *1.2 - 89
-    reg_brightness = 103
+    reg_brightness = 97
     reg_mW_per_kex = 80
     reg_mW_per_kdep = 10000
     brightness = reg_brightness
@@ -113,10 +114,14 @@ def main():
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 30
-    bot = top + 46
-    left = 191
-    right = left + 46
+##    top = 30
+##    bot = top + 46
+##    left = 191
+##    right = left + 46
+    top = 29
+    bot = top + 48
+    left = 190
+    right = left + 48
     depletion_signal = (
         depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = (
@@ -194,9 +199,9 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1.5,2,'Orange bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.9,1.5,'Orange bead',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.2,4.4),7.7,7.7,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6,2.9),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_orange_dye_rate_optimal.svg')
     plt.show()
@@ -207,10 +212,10 @@ def main():
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 30
-    bot = top + 46
-    left = 191
-    right = left + 46
+    top = 29
+    bot = top + 48
+    left = 190
+    right = left + 48
     depletion_signal = (
         depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = (
@@ -287,9 +292,9 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1.5,2,'Orange bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.9,1.5,'Orange bead',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.2,4.4),7.7,7.7,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6,2.9),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_orange_dye_rate_lo.svg')
     plt.show()
@@ -300,10 +305,10 @@ def main():
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 30
-    bot = top + 46
-    left = 191
-    right = left + 46
+    top = 29
+    bot = top + 48
+    left = 190
+    right = left + 48
     depletion_signal = (
         depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = (
@@ -380,9 +385,9 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1.5,2,'Orange bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.9,1.5,'Orange bead',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.2,4.4),7.7,7.7,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6,2.9),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_orange_dye_rate_hi.svg')
     plt.show()

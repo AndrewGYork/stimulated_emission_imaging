@@ -40,9 +40,10 @@ def main():
     red_powers = red_powers * red_max_mW / max(red_powers)
     red_powers = np.around(red_powers).astype(int)
 
-    filename = (
-        './../../stimulated_emission_data/figure_3b/dataset_green_all_powers_up.tif')
-    data = np_tif.tif_to_array(filename).astype(np.float64)
+    data = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2018_02_28_STE_depletion_cr_bead_8' +
+        '/dataset_green_all_powers_up.tif').astype(np.float64)
 
     # get rid of overexposed rows at top and bottom of images
     less_rows = 3
@@ -90,9 +91,9 @@ def main():
     right = left + 130
     fluorescence_cropped = (fluorescence_stack[-1,top:bot,left:right] -
                             fluorescence_signal_bg[-1])
-    fluorescence_cropped = bucket(fluorescence_cropped, bucket_size=(6, 6))
+    fluorescence_cropped = bucket(fluorescence_cropped, bucket_size=(8, 8))
     depletion_cropped = depletion_stack[-1,top:bot,left:right]
-    depletion_cropped = bucket(fluorescence_cropped, bucket_size=(6, 6))
+    depletion_cropped = bucket(fluorescence_cropped, bucket_size=(8, 8))
     
     fluorescence_cropped[-2:-1, 1:6] = np.max(fluorescence_cropped) # scale bar
     depletion_cropped[-2:-1, 1:6] = np.min(depletion_cropped) # scale bar
@@ -112,7 +113,7 @@ def main():
 ##    plt.savefig('./../images/figure_3b/fluorescence_depletion_image.svg')
 
     # IMPORTANT PARAMETER FOR FIT BELOW /1.2 - 73, reg 81 *1.2 - 89
-    reg_brightness = 97
+    reg_brightness = 92
     reg_mW_per_kex = 960
     reg_mW_per_kdep = 1480
     brightness = reg_brightness
@@ -125,10 +126,14 @@ def main():
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 37
-    bot = top + 46
-    left = 184
-    right = left + 46
+##    top = 37
+##    bot = top + 46
+##    left = 184
+##    right = left + 46
+    top = 36
+    bot = top + 48
+    left = 183
+    right = left + 48
     depletion_signal = (
         depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = (
@@ -208,9 +213,9 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1,2,'Crimson bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.5,1.5,'Crimson bead',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.4,4.8),8,7.7,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6,3.4),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_crimson_dye_rate_optimal.svg')
     plt.show()
@@ -221,10 +226,14 @@ def main():
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 37
-    bot = top + 46
-    left = 184
-    right = left + 46
+##    top = 37
+##    bot = top + 46
+##    left = 184
+##    right = left + 46
+    top = 36
+    bot = top + 48
+    left = 183
+    right = left + 48
     depletion_signal = (
         depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = (
@@ -304,9 +313,9 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1,2,'Crimson bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.5,1.5,'Crimson bead',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.4,4.8),8,7.7,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6,3.4),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_crimson_dye_rate_lo.svg')
     plt.show()
@@ -317,10 +326,14 @@ def main():
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
+##    top = 37
+##    bot = top + 46
+##    left = 184
+##    right = left + 46
     top = 37
-    bot = top + 46
+    bot = top + 48
     left = 184
-    right = left + 46
+    right = left + 48
     depletion_signal = (
         depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     depleted_signal = (
@@ -400,9 +413,9 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(1,2,'Crimson bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.5,1.5,'Crimson bead',fontsize=14,color='white',fontweight='bold')
     rect = patches.Rectangle(
-        (6.4,4.8),8,7.7,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6,3.4),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
     a.add_patch(rect)
     plt.savefig('./../images/figure_3/fluorescence_depletion_crimson_dye_rate_hi.svg')
     plt.show()
