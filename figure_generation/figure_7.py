@@ -1,342 +1,344 @@
 import os
 import numpy as np
-import np_tif
-from stack_registration import stack_registration
+from scipy.ndimage import gaussian_filter
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+import np_tif
+from stack_registration import bucket
 
 def main():
-
-    # the data to be plotted by this program is generated from raw tifs
-    # and repetition_average_expt_and_control.py
-
     assert os.path.isdir('./../images')
     if not os.path.isdir('./../images/figure_7'):
         os.mkdir('./../images/figure_7')
 
-    
-
-    
-    
-
     #####################################################################
     # meltmount mix data
-    filename = (
-        './../../stimulated_emission_data/figure_7/n_mix/dataset_green_1460mW.tif')
-    filename_ctrl = (
-        './../../stimulated_emission_data/figure_7/n_mix/dataset_green_0mW.tif')
-    data = np_tif.tif_to_array(filename).astype(np.float64)
-    data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
+    data = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2018_02_23_STE_phase_cr_bead_4' +
+        '/dataset_green_1010mW_single_shot.tif').astype(np.float64)
 
     # get rid of overexposed rows at top and bottom of images
     less_rows = 3
-    data = data[:,0+less_rows:data.shape[1]-less_rows,:]
-    data_ctrl = data_ctrl[:,0+less_rows:data_ctrl.shape[1]-less_rows,:]
-
-    # combine experiment and control images
-    data_combined = np.zeros((2,data.shape[0],data.shape[1],data.shape[2]))
-    data_combined[0] = data
-    data_combined[1] = data_ctrl
+    data = data[:, 0+less_rows:data.shape[1]-less_rows, :]
+    data = data[:, ::-1, :] # flip up down
 
     # reshape to hyperstack
-    data = data_combined[0]
-    data_ctrl = data_combined[1]
     num_delays = 3
     data = data.reshape((
-        data.shape[0]/num_delays,
+        data.shape[0]/num_delays,# phase plate angle number
         num_delays,
         data.shape[1],
         data.shape[2],
         ))
-    data_ctrl = data_ctrl.reshape((
-        data_ctrl.shape[0]/num_delays,
-        num_delays,
-        data_ctrl.shape[1],
-        data_ctrl.shape[2],
-        ))
-    # from the image where red/green are simultaneous, subtract the
-    # average of images taken when the delay magnitude is greatest
-    STE_stack = (
-        data[:,1,:,:] - # zero red/green delay
-        0.5 * (data[:,0,:,:] + data[:,2,:,:]) # max red/green delay
-        )
-    crosstalk_stack = (
-        data_ctrl[:,1,:,:] - # zero red/green delay
-        0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,2,:,:]) # max red/green delay
-        )
-    # phase contrast image (no STE) stack
-    phase_stack = 0.5 * (data[:,0,:,:] + data[:,2,:,:])
-    phase_stack_ctrl = 0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,2,:,:])
-    
-    # bg subtract no-contrast image
-    bg_index = 14
-    phase_stack = phase_stack - phase_stack[bg_index,:,:]
-    phase_stack_ctrl = phase_stack_ctrl - phase_stack_ctrl[bg_index,:,:]
 
-    # plot phase contrast image and stim emission signal
+    # Get the average pixel brightness in the background region of the
+    # meltmount mix data. We'll use it to account for laser intensity
+    # fluctuations
+    avg_laser_brightness = get_bg_level(data.mean(axis=(0, 1)))
+    
+    # scale all images to have the same background brightness. This
+    # amounts to a correction of roughly 1% or less
+    local_laser_brightness = get_bg_level(data)
+    data = data * (avg_laser_brightness / local_laser_brightness).reshape(
+        data.shape[0], data.shape[1], 1, 1)
+
+    # get zero delay images, max delay images and phase contrast images
+    zero_delay_images = data[:, 1, :, :] # zero red/green delay
+    max_delay_images = data[
+        :, 0:3:2, :, :].mean(axis=1) # average max and min delay
+    phase_contrast_images = data[:, 0, :, :] # red before green (min delay)
+    
+    # from the image where red/green are simultaneous, subtract the
+    # average of the max and min delay images
+    STE_stack = zero_delay_images - max_delay_images
+
+    # phase contrast image (no STE) stack: there is a large background
+    # variation that has nothing to do with the sample; it's due to
+    # multiple reflections in the microscope. Some of it moves when you
+    # move the phase plate, and some of it doesn't. This step subtracts
+    # off the stationary component. For each image we use in the figure,
+    # we subtract the minimum contrast image with the closest phase plate angle.
+    # minimum contrast phase plate angle closest to first 7 phase plate angles:
+    min_contrast_index_1 = 5
+    # minimum contrast phase plate angle closest to last 7 phase plate angles:
+    min_contrast_index_2 = 11
+    phase_stack = phase_contrast_images
+    phase_stack[0:8, ...] = phase_stack[0:8, ...] - phase_contrast_images[
+        min_contrast_index_1:min_contrast_index_1 + 1, :, :]
+    phase_stack[8:15, ...] = phase_stack[8:15, ...] - phase_contrast_images[
+        min_contrast_index_2:min_contrast_index_2 + 1, :, :]
+
+    # Luckily the non-stationary component is comprised of stripes that
+    # are completely outside of the microscope's spatial pass-band. The
+    # smoothing step below strongly attenuates this striping artifact
+    # with almost no effect on spatial frequencies due to the sample.
+    sigma = 9 # tune this parameter to reject high spatial frequencies
+    STE_stack = gaussian_filter(STE_stack, sigma=(0, sigma, sigma))
+    phase_stack = gaussian_filter(phase_stack, sigma=(0, sigma, sigma))
+
+    # crop images to center bead and fit into figure
     top = 0
     bot = 122
-    left = 59
-    right = 311
+    left = 109
+    right = 361
+    phase_cropped = phase_stack[:, top:bot, left:right]
+    STE_cropped = STE_stack[:, top:bot, left:right]
+
+    # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
+    # This is not great for viewing, because fluctuations can swamp the
+    # signal. This step bins the pixels into a more typical size.
+    bucket_width = 8 # bucket width in pixels
+    phase_cropped = bucket(
+        phase_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
+    STE_cropped = bucket(
+        STE_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
+
+    # display images from the two phase plate angles that maximize bead
+    # contrast (+/- contrast)
+    zero_phase_angle = 8
+    pi_phase_angle = 0
+    n_mix_zero_phase_bead_image = phase_cropped[zero_phase_angle, :, :]
+    n_mix_pi_phase_bead_image = phase_cropped[pi_phase_angle, :, :]
+    n_mix_zero_phase_STE_image = STE_cropped[zero_phase_angle, :, :]
+    n_mix_pi_phase_STE_image = STE_cropped[pi_phase_angle, :, :]
+    
+    #####################################################################
+    #####################################################################
+    # meltmount n = 1.54 data
+    data = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2018_02_27_STE_phase_n_1_54_cr_bead_0' +
+        '/dataset_green_970mW_single_shot.tif').astype(np.float64)
+
+    # get rid of overexposed rows at top and bottom of images
+    data = data[:, 0+less_rows:data.shape[1]-less_rows, :]
+
+    # reshape to hyperstack
+    data = data.reshape((
+        data.shape[0]/num_delays,# phase plate angle number
+        num_delays,
+        data.shape[1],
+        data.shape[2],
+        ))
+    
+    # scale all images to have the same background brightness. This
+    # amounts to a correction of roughly 1% or less
+    local_laser_brightness = get_bg_level(data)
+    data = data * (avg_laser_brightness / local_laser_brightness).reshape(
+        data.shape[0], data.shape[1], 1, 1)
+
+    # get zero delay images, max delay images and phase contrast images
+    zero_delay_images = data[:, 1, :, :] # zero red/green delay
+    max_delay_images = data[
+        :, 0:3:2, :, :].mean(axis=1) # average max and min delay
+    phase_contrast_images = data[:, 0, :, :] # red before green (min delay)
+    
+    # from the image where red/green are simultaneous, subtract the
+    # average of the max and min delay images
+    STE_stack = zero_delay_images - max_delay_images
+
+    # phase contrast image (no STE) stack: there is a large background
+    # variation that has nothing to do with the sample; it's due to
+    # multiple reflections in the microscope. Some of it moves when you
+    # move the phase plate, and some of it doesn't. This step subtracts
+    # off the stationary component. For each image we use in the figure,
+    # we subtract the minimum contrast image with the closest phase plate angle.
+    # minimum contrast phase plate angle closest to first 7 phase plate angles:
+    min_contrast_index_1 = 5
+    # minimum contrast phase plate angle closest to last 7 phase plate angles:
+    min_contrast_index_2 = 11
+    phase_stack = phase_contrast_images
+    phase_stack[0:8, ...] = phase_stack[0:8, ...] - phase_contrast_images[
+        min_contrast_index_1:min_contrast_index_1 + 1, :, :]
+    phase_stack[8:15, ...] = phase_stack[8:15, ...] - phase_contrast_images[
+        min_contrast_index_2:min_contrast_index_2 + 1, :, :]
+
+    # Luckily the non-stationary component is comprised of stripes that
+    # are completely outside of the microscope's spatial pass-band. The
+    # smoothing step below strongly attenuates this striping artifact
+    # with almost no effect on spatial frequencies due to the sample.
+    STE_stack = gaussian_filter(STE_stack, sigma=(0, sigma, sigma))
+    phase_stack = gaussian_filter(phase_stack, sigma=(0, sigma, sigma))
+
+    # crop images to center bead and fit into figure
+    top = 0
+    bot = 122
+    left = 44
+    right = 296
     phase_cropped = phase_stack[:,top:bot,left:right]
-##    STE_cropped = (STE_stack[:,top:bot,left:right] -
-##                   crosstalk_stack[:,top:bot,left:right])
     STE_cropped = STE_stack[:,top:bot,left:right]
 
-    for angle_num in range(STE_cropped.shape[0]):
-        # filter darkfield and STE images
-        STE_image = STE_cropped[angle_num,:,:]
-        STE_image = STE_image.reshape(
-            1,STE_image.shape[0],STE_image.shape[1])
-        STE_image = annular_filter(STE_image,r1=0,r2=0.025)
-        STE_image = STE_image[0,:,:]
-        
-        phase_image = phase_cropped[angle_num,:,:]
-        phase_image = phase_image.reshape(
-            1,phase_image.shape[0],phase_image.shape[1])
-        phase_image = annular_filter(phase_image,r1=0,r2=0.025)
-        phase_image = phase_image[0,:,:]
-        
+    # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
+    # This is not great for viewing, because fluctuations can swamp the
+    # signal. This step bins the pixels into a more typical size.
+    phase_cropped = bucket(
+        phase_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
+    STE_cropped = bucket(
+        STE_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
 
-        STE_image[0,0] = 296 # cheap way to conserve colorbar
-        STE_image[1,0] = -271 # cheap way to conserve colorbar
-        phase_image[0,0] = 6022 #cheap way to conserve colorbar
-        phase_image[1,0] = -3344 #cheap way to conserve colorbar
-        STE_image[108:114,5:34] = 296 # scale bar
-        phase_image[108:114,5:34] = 6022 # scale bar
-
-        STE_cropped[angle_num,:,:] = STE_image
-        phase_cropped[angle_num,:,:] = phase_image
-
-
-    zero_phase_angle = 7
-    pi_phase_angle = 0
-    n_mix_zero_phase_bead_image = phase_cropped[zero_phase_angle,:,:]
-    n_mix_pi_phase_bead_image = phase_cropped[pi_phase_angle,:,:]
-    n_mix_zero_phase_STE_image = STE_cropped[zero_phase_angle,:,:]
-    n_mix_pi_phase_STE_image = STE_cropped[pi_phase_angle,:,:]
-    #####################################################################
-    #####################################################################
-    # meltmount n = 1.53 data
-    filename = (
-        './../../stimulated_emission_data/figure_7/n_1_53/dataset_green_1410mW.tif')
-    filename_ctrl = (
-        './../../stimulated_emission_data/figure_7/n_1_53/dataset_green_0mW.tif')
-    data = np_tif.tif_to_array(filename).astype(np.float64)
-    data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
-
-
-    # get rid of overexposed rows at top and bottom of images
-    less_rows = 3
-    data = data[:,0+less_rows:data.shape[1]-less_rows,:]
-    data_ctrl = data_ctrl[:,0+less_rows:data_ctrl.shape[1]-less_rows,:]
-
-    # combine experiment and control images
-    data_combined = np.zeros((2,data.shape[0],data.shape[1],data.shape[2]))
-    data_combined[0] = data
-    data_combined[1] = data_ctrl
-
-    # reshape to hyperstack
-    data = data_combined[0]
-    data_ctrl = data_combined[1]
-    num_delays = 3
-    data = data.reshape((
-        data.shape[0]/num_delays,
-        num_delays,
-        data.shape[1],
-        data.shape[2],
-        ))
-    data_ctrl = data_ctrl.reshape((
-        data_ctrl.shape[0]/num_delays,
-        num_delays,
-        data_ctrl.shape[1],
-        data_ctrl.shape[2],
-        ))
-    # from the image where red/green are simultaneous, subtract the
-    # average of images taken when the delay magnitude is greatest
-    STE_stack = (
-        data[:,1,:,:] - # zero red/green delay
-        0.5 * (data[:,0,:,:] + data[:,2,:,:]) # max red/green delay
-        )
-    crosstalk_stack = (
-        data_ctrl[:,1,:,:] - # zero red/green delay
-        0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,2,:,:]) # max red/green delay
-        )
-    # phase contrast image (no STE) stack
-    phase_stack = 0.5 * (data[:,0,:,:] + data[:,2,:,:])
-    phase_stack_ctrl = 0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,2,:,:])
+    # display images from the two phase plate angles that maximize bead
+    # contrast (+/- contrast)
+    zero_phase_angle = 8
+    pi_phase_angle = 13
+    n_1_53_zero_phase_bead_image = phase_cropped[zero_phase_angle, :, :]
+    n_1_53_pi_phase_bead_image = phase_cropped[pi_phase_angle, :, :]
+    n_1_53_zero_phase_STE_image = STE_cropped[zero_phase_angle, :, :]
+    n_1_53_pi_phase_STE_image = STE_cropped[pi_phase_angle, :, :]
     
-    # bg subtract no-contrast image
-    bg_index = 9
-    phase_stack = phase_stack - phase_stack[bg_index,:,:]
-    phase_stack_ctrl = phase_stack_ctrl - phase_stack_ctrl[bg_index,:,:]
-
-    # plot phase contrast image and stim emission signal
-    top = 0
-    bot = 122
-    left = 35
-    right = 35+252
-    phase_cropped = phase_stack[:,top:bot,left:right]
-    STE_cropped = (STE_stack[:,top:bot,left:right] -
-                   crosstalk_stack[:,top:bot,left:right])
-##    STE_cropped = STE_stack[:,top:bot,left:right]
-
-    for angle_num in range(STE_cropped.shape[0]):
-        # filter darkfield and STE images
-        STE_image = STE_cropped[angle_num,:,:]
-        STE_image = STE_image.reshape(
-            1,STE_image.shape[0],STE_image.shape[1])
-        STE_image = annular_filter(STE_image,r1=0,r2=0.025)
-        STE_image = STE_image[0,:,:]
-        phase_image = phase_cropped[angle_num,:,:]
-        phase_image = phase_image.reshape(
-            1,phase_image.shape[0],phase_image.shape[1])
-        phase_image = annular_filter(phase_image,r1=0,r2=0.025)
-        phase_image = phase_image[0,:,:]
-
-        STE_image[0,0] = 296 # cheap way to conserve colorbar
-        STE_image[1,0] = -271 # cheap way to conserve colorbar
-        phase_image[0,0] = 6022 #cheap way to conserve colorbar
-        phase_image[1,0] = -3344 #cheap way to conserve colorbar
-        STE_image[108:114,5:34] = 296 # scale bar
-        phase_image[108:114,5:34] = 6022 # scale bar
-
-        STE_cropped[angle_num,:,:] = STE_image
-        phase_cropped[angle_num,:,:] = phase_image
-
-
-    zero_phase_angle = 5
-    pi_phase_angle = 11
-    n_1_53_zero_phase_bead_image = phase_cropped[zero_phase_angle,:,:]
-    n_1_53_pi_phase_bead_image = phase_cropped[pi_phase_angle,:,:]
-    n_1_53_zero_phase_STE_image = STE_cropped[zero_phase_angle,:,:]
-    n_1_53_pi_phase_STE_image = STE_cropped[pi_phase_angle,:,:]
     #####################################################################
     #####################################################################
     # meltmount n = 1.61 data
-    filename = (
-        './../../stimulated_emission_data/figure_7/n_1_61/dataset_green_1430mW.tif')
-    filename_ctrl = (
-        './../../stimulated_emission_data/figure_7/n_1_61/dataset_green_0mW.tif')
-    data = np_tif.tif_to_array(filename).astype(np.float64)
-    data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
+    data = np_tif.tif_to_array(
+        './../../stimulated_emission_imaging-data' +
+        '/2018_02_26_STE_phase_n_1_61_cr_bead_0' +
+        '/dataset_green_1060mW_single_shot.tif').astype(np.float64)
 
     # get rid of overexposed rows at top and bottom of images
-    less_rows = 3
-    data = data[:,0+less_rows:data.shape[1]-less_rows,:]
-    data_ctrl = data_ctrl[:,0+less_rows:data_ctrl.shape[1]-less_rows,:]
-
-    # combine experiment and control images
-    data_combined = np.zeros((2,data.shape[0],data.shape[1],data.shape[2]))
-    data_combined[0] = data
-    data_combined[1] = data_ctrl
+    data = data[:, 0+less_rows:data.shape[1]-less_rows, :]
+    data = data[:, ::-1, :] # flip up down
 
     # reshape to hyperstack
-    data = data_combined[0]
-    data_ctrl = data_combined[1]
-    num_delays = 3
     data = data.reshape((
-        data.shape[0]/num_delays,
+        data.shape[0]/num_delays,# phase plate angle number
         num_delays,
         data.shape[1],
         data.shape[2],
         ))
-    data_ctrl = data_ctrl.reshape((
-        data_ctrl.shape[0]/num_delays,
-        num_delays,
-        data_ctrl.shape[1],
-        data_ctrl.shape[2],
-        ))
-    # from the image where red/green are simultaneous, subtract the
-    # average of images taken when the delay magnitude is greatest
-    STE_stack = (
-        data[:,1,:,:] - # zero red/green delay
-        0.5 * (data[:,0,:,:] + data[:,2,:,:]) # max red/green delay
-        )
-    crosstalk_stack = (
-        data_ctrl[:,1,:,:] - # zero red/green delay
-        0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,2,:,:]) # max red/green delay
-        )
-    # phase contrast image (no STE) stack
-    phase_stack = 0.5 * (data[:,0,:,:] + data[:,2,:,:])
-    phase_stack_ctrl = 0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,2,:,:])
-    
-    # bg subtract no-contrast image
-    bg_index = 14
-    phase_stack = phase_stack - phase_stack[bg_index,:,:]
-    phase_stack_ctrl = phase_stack_ctrl - phase_stack_ctrl[bg_index,:,:]
 
-    # plot phase contrast image and stim emission signal
+    # scale all images to have the same background brightness. This
+    # amounts to a correction of roughly 1% or less
+    local_laser_brightness = get_bg_level(data)
+    data = data * (avg_laser_brightness / local_laser_brightness).reshape(
+        data.shape[0], data.shape[1], 1, 1)
+
+    # get zero delay images, max delay images and phase contrast images
+    zero_delay_images = data[:, 1, :, :] # zero red/green delay
+    max_delay_images = data[
+        :, 0:3:2, :, :].mean(axis=1) # average max and min delay
+    phase_contrast_images = data[:, 0, :, :] # red before green (min delay)
+    
+    # from the image where red/green are simultaneous, subtract the
+    # average of the max and min delay images
+    STE_stack = zero_delay_images - max_delay_images
+    
+    # phase contrast image (no STE) stack: there is a large background
+    # variation that has nothing to do with the sample; it's due to
+    # multiple reflections in the microscope. Some of it moves when you
+    # move the phase plate, and some of it doesn't. This step subtracts
+    # off the stationary component. For each image we use in the figure,
+    # we subtract the minimum contrast image with the closest phase plate angle.
+    # minimum contrast phase plate angle closest to first 7 phase plate angles:
+    min_contrast_index_1 = 5
+    # minimum contrast phase plate angle closest to last 7 phase plate angles:
+    min_contrast_index_2 = 11
+    phase_stack = phase_contrast_images
+    phase_stack[0:8, ...] = phase_stack[0:8, ...] - phase_contrast_images[
+        min_contrast_index_1:min_contrast_index_1 + 1, :, :]
+    phase_stack[8:15, ...] = phase_stack[8:15, ...] - phase_contrast_images[
+        min_contrast_index_2:min_contrast_index_2 + 1, :, :]
+
+    # Luckily the non-stationary component is comprised of stripes that
+    # are completely outside of the microscope's spatial pass-band. The
+    # smoothing step below strongly attenuates this striping artifact
+    # with almost no effect on spatial frequencies due to the sample.
+    STE_stack = gaussian_filter(STE_stack, sigma=(0, sigma, sigma))
+    phase_stack = gaussian_filter(phase_stack, sigma=(0, sigma, sigma))
+
+    # crop images to center bead and fit into figure
     top = 0
     bot = 122
     left = 59
     right = 311
     phase_cropped = phase_stack[:,top:bot,left:right]
-    STE_cropped = (STE_stack[:,top:bot,left:right] -
-                   crosstalk_stack[:,top:bot,left:right])
-##    STE_cropped = STE_stack[:,top:bot,left:right]
+    STE_cropped = STE_stack[:,top:bot,left:right]
 
-    for angle_num in range(STE_cropped.shape[0]):
-        # filter darkfield and STE images
-        STE_image = STE_cropped[angle_num,:,:]
-        STE_image = STE_image.reshape(
-            1,STE_image.shape[0],STE_image.shape[1])
-        STE_image = annular_filter(STE_image,r1=0,r2=0.025)
-        STE_image = STE_image[0,:,:]
-        phase_image = phase_cropped[angle_num,:,:]
-        phase_image = phase_image.reshape(
-            1,phase_image.shape[0],phase_image.shape[1])
-        phase_image = annular_filter(phase_image,r1=0,r2=0.025)
-        phase_image = phase_image[0,:,:]
+    # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
+    # This is not great for viewing, because fluctuations can swamp the
+    # signal. This step bins the pixels into a more typical size.
+    phase_cropped = bucket(
+        phase_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
+    STE_cropped = bucket(
+        STE_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
 
-        STE_image[0,0] = 296 # cheap way to conserve colorbar
-        STE_image[1,0] = -271 # cheap way to conserve colorbar
-        phase_image[0,0] = 6022 #cheap way to conserve colorbar
-        phase_image[1,0] = -3344 #cheap way to conserve colorbar
-        STE_image[108:114,5:34] = 296 # scale bar
-        phase_image[108:114,5:34] = 6022 # scale bar
-
-        STE_cropped[angle_num,:,:] = STE_image
-        phase_cropped[angle_num,:,:] = phase_image
-
-
+    # display images from the two phase plate angles that maximize bead
+    # contrast (+/- contrast)
     zero_phase_angle = 8
-    pi_phase_angle = 13
-    n_1_61_zero_phase_bead_image = phase_cropped[zero_phase_angle,:,:]
-    n_1_61_pi_phase_bead_image = phase_cropped[pi_phase_angle,:,:]
-    n_1_61_zero_phase_STE_image = STE_cropped[zero_phase_angle,:,:]
-    n_1_61_pi_phase_STE_image = STE_cropped[pi_phase_angle,:,:]
+    pi_phase_angle = 0
+    n_1_61_zero_phase_bead_image = phase_cropped[zero_phase_angle, :, :]
+    n_1_61_pi_phase_bead_image = phase_cropped[pi_phase_angle, :, :]
+    n_1_61_zero_phase_STE_image = STE_cropped[zero_phase_angle, :, :]
+    n_1_61_pi_phase_STE_image = STE_cropped[pi_phase_angle, :, :]
     #####################################################################
-
-    num_angles, height, width = STE_cropped.shape
-    between_pics = 16
-    big_width = width*3 + between_pics*2
+    #####################################################################
     
-    between_color = 6022
+    # start plotting all the images
+
+    # get max and min values to unify the colorbar
+    all_phase = np.concatenate((
+        n_mix_zero_phase_bead_image,
+        n_1_53_zero_phase_bead_image,
+        n_1_61_zero_phase_bead_image,
+        n_mix_pi_phase_bead_image,
+        n_1_53_pi_phase_bead_image,
+        n_1_61_pi_phase_bead_image), axis=0)
+    all_STE = np.concatenate((
+        n_mix_zero_phase_STE_image,
+        n_1_53_zero_phase_STE_image,
+        n_1_61_zero_phase_STE_image,
+        n_mix_pi_phase_STE_image,
+        n_1_53_pi_phase_STE_image,
+        n_1_61_pi_phase_STE_image), axis=0)
+    max_phase = int(np.amax(all_phase)) + 1
+    min_phase = int(np.amin(all_phase)) - 1
+    max_ste = int(np.amax(all_STE)) + 1
+    min_ste = int(np.amin(all_STE)) - 1
+
+    # make scale bar black to give lower limit on colorbar
+    bar_left = 1
+    bar_right = 6
+    bar_vert = -2
+    n_mix_zero_phase_bead_image[bar_vert, bar_left:bar_right] = min_phase
+    n_1_53_zero_phase_bead_image[bar_vert, bar_left:bar_right] = min_phase
+    n_1_61_zero_phase_bead_image[bar_vert, bar_left:bar_right] = min_phase
+    n_mix_pi_phase_bead_image[bar_vert, bar_left:bar_right] = min_phase
+    n_1_53_pi_phase_bead_image[bar_vert, bar_left:bar_right] = min_phase
+    n_1_61_pi_phase_bead_image[bar_vert, bar_left:bar_right] = min_phase
+    n_mix_zero_phase_STE_image[bar_vert, bar_left:bar_right] = min_ste
+    n_1_53_zero_phase_STE_image[bar_vert, bar_left:bar_right] = min_ste
+    n_1_61_zero_phase_STE_image[bar_vert, bar_left:bar_right] = min_ste
+    n_mix_pi_phase_STE_image[bar_vert, bar_left:bar_right] = min_ste
+    n_1_53_pi_phase_STE_image[bar_vert, bar_left:bar_right] = min_ste
+    n_1_61_pi_phase_STE_image[bar_vert, bar_left:bar_right] = min_ste
+
+    # create wider image comprised of three side-by-side images
+    # get width of wider image
+    num_angles, height, width = STE_cropped.shape
+    between_pics = int(16 / bucket_width)
+    big_width = width*3 + between_pics*2
+    # initialize wide phase contrast image and make "between color" white
+    between_color = max_phase # makes it white and gives upper limit on colorbar
     zero_phase_bead_image = np.zeros((height,big_width)) + between_color
     pi_phase_bead_image = np.zeros((height,big_width)) + between_color
-
-    between_color = 296
+    # initialize wide STE image and make "between color" white
+    between_color = max_ste # makes it white and gives upper limit on colorbar
     zero_phase_STE_image = np.zeros((height,big_width)) + between_color
     pi_phase_STE_image = np.zeros((height,big_width)) + between_color
-
-    # n = 1.53 on left
+    # n = 1.53 images on left side of wide image
     left = 0
     right = width
     zero_phase_bead_image[:,left:right] = n_1_53_zero_phase_bead_image
     pi_phase_bead_image[:,left:right] = n_1_53_pi_phase_bead_image
     zero_phase_STE_image[:,left:right] = n_1_53_zero_phase_STE_image
     pi_phase_STE_image[:,left:right] = n_1_53_pi_phase_STE_image
-
-    # n = 1.53/1.61 mix in center
+    # n = 1.58/1.61 mix images in center of wide image
     left = width + between_pics
     right = width*2 + between_pics
     zero_phase_bead_image[:,left:right] = n_mix_zero_phase_bead_image
     pi_phase_bead_image[:,left:right] = n_mix_pi_phase_bead_image
     zero_phase_STE_image[:,left:right] = n_mix_zero_phase_STE_image
     pi_phase_STE_image[:,left:right] = n_mix_pi_phase_STE_image
-
-    # n = 1.61 in center
+    # n = 1.61 on right side of wide image
     left = width*2 + between_pics*2
     right = big_width
     zero_phase_bead_image[:,left:right] = n_1_61_zero_phase_bead_image
@@ -349,164 +351,105 @@ def main():
 
     fig, (ax0, ax1) = plt.subplots(nrows=2,ncols=1,figsize=(20,7))
 
-    cax0 = ax0.imshow(pi_phase_bead_image, cmap=plt.cm.gray)
+    cax0 = ax0.imshow(pi_phase_bead_image, cmap=plt.cm.gray,
+                      interpolation='nearest', vmax=2500, vmin=-4200)
     ax0.axis('off')
     divider = make_axes_locatable(ax0)
     cax = divider.append_axes("right",size="1%",pad=0.25)
     plt.colorbar(cax0, cax = cax)
-    ax0.set_title('Phase contrast image of bead',fontsize=30,)#fontweight='bold')
-    ax0.text(130,115,r'$\Delta n\approx 0.06$',fontsize=38,color='white',fontweight='bold')
-    ax0.text(433,115,r'$\Delta n\approx 0$',fontsize=38,color='white',fontweight='bold')
-    ax0.text(643,115,r'$\Delta n\approx -0.02$',fontsize=38,color='white',fontweight='bold')
+    ax0.set_title('Phase contrast image of bead',fontsize=30)
+    ax0.text(
+        12, 14, r'$\Delta n\approx +0.05$',
+        fontsize=38, color='black', fontweight='bold')
+    ax0.text(
+        53, 14, r'$\Delta n\approx 0$',
+        fontsize=38, color='black', fontweight='bold')
+    ax0.text(
+        79, 14, r'$\Delta n\approx -0.01$',
+        fontsize=38, color='black', fontweight='bold')
 
 
-    cax1 = ax1.imshow(pi_phase_STE_image, cmap=plt.cm.gray)
+    cax1 = ax1.imshow(pi_phase_STE_image, cmap=plt.cm.gray,
+                      interpolation='nearest')
     
     divider = make_axes_locatable(ax1)
     cax = divider.append_axes("right",size="1%",pad=0.25)
     plt.colorbar(cax1, cax = cax)
-    ax1.text(130,115,r'$\Delta n\approx 0.06$',fontsize=38,color='white',fontweight='bold')
-    ax1.text(433,115,r'$\Delta n\approx 0$',fontsize=38,color='white',fontweight='bold')
-    ax1.text(643,115,r'$\Delta n\approx -0.02$',fontsize=38,color='white',fontweight='bold')
-    ax1.set_title('Change due to excitation',fontsize=30,)#fontweight='bold')
+    ax1.text(
+        12, 14 ,r'$\Delta n\approx +0.05$',
+        fontsize=38, color='black', fontweight='bold')
+    ax1.text(
+        53, 14, r'$\Delta n\approx 0$',
+        fontsize=38, color='black', fontweight='bold')
+    ax1.text(
+        79, 14, r'$\Delta n\approx -0.01$',
+        fontsize=38, color='black', fontweight='bold')
+    ax1.set_title('Change due to excitation',fontsize=30,)
     ax1.axis('off')
     plt.savefig('./../images/figure_7/STE_crimson_bead_pi_phase.svg',
                 bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
 
     fig, (ax0, ax1) = plt.subplots(nrows=2,ncols=1,figsize=(20,7))
 
-    cax0 = ax0.imshow(zero_phase_bead_image, cmap=plt.cm.gray)
+    cax0 = ax0.imshow(zero_phase_bead_image, cmap=plt.cm.gray,
+                      interpolation='nearest', vmin=-2300)
     ax0.axis('off')
     divider = make_axes_locatable(ax0)
     cax = divider.append_axes("right",size="1%",pad=0.25)
     plt.colorbar(cax0, cax = cax)
-    ax0.set_title('Phase contrast image of bead',fontsize=30,)#fontweight='bold')
-    ax0.text(130,115,r'$\Delta n\approx 0.06$',fontsize=38,color='white',fontweight='bold')
-    ax0.text(433,115,r'$\Delta n\approx 0$',fontsize=38,color='white',fontweight='bold')
-    ax0.text(642,115,r'$\Delta n\approx -0.02$',fontsize=38,color='white',fontweight='bold')
+    ax0.set_title('Phase contrast image of bead',fontsize=30)
+    ax0.text(
+        12, 14, r'$\Delta n\approx +0.05$',
+        fontsize=38, color='white', fontweight='bold')
+    ax0.text(
+        53, 14, r'$\Delta n\approx 0$',
+        fontsize=38, color='white', fontweight='bold')
+    ax0.text(
+        79, 14, r'$\Delta n\approx -0.01$',
+        fontsize=38, color='white', fontweight='bold')
 
 
-    cax1 = ax1.imshow(zero_phase_STE_image, cmap=plt.cm.gray)
+    cax1 = ax1.imshow(zero_phase_STE_image, cmap=plt.cm.gray,
+                      interpolation='nearest')
     
     divider = make_axes_locatable(ax1)
     cax = divider.append_axes("right",size="1%",pad=0.25)
     plt.colorbar(cax1, cax = cax)
-    ax1.text(130,115,r'$\Delta n\approx 0.06$',fontsize=38,color='white',fontweight='bold')
-    ax1.text(433,115,r'$\Delta n\approx 0$',fontsize=38,color='white',fontweight='bold')
-    ax1.text(642,115,r'$\Delta n\approx -0.02$',fontsize=38,color='white',fontweight='bold')
-    ax1.set_title('Change due to excitation',fontsize=30,)#fontweight='bold')
+    ax1.text(
+        12, 14, r'$\Delta n\approx +0.05$',
+        fontsize=38, color='white', fontweight='bold')
+    ax1.text(
+        53, 14, r'$\Delta n\approx 0$',
+        fontsize=38, color='white', fontweight='bold')
+    ax1.text(
+        79, 14, r'$\Delta n\approx -0.01$',
+        fontsize=38, color='white', fontweight='bold')
+    ax1.set_title('Change due to excitation',fontsize=30)
     ax1.axis('off')
     plt.savefig('./../images/figure_7/STE_crimson_bead_zero_phase.svg',
                 bbox_inches='tight', pad_inches=0.1)
-    plt.close()
-##    fig, (ax0, ax1) = plt.subplots(nrows=2,ncols=1,figsize=(10,7))
-##
-##    cax0 = ax0.imshow(zero_phase_bead_image, cmap=plt.cm.gray)
-##    ax0.axis('off')
-##    cbar0 = fig.colorbar(cax0,ax=ax0)
-##    ax0.set_title('Phase contrast image of bead',fontsize=30,fontweight='bold')
-##    ax0.text(155,115,r'$\Delta n\approx 0.06$',fontsize=24,color='white',fontweight='bold')
-##    ax0.text(450,115,r'$\Delta n\approx 0$',fontsize=24,color='white',fontweight='bold')
-##    ax0.text(675,115,r'$\Delta n\approx -0.02$',fontsize=24,color='white',fontweight='bold')
-##
-##
-##    cax1 = ax1.imshow(zero_phase_STE_image, cmap=plt.cm.gray)
-##    cbar1 = fig.colorbar(cax1, ax = ax1)
-##    ax1.text(155,115,r'$\Delta n\approx 0.06$',fontsize=24,color='white',fontweight='bold')
-##    ax1.text(450,115,r'$\Delta n\approx 0$',fontsize=24,color='white',fontweight='bold')
-##    ax1.text(675,115,r'$\Delta n\approx -0.02$',fontsize=24,color='white',fontweight='bold')
-##    ax1.set_title('Change due to excitation',fontsize=30,fontweight='bold')
-##    ax1.axis('off')
-##    plt.savefig('./../images/figure_7/STE_crimson_bead_zero_phase.svg')
-##    plt.close()
-
-##        if angle_num == 0 or angle_num == 7:
-##
-##            # generate and save plot
-##            print(np.max(STE_image,(0,1)))
-##            print(np.min(STE_image,(0,1)))
-##            print(np.max(phase_image,(0,1)))
-##            print(np.min(phase_image,(0,1)))
-##        
-##            fig, (ax0, ax1) = plt.subplots(nrows=2,ncols=1,figsize=(9,8))
-##
-##            cax0 = ax0.imshow(phase_image, cmap=plt.cm.gray)
-##            ax0.axis('off')
-##            cbar0 = fig.colorbar(cax0,ax=ax0)
-##            ax0.set_title('Phase contrast image of crimson bead')
-##
-##            cax1 = ax1.imshow(STE_image, cmap=plt.cm.gray)
-##            cbar1 = fig.colorbar(cax1, ax = ax1)
-##            ax1.set_title('Change in phase contrast image due to stim. emission')
-##            ax1.axis('off')
-##            plt.savefig('phase_STE_image_' + str(angle_num)+'.svg')
-##            plt.show()
-##    
-##    
-##    # average points around center lobe of the nanodiamond image to get
-##    # "average signal level" for darkfield and STE images
-##    top = 9
-##    bot = 84
-##    left = 153
-##    right = 232
-##    STE_signal = (
-##        STE_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-##    crosstalk_signal = (
-##        crosstalk_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-##    phase_signal = (
-##        phase_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-##    
-##    # plot signal v phase
-##    angles = range(15)
-##    true_signal = STE_signal - crosstalk_signal
-##    print(angles)
-##    print(phase_signal.shape)
-##    plt.figure()
-##    plt.plot(angles,phase_signal,'.-',color='black')
-##    plt.title('Phase contrast image main lobe brightness')
-##    plt.xlabel('Relative phase (arb. units)')
-##    plt.ylabel('Average intensity (CMOS pixel counts)')
-##    plt.grid()
-####    plt.savefig('darkfield_v_z.svg')
-##    plt.figure()
-##    plt.plot(angles,STE_signal,'.-',label='STE signal',color='blue')
-##    plt.plot(angles,crosstalk_signal,'.-',label='AOM crosstalk',color='green')
-##    plt.title('Stimulated emission signal main lobe intensity')
-##    plt.xlabel('Relative phase (arb. units)')
-##    plt.ylabel('Change in phase contrast signal (CMOS pixel counts)')
-##    plt.legend(loc='lower right')
-##    plt.grid()
-####    plt.savefig('darkfield_STE_v_z.svg')
-##    plt.figure()
-##    plt.plot(angles,true_signal,'.-',label='STE signal',color='red')
-##    plt.title('Corrected stimulated emission signal main lobe intensity')
-##    plt.xlabel('Relative phase (arb. units)')
-##    plt.ylabel('Change in phase contrast signal (CMOS pixel counts)')
-##    plt.legend(loc='lower right')
-##    plt.grid()
-####    plt.savefig('darkfield_STE_v_z.svg')
-##    plt.show()
-    
+    plt.show()
 
     return None
 
+def get_bg_level(data):
+    num_regions = 2
+    
+    # region 1
+    bg_up = 2
+    bg_down = 120
+    bg_left = 285
+    bg_right = 379
+    bg_level = data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
 
+    # region 2
+    bg_up = 2
+    bg_down = 120
+    bg_left = 1
+    bg_right = 81
+    bg_level += data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
 
-
-def annular_filter(x, r1, r2):
-    assert r2 > r1 >= 0
-
-    x_ft = np.fft.fftn(x)
-    n_y, n_x = x.shape[-2:]
-    kx = np.fft.fftfreq(n_x).reshape(1, 1, n_x)
-    ky = np.fft.fftfreq(n_y).reshape(1, n_y, 1)
-
-    x_ft[kx**2 + ky**2 > r2**2] = 0
-    x_ft[kx**2 + ky**2 < r1**2] = 0
-
-    x_filtered = np.fft.ifftn(x_ft).real
-
-    return x_filtered
+    return(bg_level / num_regions)
 
 main()
