@@ -1,44 +1,38 @@
 import os
 import numpy as np
-import np_tif
-from stack_registration import bucket
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 import matplotlib.patches as patches
+import np_tif
+from stack_registration import bucket
 
 def main():
-
-    # the data to be plotted by this program is generated from raw tifs
-    # and repetition_average_expt_and_control.py
-
     assert os.path.isdir('./../images')
     if not os.path.isdir('./../images/figure_3'):
         os.mkdir('./../images/figure_3')
 
-    num_reps = 10 # number of times a power/delay stack was taken
     num_delays = 3
     image_h = 128
     image_w = 380
 
-    # power calibration
-    # red max power is 300 mW
-    # green max power is 1450 mW
-    # green powers calibrated using camera
-    green_max_mW = 950
+    # power calibration:
+    # for a given voltage input to the AOM, how many milliwatts do we
+    # expect the AOM to output
+    green_max_mW = 950 # measured with power meter before sample
+    # When the experiment is run, the acquisition code sends voltages to
+    # the AOM via the analog out card. The maximum voltage is the same
+    # as was used to deliver the max power to the power meter (see
+    # previous line). We replaced the green filter with neutral density
+    # filters and measured green power on the camera while running the
+    # same acquisition code used to take the fluorescence data.
     green_powers = np.array(
-        (169,1949,4795,8406,15215,25940,37337))
-    green_powers = green_powers - min(green_powers)
-    green_powers = green_powers * green_max_mW / max(green_powers)
-    green_powers = np.around(green_powers).astype(int)
+        (169, 1949, 4795, 8406, 15215, 25940, 37337)) # units: camera counts
+    camera_background_counts = 100
+    green_powers = green_powers - camera_background_counts
+    green_powers = green_powers * green_max_mW / max(green_powers) # units: mW
 
-    # red powers calibrated using camera
-    red_bg = 26.6
-    red_max_mW = 240
-    red_powers = np.array(
-        (26.6, 537))
-    red_powers -= red_bg
-    red_powers = red_powers * red_max_mW / max(red_powers)
-    red_powers = np.around(red_powers).astype(int)
+    red_max_mW = 240 # measured with power meter before sample
+    red_powers = np.array((0, red_max_mW))
 
     data = np_tif.tif_to_array(
         './../../stimulated_emission_imaging-data' +
@@ -57,21 +51,13 @@ def main():
         data.shape[2],
         ))
 
-    # from the image where red/green are simultaneous, subtract the
-    # average of images taken when the delay magnitude is greatest
-    depletion_stack = (
-        data[:,1,:,:] - # zero red/green delay
-        0.5 * (data[:,0,:,:] + data[:,2,:,:]) # max red/green delay
-        )
-
-    # fluorescence image (no STE depletion) stack
+    # fluorescence image (no STE depletion) stack: the average between
+    # max negative and positive red/green pulse delay images
     fluorescence_stack = 0.5 * (data[:,0,:,:] + data[:,2,:,:])
     # fluorescence image (with STE depletion) stack
     depleted_stack = data[:,1,:,:] # zero red/green delay
 
-
-    # plot darkfield and stim emission signal
-    # get background signal level for brightest image
+    # get background signal level
     top_bg = 10
     bot_bg = 20
     left_bg = 10
@@ -84,79 +70,44 @@ def main():
         depleted_stack[:,top_bg:bot_bg,left_bg:right_bg
                        ].mean(axis=2).mean(axis=1)
         )
-    # crop, bg subtract, and spatially filter image
+
+    # crop, bg subtract, and downsample brightest fluorescence image to
+    # include on the saturation plot as an inset
     top = 4
     bot = top + 112
     left = 143
     right = left + 130
-    fluorescence_cropped = (fluorescence_stack[-1,top:bot,left:right] -
+    fluorescence_cropped = (fluorescence_stack[-1, top:bot, left:right] -
                             fluorescence_signal_bg[-1])
     fluorescence_cropped = bucket(fluorescence_cropped, bucket_size=(8, 8))
-    depletion_cropped = depletion_stack[-1,top:bot,left:right]
-    depletion_cropped = bucket(fluorescence_cropped, bucket_size=(8, 8))
-    
     fluorescence_cropped[-2:-1, 1:6] = np.max(fluorescence_cropped) # scale bar
-    depletion_cropped[-2:-1, 1:6] = np.min(depletion_cropped) # scale bar
-
-##    fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2,figsize=(16,5))
-##
-##    cax0 = ax0.imshow(fluorescence_cropped, cmap=plt.cm.gray)
-##    ax0.axis('off')
-##    cbar0 = fig.colorbar(cax0, ax = ax0)
-##    ax0.set_title('Fluorescence image of nanodiamond')
-##
-##    cax1 = ax1.imshow(depletion_cropped, cmap=plt.cm.gray)
-##    cbar1 = fig.colorbar(cax1, ax = ax1)
-##    ax1.set_title('Fluorescence intensity decreased due to stim. emission')
-##    ax1.axis('off')
-##    plt.show()
-##    plt.savefig('./../images/figure_3b/fluorescence_depletion_image.svg')
-
-    # IMPORTANT PARAMETER FOR FIT BELOW /1.2 - 73, reg 81 *1.2 - 89
-    reg_brightness = 92
-    reg_mW_per_kex = 960
-    reg_mW_per_kdep = 1480
-    brightness = reg_brightness
-    rate_const_mod = 1.5
-    brightness_mod_hi = 1.30
-    brightness_mod_lo = 1.27
-    dep_mult = "{:.2f}".format(red_powers[-1] / reg_mW_per_kdep)
-    dep_mult_hi = "{:.2f}".format(red_powers[-1] / reg_mW_per_kdep / rate_const_mod)
-    dep_mult_lo = "{:.2f}".format(red_powers[-1] / reg_mW_per_kdep * rate_const_mod)
     
-    # average points around center lobe of the nanodiamond image to get
+    # average points around center lobe of the fluorescence image to get
     # "average signal level" for darkfield and STE images
-##    top = 37
-##    bot = top + 46
-##    left = 184
-##    right = left + 46
     top = 36
     bot = top + 48
     left = 183
     right = left + 48
-    depletion_signal = (
-        depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    depleted_signal = (
-        depleted_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    depleted_signal = depleted_signal - depleted_signal_bg
     fluorescence_signal = (
-        fluorescence_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
+        fluorescence_stack[:, top:bot, left:right].mean(axis=2).mean(axis=1))
     fluorescence_signal = fluorescence_signal - fluorescence_signal_bg
-##    np_tif.array_to_tif(STE_signal,'STE_signal_array.tif')
-##    np_tif.array_to_tif(crosstalk_signal,'crosstalk_signal_array.tif')
-##    np_tif.array_to_tif(darkfield_signal,'darkfield_signal_array.tif')
-    
-    # plot signal
-    mW_per_kex = reg_mW_per_kex
-    kex = green_powers / mW_per_kex
-    kex_min = kex * 1.1
-    kex_max = kex / 1.1
+    depleted_signal = (
+        depleted_stack[:, top:bot, left:right].mean(axis=2).mean(axis=1))
+    depleted_signal = depleted_signal - depleted_signal_bg
 
-    mW_per_kdep = reg_mW_per_kdep
+    # IMPORTANT PARAMETERS FOR FIT
+    brightness = 92
+    mW_per_kex = 960
+    mW_per_kdep = 1480
+    
+    # compute rate constants
+    kex = green_powers / mW_per_kex
+    kex_min = kex / 1.1
+    kex_max = kex * 1.1
+
     kdep = red_powers[-1] / mW_per_kdep
     kdep_min = kdep / 1.4
     kdep_max = kdep * 1.4
-
 
     model_fl = kex / (1 + kex)
     model_fl_max = kex_max / (1 + kex_max)
@@ -164,13 +115,6 @@ def main():
     model_fl_dep = kex / (1 + kex + kdep)
     model_fl_dep_max = kex / (1 + kex + kdep_max)
     model_fl_dep_min = kex / (1 + kex + kdep_min)
-##    model_fl_dep_max = kex_max / (1 + kex_max + kdep)
-##    model_fl_dep_min = kex_min / (1 + kex_min + kdep)
-
-##    nd_brightness = depleted_signal[0,:]
-    nd_brightness = fluorescence_signal
-##    nd_brightness_depleted = depleted_signal[-1,:]
-    nd_brightness_depleted = depleted_signal
     
     fig = plt.figure()
     ax1 = fig.add_subplot(1,1,1)
@@ -180,28 +124,31 @@ def main():
                      model_fl_max * brightness,
                      model_fl_min * brightness,
                      color="#C0FFC0")
+    dep_mult = ("{:.2f}".format(kdep))
     ax1.plot(green_powers, model_fl_dep * brightness, '-',
-             label=r'Model, $h_{stim}\sigma_{23}=' + dep_mult + r'(1/\tau_{fluor})$', color='red')
+             label=(r'Model, $h_{stim}\sigma_{23}=' +
+                    dep_mult + r'(1/\tau_{fluor})$'),
+             color='red')
     ax1.fill_between(green_powers,
                      model_fl_dep_max * brightness,
                      model_fl_dep_min * brightness,
                      color='#FFD0D0')
-    plt.ylabel('Average pixel brightness (sCMOS counts)',fontsize=15)
-    ax1.plot(green_powers,fluorescence_signal,'o',
+    plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
+    ax1.plot(green_powers,fluorescence_signal, 'o',
              label='Measured, 0 mW stimulation', color='green')
-    ax1.plot(green_powers,depleted_signal,'o',
+    ax1.plot(green_powers,depleted_signal, 'o',
              label='Measured, 240 mW stimulation', color='red')
     ax1.set_xlabel('Excitation power (mW)',fontsize=16)
-    plt.axis([0,1100,0,63])
-    leg = plt.legend(loc='lower right',title='Fluorescence',fontsize=14)
-    plt.setp(leg.get_title(),fontsize=15)
+    plt.axis([0, 1100, 0, 53])
+    leg = plt.legend(loc='lower right' ,title='Fluorescence', fontsize=14)
+    plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
     ax2 = ax1.twiny()
     formatter = FuncFormatter(
         lambda green_powers, pos: '{:0.2f}'.format(green_powers/mW_per_kex))
     ax2.xaxis.set_major_formatter(formatter)
     ax2.set_xlim(ax1.get_xlim())
-    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$',fontsize=17)
+    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$', fontsize=17)
     ax2 = ax1.twinx()
     formatter = FuncFormatter(
         lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness))
@@ -213,47 +160,28 @@ def main():
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(0.5,1.5,'Crimson bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.5, 1.5, 'Crimson bead',
+           fontsize=14, color='white', fontweight='bold')
     rect = patches.Rectangle(
-        (4.6,3.4),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6, 3.4), 6, 6,
+        linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-    plt.savefig('./../images/figure_3/fluorescence_depletion_crimson_dye_rate_optimal.svg')
+    plt.savefig(
+        './../images/figure_3/fluorescence_depletion_crimson_dye_rate_optimal.svg')
     plt.show()
 
-    # with excitation and rate constants 20% higher and scaled to fit
-    # IMPORTANT PARAMETER FOR FIT BELOW /1.2 - 73, reg 81 *1.2 - 92
-    brightness = reg_brightness * brightness_mod_hi
-    
-    # average points around center lobe of the nanodiamond image to get
-    # "average signal level" for darkfield and STE images
-##    top = 37
-##    bot = top + 46
-##    left = 184
-##    right = left + 46
-    top = 36
-    bot = top + 48
-    left = 183
-    right = left + 48
-    depletion_signal = (
-        depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    depleted_signal = (
-        depleted_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    depleted_signal = depleted_signal - depleted_signal_bg
-    fluorescence_signal = (
-        fluorescence_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    fluorescence_signal = fluorescence_signal - fluorescence_signal_bg
-##    np_tif.array_to_tif(STE_signal,'STE_signal_array.tif')
-##    np_tif.array_to_tif(crosstalk_signal,'crosstalk_signal_array.tif')
-##    np_tif.array_to_tif(darkfield_signal,'darkfield_signal_array.tif')
+    # change brightness * 1.5 and scale rate constant to fit
+    brightness_hi = brightness * 1.5
+    rate_const_mod = 1.83
     
     # plot signal
-    mW_per_kex = reg_mW_per_kex * rate_const_mod
-    kex = green_powers / mW_per_kex
+    mW_per_kex_hi = mW_per_kex * rate_const_mod
+    kex = green_powers / mW_per_kex_hi
     kex_min = kex * 1.1
     kex_max = kex / 1.1
 
-    mW_per_kdep = reg_mW_per_kdep * rate_const_mod
-    kdep = red_powers[-1] / mW_per_kdep
+    mW_per_kdep_hi = mW_per_kdep * rate_const_mod
+    kdep = red_powers[-1] / mW_per_kdep_hi
     kdep_min = kdep / 1.4
     kdep_max = kdep * 1.4
 
@@ -264,96 +192,74 @@ def main():
     model_fl_dep = kex / (1 + kex + kdep)
     model_fl_dep_max = kex / (1 + kex + kdep_max)
     model_fl_dep_min = kex / (1 + kex + kdep_min)
-##    model_fl_dep_max = kex_max / (1 + kex_max + kdep)
-##    model_fl_dep_min = kex_min / (1 + kex_min + kdep)
-
-##    nd_brightness = depleted_signal[0,:]
-    nd_brightness = fluorescence_signal
-##    nd_brightness_depleted = depleted_signal[-1,:]
-    nd_brightness_depleted = depleted_signal
     
     fig = plt.figure()
-    ax1 = fig.add_subplot(1,1,1)
-    ax1.plot(green_powers, model_fl * brightness, '-',
+    ax1 = fig.add_subplot(1, 1, 1)
+    ax1.plot(green_powers, model_fl * brightness_hi, '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$', color='green')
     ax1.fill_between(green_powers,
-                     model_fl_max * brightness,
-                     model_fl_min * brightness,
+                     model_fl_max * brightness_hi,
+                     model_fl_min * brightness_hi,
                      color="#C0FFC0")
-    ax1.plot(green_powers, model_fl_dep * brightness, '-',
-             label=r'Model, $h_{stim}\sigma_{23}=' + dep_mult_hi + r'(1/\tau_{fluor})$', color='red')
+    dep_mult = ("{:.2f}".format(kdep))
+    ax1.plot(green_powers, model_fl_dep * brightness_hi, '-',
+             label=(
+                 r'Model, $h_{stim}\sigma_{23}=' +
+                 dep_mult + r'(1/\tau_{fluor})$'),
+             color='red')
     ax1.fill_between(green_powers,
-                     model_fl_dep_max * brightness,
-                     model_fl_dep_min * brightness,
+                     model_fl_dep_max * brightness_hi,
+                     model_fl_dep_min * brightness_hi,
                      color='#FFD0D0')
-    plt.ylabel('Average pixel brightness (sCMOS counts)',fontsize=15)
-    ax1.plot(green_powers,fluorescence_signal,'o',
+    plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
+    ax1.plot(green_powers, fluorescence_signal, 'o',
              label='Measured, 0 mW stimulation', color='green')
-    ax1.plot(green_powers,depleted_signal,'o',
+    ax1.plot(green_powers, depleted_signal, 'o',
              label='Measured, 240 mW stimulation', color='red')
     ax1.set_xlabel('Excitation power (mW)',fontsize=16)
-    plt.axis([0,1100,0,63])
-    leg = plt.legend(loc='lower right',title='Fluorescence',fontsize=14)
-    plt.setp(leg.get_title(),fontsize=15)
+    plt.axis([0, 1100, 0, 53])
+    leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
+    plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
     ax2 = ax1.twiny()
     formatter = FuncFormatter(
         lambda green_powers, pos: '{:0.2f}'.format(green_powers/mW_per_kex))
     ax2.xaxis.set_major_formatter(formatter)
     ax2.set_xlim(ax1.get_xlim())
-    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$',fontsize=17)
+    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$', fontsize=17)
     ax2 = ax1.twinx()
     formatter = FuncFormatter(
-        lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness))
+        lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness_hi))
     ax2.yaxis.set_major_formatter(formatter)
     ax2.set_ylim(ax1.get_ylim())
-    ax2.set_ylabel(r'Excitation fraction $n_2$',fontsize=17)
+    ax2.set_ylabel(r'Excitation fraction $n_2$', fontsize=17)
     
     a = plt.axes([0.17, 0.6, .25, .25])
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(0.5,1.5,'Crimson bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.5, 1.5, 'Crimson bead',
+           fontsize=14, color='white', fontweight='bold')
     rect = patches.Rectangle(
-        (4.6,3.4),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6, 3.4), 6, 6,
+        linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-    plt.savefig('./../images/figure_3/fluorescence_depletion_crimson_dye_rate_lo.svg')
+    plt.savefig(
+        './../images/figure_3/fluorescence_depletion_crimson_dye_rate_lo.svg')
     plt.show()
 
-    # with excitation and rate constants 20% higher and scaled to fit
-    # IMPORTANT PARAMETER FOR FIT BELOW /1.3 - 69, reg 81 *1.3 - 92
-    brightness = reg_brightness / brightness_mod_lo
-    
-    # average points around center lobe of the nanodiamond image to get
-    # "average signal level" for darkfield and STE images
-##    top = 37
-##    bot = top + 46
-##    left = 184
-##    right = left + 46
-    top = 37
-    bot = top + 48
-    left = 184
-    right = left + 48
-    depletion_signal = (
-        depletion_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    depleted_signal = (
-        depleted_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    depleted_signal = depleted_signal - depleted_signal_bg
-    fluorescence_signal = (
-        fluorescence_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    fluorescence_signal = fluorescence_signal - fluorescence_signal_bg
-##    np_tif.array_to_tif(STE_signal,'STE_signal_array.tif')
-##    np_tif.array_to_tif(crosstalk_signal,'crosstalk_signal_array.tif')
-##    np_tif.array_to_tif(darkfield_signal,'darkfield_signal_array.tif')
+    # change brightness / 1.5 and scale rate constant to fit
+    brightness_lo = brightness / 1.5
+    rate_const_mod = 2.2
     
     # plot signal
-    mW_per_kex = reg_mW_per_kex / rate_const_mod
-    kex = green_powers / mW_per_kex
+    mW_per_kex_lo = mW_per_kex / rate_const_mod
+    kex = green_powers / mW_per_kex_lo
     kex_min = kex * 1.1
     kex_max = kex / 1.1
 
-    mW_per_kdep = reg_mW_per_kdep / rate_const_mod
-    kdep = red_powers[-1] / mW_per_kdep
+    mW_per_kdep_lo = mW_per_kdep / rate_const_mod
+    kdep = red_powers[-1] / mW_per_kdep_lo
     kdep_min = kdep / 1.4
     kdep_max = kdep * 1.4
 
@@ -364,60 +270,59 @@ def main():
     model_fl_dep = kex / (1 + kex + kdep)
     model_fl_dep_max = kex / (1 + kex + kdep_max)
     model_fl_dep_min = kex / (1 + kex + kdep_min)
-##    model_fl_dep_max = kex_max / (1 + kex_max + kdep)
-##    model_fl_dep_min = kex_min / (1 + kex_min + kdep)
-
-##    nd_brightness = depleted_signal[0,:]
-    nd_brightness = fluorescence_signal
-##    nd_brightness_depleted = depleted_signal[-1,:]
-    nd_brightness_depleted = depleted_signal
     
     fig = plt.figure()
-    ax1 = fig.add_subplot(1,1,1)
-    ax1.plot(green_powers, model_fl * brightness, '-',
+    ax1 = fig.add_subplot(1, 1, 1)
+    ax1.plot(green_powers, model_fl * brightness_lo, '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$', color='green')
     ax1.fill_between(green_powers,
-                     model_fl_max * brightness,
-                     model_fl_min * brightness,
+                     model_fl_max * brightness_lo,
+                     model_fl_min * brightness_lo,
                      color="#C0FFC0")
-    ax1.plot(green_powers, model_fl_dep * brightness, '-',
-             label=r'Model, $h_{stim}\sigma_{23}=' + dep_mult_lo + r'(1/\tau_{fluor})$', color='red')
+    dep_mult = ("{:.2f}".format(kdep))
+    ax1.plot(green_powers, model_fl_dep * brightness_lo, '-',
+             label=(r'Model, $h_{stim}\sigma_{23}=' +
+                    dep_mult + r'(1/\tau_{fluor})$'),
+             color='red')
     ax1.fill_between(green_powers,
-                     model_fl_dep_max * brightness,
-                     model_fl_dep_min * brightness,
+                     model_fl_dep_max * brightness_lo,
+                     model_fl_dep_min * brightness_lo,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)',fontsize=15)
-    ax1.plot(green_powers,fluorescence_signal,'o',
+    ax1.plot(green_powers, fluorescence_signal, 'o',
              label='Measured, 0 mW stimulation', color='green')
-    ax1.plot(green_powers,depleted_signal,'o',
+    ax1.plot(green_powers, depleted_signal, 'o',
              label='Measured, 240 mW stimulation', color='red')
-    ax1.set_xlabel('Excitation power (mW)',fontsize=16)
-    plt.axis([0,1100,0,63])
-    leg = plt.legend(loc='lower right',title='Fluorescence',fontsize=14)
-    plt.setp(leg.get_title(),fontsize=15)
+    ax1.set_xlabel('Excitation power (mW)', fontsize=16)
+    plt.axis([0, 1100, 0, 53])
+    leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
+    plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
     ax2 = ax1.twiny()
     formatter = FuncFormatter(
         lambda green_powers, pos: '{:0.2f}'.format(green_powers/mW_per_kex))
     ax2.xaxis.set_major_formatter(formatter)
     ax2.set_xlim(ax1.get_xlim())
-    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$',fontsize=17)
+    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$', fontsize=17)
     ax2 = ax1.twinx()
     formatter = FuncFormatter(
-        lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness))
+        lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness_lo))
     ax2.yaxis.set_major_formatter(formatter)
     ax2.set_ylim(ax1.get_ylim())
-    ax2.set_ylabel(r'Excitation fraction $n_2$',fontsize=17)
+    ax2.set_ylabel(r'Excitation fraction $n_2$', fontsize=17)
     
     a = plt.axes([0.17, 0.6, .25, .25])
     plt.imshow(fluorescence_cropped, cmap=plt.cm.gray, interpolation='nearest')
     plt.xticks([])
     plt.yticks([])
-    a.text(0.5,1.5,'Crimson bead',fontsize=14,color='white',fontweight='bold')
+    a.text(0.5, 1.5, 'Crimson bead',
+           fontsize=14, color='white', fontweight='bold')
     rect = patches.Rectangle(
-        (4.6,3.4),6,6,linewidth=1,linestyle='dashed',edgecolor='y',facecolor='none')
+        (4.6, 3.4), 6, 6,
+        linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-    plt.savefig('./../images/figure_3/fluorescence_depletion_crimson_dye_rate_hi.svg')
+    plt.savefig(
+        './../images/figure_3/fluorescence_depletion_crimson_dye_rate_hi.svg')
     plt.show()
 
 
