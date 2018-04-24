@@ -26,7 +26,10 @@ def main():
     # same acquisition code used to take the fluorescence data.
     # calibration units: camera counts
     green_powers = np.array(
-        (113.9,119.6,124.5,135,145.5,159.5,175.3,193.1,234.5,272.2,334.1,385.7,446.1))
+        (113.9, 119.6, 124.5, 135, 145.5, 159.5, 175.3, 193.1, 234.5,
+         272.2, 334.1, 385.7, 446.1))
+    # 100-102 is roughly the baseline level, but ~0.4 s exposure caused
+    # ~13 pixel counts of extra light, so we subtract 113.9
     green_powers = green_powers - min(green_powers)
     green_powers = green_powers * green_max_mW / max(green_powers) # units: mW
 
