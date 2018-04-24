@@ -77,6 +77,14 @@ function update_figure_7() {
   image.src = filename;
 }
 
+// Figure 8 interactively loads static images, stored locally
+function update_figure_8() {
+  var dye = document.getElementById("Figure_8_dye").value;
+  var filename = "./images/figure_8/STE_v_fluence_" + dye + ".svg";
+  var image = document.getElementById("Figure_8_image");
+  image.src = filename;
+}
+
 
 // Figure A9 interactively loads static images, stored locally
 function update_figure_A9() {
