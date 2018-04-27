@@ -103,7 +103,7 @@ def main():
             ].mean(axis=2).mean(axis=1)
 
     # average consecutive STE images for better SNR (mandatory)
-    bucket_width = 20
+    bucket_width = 1
     all_STE_images = bucket(
         all_STE_images, (bucket_width, 1, 1)) / bucket_width
 
@@ -137,6 +137,7 @@ def main():
     # get max and minimum values to display images with unified color scale
     max_pixel_value = np.max(STE_display_imgs)
     min_pixel_value = np.min(STE_display_imgs)
+    print(max_pixel_value, min_pixel_value)
 
     STE_display_imgs[:, -2, 1:6] = max_pixel_value # scale bar
 
@@ -156,6 +157,7 @@ def main():
         pulses_axis, STE_signal,
         'o', markersize = 2.5,
         markerfacecolor='none', markeredgecolor='blue')
+##    plt.axis([0-2000, 74000, -25, 110])
     plt.axis([0-2000, np.max(pulses_axis)+2000, -25, 110])
 ##    plt.axis([0-2000, np.max(pulses_axis)+2000, -5, 110])
     plt.grid()
