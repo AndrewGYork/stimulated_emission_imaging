@@ -59,9 +59,6 @@ def main():
     
     for my_index, my_set in enumerate(sets):
         filename = (
-            './../../stimulated_emission_data/figure_8/' +
-            'dataset_' + my_set + '_' + str(reps_avgd) + '_rep_avg.tif')
-        filename = (
             './../../stimulated_emission_imaging-data' +
             '/2018_02_28_STE_phase_bleaching_cr_bead_12_' + my_set +
             '/STE_phase_angle_1_green_950mW_red_240mW.tif')
