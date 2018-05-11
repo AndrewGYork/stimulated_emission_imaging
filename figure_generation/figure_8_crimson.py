@@ -12,7 +12,7 @@ def main():
         os.mkdir('./../images/figure_8')
 
     less_rows = 3 # top and bottom image rows tend to saturate
-    num_reps = 3000 #original number of reps
+    num_reps = 3000 #original number of reps not counting first blank delay scan
     reps_avgd = 1
     reps_per_set = int(num_reps/reps_avgd)
     num_delays = 3
@@ -21,17 +21,14 @@ def main():
     width = 380
     lbhw = 28 # half width of box around main image lobe
     sets = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-##    sets = ['a', 'b', 'c']
     image_center = np.array([
-        [57, 190],
-        [65, 190],
-        [69, 186],
-        [70, 184],
-        [75, 182],
-        [76, 182],
-        [77, 181]])
-##    image_center = np.array([
-##        [57, 190], [65, 190], [69, 186]])
+        [75, 193],
+        [79, 193],
+        [81, 193],
+        [82, 193],
+        [84, 193],
+        [84, 193],
+        [89, 193]])
     # change image center coordinate height due to cropping
     image_center = image_center - np.array([less_rows, 0])
     assert len(sets) == len(image_center)
@@ -40,13 +37,14 @@ def main():
     ref_data_set = 'a'
     ref_filename = (
         './../../stimulated_emission_imaging-data' +
-        '/2018_02_28_STE_phase_bleaching_cr_bead_12_' + ref_data_set +
-        '/STE_phase_angle_1_green_950mW_red_240mW.tif')
+        '/2018_05_08_crimson_STE_phase_bleaching_bead_0' +
+        '/STE_phase_angle_1_green_1010mW_red_230mW_' + ref_data_set + '.tif')
     set_data = np_tif.tif_to_array(
         ref_filename).astype(np.float64) - dark_counts
-    set_data = set_data.reshape(reps_per_set, num_delays, height, width)
+    set_data = set_data.reshape(reps_per_set + 1, num_delays, height, width)
     # get rid of overexposed rows at top and bottom of images
-    set_data = set_data[:, :, 0 + less_rows:height - less_rows, :]
+    # as well as first delay scan which has all lasers off
+    set_data = set_data[1::, :, 0 + less_rows:height - less_rows, :]
     # use outer regions of image to estimate average laser brightness.
     # Use this brightness to re-scale all other images prior to other
     # operations, such as subtracting zero delay and max delay images
@@ -60,14 +58,15 @@ def main():
     for my_index, my_set in enumerate(sets):
         filename = (
             './../../stimulated_emission_imaging-data' +
-            '/2018_02_28_STE_phase_bleaching_cr_bead_12_' + my_set +
-            '/STE_phase_angle_1_green_950mW_red_240mW.tif')
+            '/2018_05_08_crimson_STE_phase_bleaching_bead_0' +
+            '/STE_phase_angle_1_green_1010mW_red_230mW_' + my_set + '.tif')
         set_data = np_tif.tif_to_array(
             filename).astype(np.float64) - dark_counts
-        assert set_data.shape == (reps_per_set * num_delays, height, width)
-        set_data = set_data.reshape(reps_per_set, num_delays, height, width)
+        assert set_data.shape == ((reps_per_set + 1) * num_delays, height, width)
+        set_data = set_data.reshape(reps_per_set + 1, num_delays, height, width)
         # crop overexposed rows from top and bottom of image
-        set_data = set_data[:, :, 0 + less_rows:height - less_rows, :]
+        # as well as first delay scan which has all lasers off
+        set_data = set_data[1::, :, 0 + less_rows:height - less_rows, :]
 
         # scale all images to have the same background brightness. This
         # amounts to a correction of roughly 1% or less
@@ -100,12 +99,13 @@ def main():
             ].mean(axis=2).mean(axis=1)
 
     # average consecutive STE images for better SNR (mandatory)
-    bucket_width = 1
+    bucket_width = 50
     all_STE_images = bucket(
         all_STE_images, (bucket_width, 1, 1)) / bucket_width
 
     # average consecutive STE signal levels for better SNR (optional)
-    signal_bucket_width = 1
+    signal_bucket_width = 50
+    orig_STE_signal = STE_signal
     STE_signal = np.array([STE_signal])
     STE_signal = bucket(
         STE_signal, (1, signal_bucket_width)) / signal_bucket_width
@@ -142,20 +142,35 @@ def main():
     pulses_per_exposure = 8
     exposures_per_delay_scan = 3
     num_delay_scans = len(sets) * num_reps
+    orig_pulses_axis = (np.arange(num_delay_scans) *
+                        pulses_per_exposure *
+                        exposures_per_delay_scan)
     pulses_axis = (
         np.arange(num_delay_scans / signal_bucket_width) *
         pulses_per_exposure *
         exposures_per_delay_scan *
         signal_bucket_width)
-    
 
+    # get rid of signal from dust particle (shots 17219 - 17226)
+    first_bad_shot = 17219
+    num_bad_shots = 8
+    orig_mask = np.arange(num_bad_shots) + first_bad_shot
+    orig_STE_signal = np.delete(orig_STE_signal, orig_mask)
+    orig_pulses_axis = np.delete(orig_pulses_axis, orig_mask)
+    bucket_mask = (first_bad_shot + num_bad_shots // 2) // signal_bucket_width
+    STE_signal = np.delete(STE_signal, bucket_mask)
+    pulses_axis = np.delete(pulses_axis, bucket_mask)
+
+    # finally plot
     plt.figure(figsize=(13,5))
     plt.plot(
-        pulses_axis, STE_signal,
+        orig_pulses_axis, orig_STE_signal,
         'o', markersize = 2.5,
         markerfacecolor='none', markeredgecolor='blue')
+    plt.plot(pulses_axis, STE_signal, color='red')
 ##    plt.axis([0-2000, 74000, -25, 110])
     plt.axis([0-2000, np.max(pulses_axis)+2000, -25, 110])
+    print(np.max(pulses_axis))
 ##    plt.axis([0-2000, np.max(pulses_axis)+2000, -5, 110])
     plt.grid()
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=14)
@@ -189,8 +204,27 @@ def main():
     plt.yticks([])
     plt.savefig('./../images/figure_8/STE_v_fluence_crimson.svg')
     plt.show()
-    
-    
+
+    STE_signal = STE_signal/max(STE_signal)
+
+    half_level = pulses_axis[np.argmin(np.absolute(STE_signal - 0.5))]
+    quarter_level = pulses_axis[np.argmin(np.absolute(STE_signal - 0.25))]
+    eighth_level = pulses_axis[np.argmin(np.absolute(STE_signal - 0.125))]
+    pulses_100h = half_level
+    pulses_hq = quarter_level - half_level
+    pulses_qe = eighth_level - quarter_level
+
+    print('100% to half level in', pulses_100h, 'pulses')
+    print('Half to quarter level in', pulses_hq, 'pulses')
+    print('Quarter to eighth level in', pulses_qe, 'pulses')
+
+    plt.figure()
+    plt.plot(orig_STE_signal)
+    plt.show()
+
+    plt.figure()
+    plt.plot(STE_signal)
+    plt.show()
 
 
     return None

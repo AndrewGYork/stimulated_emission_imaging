@@ -86,12 +86,13 @@ def main():
 
     
     # average consecutive STE images for better SNR (mandatory)
-    bucket_width = 1
+    bucket_width = 50
     all_STE_images = bucket(
         all_STE_images, (bucket_width, 1, 1)) / bucket_width
 
     # average consecutive STE signal levels for better SNR (optional)
-    signal_bucket_width = 1
+    signal_bucket_width = 50
+    orig_STE_signal = STE_signal
     STE_signal = np.array([STE_signal])
     STE_signal = bucket(
         STE_signal, (1, signal_bucket_width)) / signal_bucket_width
@@ -121,15 +122,18 @@ def main():
     max_pixel_value = np.max(STE_display_imgs)
     min_pixel_value = np.min(STE_display_imgs)
     print(max_pixel_value, min_pixel_value)
-    max_pixel_value = 103.8#np.max(STE_display_imgs)
-    min_pixel_value = -63.1#np.min(STE_display_imgs)
+    max_pixel_value = 102.6 # from figure_8_crimson.py
+    min_pixel_value = -49 # from figure_8_crimson.py
 
     STE_display_imgs[:, -2, 1:6] = max_pixel_value # scale bar
 
     # number of accumulated excitation pulses for x axis of bleaching plot
-    pulses_per_exposure = 8
+    pulses_per_exposure = 12
     exposures_per_delay_scan = 3
     num_delay_scans = len(sets) * num_reps
+    orig_pulses_axis = (np.arange(num_delay_scans) *
+                        pulses_per_exposure *
+                        exposures_per_delay_scan)
     pulses_axis = (
         np.arange(num_delay_scans / signal_bucket_width) *
         pulses_per_exposure *
@@ -139,11 +143,12 @@ def main():
 
     plt.figure(figsize=(13,5))
     plt.plot(
-        pulses_axis, STE_signal,
+        orig_pulses_axis, orig_STE_signal,
         'o', markersize = 2.5,
         markerfacecolor='none', markeredgecolor='blue')
+    plt.plot(pulses_axis, STE_signal, color='red')
 ##    plt.axis([0-2000, 74000, -25, 110])
-    plt.axis([-2000, 502000, -25, 110])
+    plt.axis([-2000, 502800 + 2000, -25, 110])
 ##    plt.axis([0, np.max(pulses_axis), -25, 50])
     plt.grid()
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=14)
