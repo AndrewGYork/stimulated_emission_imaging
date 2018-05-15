@@ -53,12 +53,12 @@ def main():
         print('Piezo voltage', z_v)
         filename = (
             './../../stimulated_emission_imaging-data' +
-            '/2016_11_02_STE_z_stack_depletion_darkfield' +
+            '/2016_11_02_STE_z_stack_darkfield' +
             '/STE_darkfield_113_green_1500mW_red_300mW' +
             z_v + '_many_delays.tif')
         filename_ctrl = (
             './../../stimulated_emission_imaging-data' +
-            '/2016_11_02_STE_z_stack_depletion_darkfield' +
+            '/2016_11_02_STE_z_stack_darkfield' +
             '/STE_darkfield_113_green_0mW_red_300mW' +
             z_v + '_many_delays.tif')
         data_z = np_tif.tif_to_array(filename).astype(np.float64)
