@@ -1,8 +1,9 @@
 import os
 import numpy as np
-import np_tif
-from stack_registration import stack_registration
+from scipy.ndimage import gaussian_filter
 import matplotlib.pyplot as plt
+from stack_registration import bucket
+import np_tif
 
 def main():
 
@@ -14,33 +15,17 @@ def main():
         os.mkdir('./../images/figure_A9')
 
     filename = (
-        './../../stimulated_emission_data/figure_A9/dataset_green_1500mW.tif')
+        './../../stimulated_emission_imaging-data' +
+        '/2016_10_31_STE_phase_scan_re-center_phase_plate'
+        '/dataset_green_1500mW.tif')
     filename_ctrl = (
-        './../../stimulated_emission_data/figure_A9/dataset_green_0mW.tif')
+        './../../stimulated_emission_imaging-data' +
+        '/2016_10_31_STE_phase_scan_re-center_phase_plate'
+        '/dataset_green_0mW.tif')
     data = np_tif.tif_to_array(filename).astype(np.float64)
     data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
 
-    # get rid of overexposed rows at top and bottom of images
-    less_rows = 3
-    data = data[:,0+less_rows:data.shape[1]-less_rows,:]
-    data_ctrl = data_ctrl[:,0+less_rows:data_ctrl.shape[1]-less_rows,:]
-
-    # combine experiment and control images
-    data_combined = np.zeros((2,data.shape[0],data.shape[1],data.shape[2]))
-    data_combined[0] = data
-    data_combined[1] = data_ctrl
-
-##    # register each control slice with the corresponding experimental slice
-##    fmm = 0.02 #fourier mask magnitude is a carefully tuned parameter
-##    for which_slice in range(data.shape[0]):
-##        stack_registration(
-##            data_combined[:,which_slice,:,:],
-##            fourier_mask_magnitude = fmm,
-##            )
-
     # reshape to hyperstack
-    data = data_combined[0]
-    data_ctrl = data_combined[1]
     num_delays = 5
     data = data.reshape((
         data.shape[0]/num_delays,
@@ -54,70 +39,105 @@ def main():
         data_ctrl.shape[1],
         data_ctrl.shape[2],
         ))
+
+    # Get the average pixel brightness in the background region of the
+    # phase contrast images. We'll use it to account for laser intensity
+    # fluctuations. This was already done for all reps at a particular
+    # angle, but now we should do it across all angles
+    avg_laser_brightness = get_bg_level(data.mean(axis=(0, 1)))
+
+    # scale all images to have the same background brightness. This
+    # amounts to a correction of roughly 1% or less
+    # ... for "green on" data
+    local_laser_brightness = get_bg_level(data)
+    data = data * (avg_laser_brightness / local_laser_brightness).reshape(
+        data.shape[0], data.shape[1], 1, 1)
+    # ... for "green off" data
+    # scale all images to have the same background brightness. This
+    # amounts to a correction of roughly 1% or less
+    local_laser_brightness = get_bg_level(data_ctrl)
+    data_ctrl = data_ctrl * (
+        avg_laser_brightness / local_laser_brightness).reshape(
+            data_ctrl.shape[0], data_ctrl.shape[1], 1, 1)
+
+    # get zero delay images, max delay images and phase contrast images
+    zero_delay_images = data[:, 2, :, :] # zero red/green delay
+    max_delay_images = data[
+        :, 0:5:4, :, :].mean(axis=1) # average max and min delay
+    phase_stack = data[:, 0, :, :] # red before green (min delay)
+    # also for green off data
+    zero_delay_images_ctrl = data_ctrl[:, 2, :, :] # zero red/green delay
+    max_delay_images_ctrl = data_ctrl[
+        :, 0:5:4, :, :].mean(axis=1) # average max and min delay
+
     # from the image where red/green are simultaneous, subtract the
-    # average of images taken when the delay magnitude is greatest
-    STE_stack = (
-        data[:,2,:,:] - # zero red/green delay
-        0.5 * (data[:,0,:,:] + data[:,4,:,:]) # max red/green delay
-        )
-    crosstalk_stack = (
-        data_ctrl[:,2,:,:] - # zero red/green delay
-        0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,4,:,:]) # max red/green delay
-        )
-    # phase contrast image (no STE) stack
-    phase_stack = 0.5 * (data[:,0,:,:] + data[:,4,:,:])
-    phase_stack_ctrl = 0.5 * (data_ctrl[:,0,:,:] + data_ctrl[:,4,:,:])
+    # average of the max and min delay images
+    STE_stack = zero_delay_images - max_delay_images
+    STE_stack_ctrl = zero_delay_images_ctrl - max_delay_images_ctrl
+    # subtract crosstalk signal
+    STE_stack -= STE_stack_ctrl
 
-    # save processed stacks
-##    np_tif.array_to_tif(STE_stack,'STE_stack.tif')
-##    np_tif.array_to_tif(crosstalk_stack,'crosstalk_stack.tif')
-##    np_tif.array_to_tif(phase_stack,'phase_stack.tif')
-##    np_tif.array_to_tif(phase_stack_ctrl,'phase_ctrl_stack.tif')
+    # The background phase contrast image noise is comprised of stripes
+    # that are completely outside of the microscope's spatial pass-band.
+    # The smoothing step below strongly attenuates this striping
+    # artifact with almost no effect on spatial frequencies due to the
+    # sample.
+    sigma = 9 # tune this parameter to reject high spatial frequencies
+    STE_stack = gaussian_filter(STE_stack, sigma=(0, sigma, sigma))
+    STE_stack_ctrl = gaussian_filter(STE_stack_ctrl, sigma=(0, sigma, sigma))
+    phase_stack = gaussian_filter(phase_stack, sigma=(0, sigma, sigma))
 
-    # plot phase contrast image and stim emission signal
+    # crop images to center bead
     top = 0
     bot = 122
     left = 59
     right = 311
     phase_cropped = phase_stack[:,top:bot,left:right]
+    # also subtract crosstalk
     STE_cropped = (STE_stack[:,top:bot,left:right] -
-                   crosstalk_stack[:,top:bot,left:right])
+                   STE_stack_ctrl[:,top:bot,left:right])
+
+    # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
+    # This is not great for viewing, because fluctuations can swamp the
+    # signal. This step bins the pixels into a more typical size.
+    bucket_width = 8 # bucket width in pixels
+    phase_cropped = bucket(
+        phase_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
+    STE_cropped = bucket(
+        STE_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
+
+    # find min and max values of 
+    phase_max = np.amax(phase_cropped)
+    phase_min = np.amin(phase_cropped)
+    STE_max = np.amax(STE_cropped)
+    STE_min = np.amin(STE_cropped)
 
     for angle_num in range(STE_cropped.shape[0]):
-        # filter darkfield and STE images
         STE_image = STE_cropped[angle_num,:,:]
-        STE_image = STE_image.reshape(
-            1,STE_image.shape[0],STE_image.shape[1])
-        STE_image = annular_filter(STE_image,r1=0,r2=0.03)
-        STE_image = STE_image[0,:,:]
         phase_image = phase_cropped[angle_num,:,:]
-        phase_image = phase_image.reshape(
-            1,phase_image.shape[0],phase_image.shape[1])
-        phase_image = annular_filter(phase_image,r1=0,r2=0.03)
-        phase_image = phase_image[0,:,:]
 
         # generate and save plot
-        STE_image[0,0] = 12.8 # cheap way to conserve colorbar
-        STE_image[1,0] = -36.5 # cheap way to conserve colorbar
-        phase_image[0,0] = 35500 #cheap way to conserve colorbar
-        phase_image[1,0] = 4400 #cheap way to conserve colorbar
-        STE_image[108:114,5:34] = -36.5 # scale bar
-        phase_image[108:114,5:34] = 35500 # scale bar
+        phase_image[-2:-1, 1:6] = phase_max# scale bar
+        STE_image[-2:-1, 1:6] = STE_min# scale bar
+        
         fig, (ax0, ax1) = plt.subplots(nrows=2,ncols=1,figsize=(9,8))
 
-        cax0 = ax0.imshow(phase_image, cmap=plt.cm.gray)
+        cax0 = ax0.imshow(phase_image, cmap=plt.cm.gray,
+                          interpolation='nearest',
+                          vmax=phase_max, vmin=phase_min)
         ax0.axis('off')
         cbar0 = fig.colorbar(cax0,ax=ax0)
         ax0.set_title('Phase contrast image of nanodiamond')
 
-        cax1 = ax1.imshow(STE_image, cmap=plt.cm.gray)
+        cax1 = ax1.imshow(STE_image, cmap=plt.cm.gray,
+                          interpolation='nearest',
+                          vmax=STE_max, vmin=STE_min)
         cbar1 = fig.colorbar(cax1, ax = ax1)
         ax1.set_title('Change in phase contrast image due to N-v excitation')
         ax1.axis('off')
         plt.savefig('./../images/figure_A9/phase_STE_image_' +
                     str(angle_num)+'.svg')
         plt.close()
-    
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
@@ -127,14 +147,14 @@ def main():
     right = 232
     STE_signal = (
         STE_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    crosstalk_signal = (
-        crosstalk_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
+    STE_signal_ctrl = (
+        STE_stack_ctrl[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     phase_signal = (
         phase_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     
     # plot signal v phase
     angles = range(32)
-    true_signal = STE_signal - crosstalk_signal
+    true_signal = STE_signal - STE_signal_ctrl
     plt.figure()
     plt.plot(angles,phase_signal,'.-',color='black')
     plt.title('Phase contrast image main lobe brightness')
@@ -144,7 +164,7 @@ def main():
 ##    plt.savefig('darkfield_v_z.svg')
     plt.figure()
     plt.plot(angles,STE_signal,'.-',label='STE signal',color='blue')
-    plt.plot(angles,crosstalk_signal,'.-',label='AOM crosstalk',color='green')
+    plt.plot(angles,STE_signal_ctrl,'.-',label='AOM crosstalk',color='green')
     plt.title('Stimulated emission signal main lobe intensity')
     plt.xlabel('Relative phase (arb. units)')
     plt.ylabel('Change in phase contrast signal (CMOS pixel counts)')
@@ -159,27 +179,28 @@ def main():
     plt.legend(loc='lower right')
     plt.grid()
 ##    plt.savefig('darkfield_STE_v_z.svg')
-##    plt.show()
+    plt.show()
     
 
     return None
 
+def get_bg_level(data):
+    num_regions = 2
+    
+    # region 1
+    bg_up = 2
+    bg_down = 120
+    bg_left = 285
+    bg_right = 379
+    bg_level = data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
 
+    # region 2
+    bg_up = 2
+    bg_down = 120
+    bg_left = 1
+    bg_right = 81
+    bg_level += data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
 
-
-def annular_filter(x, r1, r2):
-    assert r2 > r1 >= 0
-
-    x_ft = np.fft.fftn(x)
-    n_y, n_x = x.shape[-2:]
-    kx = np.fft.fftfreq(n_x).reshape(1, 1, n_x)
-    ky = np.fft.fftfreq(n_y).reshape(1, n_y, 1)
-
-    x_ft[kx**2 + ky**2 > r2**2] = 0
-    x_ft[kx**2 + ky**2 < r1**2] = 0
-
-    x_filtered = np.fft.ifftn(x_ft).real
-
-    return x_filtered
+    return(bg_level / num_regions)
 
 main()

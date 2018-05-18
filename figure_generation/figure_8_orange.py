@@ -204,21 +204,5 @@ def get_bg_level(data):
     bg_level += data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
 
     return(bg_level / num_regions)
-    
-
-def annular_filter(x, r1, r2):
-    assert r2 > r1 >= 0
-
-    x_ft = np.fft.fftn(x)
-    n_y, n_x = x.shape[-2:]
-    kx = np.fft.fftfreq(n_x).reshape(1, 1, n_x)
-    ky = np.fft.fftfreq(n_y).reshape(1, n_y, 1)
-
-    x_ft[kx**2 + ky**2 > r2**2] = 0
-    x_ft[kx**2 + ky**2 < r1**2] = 0
-
-    x_filtered = np.fft.ifftn(x_ft).real
-
-    return x_filtered
 
 main()
