@@ -1,8 +1,8 @@
 import os
 import numpy as np
-import np_tif
-from stack_registration import stack_registration
 import matplotlib.pyplot as plt
+import np_tif
+from stack_registration import bucket
 
 def main():
 
@@ -14,9 +14,13 @@ def main():
         os.mkdir('./../images/figure_A6')
 
     filename = (
-        './../../stimulated_emission_data/figure_A6/dataset_green_1350mW.tif')
+        './../../stimulated_emission_imaging-data' +
+        '/2017_08_25_STE_phase_thermal_nanodiamond_4_5x_longest_delays' +
+        '/STE_phase_angle_10_green_1350mW_red_300mW.tif')
     filename_ctrl = (
-        './../../stimulated_emission_data/figure_A6/dataset_green_0mW.tif')
+        './../../stimulated_emission_imaging-data' +
+        '/2017_08_25_STE_phase_thermal_nanodiamond_4_5x_longest_delays' +
+        '/STE_phase_angle_10_green_0mW_red_300mW.tif')
     data = np_tif.tif_to_array(filename).astype(np.float64)
     data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
 
@@ -25,41 +29,26 @@ def main():
     data = data[:,0+less_rows:data.shape[1]-less_rows,:]
     data_ctrl = data_ctrl[:,0+less_rows:data_ctrl.shape[1]-less_rows,:]
 
-##    # combine experiment and control images
-##    data_combined = np.zeros((2,data.shape[0],data.shape[1],data.shape[2]))
-##    data_combined[0] = data
-##    data_combined[1] = data_ctrl
-
-##    # register each control slice with the corresponding experimental slice
-##    fmm = 0.02 #fourier mask magnitude is a carefully tuned parameter
-##    for which_slice in range(data.shape[0]):
-##        stack_registration(
-##            data_combined[:,which_slice,:,:],
-##            fourier_mask_magnitude = fmm,
-##            )
-
-##    # reshape to hyperstack
-##    data = data_combined[0]
-##    data_ctrl = data_combined[1]
-##    num_delays = 41
-##    print(data.shape)
-##    data = data.reshape((
-##        data.shape[0]/num_delays,
-##        num_delays,
-##        data.shape[1],
-##        data.shape[2],
-##        ))
-##    print (data.shape)
-##    print(data.shape[4444444444])
-##    data_ctrl = data_ctrl.reshape((
-##        data_ctrl.shape[0]/num_delays,
-##        num_delays,
-##        data_ctrl.shape[1],
-##        data_ctrl.shape[2],
-##        ))
+    # Get the average pixel brightness in the background region of the
+    # meltmount mix data. We'll use it to account for laser intensity
+    # fluctuations
+    avg_laser_brightness = get_bg_level(data.mean(axis=0))
+    
+    # scale all images to have the same background brightness. This
+    # amounts to a correction of roughly 1% or less
+    local_laser_brightness = get_bg_level(data)
+    data = data * (
+        avg_laser_brightness / local_laser_brightness).reshape(
+            data.shape[0], 1, 1)
+    # do the same for control (green off) data
+    local_laser_brightness_ctrl = get_bg_level(data_ctrl)
+    data_ctrl = data_ctrl * (
+        avg_laser_brightness / local_laser_brightness_ctrl).reshape(
+            data_ctrl.shape[0], 1, 1)
 
     # get delays from code copied from
     # modulated_imaging_one_z_STE_phase_thermal.py
+    num_reps = 50
     daq_rate = 8e5
     red_pulse_duration_pixels = 4
     green_pulse_duration_pixels = 20
@@ -80,7 +69,17 @@ def main():
     red_pulse_duration = red_pulse_duration_pixels/daq_rate
     green_pulse_duration = green_pulse_duration_pixels/daq_rate
     
-    num_delays = red_delays.shape[0]    
+    num_delays = red_delays.shape[0]
+
+    # reshape data by reps
+    data = data.reshape(
+        num_reps, num_delays, data.shape[1], data.shape[2])
+    data_ctrl = data_ctrl.reshape(
+        num_reps, num_delays, data_ctrl.shape[1], data_ctrl.shape[2])
+
+    # now that brightness is corrected, repetition average the data
+    data = data.mean(axis=0)
+    data_ctrl = data_ctrl.mean(axis=0)
 
     # The first delay is negative. Subtract this from the rest of the
     # data in order to find the time delayed change in the phase
@@ -89,7 +88,8 @@ def main():
     thermal_stack = data - early_data
     early_data_ctrl = np.array([data_ctrl[0,:,:]]*num_delays) # red precedes green
     crosstalk_stack = data_ctrl - early_data_ctrl
-    thermal_stack = thermal_stack - crosstalk_stack
+    # subtract AOM effects (even though it doesn't seem like there are any)
+    thermal_stack = thermal_stack# - crosstalk_stack
 
     # plot phase contrast image and thermal signal
     top = 0
@@ -98,45 +98,33 @@ def main():
     right = 252
     thermal_cropped = thermal_stack[:,top:bot,left:right]
 
-    for delay_num in range(thermal_cropped.shape[0]):
-        # filter thermal images
-        thermal_image = thermal_cropped[delay_num,:,:]
-        thermal_image = thermal_image.reshape(
-            1,thermal_image.shape[0],thermal_image.shape[1])
-        thermal_image = annular_filter(thermal_image,r1=0,r2=0.03)
-        thermal_image = thermal_image[0,:,:]
-        
-
-        # generate and save plot
-##        print(np.amax(thermal_image))
-##        print(np.amin(thermal_image))
-        thermal_image[0,0] = 416 # cheap way to conserve colorbar
-##        thermal_image[1,0] = -1091 # cheap way to conserve colorbar
-        thermal_image[88:94,5:34] = -1091 # scale bar
-        thermal_cropped[delay_num,:,:] = thermal_image
-
-        
-        fig, ax0 = plt.subplots(nrows=1,ncols=1)
-
-        cax0 = ax0.imshow(thermal_image, cmap=plt.cm.gray)
-        ax0.axis('off')
-
-##        plt.savefig('./../images/figure_A6/phase_STE_image_' +
-##                    str(angle_num)+'.svg')
-        plt.close()
+    # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
+    # This is not great for viewing, because fluctuations can swamp the
+    # signal. This step bins the pixels into a more typical size.
+    bucket_width = 8 # bucket width in pixels
+    thermal_cropped = bucket(
+        thermal_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
 
     # choose three representative thermal images
     thermal_first = thermal_cropped[6,:,:]
     thermal_middle = thermal_cropped[10,:,:]
     thermal_last = thermal_cropped[28,:,:]
+
+    # combine into single array
+    three_images = np.array([thermal_first, thermal_middle, thermal_last])
+    # get max/min values
+    thermal_max = np.amax(three_images)
+    thermal_min = np.amin(three_images)
+    # scale bar
+    three_images[:, -2:-1, 1:6] = thermal_min
     
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 26
-    bot = 55
-    left = 156
-    right = 286
+    top = 13
+    bot = top + 48
+    left = 148
+    right = left + 48
     thermal_signal = (
         thermal_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
     green_pulse = np.array([
@@ -184,35 +172,55 @@ def main():
     ax.legend(lns, labs, loc='lower right')
 
     ax.grid()
-    ax.set_xlabel('Time (ms)')
+    ax.set_xlabel('Time delay between red and green pulses (ms)')
     ax.set_ylabel('Average pixel count', color='red')
     ax.tick_params('y', colors='red')
     ax2.set_ylabel('Laser power (arb. units)', color='green')
     ax2.tick_params('y', colors='green')
     ax.set_xlim([-0.25,5.75])
-    ax.set_ylim(-400,25)
+    ax.set_ylim(-550,25)
     ax2.set_ylim([-0.05,1.1])
 
-    a = plt.axes([.18, .13, .18, .18])
-    plt.imshow(thermal_first, cmap=plt.cm.gray)
+    a = plt.axes([.21, .13, .18, .18])
+    plt.imshow(three_images[0], cmap=plt.cm.gray,
+               interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
     plt.xticks([])
     plt.yticks([])
-    a = plt.axes([.26, .4, .18, .18])
-    plt.imshow(thermal_middle, cmap=plt.cm.gray)
+    a = plt.axes([.33, .36, .18, .18])
+    plt.imshow(three_images[1], cmap=plt.cm.gray,
+               interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
     plt.xticks([])
     plt.yticks([])
-    a = plt.axes([.7, .6, .18, .18])
-    plt.imshow(thermal_last, cmap=plt.cm.gray)
+    a = plt.axes([.7, .53, .18, .18])
+    plt.imshow(three_images[2], cmap=plt.cm.gray,
+               interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
     plt.xticks([])
     plt.yticks([])
     plt.savefig('./../images/figure_A6/phase_contrast_nd_delayed_signal.svg')
-##    plt.show()
-    plt.close()
+    plt.show()
+##    plt.close()
     
 
     return None
 
+def get_bg_level(data):
+    num_regions = 2
+    
+    # region 1
+    bg_up = 2
+    bg_down = 120
+    bg_left = 285
+    bg_right = 379
+    bg_level = data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
 
+    # region 2
+    bg_up = 2
+    bg_down = 120
+    bg_left = 1
+    bg_right = 81
+    bg_level += data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
+
+    return(bg_level / num_regions)
 
 
 def annular_filter(x, r1, r2):
