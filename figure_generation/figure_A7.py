@@ -1,14 +1,17 @@
 import os
 import numpy as np
-import np_tif
 import matplotlib.pyplot as plt
+import np_tif
+from stack_registration import bucket
 
 def main():
 
     assert os.path.isdir('./../images')
     if not os.path.isdir('./../images/figure_A7'):
         os.mkdir('./../images/figure_A7')
-    root_string = './../../stimulated_emission_data/figure_A7/'
+    root_string = (
+        './../../stimulated_emission_imaging-data' +
+        '/2016_10_24_pulse_length')
     pulse_text = [
         '_4x_long_pulse/',
         '_3x_long_pulse/',
@@ -38,50 +41,67 @@ def main():
     
     STE_signal = np.zeros(4)
     STE_signal_relative = np.zeros(4)
-    STE_image_cropped = np.zeros((4,crop_height,crop_width))
+    STE_image_cropped = np.zeros((4,10,12))
+    num_reps = 200
+    num_delays = 5
 
     for i in range(4):
         pulsewidth = pulsewidths[i]
-        folder_string = root_string + 'nanodiamond_7' + pulse_text[i]
-        filename = (folder_string + 'dataset.tif')
+        folder_string = root_string + '/nanodiamond_7' + pulse_text[i]
+        filename = (folder_string +
+                    'STE_darkfield_117_5_green_1500mW_red_300mW_many_delays.tif')
         assert os.path.exists(filename)
         data = np_tif.tif_to_array(filename).astype(np.float64)
-        filename = (folder_string + 'dataset_green_blocked.tif')
+        filename = (folder_string +
+                    'STE_darkfield_117_5_green_0mW_red_300mW' +
+                    '_many_delays.tif')
         assert os.path.exists(filename)
         data_bg = np_tif.tif_to_array(filename).astype(np.float64)
-        data = data - data_bg
+        # reshape to hyperstack
+        data = data.reshape(
+            num_reps, num_delays, data.shape[1], data.shape[2])
+        data_bg = data_bg.reshape(
+            num_reps, num_delays, data_bg.shape[1], data_bg.shape[2])
         # get rid of overexposed rows at top and bottom of images
         less_rows = 3
-        data = data[:,1+less_rows:data.shape[2]-less_rows,:]
+        data = data[:, :, less_rows:data.shape[2]-less_rows, :]
+        data_bg = data_bg[:, :, less_rows:data_bg.shape[2]-less_rows, :]
+        # repetition average
+        data = data.mean(axis=0)
+        data_bg = data_bg.mean(axis=0)
+        # subtract crosstalk
+        data = data - data_bg
         # subtract avg of green off images from green on images
         data_simult = data[2,:,:]
         data_non_simult = 0.5 * (data[0,:,:] + data[4,:,:])
         STE_image = data_simult - data_non_simult
-        # filter high frequency noise
-        STE_image = STE_image.reshape(
-            1,STE_image.shape[0],STE_image.shape[1])
-        STE_image = annular_filter(STE_image,r1=0,r2=0.04)
-        STE_image = STE_image[0,:,:]
-        # crop stim emission image
-        STE_image_cropped[i,:,:] = STE_image[
-            top_left_y[i]:top_left_y[i] + crop_height,
-            top_left_x[i]:top_left_x[i] + crop_width,
-            ]
-##        print(np.amax(STE_image_cropped[i,:,:]))
-##        print(np.amin(STE_image_cropped[i,:,:]))
-        STE_image_cropped[i,0,0] = -156
-        STE_image_cropped[i,0,-1] = 4
-        STE_image_cropped[i,74:80,5:34] = -156
         # capture stim emission signal
         my_col = bright_spot_x[i]
         my_row = bright_spot_y[i]
         main_lobe = STE_image[
             my_row-qtr_width:my_row+qtr_width,
             my_col-qtr_width:my_col+qtr_width]
-        left_edge = STE_image[:,qtr_width*2]
         STE_signal[i] = np.mean(main_lobe)
-##        STE_signal_relative[i] = STE_signal[i] - np.mean(left_edge)
         STE_signal_relative[i] = STE_signal[i]
+        # crop stim emission image
+        STE_image_cropped_single = STE_image[
+            top_left_y[i]:top_left_y[i] + crop_height,
+            top_left_x[i]:top_left_x[i] + crop_width,
+            ]
+        # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
+        # This is not great for viewing, because fluctuations can swamp the
+        # signal. This step bins the pixels into a more typical size.
+        bucket_width = 8 # bucket width in pixels
+        STE_image_cropped_single = bucket(
+            STE_image_cropped_single, (bucket_width, bucket_width)
+            ) / bucket_width**2
+        # load into final image array
+        STE_image_cropped[i, :, :] = STE_image_cropped_single
+
+    # get max and min vals
+    STE_max = np.amax(STE_image_cropped)
+    STE_min = np.amin(STE_image_cropped)
+    STE_image_cropped[:, -2:-1, 1:5] = STE_min # scale bar
 
     my_zero = np.zeros(1)
     STE_signal_relative = np.concatenate((my_zero,STE_signal_relative))
@@ -98,13 +118,14 @@ def main():
     plt.grid()
     for i in range(4):
         a = plt.axes([plot_pos_x[i], plot_pos_y[i], .12, .12])
-        plt.imshow(STE_image_cropped[i,:,:], cmap=plt.cm.gray)
+        plt.imshow(STE_image_cropped[i,:,:], cmap=plt.cm.gray,
+                   interpolation='nearest', vmax=STE_max, vmin=STE_min)
         plt.xticks([])
         plt.yticks([])
-##    plt.show()
     plt.savefig('./../images/figure_A7/darkfield_nd_pulse_length_scan.svg')
+    plt.show()
 
-    plt.close()
+##    plt.close()
     
         
         

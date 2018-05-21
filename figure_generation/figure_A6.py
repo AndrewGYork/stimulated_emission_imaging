@@ -30,7 +30,7 @@ def main():
     data_ctrl = data_ctrl[:,0+less_rows:data_ctrl.shape[1]-less_rows,:]
 
     # Get the average pixel brightness in the background region of the
-    # meltmount mix data. We'll use it to account for laser intensity
+    # phase contrast image. We'll use it to account for laser intensity
     # fluctuations
     avg_laser_brightness = get_bg_level(data.mean(axis=0))
     
