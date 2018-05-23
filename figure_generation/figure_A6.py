@@ -130,8 +130,8 @@ def main():
     green_pulse = np.array([
         0,
         0,
-        1,
-        1,
+        0.95,
+        0.95,
         0,
         0,
         ])
@@ -178,8 +178,8 @@ def main():
     ax2.set_ylabel('Laser power (arb. units)', color='green')
     ax2.tick_params('y', colors='green')
     ax.set_xlim([-0.25,5.75])
-    ax.set_ylim(-550,25)
-    ax2.set_ylim([-0.05,1.1])
+    ax.set_ylim(-524,24)
+    ax2.set_ylim([-0.05,1.045])
 
     a = plt.axes([.21, .13, .18, .18])
     plt.imshow(three_images[0], cmap=plt.cm.gray,
