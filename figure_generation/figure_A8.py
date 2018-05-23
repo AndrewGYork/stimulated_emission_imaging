@@ -26,10 +26,8 @@ def main():
     crop_height = 118
 
     # where on the plot should the cropped images be
-    plot_pos_y = [0.12, 0.26, 0.43, 0.63]
-    plot_pos_x = [0.26, 0.4, 0.58, 0.77]
-
-    
+    plot_pos_y = [0.12, 0.26, 0.43, 0.62]
+    plot_pos_x = [0.27, 0.42, 0.59, 0.77]
     
     STE_signal = np.zeros(4)
     STE_signal_relative = np.zeros(4)
