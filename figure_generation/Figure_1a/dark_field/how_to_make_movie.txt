@@ -1,0 +1,5 @@
+open presentation
+
+save as html (this will dump a bunch of png files in the folder)
+
+run animation_generator_mp4 python script
