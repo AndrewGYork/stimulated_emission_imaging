@@ -1,0 +1,8 @@
+open presentation
+
+save as html (this will dump a bunch of png files in the folder)
+
+run animation_generator_mp4 python script
+OR
+type this in cmd prompt:
+ffmpeg -y -r 10 -f image2 -i img%d.png -movflags faststart -pix_fmt yuv420p -vcodec libx264 -vf scale=trunc(iw/2)*2:trunc(ih/2)*2 -preset veryslow -crf 25 fig_1c_video.mp4
