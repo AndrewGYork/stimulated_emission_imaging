@@ -329,7 +329,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <p><strong>what did we do? </strong>We prepared three crimson bead samples using mounting media with refractive index lower than the beads \((\Delta n\approx 0.05)\), the same as the beads \((\Delta n\approx 0)\), and higher than the beads \((\Delta n\approx -0.01)\). For each sample, we rotated the phase plate to fifteen evenly-spaced angles, spanning one complete wavelength of phase shift. At each angle, we took three exposures with different excitation pulse delays, yielding phase contrast images of beads 2.5 &micro;s before excitation, during excitation, and 2.5 &micro;s after excitation. For each exposure, we used 5 maximum-intensity excitation/stimulation pulse pairs with 1.25 &micro;s duration and 600 &micro;s between pairs.
 </p>
 
-<p>Figure 7 shows single-bead images for the two phase plate angles that maximize bead visibility. The top row shows <a href="./appendix.html#Phase_contrast_image_generation">phase contrast images</a> of scattered light from the bead, 2.5 &micro;s before excitation. We expect no stimulated emission at this delay, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Note that the index-matched bead \((\Delta n\approx 0)\) is invisible via phase contrast, but visible via fluorescence (not shown). The bottom row "difference images" each show <a href="./appendix.html#Phase_contrast_image_generation">the change in the corresponding top row image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
+<p>Figure 7 shows single-bead images for the two phase plate angles that maximize bead visibility. The top row shows <a href="./appendix.html#Phase_contrast_image_generation">phase contrast images</a> of scattered light from the bead, 2.5 &micro;s before excitation. We expect no stimulated emission at this delay, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Note that the index-matched bead \((\Delta n\approx 0)\) is invisible via phase contrast, but visible via fluorescence (Figure 8 with <code>Measurement type: Fluorescence imaging</code> selected). The bottom row "difference images" each show <a href="./appendix.html#Phase_contrast_image_generation">the change in the corresponding top row image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
 </p>
 
 <figure id="Figure_7">
@@ -346,10 +346,40 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <figcaption><strong>Figure 7: Index-matched crimson beads are invisible in phase contrast, but form coherent images upon fluorescent excitation.</strong> See the <a href="./appendix.html">Appendix</a> for image processing <a href="./appendix.html#Phase_contrast_image_generation">details</a>. The top row shows phase contrast images of single <a href="./appendix.html#Crimson_dyed_polystyrene_bead_properties_and_mounting">beads</a> mounted in media with refractive index lower than the bead \((\Delta n\approx 0.05)\), the same as the bead \((\Delta n\approx 0)\), and higher than the bead \((\Delta n\approx -0.01)\).  The bottom row "difference images" each show the change in the corresponding top row image upon fluorescent excitation. Use the control to choose between the two phase plate angles that maximize bead visibility. Scale bar: 350 nm. Color bar: image intensity (<a href="./appendix.html#camera">camera</a> digitizer units) relative to a ~20,000 count background.</figcaption>
 </figure><p></p>
 
-<p>Each difference image clearly depicts the bead. If the difference images are due to stimulated emission, this contradicts the model in Figure 1b, and is consistent with the model in Figure 1c. This is suggestive, but of course not conclusive. To rule out alternative explanations, we must compare Figure 1c's predictions against a wide variety of observations. What else does Figure 1c predict, and what other phenomena might explain our observations?
+<p>Each difference image clearly depicts the bead. If the difference images are due to stimulated emission, this contradicts the model in Figure 1b, and is consistent with the model in Figure 1c. This is suggestive, but certainly not conclusive. To rule out alternative explanations, we must compare Figure 1c's predictions against a wide variety of observations. What else does Figure 1c predict, and what other phenomena might explain our observations?
 </p>
 
-<p>The excitation pulse could perhaps cause a difference image by heating the bead and alters its refractive index. What controls can we do to confirm? Requires excitation (delay scan). Too big to be fluorescence. Too short to be heating (Delay scan). It's coherent. Phase seems to be opposite to that of scattered light. Is this crosstalk? 
+<p><strong>Requires excitation. A finer delay scan would show that the image persists only for the duration of the fluorescence lifetime.</strong>
+</p>
+
+<p><strong>Coherence</strong>
+</p>
+
+<p><strong>Persists in the absence of scattering</strong>
+</p>
+
+<p><strong>Can't be fluorescence leaking through narrow filter (text in darkfield section)</strong>
+</p>
+
+<p><strong>Photobleaches (some text written)</strong>
+</p>
+
+<p><strong>Coincides with depletion (link to fluorescence depletion section?)</strong>
+</p>
+
+<p><strong>Depends on intensity (some text written for pulse length scan)</strong>
+</p>
+
+<p><strong>Works on nanodiamond (lots of text written in darkfield section)</strong>
+</p>
+
+<p><strong>Z-stack (lots of text in nanodiamond section)</strong>
+</p>
+
+<p><strong>Heating? (lots of text in nanodiamond section)</strong>
+</p>
+
+<p><strong>Crosstalk?</strong>
 </p>
 
 <p><strong>photobleaching beads</strong>The crimson and orange fluorescent dye in the polystyrene beads photobleaches after prolonged excitation. If the coherent emission we measured is stimulated emission, we would expect it to decrease as well after prolonged excitation. We performed this control measurement while keeping the phase plate at an angle that caused the signal to constructively interfere with the transmitted light background. Figure 8 shows this signal decreasing after long exposure to the excitation beam. The phase contrast images of the crimson beads are taken with the same parameters as described above: 5 maximum-intensity excitation/stimulation pulse pairs per camera exposure, with 600 &micro;s between pulse pairs. <strong>TODO: specify acquisition parameters for STE orange beads, and fluorescence for both crimson and orange beads</strong> Each point on the graph is the average number of counts per pixel in the main lobe of an image made by averaging 100 camera exposures. The sample inset images are an average of 100 camera exposures.
@@ -366,7 +396,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
   </select></td>
     </tr>
   <tr>
-  <td>Measurement_type: </td><td><select id="Figure_8_measurement" onchange="update_figure_8()">
+  <td>Measurement type: </td><td><select id="Figure_8_measurement" onchange="update_figure_8()">
     <option value="STE" selected="selected">Phase contrast difference imaging</option>
     <option value="fl">Fluorescence imaging</option>
   </select></td>
@@ -376,6 +406,9 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 </figure><p></p>
 
 <p><strong>pulse length scan for beads in appendix</strong>As with the change in scattered light signal from N-v centers in nanodiamonds, the magnitude of the signal from the crimson dyed beads <a href="./appendix.html#The_image_signal_depends_on_the_intensity_of_the_excitation_and_stimulation_laser_pulses">increases linearly</a> as excitation and stimulation intensity increases and fluence is held constant. We would expect this of stimulated emission from crimson dyed beads in the regime where neither excitation nor stimulated emission are fully saturated.
+</p>
+
+<p>The excitation pulse could perhaps cause a difference image by heating the bead and alters its refractive index. What controls can we do to confirm? Requires excitation (delay scan). Too big to be fluorescence. Too short to be heating (Delay scan). It's coherent. Phase seems to be opposite to that of scattered light. Is this crosstalk? 
 </p>
 
 <p><strong>did our observations match our expectations? </strong>
