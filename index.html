@@ -357,7 +357,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <p><strong>Diff. image persists without scattering (rhyme with "closely resembles our thought experiment" from 1st paragraph in Results). Conclusion: cannot explain effect as modulation of spherical diameter, but possibly modulation of bead index</strong>The difference images from excited, index-matched beads (Figure 7, center row) show that the appearance of a phase contrast image of an excited bead is independent of the presence of scattering. This is in agreement with the model in Figure 1c, which predicts a phase contrast image of the source of stimulated emission in the absence of scattering.
 </p>
 
-<p><strong>Excitation required, context of delay. Also fluorescence image predicts diff. image</strong>Figure 1c predicts that a stimulated emission image would require excited fluorophores. Accordingly, the difference images depicting the bead in Figure 7 disappear when the excitation beam is blocked. The difference images also <a href="./appendix.html#Controls_for_thermal_effects_due_to_the_excitation_laser">don't appear</a> if the stimulation pulse precedes the excitation pulse or if the stimulation pulse follows the excitation pulse for delays >= 2.5 &micro;s. Additionally, a fluorescence image of the bead accurately predicts the location of the difference image, as well as the location of the scattered light images of the beads that were not correctly index-matched.
+<p><strong>Excitation required, context of space and time. Camera predicts spatial location of signal, and delay scan predicts temporal location. Block green pulse and signal disappears.</strong>Figure 1c predicts that a stimulated emission image would require excited fluorophores. Accordingly, the difference images depicting the bead in Figure 7 disappear when the excitation beam is blocked. The difference images also <a href="./appendix.html#Controls_for_thermal_effects_due_to_the_excitation_laser">don't appear</a> if the stimulation pulse precedes the excitation pulse or if the stimulation pulse follows the excitation pulse for delays >= 2.5 &micro;s. Additionally, a fluorescence image of the bead accurately predicts the location of the difference image, as well as the location of the scattered light images of the beads that were not correctly index-matched.
 </p>
 
 <p><strong>Excitation required, context of photobleaching</strong>
@@ -389,20 +389,86 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <p><strong>What conclusion should we draw</strong>Crimson bead fluorescence fades, and diff image fades.
 </p>
 
-<p><strong>Stim emission cross-section predicts signal strength. Possible side note: it's a different dye</strong>The model in Figure 1c is not fluorophore-specific. Our observations corroborate this implication; we excited both crimson and orange dyed beads and generated unambiguous phase contrast difference images of the bead in both cases (Figure 8 with <code>Measurement type: Phase contrast difference imaging</code> selected). The fluorescence bleaching rate of the orange beads is significantly faster than that of the crimson beads (Figure 8 with <code>Measurement type: Fluorescence imaging</code> selected). Accordingly, the difference image signal of the orange bead decreases significantly faster than that of the crimson bead during prolonged exposure to excitation energy.
+<h4>Fluorescence and stimulated emission depletion</h4>
+
+<p><strong>Establish depletion</strong>Ok excitation is required. How much do we have? Quantify rates. Also, (side note) stimulated emission should go hand-in-hand with depletion.
 </p>
 
-<p><strong>Establish depletion</strong>Section is mostly written, but include short discussion about poor orange depletion efficiency @721nm and refer to lower signal in bead bleaching data to corroborate less efficient stimulation.
+<p><strong>what are our expectations?</strong>Fluorophore vibrational relaxation rate constants \(1/\tau_{vibr}\) dominate their spontaneous emission rate constants \(1/\tau_{fluor}\), and given our modest laser intensities, they also dominate excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
+
+[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
+
+reduces to:
+</p>
+<div>
+	$$\begin{equation} \frac{dn_{2}}{dt} = h_{exc}\sigma_{01}(1-n_2) - h_{stim}\sigma_{23}n_2 - \frac{1}{\tau_{fluor}}n_2 \end{equation}$$
+</div>
+<p>
+We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), as well as the proportionality between measured fluorescence (in camera counts per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
 </p>
 
-<p><strong>Should I link pulse length scan from crimson beads or move on to nanodiamonds?</strong>
+<p><strong>what did we do?</strong>We imaged our fluorophores as illustrated in Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected. We exposed the samples to a train of simultaneous excitation and stimulation pulses over a single camera exposure, with 600 &micro;s between consecutive pulse pairs. We used 700 pulse pairs per exposure for the nanodiamonds, and 5 for the beads. We measured sample fluorescence while finely tuning the peak excitation power and switching the stimulation power on and off (Figure 3). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 420 nm, Figure 3 inset). The inset images were taken with maximum excitation power and no stimulation power.
 </p>
+
+<figure id="Figure_3">
+<img src="./images/figure_3/fluorescence_depletion_crimson_dye_brightness_optimal.svg"
+ alt="Figure 3" id="Figure_3_image">
+ <table class="figure_controls">
+  <tr>
+  <td>Sample type: </td><td><select id="Figure_3_sample_type" onchange="update_figure_3()">
+    <option value="nd">N-v doped nanodiamond</option>
+    <option value="crimson_dye" selected="selected">Crimson fluorescent bead</option>
+	<option value="orange_dye">Orange fluorescent bead</option>
+  </select></td>
+    </tr>
+  <tr>
+  <td>Fit parameters: </td><td><select id="Figure_3_fit_parameter" onchange="update_figure_3()">
+    <option value="hi">Fit parameter: 1.5X higher saturation brightness</option>
+    <option value="optimal" selected="selected">Fit parameter: optimal saturation brightness</option>
+    <option value="lo">Fit parameter: 1.5X lower saturation brightness</option>
+
+  </select></td>
+    </tr>
+</table>
+<figcaption><strong>Figure 3: Fluorescence and stimulated emission depletion in nanodiamonds and beads.</strong> Single-particle fluorescence vs. excitation power with (red dots) and without (green dots) stimulated emission depletion. Each dot in the graph represents the average brightness per pixel within the yellow box illustrated in the single-particle fluorescent image (inset; scale bar: 350 nm). Green and red lines are fits to the model described in the text. Use the control above to choose between fluorescent sample types. <strong>TO DO: link to acquisition code, raw data, and figure generation code.</strong></figcaption>
+</figure><p></p>
+
+<p><strong>did our observations confirm our expectations?</strong>At equilibrium, \(\frac{dn_{2}}{dt} = 0\), yielding:</p>
+
+<div>
+	$$\begin{equation} n_2 = \frac{h_{exc}\sigma_{01}}{h_{exc}\sigma_{01} + h_{stim}\sigma_{23} + \frac{1}{\tau_{fluor}}} \end{equation}$$
+</div>
+
+<p>
+When we fit the data to our model, we estimated the maximum excitation rate constant \(h_{exc}\sigma_{01}\approx1.3(1/\tau_{fluor})\) and excitation fraction \(n_2\approx0.56\) for the N-v doped nanodiamonds,  \(h_{exc}\sigma_{01}\approx(1/\tau_{fluor})\) and \(n_2\approx0.5\) for the crimson beads, and \(h_{exc}\sigma_{01}\approx1.6(1/\tau_{fluor})\) and \(n_2\approx0.62\) for the orange beads. At the maximum available excitation beam and stimulation beam powers, we observed ~10% depletion for both N-v and crimson dye fluorescence and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.26(1/\tau_{fluor})\) and \(h_{stim}\sigma_{23}\approx0.16(1/\tau_{fluor})\), respectively.
+</p>
+
+
+<p><strong>Explain not great fit and highlight take-aways (approach saturation and looks like STE)</strong>The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
+
+[<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
+
+and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, excitation approaches saturation, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. An <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">axial view</a> of the N-v center fluorescence from a nanodiamond is available in the appendix.
+</p>
+
+<p><strong>Should I link pulse length scan from crimson beads or move on to nanodiamonds? Follows from understanding excitation and stim emission rates</strong>
+</p>
+
+<p><strong>ORANGE BEAD SECTION. Stim emission cross-section predicts signal strength. Possible side note: it's a different dye</strong>The model in Figure 1c is not fluorophore-specific. Our observations corroborate this implication; we excited both crimson and orange dyed beads and generated unambiguous phase contrast difference images of the bead in both cases (Figure 8 with <code>Measurement type: Phase contrast difference imaging</code> selected). The fluorescence bleaching rate of the orange beads is significantly faster than that of the crimson beads (Figure 8 with <code>Measurement type: Fluorescence imaging</code> selected). Accordingly, the difference image signal of the orange bead decreases significantly faster than that of the crimson bead during prolonged exposure to excitation energy.
+</p>
+
+<p><strong>Explain no depletion from orange beads</strong>We did not observe depletion of the orange fluorescent dye above the noise floor of our measurement. Our stimulation wavelength of 721 nm is much longer than the emission peak of the orange dye (see spectra in Figure 2b with <code>Fluorescent sample type: Beads labeled with orange dye</code> selected). Stimulation light at 721 nm should then less efficiently deplete orange dye as compared to crimson dye and N-v centers 
+
+[<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
+
+This appears to explain the smaller peak difference image signal we measured when attempting to image stimulated emission from orange beads (Figure 8 with <code>Sample type: Orange dyed bead</code> and <code>Measurement type: Phase contrast difference imaging</code> selected.)
+</p>
+
+
+
 
 
 <p><strong>Transition to nanodiamonds</strong> by saying we attempt to image stimulated emission from yet another sample type that, unlike the first two, does not bleach, so we can test other stuff. OR Link to nanodiamond data in appendix? One link per control? (i.e. at-focus image, Z-stack, power scan, delay scan, thermal control)
-</p>
-
-<p><strong>Transition to depletion section</strong> by saying that any model of stimulated emission should predict that, as long as excitation is not heavily saturated, stimulated emission should coincide with fluorescence depletion. Our observations show that depletion coincides with the appearance of our difference images.
 </p>
 
 
@@ -413,10 +479,10 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <p><strong>Crosstalk</strong> not yet addressed in either phase contrast or darkfield section.
 </p>
 
-<p><strong>Heating</strong> addressed indirectly in phase contrast section and directly in darkfield section as written.
+<p><strong>Fluorescence leak through</strong> discussed in experimental design section, and additionally (but not well) in darkfield section. Specify red blocked measurement. less than 0.5 count, whereas actual signal is many times that.
 </p>
 
-<p><strong>Fluorescence leak through</strong> discussed in experimental design section, and additionally (but not well) in darkfield section
+<p><strong>Heating</strong> addressed indirectly in phase contrast section and directly in darkfield section as written.
 </p>
 
 <p><strong>Instantaneous nonlinearity (Raman) not mentioned anywhere yet.</strong>
@@ -490,70 +556,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <p><strong>bead signal seems like stim emission</strong>The emission we measured (1) requires the excitation and stimulation laser pulses, (2) appears coherent, (3) persists in the absence of scattering, (4) decreases after extended photobleaching, and (5) and depends linearly on stimulation/excitation laser pulse intensity. We would expect stimulated emission to also exhibit these five characteristics. Additionally, the emission appears to form a point-like image on the camera, which one would expect if the model in Figure 1c is accurate.
 </p>
 
-<h4>Fluorescence and stimulated emission depletion</h4>
 
-<p><strong>what are our expectations?</strong>Fluorophore vibrational relaxation rate constants \(1/\tau_{vibr}\) dominate their spontaneous emission rate constants \(1/\tau_{fluor}\), and given our modest laser intensities, they also dominate excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
-
-[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
-
-reduces to:
-</p>
-<div>
-	$$\begin{equation} \frac{dn_{2}}{dt} = h_{exc}\sigma_{01}(1-n_2) - h_{stim}\sigma_{23}n_2 - \frac{1}{\tau_{fluor}}n_2 \end{equation}$$
-</div>
-<p>
-We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), as well as the proportionality between measured fluorescence (in camera counts per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
-</p>
-
-<p><strong>what did we do?</strong>We imaged our fluorophores as illustrated in Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected. We exposed the samples to a train of simultaneous excitation and stimulation pulses over a single camera exposure, with 600 &micro;s between consecutive pulse pairs. We used 700 pulse pairs per exposure for the nanodiamonds, and 5 for the beads. We measured sample fluorescence while finely tuning the peak excitation power and switching the stimulation power on and off (Figure 3). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 420 nm, Figure 3 inset). The inset images were taken with maximum excitation power and no stimulation power.
-</p>
-
-<figure id="Figure_3">
-<img src="./images/figure_3/fluorescence_depletion_crimson_dye_brightness_optimal.svg"
- alt="Figure 3" id="Figure_3_image">
- <table class="figure_controls">
-  <tr>
-  <td>Sample type: </td><td><select id="Figure_3_sample_type" onchange="update_figure_3()">
-    <option value="nd">N-v doped nanodiamond</option>
-    <option value="crimson_dye" selected="selected">Crimson fluorescent bead</option>
-	<option value="orange_dye">Orange fluorescent bead</option>
-  </select></td>
-    </tr>
-  <tr>
-  <td>Fit parameters: </td><td><select id="Figure_3_fit_parameter" onchange="update_figure_3()">
-    <option value="hi">Fit parameter: 1.5X higher saturation brightness</option>
-    <option value="optimal" selected="selected">Fit parameter: optimal saturation brightness</option>
-    <option value="lo">Fit parameter: 1.5X lower saturation brightness</option>
-
-  </select></td>
-    </tr>
-</table>
-<figcaption><strong>Figure 3: Fluorescence and stimulated emission depletion in nanodiamonds and beads.</strong> Single-particle fluorescence vs. excitation power with (red dots) and without (green dots) stimulated emission depletion. Each dot in the graph represents the average brightness per pixel within the yellow box illustrated in the single-particle fluorescent image (inset; scale bar: 350 nm). Green and red lines are fits to the model described in the text. Use the control above to choose between fluorescent sample types. <strong>TO DO: link to acquisition code, raw data, and figure generation code.</strong></figcaption>
-</figure><p></p>
-
-<p><strong>did our observations confirm our expectations?</strong>At equilibrium, \(\frac{dn_{2}}{dt} = 0\), yielding:</p>
-
-<div>
-	$$\begin{equation} n_2 = \frac{h_{exc}\sigma_{01}}{h_{exc}\sigma_{01} + h_{stim}\sigma_{23} + \frac{1}{\tau_{fluor}}} \end{equation}$$
-</div>
-
-<p>
-When we fit the data to our model, we estimated the maximum excitation rate constant \(h_{exc}\sigma_{01}\approx1.3(1/\tau_{fluor})\) and excitation fraction \(n_2\approx0.56\) for the N-v doped nanodiamonds,  \(h_{exc}\sigma_{01}\approx(1/\tau_{fluor})\) and \(n_2\approx0.5\) for the crimson beads, and \(h_{exc}\sigma_{01}\approx1.6(1/\tau_{fluor})\) and \(n_2\approx0.62\) for the orange beads. At the maximum available excitation beam and stimulation beam powers, we observed ~10% depletion for both N-v and crimson dye fluorescence and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.26(1/\tau_{fluor})\) and \(h_{stim}\sigma_{23}\approx0.16(1/\tau_{fluor})\), respectively.
-</p>
-
-<p><strong>Explain no depletion from orange beads</strong>We did not observe depletion of the orange fluorescent dye above the noise floor of our measurement. Our stimulation wavelength of 721 nm is much longer than the emission peak of the orange dye (see spectra in Figure 2b with <code>Fluorescent sample type: Beads labeled with orange dye</code> selected). Stimulation light at 721 nm should then less efficiently deplete orange dye as compared to crimson dye and N-v centers 
-
-[<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
-
-This appears to explain the smaller peak difference image signal we measured when attempting to image stimulated emission from orange beads (Figure 8 with <code>Sample type: Orange dyed bead</code> and <code>Measurement type: Phase contrast difference imaging</code> selected.)
-</p>
-
-<p><strong>Explain not great fit and highlight take-aways (approach saturation and looks like STE)</strong>The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
-
-[<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
-
-and bleaching of the crimson dye caused difficulty in repeatably measuring fluorescence from a single bead. The main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, excitation approaches saturation, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission. An <a href="./appendix.html#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers">axial view</a> of the N-v center fluorescence from a nanodiamond is available in the appendix.
-</p>
 
 <h4>
 Dark-field imaging of stimulated emission</h4>
