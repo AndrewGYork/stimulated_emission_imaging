@@ -103,9 +103,10 @@ def main():
     STE_min = np.amin(STE_image_cropped)
     STE_image_cropped[:, -2:-1, 1:5] = STE_min # scale bar
 
-    my_zero = np.zeros(1)
-    STE_signal_relative = np.concatenate((my_zero,STE_signal_relative))
-    my_intensity = np.concatenate((my_zero,1/pulsewidths))
+##    my_zero = np.zeros(1)
+##    STE_signal_relative = np.concatenate((my_zero,STE_signal_relative))
+##    my_intensity = np.concatenate((my_zero,1/pulsewidths))
+    my_intensity = 1/pulsewidths
 
     fig = plt.figure()
     lines = plt.plot(my_intensity,STE_signal_relative,'o--',color='red')

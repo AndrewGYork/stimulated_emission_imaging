@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import np_tif
 from stack_registration import bucket
 
+
 def main():
 
     assert os.path.isdir('./../images')
@@ -26,8 +27,8 @@ def main():
     crop_height = 118
 
     # where on the plot should the cropped images be
-    plot_pos_y = [0.12, 0.26, 0.43, 0.62]
-    plot_pos_x = [0.27, 0.42, 0.59, 0.77]
+    plot_pos_y = [0.12, 0.26, 0.4, 0.62]
+    plot_pos_x = [0.27, 0.42, 0.58, 0.77]
     
     STE_signal = np.zeros(4)
     STE_signal_relative = np.zeros(4)
@@ -112,17 +113,19 @@ def main():
     STE_min = np.amin(STE_image_cropped)
     STE_image_cropped[:, -2:-1, 1:6] = STE_max # scale bar
 
-    my_zero = np.zeros(1)
-    STE_signal_relative = np.concatenate((my_zero,STE_signal_relative))
-    my_intensity = np.concatenate((my_zero,1/pulsewidths))
+##    my_zero = np.zeros(1)
+##    STE_signal_relative = np.concatenate((my_zero,STE_signal_relative))
+##    my_intensity = np.concatenate((my_zero,1/pulsewidths))
+    my_intensity = 1/pulsewidths
 
-    fig = plt.figure()
-    lines = plt.plot(my_intensity,STE_signal_relative,'o--',color='red')
-    plt.setp(lines, linewidth=2, color='r')
-    plt.plot(my_intensity,STE_signal_relative,'o',color='black')
-    plt.xlim(xmin=-0.04,xmax=1.04)
-    plt.ylim(ymin=-5,ymax=176)
-    plt.ylabel('Average signal brightness (pixel counts)')
+    fig, ax1 = plt.subplots()
+    lines = ax1.plot(my_intensity,STE_signal_relative,'o--',color='blue')
+    plt.setp(lines, linewidth=3, color='b')
+    ax1.plot(my_intensity,STE_signal_relative,'o',color='blue', markersize=10)
+    ax1.set_xlim(xmin=-0.05,xmax=1.05)
+    plt.ylim(ymin=-5,ymax=196)
+    ax1.set_ylabel('Average signal brightness (pixel counts)', color='blue')
+    ax1.tick_params('y', colors='b')
     plt.xlabel('Normalized laser intensity (constant energy)')
     plt.grid()
     for i in range(4):
@@ -131,6 +134,37 @@ def main():
                    interpolation='nearest', vmax=STE_max, vmin=STE_min)
         plt.xticks([])
         plt.yticks([])
+    # plot energy per exposure
+    green_uJ = np.array([10, 10, 10, 10])
+    red_uJ = np.array([2, 2, 2, 2])
+    ax2 = ax1.twinx()
+    ax2.plot(my_intensity, green_uJ, '--og', linewidth=2)
+    ax2.plot(my_intensity, red_uJ, '--or', linewidth=2)
+    ax2.set_ylabel('Energy deposited per exposure (µJ)')
+    ax2.set_ylim(ymin=-0.3, ymax=11.4)
+    ax1.set_xlim(xmin=-0.02,xmax=1.05)
+
+    # annotate with red/green pulses
+    im = plt.imread('green_shortpulse.png')
+    a = plt.axes([0.82, 0.813, .08, .08], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
+    im = plt.imread('green_longpulse.png')
+    a = plt.axes([0.175, 0.77, .1, .1], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
+    im = plt.imread('red_shortpulse.png')
+    a = plt.axes([0.82, 0.265, .08, .08], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
+    im = plt.imread('red_longpulse.png')
+    a = plt.axes([0.175, 0.225, .1, .1], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
     plt.savefig('./../images/figure_A8/phase_contrast_dye_pulse_length_scan.svg')
     plt.show()
 ##    plt.close()
