@@ -145,7 +145,7 @@ def main():
 
     # annotate with red/green pulses
     im = plt.imread('green_shortpulse.png')
-    a = plt.axes([0.775, 0.81, .08, .08], frameon=False)
+    a = plt.axes([0.773, 0.81, .08, .08], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
@@ -155,7 +155,7 @@ def main():
     plt.xticks([])
     plt.yticks([])
     im = plt.imread('red_shortpulse.png')
-    a = plt.axes([0.775, 0.25, .08, .08], frameon=False)
+    a = plt.axes([0.773, 0.25, .08, .08], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
