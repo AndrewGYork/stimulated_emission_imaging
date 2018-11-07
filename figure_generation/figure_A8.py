@@ -27,8 +27,8 @@ def main():
     crop_height = 118
 
     # where on the plot should the cropped images be
-    plot_pos_y = [0.12, 0.26, 0.4, 0.62]
-    plot_pos_x = [0.27, 0.42, 0.58, 0.77]
+    plot_pos_y = [0.105, 0.245, 0.37, 0.61]
+    plot_pos_x = [0.25, 0.4, 0.53, 0.77]
     
     STE_signal = np.zeros(4)
     STE_signal_relative = np.zeros(4)
@@ -122,8 +122,7 @@ def main():
     lines = ax1.plot(my_intensity,STE_signal_relative,'o--',color='blue')
     plt.setp(lines, linewidth=3, color='b')
     ax1.plot(my_intensity,STE_signal_relative,'o',color='blue', markersize=10)
-    ax1.set_xlim(xmin=-0.05,xmax=1.05)
-    plt.ylim(ymin=-5,ymax=196)
+    plt.ylim(ymin=0,ymax=196)
     ax1.set_ylabel('Average signal brightness (pixel counts)', color='blue')
     ax1.tick_params('y', colors='b')
     plt.xlabel('Normalized laser intensity (constant energy)')
@@ -141,27 +140,27 @@ def main():
     ax2.plot(my_intensity, green_uJ, '--og', linewidth=2)
     ax2.plot(my_intensity, red_uJ, '--or', linewidth=2)
     ax2.set_ylabel('Energy deposited per exposure (µJ)')
-    ax2.set_ylim(ymin=-0.3, ymax=11.4)
-    ax1.set_xlim(xmin=-0.02,xmax=1.05)
+    ax2.set_ylim(ymin=0, ymax=11.4)
+    ax1.set_xlim(xmin=0,xmax=1.125)
 
     # annotate with red/green pulses
     im = plt.imread('green_shortpulse.png')
-    a = plt.axes([0.82, 0.813, .08, .08], frameon=False)
+    a = plt.axes([0.775, 0.81, .08, .08], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
     im = plt.imread('green_longpulse.png')
-    a = plt.axes([0.175, 0.77, .1, .1], frameon=False)
+    a = plt.axes([0.16, 0.77, .1, .1], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
     im = plt.imread('red_shortpulse.png')
-    a = plt.axes([0.82, 0.265, .08, .08], frameon=False)
+    a = plt.axes([0.775, 0.25, .08, .08], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
     im = plt.imread('red_longpulse.png')
-    a = plt.axes([0.175, 0.225, .1, .1], frameon=False)
+    a = plt.axes([0.16, 0.21, .1, .1], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
