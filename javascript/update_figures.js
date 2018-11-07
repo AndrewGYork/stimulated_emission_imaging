@@ -1,28 +1,34 @@
 // Figure 1a interactively loads mp4 video, stored locally
 function update_figure_1a() {
   var figure_1a_microscope_type = document.getElementById("figure_1a_microscope_type").value;
-  var filename = "./images/figure_1a/" + figure_1a_microscope_type + "/fig_1a_video.mp4";
-  document.getElementById('Figure_1a_video').setAttribute("src",filename)
-  document.getElementById('Figure_1a_video').load();
-  document.getElementById('Figure_1a_video').play();
+  var video_name = "./images/figure_1a/" + figure_1a_microscope_type + "/fig_1a_video.mp4";
+  var poster_name = "./images/figure_1a/" + figure_1a_microscope_type + "/img0.png"
+  var vid = document.getElementById('Figure_1a_video');
+  vid.src = video_name;
+  vid.poster = poster_name;
+  vid.play();
 }
 
 // Figure 1b interactively loads mp4 video, stored locally
 function update_figure_1b() {
   var figure_1b_microscope_type = document.getElementById("figure_1b_microscope_type").value;
-  var filename = "./images/figure_1b/" + figure_1b_microscope_type + "/fig_1b_video.mp4";
-  document.getElementById('Figure_1b_video').setAttribute("src",filename)
-  document.getElementById('Figure_1b_video').load();
-  document.getElementById('Figure_1b_video').play();
+  var video_name = "./images/figure_1b/" + figure_1b_microscope_type + "/fig_1b_video.mp4";
+  var poster_name = "./images/figure_1b/" + figure_1b_microscope_type + "/img0.png"
+  var vid = document.getElementById('Figure_1b_video');
+  vid.src = video_name;
+  vid.poster = poster_name;
+  vid.play();
 }
 
 // Figure 1c interactively loads mp4 video, stored locally
 function update_figure_1c() {
   var figure_1c_microscope_type = document.getElementById("figure_1c_microscope_type").value;
-  var filename = "./images/figure_1c/" + figure_1c_microscope_type + "/fig_1c_video.mp4";
-  document.getElementById('Figure_1c_video').setAttribute("src",filename)
-  document.getElementById('Figure_1c_video').load();
-  document.getElementById('Figure_1c_video').play();
+  var video_name = "./images/figure_1c/" + figure_1c_microscope_type + "/fig_1c_video.mp4";
+  var poster_name = "./images/figure_1c/" + figure_1c_microscope_type + "/img0.png"
+  var vid = document.getElementById('Figure_1c_video');
+  vid.src = video_name;
+  vid.poster = poster_name;
+  vid.play();
 }
 
 // Figure 2 interactively loads static images, stored locally
