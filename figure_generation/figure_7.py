@@ -357,7 +357,7 @@ def main():
     divider = make_axes_locatable(ax0)
     cax = divider.append_axes("right",size="1%",pad=0.25)
     plt.colorbar(cax0, cax = cax)
-    ax0.set_title('Phase contrast image of bead',fontsize=30)
+    ax0.set_title('Phase contrast image of scattered light from bead',fontsize=30)
     ax0.text(
         12, 14, r'$\Delta n\approx +0.05$',
         fontsize=38, color='black', fontweight='bold')
@@ -398,7 +398,7 @@ def main():
     divider = make_axes_locatable(ax0)
     cax = divider.append_axes("right",size="1%",pad=0.25)
     plt.colorbar(cax0, cax = cax)
-    ax0.set_title('Phase contrast image of bead',fontsize=30)
+    ax0.set_title('Phase contrast image of scattered light from bead',fontsize=30)
     ax0.text(
         12, 14, r'$\Delta n\approx +0.05$',
         fontsize=38, color='white', fontweight='bold')
