@@ -40,20 +40,20 @@ function update_figure_2() {
   image.src = filename;
 }
 
-// Figure 3 interactively loads static images, stored locally
-function update_figure_3() {
-  var sample_type = document.getElementById("Figure_3_sample_type").value;
-  var fit_parameter = document.getElementById("Figure_3_fit_parameter").value;
-  var filename = "./images/figure_3/fluorescence_depletion_" + sample_type + "_brightness_" + fit_parameter + ".svg";
-  var image = document.getElementById("Figure_3_image");
+// Figure 5 interactively loads static images, stored locally
+function update_figure_5() {
+  var sample_type = document.getElementById("Figure_5_sample_type").value;
+  var fit_parameter = document.getElementById("Figure_5_fit_parameter").value;
+  var filename = "./images/figure_5/fluorescence_depletion_" + sample_type + "_brightness_" + fit_parameter + ".svg";
+  var image = document.getElementById("Figure_5_image");
   image.src = filename;
 }
 
-// Figure 5 interactively loads static images, stored locally
-function update_figure_5() {
-  var my_powers = document.getElementById("Figure_5_data_subset").value;
-  var filename = "./images/figure_5/STE_v_" + my_powers + ".svg";
-  var image = document.getElementById("Figure_5_image");
+// Figure 5_old interactively loads static images, stored locally
+function update_figure_5_old() {
+  var my_powers = document.getElementById("Figure_5_old_data_subset").value;
+  var filename = "./images/figure_5_old/STE_v_" + my_powers + ".svg";
+  var image = document.getElementById("Figure_5_old_image");
   image.src = filename;
 }
 
@@ -75,20 +75,20 @@ function update_figure_6cd() {
 }
 
 
-// Figure 7 interactively loads static images, stored locally
-function update_figure_7() {
-  var angle = document.getElementById("Figure_7_angle").value;
-  var filename = "./images/figure_7/STE_crimson_bead_" + angle + "_phase.svg";
-  var image = document.getElementById("Figure_7_image");
+// Figure 3 interactively loads static images, stored locally
+function update_figure_3() {
+  var angle = document.getElementById("Figure_3_angle").value;
+  var filename = "./images/figure_3/STE_crimson_bead_" + angle + "_phase.svg";
+  var image = document.getElementById("Figure_3_image");
   image.src = filename;
 }
 
-// Figure 8 interactively loads static images, stored locally
-function update_figure_8() {
-  var dye = document.getElementById("Figure_8_dye").value;
-  var measurement = document.getElementById("Figure_8_measurement").value;
-  var filename = "./images/figure_8/" + measurement + "_v_fluence_" + dye + ".svg";
-  var image = document.getElementById("Figure_8_image");
+// Figure 4 interactively loads static images, stored locally
+function update_figure_4() {
+  var dye = document.getElementById("Figure_4_dye").value;
+  var measurement = document.getElementById("Figure_4_measurement").value;
+  var filename = "./images/figure_4/" + measurement + "_v_fluence_" + dye + ".svg";
+  var image = document.getElementById("Figure_4_image");
   image.src = filename;
 }
 
