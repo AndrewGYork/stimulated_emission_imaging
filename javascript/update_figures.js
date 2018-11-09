@@ -40,6 +40,23 @@ function update_figure_2() {
   image.src = filename;
 }
 
+// Figure 3 interactively loads static images, stored locally
+function update_figure_3() {
+  var angle = document.getElementById("Figure_3_angle").value;
+  var filename = "./images/figure_3/STE_crimson_bead_" + angle + "_phase.svg";
+  var image = document.getElementById("Figure_3_image");
+  image.src = filename;
+}
+
+// Figure 4 interactively loads static images, stored locally
+function update_figure_4() {
+  var dye = document.getElementById("Figure_4_dye").value;
+  var measurement = document.getElementById("Figure_4_measurement").value;
+  var filename = "./images/figure_4/" + measurement + "_v_fluence_" + dye + ".svg";
+  var image = document.getElementById("Figure_4_image");
+  image.src = filename;
+}
+
 // Figure 5 interactively loads static images, stored locally
 function update_figure_5() {
   var sample_type = document.getElementById("Figure_5_sample_type").value;
@@ -73,25 +90,6 @@ function update_figure_6cd() {
   var image = document.getElementById("Figure_6cd_image");
   image.src = filename;
 }
-
-
-// Figure 3 interactively loads static images, stored locally
-function update_figure_3() {
-  var angle = document.getElementById("Figure_3_angle").value;
-  var filename = "./images/figure_3/STE_crimson_bead_" + angle + "_phase.svg";
-  var image = document.getElementById("Figure_3_image");
-  image.src = filename;
-}
-
-// Figure 4 interactively loads static images, stored locally
-function update_figure_4() {
-  var dye = document.getElementById("Figure_4_dye").value;
-  var measurement = document.getElementById("Figure_4_measurement").value;
-  var filename = "./images/figure_4/" + measurement + "_v_fluence_" + dye + ".svg";
-  var image = document.getElementById("Figure_4_image");
-  image.src = filename;
-}
-
 
 // Figure A9 interactively loads static images, stored locally
 function update_figure_A9() {
