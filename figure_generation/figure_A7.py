@@ -34,8 +34,12 @@ def main():
     crop_height = 85
 
     # where on the plot should the cropped images be
-    plot_pos_y = [0.6, 0.46, 0.36, 0.12]
-    plot_pos_x = [0.2, 0.26, 0.4, 0.64]
+    # this works if dotted line connects data points
+##    plot_pos_y = [0.6, 0.46, 0.36, 0.12]
+##    plot_pos_x = [0.2, 0.26, 0.4, 0.64]
+    # this works if no dotted line
+    plot_pos_y = [0.655, 0.515, 0.39, 0.11]
+    plot_pos_x = [0.19, 0.25, 0.37, 0.73]
 
     
     
@@ -109,9 +113,9 @@ def main():
     my_intensity = 1/pulsewidths
 
     fig = plt.figure()
-    lines = plt.plot(my_intensity,STE_signal_relative,'o--',color='red')
-    plt.setp(lines, linewidth=2, color='r')
-    plt.plot(my_intensity,STE_signal_relative,'o',color='black')
+    lines = plt.plot(my_intensity,STE_signal_relative,'o',color='black',markersize=10)
+    plt.setp(lines, linewidth=2, color='black')
+##    plt.plot(my_intensity,STE_signal_relative,'o',color='black')
     plt.xlim(xmin=-0.04,xmax=1.04)
     plt.ylim(ymin=-140,ymax=5)
     plt.ylabel('Average signal brightness (pixel counts)')

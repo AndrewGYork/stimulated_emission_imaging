@@ -27,8 +27,12 @@ def main():
     crop_height = 118
 
     # where on the plot should the cropped images be
-    plot_pos_y = [0.105, 0.245, 0.37, 0.61]
-    plot_pos_x = [0.25, 0.4, 0.53, 0.77]
+    #these work if dotted line connects data
+##    plot_pos_y = [0.105, 0.245, 0.37, 0.61]
+##    plot_pos_x = [0.25, 0.4, 0.53, 0.77]
+    #these work if there is no dotted line to connect data
+    plot_pos_y = [0.105, 0.245, 0.37, 0.62]
+    plot_pos_x = [0.25, 0.34, 0.51, 0.77]
     
     STE_signal = np.zeros(4)
     STE_signal_relative = np.zeros(4)
@@ -119,7 +123,7 @@ def main():
     my_intensity = 1/pulsewidths
 
     fig, ax1 = plt.subplots()
-    lines = ax1.plot(my_intensity,STE_signal_relative,'o--',color='blue')
+    lines = ax1.plot(my_intensity,STE_signal_relative,'o',color='blue',markersize=10)
     plt.setp(lines, linewidth=3, color='b')
     ax1.plot(my_intensity,STE_signal_relative,'o',color='blue', markersize=10)
     plt.ylim(ymin=0,ymax=196)
@@ -137,8 +141,8 @@ def main():
     green_uJ = np.array([10, 10, 10, 10])
     red_uJ = np.array([2, 2, 2, 2])
     ax2 = ax1.twinx()
-    ax2.plot(my_intensity, green_uJ, '--og', linewidth=2)
-    ax2.plot(my_intensity, red_uJ, '--or', linewidth=2)
+    ax2.plot(my_intensity, green_uJ, '--g', linewidth=2)
+    ax2.plot(my_intensity, red_uJ, '--r', linewidth=2)
     ax2.set_ylabel('Energy deposited per exposure (µJ)')
     ax2.set_ylim(ymin=0, ymax=11.4)
     ax1.set_xlim(xmin=0,xmax=1.125)
