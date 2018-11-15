@@ -7,8 +7,8 @@ from stack_registration import bucket
 def main():
 
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_8'):
-        os.mkdir('./../images/figure_8')
+    if not os.path.isdir('./../images/figure_4'):
+        os.mkdir('./../images/figure_4')
 
     crop_rows = 3 # these image rows tend to saturate
     num_reps = 3000 # original number of reps
@@ -178,7 +178,7 @@ def main():
         vmin = min_pixel_value)
     plt.xticks([])
     plt.yticks([])
-    plt.savefig('./../images/figure_8/fl_v_fluence_orange.svg')
+    plt.savefig('./../images/figure_4/fl_v_fluence_orange.svg')
     plt.show()
 
     return None

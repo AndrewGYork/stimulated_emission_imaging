@@ -8,8 +8,8 @@ from stack_registration import bucket
 
 def main():
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_3'):
-        os.mkdir('./../images/figure_3')
+    if not os.path.isdir('./../images/figure_5'):
+        os.mkdir('./../images/figure_5')
 
     num_delays = 3
     image_h = 128
@@ -168,7 +168,7 @@ def main():
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
     plt.savefig(
-        './../images/figure_3/fluorescence_depletion_crimson_dye_brightness_optimal.svg')
+        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_optimal.svg')
     plt.show()
 
     # change brightness * 1.5 and scale rate constant to fit
@@ -247,7 +247,7 @@ def main():
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
     plt.savefig(
-        './../images/figure_3/fluorescence_depletion_crimson_dye_brightness_hi.svg')
+        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_hi.svg')
     plt.show()
 
     # change brightness / 1.5 and scale rate constant to fit
@@ -325,7 +325,7 @@ def main():
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
     plt.savefig(
-        './../images/figure_3/fluorescence_depletion_crimson_dye_brightness_lo.svg')
+        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_lo.svg')
     plt.show()
 
 

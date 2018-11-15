@@ -9,10 +9,10 @@ import np_tif
 def main():
 
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_4'):
-        os.mkdir('./../images/figure_4')
-    if not os.path.isdir('./../images/figure_5'):
-        os.mkdir('./../images/figure_5')
+    if not os.path.isdir('./../images/figure_4_old'):
+        os.mkdir('./../images/figure_4_old')
+    if not os.path.isdir('./../images/figure_5_old'):
+        os.mkdir('./../images/figure_5_old')
 
     data_path = ('./../../stimulated_emission_imaging-data' +
                  '/2016_11_18_modulated_imaging_darkfield_nanodiamond_7' +
@@ -124,7 +124,7 @@ def main():
     plt.ylim(-52, 6)
     plt.xlim(-15, 1465)
     plt.grid()
-    plt.savefig('./../images/figure_5/STE_v_green_power.svg')
+    plt.savefig('./../images/figure_5_old/STE_v_green_power.svg')
     plt.show()
 
     # plot sparse power scan data
@@ -162,7 +162,7 @@ def main():
     plt.legend(loc='lower left')
     plt.xlim(-3, 303)
     plt.grid()
-    plt.savefig('./../images/figure_5/STE_v_red_power_sparse.svg')
+    plt.savefig('./../images/figure_5_old/STE_v_red_power_sparse.svg')
     plt.show()
 
 
@@ -201,7 +201,7 @@ def main():
 
     ax0.text(0.4,2.2,'A',fontsize=72,color='white',fontweight='bold')
     ax1.text(0.4,2.2,'B',fontsize=72,color='black',fontweight='bold')
-    plt.savefig('./../images/figure_4/darkfield_STE_image.svg')
+    plt.savefig('./../images/figure_4_old/darkfield_STE_image.svg')
     plt.show()
 
     return None

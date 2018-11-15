@@ -8,8 +8,8 @@ from stack_registration import bucket
 
 def main():
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_7'):
-        os.mkdir('./../images/figure_7')
+    if not os.path.isdir('./../images/figure_3'):
+        os.mkdir('./../images/figure_3')
 
     #####################################################################
     # meltmount mix data
@@ -386,7 +386,7 @@ def main():
         fontsize=38, color='black', fontweight='bold')
     ax1.set_title('Change due to excitation',fontsize=30,)
     ax1.axis('off')
-    plt.savefig('./../images/figure_7/STE_crimson_bead_pi_phase.svg',
+    plt.savefig('./../images/figure_3/STE_crimson_bead_pi_phase.svg',
                 bbox_inches='tight', pad_inches=0.1)
     plt.show()
 
@@ -427,7 +427,7 @@ def main():
         fontsize=38, color='white', fontweight='bold')
     ax1.set_title('Change due to excitation',fontsize=30)
     ax1.axis('off')
-    plt.savefig('./../images/figure_7/STE_crimson_bead_zero_phase.svg',
+    plt.savefig('./../images/figure_3/STE_crimson_bead_zero_phase.svg',
                 bbox_inches='tight', pad_inches=0.1)
     plt.show()
 
