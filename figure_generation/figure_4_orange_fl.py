@@ -83,6 +83,8 @@ def main():
     all_fl_images = bucket(
         all_fl_images, (bucket_width, 1, 1)) / bucket_width
 
+    fl_signal = fl_signal / max(fl_signal) # normalize
+
     # average consecutive STE signal levels for better SNR (optional)
     signal_bucket_width = 50
     orig_fl_signal = fl_signal
@@ -111,8 +113,8 @@ def main():
 
     fl_display_imgs[:, -2, 1:6] = max_pixel_value # scale bar
 
-    fl_signal = fl_signal/max(orig_fl_signal) # normalize
-    orig_fl_signal = orig_fl_signal/max(orig_fl_signal) # normalize
+##    fl_signal = fl_signal/max(orig_fl_signal) # normalize
+##    orig_fl_signal = orig_fl_signal/max(orig_fl_signal) # normalize
 
     half_level = np.argmin(np.absolute(orig_fl_signal - 0.5))
     quarter_level = np.argmin(np.absolute(orig_fl_signal - 0.25))
@@ -145,9 +147,10 @@ def main():
         orig_pulses_axis, orig_fl_signal,
         'o', markersize = 2.5,
         markerfacecolor='none', markeredgecolor='blue')
-##    plt.axis([0-2000, 74000, -25, 110])
+    plt.plot(pulses_axis, fl_signal, color='red')
+
     plt.axis([0-2000, 502800 + 2000, -.25, 1.10])
-##    plt.axis([0-2000, np.max(pulses_axis)+2000, -5, 110])
+
     plt.grid()
     plt.ylabel('Fluorescence brightness (arb. units)', fontsize=14)
     plt.xlabel('Number of excitation pulses delivered to sample', fontsize=18)
