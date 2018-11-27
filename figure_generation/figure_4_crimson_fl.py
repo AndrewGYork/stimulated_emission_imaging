@@ -183,6 +183,7 @@ def main():
     plt.xticks([])
     plt.yticks([])
     plt.savefig('./../images/figure_4/fl_v_fluence_crimson.svg')
+    plt.savefig('./../images/figure_4/fl_v_fluence_crimson.png', dpi=300)
     plt.show()
 
     return None
