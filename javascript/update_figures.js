@@ -52,7 +52,7 @@ function update_figure_3() {
 function update_figure_4() {
   var dye = document.getElementById("Figure_4_dye").value;
   var measurement = document.getElementById("Figure_4_measurement").value;
-  var filename = "./images/figure_4/" + measurement + "_v_fluence_" + dye + ".svg";
+  var filename = "./images/figure_4/" + measurement + "_v_fluence_" + dye + ".png";
   var image = document.getElementById("Figure_4_image");
   image.src = filename;
 }
