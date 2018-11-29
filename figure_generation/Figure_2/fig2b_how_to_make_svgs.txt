@@ -1,0 +1,6 @@
+Export odp as pdf.
+
+Use an online tool to split the pdf into separate pdfs.
+(example: https://www.splitpdf.com/)
+
+Put pdf in pdf2svg build folder and then in the command prompt, call pdf2svg *.pdf *.svg.
