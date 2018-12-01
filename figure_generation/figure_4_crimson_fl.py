@@ -78,7 +78,7 @@ def main():
     all_fl_images -= bg_level
 
     # average consecutive fl images for better SNR of weak fluorescence (optional)
-    bucket_width = 1
+    bucket_width = 50
     all_fl_images = bucket(
         all_fl_images, (bucket_width, 1, 1)) / bucket_width
 
@@ -149,6 +149,56 @@ def main():
         'o', markersize = 2.5,
         markerfacecolor='none', markeredgecolor='blue')
     plt.plot(pulses_axis, fl_signal, color='red')
+
+    # lines from images to data points
+##    plt.plot(
+##        [pulses_axis[0], 60878],
+##        [fl_signal[0], 0.76],
+##        'k--', lw=2
+##        )
+##    plt.plot(
+##        [pulses_axis[0], 151423],
+##        [fl_signal[0], 0.76],
+##        'k--', lw=2
+##        )
+    for x in np.arange(60878, 151424, 2000):
+        plt.plot(
+            [pulses_axis[0], x],
+            [fl_signal[0], 0.76],
+            'k', lw=0.1,
+            )
+##    plt.plot(
+##        [pulses_axis[int(pulses_axis.shape[0] / 2)], 224362],
+##        [fl_signal[int(fl_signal.shape[0] / 2)], 0.76],
+##        'k--', lw=2
+##        )
+##    plt.plot(
+##        [pulses_axis[int(pulses_axis.shape[0] / 2)], 314907],
+##        [fl_signal[int(fl_signal.shape[0] / 2)], 0.76],
+##        'k--', lw=2
+##        )
+    for x in np.arange(224362, 314908, 1000):
+        plt.plot(
+            [pulses_axis[int(pulses_axis.shape[0] / 2)], x],
+            [fl_signal[int(fl_signal.shape[0] / 2)], 0.76],
+            'k', lw=0.1,
+            )
+##    plt.plot(
+##        [pulses_axis[-1], 387846],
+##        [fl_signal[-1], 0.76],
+##        'k--', lw=2
+##        )
+##    plt.plot(
+##        [pulses_axis[-1], 478391],
+##        [fl_signal[-1], 0.76],
+##        'k--', lw=2
+##        )
+    for x in np.arange(387846, 478392, 1000):
+        plt.plot(
+            [pulses_axis[-1], x],
+            [fl_signal[-1], 0.76],
+            'k', lw=0.1,
+            )
 
     plt.axis([0-2000, 502800 + 2000, -.25, 1.10])
 
