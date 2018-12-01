@@ -333,7 +333,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 
 <h4>Phase contrast imaging of stimulated emission</h4>
 
-<p><strong>what do we expect? </strong>We expect stimulated emission (unlike fluorescence) to coherently interfere with the stimulating beam. Phase contrast microscopy of <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">index-matched beads</a> allows us to test that expectation (Figure 2b with <code>Imaging method: Phase contrast imaging of stimulated emission...</code> and <code>Fluorescent sample type: Beads...</code> selected). Because index matching minimizes scattering, this closely resembles our thought experiment (Figure 1a with <code>Imaging method: Phase contrast</code> selected), where the stimulating beam provides a bright, uniform, coherent background for the stimulated emission to interfere with.
+<p>We expect stimulated emission (unlike fluorescence) to coherently interfere with the stimulating beam. Phase contrast microscopy of <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">index-matched beads</a> allows us to test that expectation (Figure 2b with <code>Imaging method: Phase contrast imaging of stimulated emission...</code> and <code>Fluorescent sample type: Beads...</code> selected). Because index matching minimizes scattering, this closely resembles our thought experiment (Figure 1a with <code>Imaging method: Phase contrast</code> selected), where the stimulating beam provides a bright, uniform, coherent background for the stimulated emission to interfere with.
 </p>
 <p>If the model in Figure 1b is accurate, we expect this background to become (slightly) uniformly brighter when the bead is excited, due to stimulated emission. Tuning the angle of the phase plate would not change the camera signal, because the stimulated emission would overlap perfectly with the stimulation beam, which does not contact the plate.
 </p>
@@ -341,7 +341,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 </p>
 
 
-<p><strong>what did we do? </strong>We prepared three crimson bead samples using mounting media with refractive index lower than the beads \((\Delta n\approx 0.05)\), the same as the beads \((\Delta n\approx 0)\), and higher than the beads \((\Delta n\approx -0.01)\). For each sample, we rotated the phase plate to fifteen evenly-spaced angles, spanning one complete wavelength of phase shift. At each angle, we took three exposures with different excitation pulse delays, yielding phase contrast images of beads 2.5 &micro;s before excitation, during excitation, and 2.5 &micro;s after excitation. For each exposure, we used 8 <a href="./index.html#Peak_laser_intensity" target="_self">maximum-intensity</a> excitation/stimulation pulse pairs with 1.25 &micro;s duration and 600 &micro;s between pairs.
+<p>We prepared three crimson bead samples using mounting media with refractive index lower than the beads \((\Delta n\approx 0.05)\), the same as the beads \((\Delta n\approx 0)\), and higher than the beads \((\Delta n\approx -0.01)\). For each sample, we rotated the phase plate to fifteen evenly-spaced angles, spanning one complete wavelength of phase shift. At each angle, we took three exposures with different excitation pulse delays, yielding phase contrast images of beads 2.5 &micro;s before excitation, during excitation, and 2.5 &micro;s after excitation. For each exposure, we used 8 <a href="./index.html#Peak_laser_intensity" target="_self">maximum-intensity</a> excitation/stimulation pulse pairs with 1.25 &micro;s duration and 600 &micro;s between pairs.
 </p>
 
 <p>Figure 3 shows single-bead images for the two phase plate angles that maximize bead visibility. Each panel in the top row shows a <a href="./appendix.html#Phase_contrast_image_generation">phase contrast image</a> of scattered light from a bead, 2.5 &micro;s before excitation. We expect no stimulated emission at this delay, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Note that the index-matched bead \((\Delta n\approx 0)\) is invisible via phase contrast, but visible via fluorescence (inset image in Figure 5 with <code>Sample type: Crimson fluorescent bead</code> selected). The bottom row "difference images" each show <a href="./appendix.html#Phase_contrast_image_generation">the change in the corresponding top row image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
@@ -359,21 +359,12 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
     </tr>
 </table>
 <figcaption><strong>Figure 3: Index-matched crimson beads are invisible in phase contrast, but form coherent images upon fluorescent excitation.</strong> The top row shows phase contrast images of single <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">beads</a> mounted in media with refractive index lower than the bead \((\Delta n\approx 0.05)\), the same as the bead \((\Delta n\approx 0)\), and higher than the bead \((\Delta n\approx -0.01)\).  The bottom row "difference images" each show the change in the corresponding top row image upon fluorescent excitation. Use the control to choose between the two phase plate angles that maximize bead visibility. Scale bars: 350 nm. Color bars: image intensity (<a href="./appendix.html#camera">camera</a> digitizer units) relative to a ~20,000 count (top row) or zero count (bottom row) background. See the <a href="./appendix.html">Appendix</a> for details of
-
 <a href="./appendix.html#Image_acquisition_and_figure_generation">image acquisition</a>,
-
 <a href="./appendix.html#Phase_contrast_image_generation">image processing</a>, and
-
 <a href="./appendix.html#Image_acquisition_and_figure_generation">figure generation</a>.</figcaption>
 </figure><p></p>
 
-<p><strong>Kick off results discussion (format is to compare Fig 1c prediction with observations)</strong>
-</p>
-
 <p>The \(\Delta n\approx 0\) difference image in Figure 3 clearly depicts the bead. If this difference image is due to stimulated emission, it contradicts the model in Figure 1b, and supports the model in Figure 1c. This is suggestive, but certainly not conclusive. To rule out alternative explanations, we must compare Figure 1c's predictions against a wide variety of observations. What else does our model predict, and what other phenomena might explain our observations?
-</p>
-
-<p><strong>Tunable coherent interference with bg, and phase relative to scatter. Rhyme with third paragraph of Results section.</strong>
 </p>
 
 <p>Our model predicts that a phase plate can tune the magnitude and sign of interference between the stimulated emission image and the background (Figure 1c with <code>Imaging method: Phase contrast</code> (<code>destructive</code> or <code>constructive</code>) <code>interference</code> selected). Indeed, rotating our phase plate tunes each difference image continuously from negative to positive contrast (Figure 3 with <code>Scattered light phase retardation:</code> (<code>-&lambda;/4</code> or <code>+&lambda;/4</code>) selected).
@@ -382,21 +373,12 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
  <p>Rotating our phase plate also tunes the scattered light images from negative to positive contrast for \(\Delta n\lt 0\) (Figure 3, top right panel), and vice versa for \(\Delta n\gt 0\) (Figure 3, top left panel). The difference images' contrast matches the scattered light images' contrast when \(\Delta n\lt 0\), and is opposite when \(\Delta n\gt 0\). If stimulated emission destructively interferes with scattered light from high-index particles, this observation is consistent with our model. This observation is also consistent with a model where the excitation pulse somehow lowers the refractive index of the beads (<strong>TODO: possibly link to discussion section</strong>). The difference image persists when \(\Delta n\approx 0\) (Figure 3, bottom center panel), which rules out a model where the excitation pulse somehow modulates the diameter of the beads without changing their index.
  </p>
 
-<p><strong>Excitation required, context of space and time. Camera predicts spatial location of signal (fluorescence and scatter), and delay scan predicts temporal location. Block green pulse and signal disappears.</strong>
-</p>
-
 <p>Our model predicts that the signal in our difference images will originate from the points in space and time where the stimulating pulse illuminates excited fluorophores. Indeed, we observe that the difference image of each bead vanishes if the stimulation pulse arrives <a href="./appendix.html#Figure_A5b">too early</a>, or <a href="./appendix.html#Figure_A5b">too late</a>, or if the excitation pulse is blocked entirely. Similarly, the fluorescence image of each bead, which shows the location of its excited fluorophores, consistently predicts the location of each bead's difference image.  
 </p>
 
-
-
-<p><strong>Excitation required, context of photobleaching</strong>
-<strong>What should we expect/why are we doing this measurement. Describe difference image parameters</strong>
-
-<p>Our model predicts that our difference images will fade as <a href="./index.html#Photobleaching_rates" target="_self">photobleaching</a> reduces the number of excited fluorophores illuminated by our stimulation pulses. Indeed, we observe that our difference images fade during prolonged excitation (Figure 4 with <code>Measurement type: Phase contrast difference imaging</code> selected, which uses the same conditions as the lower left panel of Figure 3 with <code>Scattered light phase retardation: +&lambda;/4</code> selected). The 21,000 difference images in this panel exposed the crimson bead to 504,000 <a href="./index.html#Peak_laser_intensity" target="_self">maximum-intensity</a> excitation laser pulses.
-</p>
-
-<p><strong>CURSOR HERE</strong>
+<p>Our model predicts that our difference images will fade as <a href="./index.html#Photobleaching_rates" target="_self">photobleaching</a> reduces the number of excited fluorophores illuminated by our stimulation pulses. Indeed, we observe that our difference images fade during prolonged excitation (Figure 4 with <code>Measurement type: Phase contrast difference imaging</code> selected, which uses the same conditions as the lower left panel of Figure 3 with <code>Scattered light phase retardation: +&lambda;/4</code> selected). The 21,000 difference images in this panel exposed the crimson bead to 504,000
+<a href="./index.html#Peak_laser_intensity" target="_self">maximum-intensity</a>
+excitation pulses.
 </p>
 
 <figure id="Figure_4">
@@ -417,30 +399,34 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
     </tr>
 </table>
 <figcaption><strong>Figure 4: Coherent images of excited fluorescent beads fade during prolonged excitation.</strong> Each blue point indicates the average number of counts per pixel (<a href="./appendix.html#camera">camera</a> digitizer units) in the main bright lobe of the image of an excited fluorescent bead. Use the <code>Imaging method</code> control to choose between <code>Phase contrast difference imaging of stimulated emission</code> and <code>Fluorescence imaging</code>. The red line shows a 50-point average of the blue points, and the inset images correspond to 50-image averages at early, middle and late points on the graph. Scale bars: 350 nm. See the <a href="./appendix.html">Appendix</a> for details of
-
 <a href="./appendix.html#Image_acquisition_and_figure_generation">image acquisition</a>,
-
 <a href="./appendix.html#Phase_contrast_image_generation">image processing</a>, and
-
 <a href="./appendix.html#Image_acquisition_and_figure_generation">figure generation</a>.
 </figcaption>
 </figure><p></p>
 
-<p><strong>Fluorescence bleaching</strong> We used fluorescence imaging of another crimson bead in the same sample to confirm that our excitation intensity reduces the number of excited fluorophores via photobleaching. As expected, the fluorescence images irreversibly fade during prolonged excitation (Figure 4 with <code>Imaging method: Fluorescence imaging</code> selected). The 15,000 fluorescence images in this panel exposed the crimson bead to maximum-intensity 360,000 excitation pulses.
+<p>We used fluorescence imaging of another crimson bead in the same sample to confirm that our excitation intensity reduces the number of excited fluorophores via photobleaching. As expected, the fluorescence images irreversibly fade during prolonged excitation (Figure 4 with <code>Imaging method: Fluorescence imaging</code> selected). The 15,000 fluorescence images in this panel exposed the crimson bead to 360,000
+<a href="./index.html#Peak_laser_intensity" target="_self">maximum-intensity</a>
+excitation pulses.
 </p>
 
-<p><strong>TODO: link to appendix about 4-exponential fit</strong>
+<p>Fluorescence images and difference images
+<a href="./appendix.html#Fitting_to_the_photobleaching_curve">both fade</a>,
+which is consistent with our model. This observation is also consistent with a model where the excitation pulse somehow lowers the refractive index of the bead via interaction with unbleached fluorophores. This observation rules out a model where the excitation pulse somehow lowers the refractive index of the polystyrene without absorption by fluorophores.
 </p>
 
-<p><strong>What conclusion should we draw</strong>Crimson bead fluorescence fades, and diff image fades. Effect requires fluorophores. Does not preclude heating as a mechanism for our signal.
+<p><strong>CURSOR HERE</strong>
 </p>
 
-<h4>Fluorescence and stimulated emission depletion</h4>
+<h4>Quantifying rates of excitation, spontaneous emission, and stimulated emission</h4>
 
-<p><strong>Establish depletion</strong>Ok excitation is required. How much do we have? Quantify rates. Also, (side note) stimulated emission should go hand-in-hand with depletion.
+<p><strong>Establish depletion</strong> Our phase contrast images of fluorescent beads with and without excitation are consistent with the model in Figure 1c, which predicts that stimulated emission can form images of fluorophores. How much emission are we stimulating? We use fluorescence imaging to quantify our rates of excitation, spontaneous emission, and stimulated emission.
 </p>
 
-<p><strong>what are our expectations?</strong>Fluorophore vibrational relaxation rate constants \(1/\tau_{vibr}\) dominate their spontaneous emission rate constants \(1/\tau_{fluor}\), and given our modest laser intensities, they also dominate excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
+<p>Ok excitation is required. How much do we have? Quantify rates. Also, (side note) stimulated emission should go hand-in-hand with depletion.
+</p>
+
+<p><strong>what are our expectations?</strong> Fluorophore vibrational relaxation rate constants \(1/\tau_{vibr}\) dominate their spontaneous emission rate constants \(1/\tau_{fluor}\), and given our modest laser intensities, they also dominate excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
 
@@ -453,7 +439,7 @@ reduces to:
 We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), as well as the proportionality between measured fluorescence (in camera counts per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
 </p>
 
-<p><strong>what did we do?</strong>We imaged our fluorophores as illustrated in Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected. We exposed the samples to a train of simultaneous excitation and stimulation pulses over a single camera exposure, with 600 &micro;s between consecutive pulse pairs. We used 700 pulse pairs per exposure for the nanodiamonds, and 5 for the beads. We measured sample fluorescence while finely tuning the peak excitation power and switching the stimulation power on and off (Figure 5). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 420 nm, Figure 5 inset). The inset images were taken with maximum excitation power and no stimulation power.
+<p><strong>what did we do?</strong> We imaged our fluorophores as illustrated in Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected. We exposed the samples to a train of simultaneous excitation and stimulation pulses over a single camera exposure, with 600 &micro;s between consecutive pulse pairs. We used 700 pulse pairs per exposure for the nanodiamonds, and 5 for the beads. We measured sample fluorescence while finely tuning the peak excitation power and switching the stimulation power on and off (Figure 5). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 420 nm, Figure 5 inset). The inset images were taken with maximum excitation power and no stimulation power.
 </p>
 
 <figure id="Figure_5">
@@ -494,7 +480,7 @@ When we fit the data to our model, we estimated the maximum excitation rate cons
 </p>
 
 
-<p><strong>Explain not great fit and highlight take-aways (approach saturation and looks like STE)</strong>The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
+<p><strong>Explain not great fit and highlight take-aways (approach saturation and looks like STE)</strong> The fit to experimental data is not perfect; others have measured a similar N-v fluorescence saturation shape
 
 [<a class="citation" href="http://dx.doi.org/10.1038/nphys2770" title="Geiselmann, Michael, Renaud Marty, F. Javier Garc&iacute;a de Abajo, and Romain Quidant. &quot;Fast optical modulation of the fluorescence from a single nitrogen-vacancy centre.&quot; Nature Physics 9, no. 12 (2013).">Geiselmann 2013</a>],
 
