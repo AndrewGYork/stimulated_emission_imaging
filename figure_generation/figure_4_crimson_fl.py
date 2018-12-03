@@ -137,7 +137,7 @@ def main():
         pulses_per_exposure *
         exposures_per_delay_scan)
     pulses_axis = (
-        np.arange(num_delay_scans / signal_bucket_width) *
+        (np.arange(num_delay_scans / signal_bucket_width) + 0.5) *
         pulses_per_exposure *
         exposures_per_delay_scan *
         signal_bucket_width)
