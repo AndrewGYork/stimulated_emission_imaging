@@ -156,7 +156,7 @@ def main():
                      model_fl_dep_min * brightness,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
-    plt.axis([0, 1600, 0, 110])
+    plt.axis([0, 1600, 0, 105])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
     plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
@@ -248,7 +248,7 @@ def main():
                      model_fl_dep_min * brightness_hi,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
-    plt.axis([0, 1600, 0, 110])
+    plt.axis([0, 1600, 0, 105])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
     plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
@@ -340,7 +340,7 @@ def main():
                      model_fl_dep_min * brightness_lo,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
-    plt.axis([0, 1600, 0, 110])
+    plt.axis([0, 1600, 0, 105])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
     plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
