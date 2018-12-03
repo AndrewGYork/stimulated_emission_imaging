@@ -401,7 +401,7 @@ excitation pulses.
   </select></td>
     </tr>
 </table>
-<figcaption><strong>Figure 4: Coherent images of excited fluorescent beads fade during prolonged excitation.</strong> Each blue point indicates the average number of counts per pixel (<a href="./appendix.html#camera">camera</a> digitizer units) in the main bright lobe of the image of an excited fluorescent bead. Use the <code>Imaging method</code> control to choose between <code>Phase contrast difference imaging of stimulated emission</code> and <code>Fluorescence imaging</code>. The red line shows a 50-point average of the blue points, and the inset images correspond to 50-image averages at early, middle and late points on the graph. Scale bars: 350 nm. See the <a href="./appendix.html">Appendix</a> for details of
+<figcaption><strong>Figure 4: Coherent images of excited fluorescent beads fade during prolonged excitation.</strong> Each blue point indicates the average number of counts per pixel (<a href="./appendix.html#camera">camera</a> digitizer units) in the main bright lobe of the image of an excited fluorescent bead. Use the controls above to select different imaging methods and fluorescent sample types. The red line shows a 50-point average of the blue points, and the inset images correspond to 50-image averages at early, middle and late points on the graph. Scale bars: 350 nm. See the <a href="./appendix.html">Appendix</a> for details of
 <a href="./appendix.html#Image_acquisition_and_figure_generation">image acquisition</a>,
 <a href="./appendix.html#Phase_contrast_image_generation">image processing</a>, and
 <a href="./appendix.html#Image_acquisition_and_figure_generation">figure generation</a>.
@@ -453,14 +453,13 @@ We'd like to confirm that our fluorescent signals are consistent with this model
 
 <a href="./index.html#Peak_laser_intensity" target="_self">full-power</a>
 
-stimulation pulses. At each excitation power, we took three exposures with different depletion pulse delays, yielding fluorescence images of beads 2.5 &micro;s before depletion, during depletion, and 2.5 &micro;s after depletion. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
+stimulation pulses. At each excitation power, we took three exposures with different stimulation pulse delays, yielding fluorescence images of beads 2.5 &micro;s before stimulation, during stimulation, and 2.5 &micro;s after stimulation. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
 </p>
 
-<p>Figure 5 shows fluorescence signal versus excitation power during and before/after depletion. We expect no fluorescence depletion before/aft, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 420 nm, Figure 5 inset). The inset images were taken with maximum excitation power and no depletion.
+<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect no fluorescence depletion when the excitation pulse arrives before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 420 nm, Figure 5 inset). The inset image was taken with maximum excitation pulse power prior to depletion.
 </p>
 
-<p>Figure 3 shows single-bead images for the two phase plate angles that maximize bead visibility. Each panel in the top row shows a <a href="./appendix.html#Phase_contrast_image_generation">phase contrast image</a> of scattered light from a bead, 2.5 &micro;s before excitation. We expect no stimulated emission at this delay, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Note that the index-matched bead \((\Delta n\approx 0)\) is invisible via phase contrast, but visible via fluorescence (inset image in Figure 5 with <code>Sample type: Crimson fluorescent bead</code> selected). The bottom row "difference images" each show <a href="./appendix.html#Phase_contrast_image_generation">the change in the corresponding top row image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
-</p>
+<strong>TODO: make nd inset a "green before" image, and make plot method similar to that for beads</strong>
 
 <figure id="Figure_5">
 <img src="./images/figure_5/fluorescence_depletion_crimson_dye_brightness_optimal.svg"
@@ -482,9 +481,16 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
   </select></td>
     </tr>
 </table>
-<figcaption><strong>Figure 5: Fluorescence and stimulated emission depletion in nanodiamonds and beads.</strong> Single-particle fluorescence vs. excitation power with (red dots) and without (green dots) stimulated emission depletion. Each dot in the graph represents the average brightness per pixel within the yellow box illustrated in the single-particle fluorescent image (inset; scale bar: 350 nm). Green and red lines are fits to the model described in the text. Use the control above to choose between fluorescent sample types. See the <a href="./appendix.html">Appendix</a> for
+<figcaption><strong>Figure 5: Our peak excitation rates are comparable to spontaneous emission rates; our peak stimulated emission rates are smaller.</strong>
+<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots).
+</p>
+<p>Single-particle fluorescence vs. excitation power with (red dots) and without (green dots) stimulated emission depletion. Each dot in the graph represents the average brightness per pixel within the yellow box illustrated in the single-particle fluorescent image (inset; scale bar: 350 nm).
+</p>
+
+<p>Green and red lines are fits to the model described in the text. Use the controls above to choose between different fluorescent sample types and model fit parameters. See the <a href="./appendix.html">Appendix</a> for
 <a href="./appendix.html#Image_acquisition_and_figure_generation">details</a>
-of image acquisition and figure generation.</figcaption>
+of image acquisition and figure generation.
+</p></figcaption>
 </figure><p></p>
 
 <p><strong>did our observations confirm our expectations?</strong>At equilibrium, \(\frac{dn_{2}}{dt} = 0\), yielding:</p>
