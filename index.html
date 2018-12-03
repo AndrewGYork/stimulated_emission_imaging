@@ -299,9 +299,9 @@ Experimental design</h3>
     </tr>
   <tr>
   <td>Fluorescent sample type: </td><td><select id="Figure_2_sample_type" onchange="update_figure_2()">
-	<option value="nd">Nanodiamonds doped with N-v centers</option>
 	<option value="crimson_dye" selected="selected">Beads labeled with crimson dye</option>
 	<option value="orange_dye">Beads labeled with orange dye</option>
+	<option value="nd">Nanodiamonds doped with N-v centers</option>
   </select></td>
     </tr>
 </table>
@@ -418,9 +418,6 @@ excitation pulses.
 which is consistent with our model. This observation is also consistent with a model where the excitation pulse somehow lowers the refractive index of the bead via interaction with unbleached fluorophores. This observation rules out a model where the excitation pulse somehow lowers the refractive index of the polystyrene without absorption by fluorophores.
 </p>
 
-<p><strong>CURSOR HERE</strong>
-</p>
-
 <h4>Quantifying rates of excitation, spontaneous emission, and stimulated emission</h4>
 
 <p><strong>Establish depletion</strong> Our phase contrast images of fluorescent beads with and without excitation are qualitatively consistent with the model in Figure 1c, which predicts that stimulated emission from excited fluorophores can form images. If we are stimulating emission, we also expect to observe depletion while imaging fluorescence (Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected). How much emission are we stimulating, and how much fluorescence are we depleting? Varying excitation and stimulation intensity lets us compare excitation and stimulation rates to the spontaneous emission rate, which we measured via
@@ -456,42 +453,47 @@ We'd like to confirm that our fluorescent signals are consistent with this model
 stimulation pulses. At each excitation power, we took three exposures with different stimulation pulse delays, yielding fluorescence images of beads 2.5 &micro;s before stimulation, during stimulation, and 2.5 &micro;s after stimulation. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
 </p>
 
-<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect no fluorescence depletion when the excitation pulse arrives before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Each point on the plot indicates the average brightness of the pixels in the central lobe of the fluorescence image (selected by a square with side length ~ 420 nm, Figure 5 inset). The inset image was taken with maximum excitation pulse power prior to depletion.
+<p><strong>CURSOR HERE</strong>
 </p>
 
-<strong>TODO: make nd inset a "green before" image, and make plot method similar to that for beads</strong>
+<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect no fluorescence depletion when the excitation pulse arrives before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed...
+</p>
+
+<strong>TODO: make plot method similar to that for beads</strong>
 
 <figure id="Figure_5">
 <img src="./images/figure_5/fluorescence_depletion_crimson_dye_brightness_optimal.svg"
  alt="Figure 5" id="Figure_5_image">
  <table class="figure_controls">
   <tr>
-  <td>Sample type: </td><td><select id="Figure_5_sample_type" onchange="update_figure_5()">
-    <option value="nd">N-v doped nanodiamond</option>
-    <option value="crimson_dye" selected="selected">Crimson fluorescent bead</option>
-	<option value="orange_dye">Orange fluorescent bead</option>
+  <td>Fluorescent sample type: </td><td><select id="Figure_5_sample_type" onchange="update_figure_5()">
+    <option value="crimson_dye" selected="selected">Bead labeled with crimson dye</option>
+	<option value="orange_dye">Bead labeled with orange dye</option>
+    <option value="nd">Nanodiamond doped with N-v centers</option>
   </select></td>
     </tr>
   <tr>
-  <td>Fit parameters: </td><td><select id="Figure_5_fit_parameter" onchange="update_figure_5()">
-    <option value="hi">Fit parameter: 1.5X higher saturation brightness</option>
-    <option value="optimal" selected="selected">Fit parameter: optimal saturation brightness</option>
-    <option value="lo">Fit parameter: 1.5X lower saturation brightness</option>
+  <td>Model fit parameter: </td><td><select id="Figure_5_fit_parameter" onchange="update_figure_5()">
+    <option value="hi">1.5X higher saturation brightness</option>
+    <option value="optimal" selected="selected">Optimal saturation brightness</option>
+    <option value="lo">1.5X lower saturation brightness</option>
 
   </select></td>
     </tr>
 </table>
-<figcaption><strong>Figure 5: Our peak excitation rates are comparable to spontaneous emission rates; our peak stimulated emission rates are smaller.</strong>
+<figcaption><strong>Figure 5: Our peak excitation rates are comparable to spontaneous emission rates, and larger than our peak stimulated emission rates.</strong>
 <p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots).
 </p>
 <p>Single-particle fluorescence vs. excitation power with (red dots) and without (green dots) stimulated emission depletion. Each dot in the graph represents the average brightness per pixel within the yellow box illustrated in the single-particle fluorescent image (inset; scale bar: 350 nm).
 </p>
 
-<p>Green and red lines are fits to the model described in the text. Use the controls above to choose between different fluorescent sample types and model fit parameters. See the <a href="./appendix.html">Appendix</a> for
-<a href="./appendix.html#Image_acquisition_and_figure_generation">details</a>
-of image acquisition and figure generation.
+<p>The green and red lines show fits to our measurements based on the model described in the text. The green and red areas show variations in the fit for various families of models described in the text. Use the controls above to choose between different fluorescent sample types and model fit parameters. See the <a href="./appendix.html">Appendix</a> for details of
+<a href="./appendix.html#Image_acquisition_and_figure_generation">image acquisition and figure generation</a>.
 </p></figcaption>
 </figure><p></p>
+
+<p><strong>TODO: explain green and red shaded areas. Green: area between kex*1.1 and kex/1.1. Red: area between kdep*1.4 and kdep/1.4 (kex optimal).</strong>
+</p>
 
 <p><strong>did our observations confirm our expectations?</strong>At equilibrium, \(\frac{dn_{2}}{dt} = 0\), yielding:</p>
 
