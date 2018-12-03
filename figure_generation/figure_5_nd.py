@@ -64,12 +64,19 @@ def main():
 
     # zero red/green delay is 3rd out of 5 delays (hence index 2)
     depleted_stack = data[:, :, :, 2]
+    # max red/green delay is avg of 1st and 5th out of 5 delays
+    fluorescence_stack = 0.5 * (data[:, :, :, 0] + data[:, :, :, 4])
     # regular fluorescence is with zero power in the depletion beam,
     # (hence index 0)
     fluorescence_signal_mean = depleted_stack[:,0,:].mean(axis=0)
     fluorescence_signal_max = depleted_stack[:,0,:].max(axis=0)
     fluorescence_signal_min = depleted_stack[:,0,:].min(axis=0)
     fluorescence_signal_std = depleted_stack[:,0,:].std(axis=0)
+##    # regular fluorescence is max delay (no depletion) max red power
+##    fluorescence_signal_mean = fluorescence_stack[:,-1,:].mean(axis=0)
+##    fluorescence_signal_max = fluorescence_stack[:,-1,:].max(axis=0)
+##    fluorescence_signal_min = fluorescence_stack[:,-1,:].min(axis=0)
+##    fluorescence_signal_std = fluorescence_stack[:,-1,:].std(axis=0)
     # maximally depleted fluorescence is with max power in the depletion
     # beam (hence index -1)
     depleted_signal_mean = depleted_stack[:,-1,:].mean(axis=0)
@@ -82,7 +89,7 @@ def main():
     inset_image = np_tif.tif_to_array(
         './../../stimulated_emission_imaging-data' +
         '/2016_11_14_modulated_imaging_depletion_nanodiamond_7' +
-        '/representative_image_avg.tif').astype(np.float64)
+        '/rep_image_single_shot.tif').astype(np.float64)
     inset_image = inset_image[0,:,:] # there's only one image
     inset_image = bucket(inset_image, bucket_size=(8, 8))
     inset_image[-2:-1, 1:6] = np.max(inset_image) # scale bar
@@ -90,8 +97,10 @@ def main():
 
     # IMPORTANT PARAMETERS FOR FIT
     brightness = 160
-    mW_per_kex = 1150
-    mW_per_kdep = 1150
+##    mW_per_kex = 1150
+##    mW_per_kdep = 1150
+    mW_per_kex = 1130
+    mW_per_kdep = 1100
     
     # compute rate constants
     kex = green_powers / mW_per_kex
@@ -117,13 +126,13 @@ def main():
                  fluorescence_signal_mean,
                  yerr=fluorescence_signal_std,
                  fmt='o', linewidth=3, capthick=2,
-                 label='Measured, 0 mW stimulation',
+                 label='Measured, no depletion',
                  color='green')
     ax1.errorbar(green_powers,
                  depleted_signal_mean,
                  yerr=depleted_signal_std,
                  fmt='o', linewidth=3, capthick=2,
-                 label='Measured, 300 mW stimulation',
+                 label='Measured, with depletion (300 mW)',
                  color='red')
     ax1.set_xlabel('Excitation power (mW)',fontsize=16)
     # plot model fit
@@ -210,13 +219,13 @@ def main():
                  fluorescence_signal_mean,
                  yerr=fluorescence_signal_std,
                  fmt='o', linewidth=3, capthick=2,
-                 label='Measured, 0 mW stimulation',
+                 label='Measured, no depletion',
                  color='green')
     ax1.errorbar(green_powers,
                  depleted_signal_mean,
                  yerr=depleted_signal_std,
                  fmt='o', linewidth=3, capthick=2,
-                 label='Measured, 300 mW stimulation',
+                 label='Measured, with depletion (300 mW)',
                  color='red')
     ax1.set_xlabel('Excitation power (mW)', fontsize=16)
     # plot model fit
@@ -302,13 +311,13 @@ def main():
                  fluorescence_signal_mean,
                  yerr=fluorescence_signal_std,
                  fmt='o', linewidth=3, capthick=2,
-                 label='Measured, 0 mW stimulation',
+                 label='Measured, no depletion',
                  color='green')
     ax1.errorbar(green_powers,
                  depleted_signal_mean,
                  yerr=depleted_signal_std,
                  fmt='o', linewidth=3, capthick=2,
-                 label='Measured, 300 mW stimulation',
+                 label='Measured, with depletion (300 mW)',
                  color='red')
     ax1.set_xlabel('Excitation power (mW)', fontsize=16)
     # plot model fit

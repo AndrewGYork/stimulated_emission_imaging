@@ -54,6 +54,7 @@ def main():
     # fluorescence image (no STE depletion) stack: the average between
     # max negative and positive red/green pulse delay images
     fluorescence_stack = 0.5 * (data[:,0,:,:] + data[:,2,:,:])
+    fluorescence_stack_green_early = data[:,2,:,:]
     # fluorescence image (with STE depletion) stack
     depleted_stack = data[:,1,:,:] # zero red/green delay
 
@@ -66,6 +67,10 @@ def main():
         fluorescence_stack[:,top_bg:bot_bg,left_bg:right_bg
                            ].mean(axis=2).mean(axis=1)
         )
+    fluorescence_signal_bg_green_early = (
+        fluorescence_stack_green_early[:,top_bg:bot_bg,left_bg:right_bg
+                                       ].mean(axis=2).mean(axis=1)
+        )
     depleted_signal_bg = (
         depleted_stack[:,top_bg:bot_bg,left_bg:right_bg
                        ].mean(axis=2).mean(axis=1)
@@ -77,8 +82,8 @@ def main():
     bot = top + 112
     left = 143
     right = left + 130
-    fluorescence_cropped = (fluorescence_stack[-1, top:bot, left:right] -
-                            fluorescence_signal_bg[-1])
+    fluorescence_cropped = (fluorescence_stack_green_early[-1, top:bot, left:right] -
+                            fluorescence_signal_bg_green_early[-1])
     fluorescence_cropped = bucket(fluorescence_cropped, bucket_size=(8, 8))
     fluorescence_cropped[-2:-1, 1:6] = np.max(fluorescence_cropped) # scale bar
     
@@ -136,9 +141,9 @@ def main():
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
     ax1.plot(green_powers,fluorescence_signal, 'o',
-             label='Measured, 0 mW stimulation', color='green')
+             label='Measured, no depletion', color='green')
     ax1.plot(green_powers,depleted_signal, 'o',
-             label='Measured, 240 mW stimulation', color='red')
+             label='Measured, with depletion (240 mW)', color='red')
     ax1.set_xlabel('Excitation power (mW)',fontsize=16)
     plt.axis([0, 1100, 0, 53])
     leg = plt.legend(loc='lower right' ,title='Fluorescence', fontsize=14)
@@ -214,10 +219,10 @@ def main():
                      model_fl_dep_min * brightness_hi,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
-    ax1.plot(green_powers, fluorescence_signal, 'o',
-             label='Measured, 0 mW stimulation', color='green')
-    ax1.plot(green_powers, depleted_signal, 'o',
-             label='Measured, 240 mW stimulation', color='red')
+    ax1.plot(green_powers,fluorescence_signal, 'o',
+             label='Measured, no depletion', color='green')
+    ax1.plot(green_powers,depleted_signal, 'o',
+             label='Measured, with depletion (240 mW)', color='red')
     ax1.set_xlabel('Excitation power (mW)',fontsize=16)
     plt.axis([0, 1100, 0, 53])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
@@ -292,10 +297,10 @@ def main():
                      model_fl_dep_min * brightness_lo,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)',fontsize=15)
-    ax1.plot(green_powers, fluorescence_signal, 'o',
-             label='Measured, 0 mW stimulation', color='green')
-    ax1.plot(green_powers, depleted_signal, 'o',
-             label='Measured, 240 mW stimulation', color='red')
+    ax1.plot(green_powers,fluorescence_signal, 'o',
+             label='Measured, no depletion', color='green')
+    ax1.plot(green_powers,depleted_signal, 'o',
+             label='Measured, with depletion (240 mW)', color='red')
     ax1.set_xlabel('Excitation power (mW)', fontsize=16)
     plt.axis([0, 1100, 0, 53])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
