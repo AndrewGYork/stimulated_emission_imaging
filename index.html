@@ -440,6 +440,10 @@ reduces to:
 We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), as well as the proportionality between measured fluorescence (in <a href="./appendix.html#camera">camera</a> digitizer units per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
 </p>
 
+<p>
+We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the ratio \(R_{exc}=\frac{P_{exc}}{h_{exc}\sigma_{01}}\) between measured excitation power \(P_{exc}\) and the excitation rate constant, the ratio \(R_{stim}=\frac{P_{stim}}{h_{stim}\sigma_{23}}\) between measured stimulation power \(P_{stim}\) and the stimulation rate constant, and the ratio \(R_{fluor}=\frac{C_{fluor}}{n_2 N/\tau_{fluor}}\) between measured fluorescence \(C_{fluor}\) (in <a href="./appendix.html#camera">camera</a> digitizer units per second) and the fluorescence emission rate. 
+</p>
+
 <p><strong>what did we do?</strong>
 </p>
 
@@ -453,7 +457,7 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 <p><strong>CURSOR HERE</strong>
 </p>
 
-<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect no fluorescence depletion when the excitation pulse arrives before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence visibly decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
+<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect no fluorescence depletion when the excitation pulse arrives before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
 </p>
 
 <figure id="Figure_5">
@@ -477,9 +481,7 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
     </tr>
 </table>
 <figcaption><strong>Figure 5: Our peak excitation rates are comparable to spontaneous emission rates, and larger than our peak stimulated emission rates.</strong>
-<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots).
-</p>
-<p>Single-particle fluorescence vs. excitation power with (red dots) and without (green dots) stimulated emission depletion. Each dot in the graph represents the average brightness per pixel within the yellow box illustrated in the single-particle fluorescent image (inset; scale bar: 350 nm).
+<p>Single-particle fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). Signal is calculated as the average pixel brightness (<a href="./appendix.html#camera">camera</a> digitizer units) within a 420x420 nm<sup>2</sup> region in each single-particle fluorescence image (yellow box in inset; scale bar: 350 nm).
 </p>
 
 <p>The green and red lines show fits to our measurements based on the model described in the text. The green and red areas show variations in the fit for various families of models described in the text. Use the controls above to choose between different fluorescent sample types and model fit parameters. See the <a href="./appendix.html">Appendix</a> for details of
