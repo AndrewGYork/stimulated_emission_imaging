@@ -441,7 +441,11 @@ We'd like to confirm that our fluorescent signals are consistent with this model
 </p>
 
 <p>
-We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the ratio \(R_{exc}=\frac{P_{exc}}{h_{exc}\sigma_{01}}\) between measured excitation power \(P_{exc}\) and the excitation rate constant, the ratio \(R_{stim}=\frac{P_{stim}}{h_{stim}\sigma_{23}}\) between measured stimulation power \(P_{stim}\) and the stimulation rate constant, and the ratio \(R_{fluor}=\frac{C_{fluor}}{n_2 N/\tau_{fluor}}\) between measured fluorescence \(C_{fluor}\) (in <a href="./appendix.html#camera">camera</a> digitizer units per second) and the fluorescence emission rate. 
+We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}}{P_{exc}\tau_{fluor}}\) between measured excitation power \(P_{exc}\) and the excitation rate constant, the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}}{P_{stim}\tau_{fluor}}\) between measured stimulation power \(P_{stim}\) and the stimulation rate constant, and the ratio \(R_{fluor}=\frac{C_{fluor}}{n_2}\) between measured fluorescence \(C_{fluor}\) (in <a href="./appendix.html#camera">camera</a> digitizer units per exposure) and the excited state population.
+</p>
+
+<p>
+We'd like to confirm that our fluorescent signals are consistent with this model by estimating the fit parameters \(R_{exc}=\frac{h_{exc}\sigma_{01}}{P_{exc}\tau_{fluor}}\), \(R_{stim}=\frac{h_{stim}\sigma_{23}}{P_{stim}\tau_{fluor}}\), and \(R_{fluor}=\frac{C_{fluor}}{n_2}\). \(R_{exc}\) is proportional to the ratio between measured excitation power \(P_{exc}\) and the excitation rate constant, \(R_{stim}\) is proportional to the ratio between measured stimulation power \(P_{stim}\) and the stimulation rate constant, and \(R_{fluor}\) is the ratio between measured fluorescence \(C_{fluor}\) (in <a href="./appendix.html#camera">camera</a> digitizer units per exposure) and the excited state population.
 </p>
 
 <p><strong>what did we do?</strong>
@@ -496,6 +500,10 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 
 <div>
 	$$\begin{equation} n_2 = \frac{h_{exc}\sigma_{01}}{h_{exc}\sigma_{01} + h_{stim}\sigma_{23} + \frac{1}{\tau_{fluor}}} \end{equation}$$
+</div>
+
+<div>
+	$$\begin{equation} R_{fluor} C_{fluor} = \frac{R_{exc} P_{exc}}{R_{exc} P_{exc} + R_{stim}P_{stim} + 1} \end{equation}$$
 </div>
 
 <p>
