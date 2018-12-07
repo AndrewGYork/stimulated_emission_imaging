@@ -417,15 +417,14 @@ which is consistent with our model. This observation is also consistent with a m
 
 <h4>Quantifying rates of excitation, spontaneous emission, and stimulated emission</h4>
 
-<p><strong>Establish depletion</strong> Our phase contrast images of fluorescent beads with and without excitation are qualitatively consistent with the model in Figure 1c, which predicts that stimulated emission from excited fluorophores can form images. If we are stimulating emission, we also expect to observe depletion while imaging fluorescence (Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected). How much emission are we stimulating, and how much fluorescence are we depleting? Varying excitation and stimulation intensity lets us compare excitation and stimulation rates to the spontaneous emission rate, which we measured via
-<a href="./appendix.html#FLIM">fluorescence lifetime imaging</a>.
+<p><strong>Establish depletion</strong> Our phase contrast images of fluorescent beads with and without excitation are qualitatively consistent with the model in Figure 1c, which predicts that stimulated emission from excited fluorophores can form images. If we are stimulating emission, we also expect to observe depletion while imaging fluorescence (Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected). How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the spontaneous emission rate via <a href="./appendix.html#FLIM">lifetime imaging</a>, and compared excitation and stimulation rates to the spontaneous emission rate by measuring fluorescent brightness while varying excitation and stimulation intensity.
 </p>
 
 <p><strong>what are our expectations?</strong> As discussed in
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>],
 
-the excited state population fraction \(n_2\) depends on the spontaneous emission rate constant \(1/\tau_{fluor}\), the excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\), as well as the vibrational relaxation constant \(1/\tau_{vibr}\). In fluorophores, \(1/\tau_{vibr}\) dominates \(1/\tau_{fluor}\), and given our modest laser intensities, it also dominates \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
+the excited state population fraction \(n_2\) depends on the spontaneous emission rate constant \(1/\tau_{fluor}\), the excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\), as well as the vibrational relaxation rate constant \(1/\tau_{vibr}\). In fluorophores, \(1/\tau_{vibr}\) dominates \(1/\tau_{fluor}\), and given our modest laser intensities, it also dominates \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
 
@@ -437,15 +436,7 @@ reduces to:
 </div>
 
 <p>
-We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the proportionality between measured excitation and stimulation power (in milliwatts) and the transition rate constants \(h_{stim}\sigma_{23}\) and \(h_{exc}\sigma_{01}\), as well as the proportionality between measured fluorescence (in <a href="./appendix.html#camera">camera</a> digitizer units per second) and the fluorescence emission rate \(n_2 N/\tau_{fluor}\). 
-</p>
-
-<p>
-We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}}{P_{exc}\tau_{fluor}}\) between the excitation rate constant and the measured excitation power \(P_{exc}\), the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}}{P_{stim}\tau_{fluor}}\) between the stimulation rate constant and the measured stimulation power \(P_{stim}\), and the ratio \(R_{fluor}=\frac{C_{fluor}}{n_2}\) between measured fluorescence \(C_{fluor}\) (in <a href="./appendix.html#camera">camera</a> digitizer units per exposure) and the excited state population.
-</p>
-
-<p>
-We'd like to confirm that our fluorescent signals are consistent with this model by estimating the fit parameters \(R_{exc}=\frac{h_{exc}\sigma_{01}}{P_{exc}\tau_{fluor}}\), \(R_{stim}=\frac{h_{stim}\sigma_{23}}{P_{stim}\tau_{fluor}}\), and \(R_{fluor}=\frac{C_{fluor}}{n_2}\). \(R_{exc}\) is proportional to the ratio between the excitation rate constant and the measured excitation power \(P_{exc}\), \(R_{stim}\) is proportional to the ratio between the stimulation rate constant and the measured stimulation power \(P_{stim}\), and \(R_{fluor}\) is the ratio between measured fluorescence \(C_{fluor}\) (in <a href="./appendix.html#camera">camera</a> digitizer units per exposure) and the excited state population.
+We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the relationships between fundamental quantities (\(h_{exc}\sigma_{01}\), \(h_{stim}\sigma_{23}\), and \(n_2\)) and measured quantities like \(P_{exc}\) and \(P_{stim}\) (excitation and stimulation power in milliwatts), and \(C_{fluor}\) (fluorescent counts in <a href="./appendix.html#camera">camera</a> digitizer units). Specifically, we want to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}\tau_{fluor}}{P_{exc}}\) between the normalized excitation rate constant and the measured excitation power, the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}\tau_{fluor}}{P_{stim}}\) between the normalized stimulation rate constant and the measured stimulation power, and the ratio \(R_{fluor}=\frac{C_{fluor}}{n_2}\) between measured fluorescence and the excited state population fraction.
 </p>
 
 <p><strong>what did we do?</strong>
@@ -461,7 +452,7 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 <p><strong>CURSOR HERE</strong>
 </p>
 
-<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect no fluorescence depletion when the excitation pulse arrives before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
+<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect fluorescence depletion during stimulation, but not before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
 </p>
 
 <figure id="Figure_5">
