@@ -104,11 +104,11 @@ def main():
     
     # compute rate constants
     kex = green_powers / mW_per_kex
-    kex_min = kex / 1.1
-    kex_max = kex * 1.1
+    kex_min = kex * 0.93
+    kex_max = kex * 1.07
 
     kdep = red_powers[-1] / mW_per_kdep
-    kdep_min = kdep / 1.4
+    kdep_min = kdep * 0.6
     kdep_max = kdep * 1.4
 
     model_fl = kex / (1 + kex)
@@ -117,6 +117,21 @@ def main():
     model_fl_dep = kex / (1 + kex + kdep)
     model_fl_dep_max = kex / (1 + kex + kdep_max)
     model_fl_dep_min = kex / (1 + kex + kdep_min)
+
+    # upsample model fit
+    # compute rate constants
+    green_powers_fine = np.arange(0, green_powers[-1], 1)
+    kex_fine = green_powers_fine / mW_per_kex
+    kex_min_fine = kex_fine * 0.93
+    kex_max_fine = kex_fine * 1.07
+    # kdep same as above
+    # predict upsampled fluorescence
+    model_fl_fine = kex_fine / (1 + kex_fine)
+    model_fl_max_fine = kex_max_fine / (1 + kex_max_fine)
+    model_fl_min_fine = kex_min_fine / (1 + kex_min_fine)
+    model_fl_dep_fine = kex_fine / (1 + kex_fine + kdep)
+    model_fl_dep_max_fine = kex_fine / (1 + kex_fine + kdep_max)
+    model_fl_dep_min_fine = kex_fine / (1 + kex_fine + kdep_min)
 
 
     fig = plt.figure()
@@ -136,24 +151,24 @@ def main():
                  color='red')
     ax1.set_xlabel('Excitation power (mW)',fontsize=16)
     # plot model fit
-    ax1.plot(green_powers,
-             model_fl * brightness,
+    ax1.plot(green_powers_fine,
+             model_fl_fine * brightness,
              '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$',
              color='green')
-    ax1.fill_between(green_powers,
-                     model_fl_max * brightness,
-                     model_fl_min * brightness,
+    ax1.fill_between(green_powers_fine,
+                     model_fl_max_fine * brightness,
+                     model_fl_min_fine * brightness,
                      color="#C0FFC0")
     dep_mult = ("{:.2f}".format(kdep))
-    ax1.plot(green_powers, model_fl_dep * brightness, '-',
+    ax1.plot(green_powers_fine, model_fl_dep_fine * brightness, '-',
              label=(
                  r'Model, $h_{stim}\sigma_{23}=' +
                  dep_mult + r'(1/\tau_{fluor})$'),
              color='red')
-    ax1.fill_between(green_powers,
-                     model_fl_dep_max * brightness,
-                     model_fl_dep_min * brightness,
+    ax1.fill_between(green_powers_fine,
+                     model_fl_dep_max_fine * brightness,
+                     model_fl_dep_min_fine * brightness,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
     plt.axis([0, 1600, 0, 105])
@@ -196,12 +211,12 @@ def main():
     # compute rate constants
     mW_per_kex_hi = mW_per_kex * rate_const_mod
     kex = green_powers / mW_per_kex_hi
-    kex_min = kex * 1.1
-    kex_max = kex / 1.1
+    kex_min = kex * 0.93
+    kex_max = kex * 1.07
 
     mW_per_kdep_hi = mW_per_kdep * rate_const_mod * extra_kdep_mod
     kdep = red_powers[-1] / mW_per_kdep_hi
-    kdep_min = kdep / 1.4
+    kdep_min = kdep * 0.6
     kdep_max = kdep * 1.4
 
 
@@ -211,6 +226,21 @@ def main():
     model_fl_dep = kex / (1 + kex + kdep)
     model_fl_dep_max = kex / (1 + kex + kdep_max)
     model_fl_dep_min = kex / (1 + kex + kdep_min)
+
+    # upsample model fit
+    # compute rate constants
+    green_powers_fine = np.arange(0, green_powers[-1], 1)
+    kex_fine = green_powers_fine / mW_per_kex_hi
+    kex_min_fine = kex_fine * 0.93
+    kex_max_fine = kex_fine * 1.07
+    # kdep same as above
+    # predict upsampled fluorescence
+    model_fl_fine = kex_fine / (1 + kex_fine)
+    model_fl_max_fine = kex_max_fine / (1 + kex_max_fine)
+    model_fl_min_fine = kex_min_fine / (1 + kex_min_fine)
+    model_fl_dep_fine = kex_fine / (1 + kex_fine + kdep)
+    model_fl_dep_max_fine = kex_fine / (1 + kex_fine + kdep_max)
+    model_fl_dep_min_fine = kex_fine / (1 + kex_fine + kdep_min)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -229,23 +259,23 @@ def main():
                  color='red')
     ax1.set_xlabel('Excitation power (mW)', fontsize=16)
     # plot model fit
-    ax1.plot(green_powers,
-             model_fl * brightness_hi,
+    ax1.plot(green_powers_fine,
+             model_fl_fine * brightness_hi,
              '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$',
              color='green')
-    ax1.fill_between(green_powers,
-                     model_fl_max * brightness_hi,
-                     model_fl_min * brightness_hi,
+    ax1.fill_between(green_powers_fine,
+                     model_fl_max_fine * brightness_hi,
+                     model_fl_min_fine * brightness_hi,
                      color="#C0FFC0")
     dep_mult = ("{:.2f}".format(kdep))
-    ax1.plot(green_powers, model_fl_dep * brightness_hi, '-',
+    ax1.plot(green_powers_fine, model_fl_dep_fine * brightness_hi, '-',
              label=(r'Model, $h_{stim}\sigma_{23}=' +
                     dep_mult + r'(1/\tau_{fluor})$'),
              color='red')
-    ax1.fill_between(green_powers,
-                     model_fl_dep_max * brightness_hi,
-                     model_fl_dep_min * brightness_hi,
+    ax1.fill_between(green_powers_fine,
+                     model_fl_dep_max_fine * brightness_hi,
+                     model_fl_dep_min_fine * brightness_hi,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
     plt.axis([0, 1600, 0, 105])
@@ -289,12 +319,12 @@ def main():
     # compute rate constants
     mW_per_kex_lo = mW_per_kex / rate_const_mod
     kex = green_powers / mW_per_kex_lo
-    kex_min = kex * 1.1
-    kex_max = kex / 1.1
+    kex_min = kex * 0.93
+    kex_max = kex * 1.07
 
     mW_per_kdep_lo = mW_per_kdep / rate_const_mod / extra_kdep_mod
     kdep = red_powers[-1] / mW_per_kdep_lo
-    kdep_min = kdep / 1.4
+    kdep_min = kdep * 0.6
     kdep_max = kdep * 1.4
 
     model_fl = kex / (1 + kex)
@@ -303,6 +333,21 @@ def main():
     model_fl_dep = kex / (1 + kex + kdep)
     model_fl_dep_max = kex / (1 + kex + kdep_max)
     model_fl_dep_min = kex / (1 + kex + kdep_min)
+
+    # upsample model fit
+    # compute rate constants
+    green_powers_fine = np.arange(0, green_powers[-1], 1)
+    kex_fine = green_powers_fine / mW_per_kex_lo
+    kex_min_fine = kex_fine * 0.93
+    kex_max_fine = kex_fine * 1.07
+    # kdep same as above
+    # predict upsampled fluorescence
+    model_fl_fine = kex_fine / (1 + kex_fine)
+    model_fl_max_fine = kex_max_fine / (1 + kex_max_fine)
+    model_fl_min_fine = kex_min_fine / (1 + kex_min_fine)
+    model_fl_dep_fine = kex_fine / (1 + kex_fine + kdep)
+    model_fl_dep_max_fine = kex_fine / (1 + kex_fine + kdep_max)
+    model_fl_dep_min_fine = kex_fine / (1 + kex_fine + kdep_min)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -321,23 +366,23 @@ def main():
                  color='red')
     ax1.set_xlabel('Excitation power (mW)', fontsize=16)
     # plot model fit
-    ax1.plot(green_powers,
-             model_fl * brightness_lo,
+    ax1.plot(green_powers_fine,
+             model_fl_fine * brightness_lo,
              '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$',
              color='green')
-    ax1.fill_between(green_powers,
-                     model_fl_max * brightness_lo,
-                     model_fl_min * brightness_lo,
+    ax1.fill_between(green_powers_fine,
+                     model_fl_max_fine * brightness_lo,
+                     model_fl_min_fine * brightness_lo,
                      color="#C0FFC0")
     dep_mult = ("{:.2f}".format(kdep))
-    ax1.plot(green_powers, model_fl_dep * brightness_lo, '-',
+    ax1.plot(green_powers_fine, model_fl_dep_fine * brightness_lo, '-',
              label=(r'Model, $h_{stim}\sigma_{23}=' +
                     dep_mult + r'(1/\tau_{fluor})$'),
              color='red')
-    ax1.fill_between(green_powers,
-                     model_fl_dep_max * brightness_lo,
-                     model_fl_dep_min * brightness_lo,
+    ax1.fill_between(green_powers_fine,
+                     model_fl_dep_max_fine * brightness_lo,
+                     model_fl_dep_min_fine * brightness_lo,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
     plt.axis([0, 1600, 0, 105])
