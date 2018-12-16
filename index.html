@@ -436,7 +436,7 @@ reduces to:
 </div>
 
 <p>
-We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the relationships between fundamental quantities (\(h_{exc}\sigma_{01}\), \(h_{stim}\sigma_{23}\), and \(n_2\)) and measured quantities like \(P_{exc}\) and \(P_{stim}\) (excitation and stimulation power in milliwatts), and \(C_{fluor}\) (fluorescent counts in <a href="./appendix.html#camera">camera</a> digitizer units). Specifically, we want to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}\tau_{fluor}}{P_{exc}}\) between the normalized excitation rate constant and the measured excitation power, the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}\tau_{fluor}}{P_{stim}}\) between the normalized stimulation rate constant and the measured stimulation power, and the ratio \(R_{fluor}=\frac{C_{fluor}}{n_2}\) between measured fluorescence and the excited state population fraction.
+We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the relationships between fundamental quantities (\(h_{exc}\sigma_{01}\), \(h_{stim}\sigma_{23}\), and \(n_2\)) and measured quantities like \(P_{exc}\) and \(P_{stim}\) (excitation and stimulation power in milliwatts), and \(C_{fluor}\) (fluorescent counts in <a href="./appendix.html#camera">camera</a> digitizer units). Specifically, we want to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}\tau_{fluor}}{P_{exc}}\) between the normalized excitation rate constant and the measured excitation power, the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}\tau_{fluor}}{P_{stim}}\) between the normalized stimulation rate constant and the measured stimulation power, and the ratio \(R_{fluor}=\frac{n_2}{C_{fluor}}\) between the excited state population fraction and the measured fluorescence.
 </p>
 
 <p><strong>what did we do?</strong>
@@ -446,7 +446,7 @@ We'd like to confirm that our fluorescent signals are consistent with this model
 
 <a href="./index.html#Peak_laser_intensity" target="_self">full-power</a>
 
-stimulation pulses. At each excitation power, we took three exposures with different stimulation pulse delays, yielding fluorescence images of excited beads 2.5 &micro;s before stimulation, during stimulation, and 2.5 &micro;s after stimulation. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
+stimulation pulses. At each excitation power, we took three exposures with different stimulation pulse delays, yielding fluorescence images of beads excited 2.5 &micro;s before stimulation, during stimulation, and 2.5 &micro;s after stimulation. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
 </p>
 
 <p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect fluorescence depletion during stimulation, but not before/after stimulation, because the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
@@ -466,7 +466,7 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
   <tr>
   <td>Fit parameter \(R_{fluor}\): </td><td><select id="Figure_5_fit_parameter" onchange="update_figure_5()">
     <option value="hi">1.5X higher</option>
-    <option value="optimal" selected="selected">Optimal</option>
+    <option value="optimal" selected="selected">Subjectively optimal</option>
     <option value="lo">1.5X lower</option>
 
   </select></td>
@@ -477,7 +477,13 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 </figcaption>
 </figure><p></p>
 
+<p><strong>TODO: change green and red bands in fig 5 from (1/R)+/- to R+/-</strong>
+</p>
+
 <p><strong>CURSOR HERE</strong>
+</p>
+
+<p><strong>TODO: correct for a distribution of fluorophore orientations</strong>
 </p>
 
 <p><strong>did our observations confirm our expectations?</strong> At steady state, \(\frac{dn_{2}}{dt} = 0\), yielding:</p>
@@ -493,7 +499,17 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 	$$\begin{equation} R_{fluor} C_{fluor} = \frac{R_{exc} P_{exc}}{R_{exc} P_{exc} + R_{stim}P_{stim} + 1} \end{equation}$$
 </div>
 
-<p>\(R_{fluor}\), \(R_{exc}\), and \(R_{stim}\) become parameters that can be estimated and tuned in order to reasonably fit the model to our measurements. We do not expect to perfectly fit our measurement, but by choosing a range of values for the three parameters, we believe we can predict \(n_2\), kex and kstim with an accuracy of ?%, ?%, and ?%. 
+<p><strong>TODO: figure out subscripts</strong>
+</p>
+
+<p>Our data is consistent with this model (Figure 5 with <code>Fit parameter </code>\(R_{fluor}\)<code>: Subjectively optimal</code> selected). Using \(R_{fluor}=1.09\times 10^{-2}\) counts<sup>-1</sup>, \(R_{exc}=1.04\) W<sup>-1</sup>, and \(R_{stim}=0.676\) W<sup>-1</sup> gives model predictions (green and red lines) that strongly resemble our experimental data (green and red dots). Neighboring values also produce reasonable fits. The green shaded area shows the range of the \(P_{stim}=0\) model (green line) as we vary \(R_{exc}\) by &plusmn; 7%. The red shaded area shows the range of the \(P_{stim}\neq0\) model (red line) as we vary \(R_{stim}\) by &plusmn; 40%. Grossly different values of \(R_{fluor}\) fit the data poorly for any value of \(R_{exc}\) and \(R_{stim}\) (Figure 5 with <code>Fit parameter </code>\(R_{fluor}\)<code>:</code> (<code>1.5X higher</code> or <code>1.5X lower</code>) selected).
+</p>
+
+<p>Based upon this fit, we estimated the maximum excitation rate constant \(h_{exc}\sigma_{01}\approx(1/\tau_{fluor})\) and maximum excitation fraction \(n_2\approx0.5\). At the maximum available excitation beam and stimulation beam powers, we observed ~10% depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.16(1/\tau_{fluor})\).
+</p>
+
+
+<p>become parameters that can be estimated and tuned in order to reasonably fit the model to our measurements. We do not expect to perfectly fit our measurement, but by choosing a range of values for the three parameters, we believe we can predict \(n_2\), kex and kstim with an accuracy of ?%, ?%, and ?%. 
 </p>
 
 <p>
