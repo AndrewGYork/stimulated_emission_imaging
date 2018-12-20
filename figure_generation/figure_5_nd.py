@@ -96,43 +96,71 @@ def main():
     
 
     # IMPORTANT PARAMETERS FOR FIT
-    brightness = 160
-##    mW_per_kex = 1150
-##    mW_per_kdep = 1150
-    mW_per_kex = 1130
-    mW_per_kdep = 1100
+    brightness = 230#160
+    mW_per_kex = 505#1130
+    mW_per_kdep = 480#1100
     
-    # compute rate constants
-    kex = green_powers / mW_per_kex
-    kex_min = kex * 0.93
-    kex_max = kex * 1.07
+    # equally spaced fluorophore alignment angles (wrt laser polarization)
+    theta = np.linspace(0, np.pi, 400)
+    
+    #population weight for each angle
+    n2_weight = np.sin(theta)
+    n2_weight = n2_weight/np.sum(n2_weight) # normalize so sum will be 1
 
-    kdep = red_powers[-1] / mW_per_kdep
-    kdep_min = kdep * 0.6
-    kdep_max = kdep * 1.4
+    sigma_weight = (np.cos(theta))**2# cross section weight for each angle
 
-    model_fl = kex / (1 + kex)
-    model_fl_max = kex_max / (1 + kex_max)
-    model_fl_min = kex_min / (1 + kex_min)
-    model_fl_dep = kex / (1 + kex + kdep)
-    model_fl_dep_max = kex / (1 + kex + kdep_max)
-    model_fl_dep_min = kex / (1 + kex + kdep_min)
+    # finely sample green powers
+    green_powers_fine = np.linspace(green_powers[0], green_powers[-1], 100)
 
-    # upsample model fit
-    # compute rate constants
-    green_powers_fine = np.arange(0, green_powers[-1], 1)
-    kex_fine = green_powers_fine / mW_per_kex
-    kex_min_fine = kex_fine * 0.93
-    kex_max_fine = kex_fine * 1.07
-    # kdep same as above
-    # predict upsampled fluorescence
-    model_fl_fine = kex_fine / (1 + kex_fine)
-    model_fl_max_fine = kex_max_fine / (1 + kex_max_fine)
-    model_fl_min_fine = kex_min_fine / (1 + kex_min_fine)
-    model_fl_dep_fine = kex_fine / (1 + kex_fine + kdep)
-    model_fl_dep_max_fine = kex_fine / (1 + kex_fine + kdep_max)
-    model_fl_dep_min_fine = kex_fine / (1 + kex_fine + kdep_min)
+    # initiate array that contains model fluorescence v. green at every angle
+    model_fl_all = np.zeros(
+        (theta.shape[0], green_powers_fine.shape[0]))
+    model_fl_max_all = np.zeros(
+        (theta.shape[0], green_powers_fine.shape[0]))
+    model_fl_min_all = np.zeros(
+        (theta.shape[0], green_powers_fine.shape[0]))
+    model_fl_dep_all = np.zeros(
+        (theta.shape[0], green_powers_fine.shape[0]))
+    model_fl_dep_max_all = np.zeros(
+        (theta.shape[0], green_powers_fine.shape[0]))
+    model_fl_dep_min_all = np.zeros(
+        (theta.shape[0], green_powers_fine.shape[0]))
 
+    # compute model fluorescence for each angle
+    for theta_index in range(theta.shape[0]):
+        n2 = n2_weight[theta_index]
+        sigma = sigma_weight[theta_index]
+
+        # compute rate constants
+        kex = green_powers_fine / mW_per_kex * sigma
+        kex_min = 1/(1/kex * 0.93)
+        kex_max = 1/(1/kex * 1.07)
+        kdep = red_powers[-1] / mW_per_kdep * sigma
+        kdep_min = 1/(1/kdep * 0.6)
+        kdep_max = 1/(1/kdep * 1.4)
+
+        # predict fluorescence
+        model_fl = kex / (1 + kex) * n2
+        model_fl_all[theta_index, :] = model_fl
+        model_fl_max = kex_max / (1 + kex_max) * n2
+        model_fl_max_all[theta_index, :] = model_fl_max
+        model_fl_min = kex_min / (1 + kex_min) * n2
+        model_fl_min_all[theta_index, :] = model_fl_min
+        # predict depleted fluorescence
+        model_fl_dep = kex / (1 + kex + kdep) * n2
+        model_fl_dep_all[theta_index, :] = model_fl_dep
+        model_fl_dep_max = kex / (1 + kex + kdep_max) * n2
+        model_fl_dep_max_all[theta_index, :] = model_fl_dep_max
+        model_fl_dep_min = kex / (1 + kex + kdep_min) * n2
+        model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
+
+    # sum weighted fluorescence over all angles
+    model_fl = model_fl_all.sum(axis=0)
+    model_fl_max = model_fl_max_all.sum(axis=0)
+    model_fl_min = model_fl_min_all.sum(axis=0)
+    model_fl_dep = model_fl_dep_all.sum(axis=0)
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -152,26 +180,26 @@ def main():
     ax1.set_xlabel('Excitation power (mW)',fontsize=16)
     # plot model fit
     ax1.plot(green_powers_fine,
-             model_fl_fine * brightness,
+             model_fl * brightness,
              '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$',
              color='green')
     ax1.fill_between(green_powers_fine,
-                     model_fl_max_fine * brightness,
-                     model_fl_min_fine * brightness,
+                     model_fl_max * brightness,
+                     model_fl_min * brightness,
                      color="#C0FFC0")
     dep_mult = ("{:.2f}".format(kdep))
-    ax1.plot(green_powers_fine, model_fl_dep_fine * brightness, '-',
+    ax1.plot(green_powers_fine, model_fl_dep * brightness, '-',
              label=(
                  r'Model, $h_{stim}\sigma_{23}=' +
                  dep_mult + r'(1/\tau_{fluor})$'),
              color='red')
     ax1.fill_between(green_powers_fine,
-                     model_fl_dep_max_fine * brightness,
-                     model_fl_dep_min_fine * brightness,
+                     model_fl_dep_max * brightness,
+                     model_fl_dep_min * brightness,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
-    plt.axis([0, 1600, 0, 105])
+    plt.axis([0, 1600, 0, 102])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
     plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
@@ -203,44 +231,54 @@ def main():
         './../images/figure_5/fluorescence_depletion_nd_brightness_optimal.svg')
     plt.show()
 
+
+
+    
+
     # change brightness * 1.5 and scale rate constant to fit
     brightness_hi = brightness * 1.5
     rate_const_mod = 1.83
     extra_kdep_mod = 0.6
     
-    # compute rate constants
+    # modify rate constants to fit new brightness
     mW_per_kex_hi = mW_per_kex * rate_const_mod
-    kex = green_powers / mW_per_kex_hi
-    kex_min = kex * 0.93
-    kex_max = kex * 1.07
-
     mW_per_kdep_hi = mW_per_kdep * rate_const_mod * extra_kdep_mod
-    kdep = red_powers[-1] / mW_per_kdep_hi
-    kdep_min = kdep * 0.6
-    kdep_max = kdep * 1.4
 
+    # compute model fluorescence for each angle
+    for theta_index in range(theta.shape[0]):
+        n2 = n2_weight[theta_index]
+        sigma = sigma_weight[theta_index]
 
-    model_fl = kex / (1 + kex)
-    model_fl_max = kex_max / (1 + kex_max)
-    model_fl_min = kex_min / (1 + kex_min)
-    model_fl_dep = kex / (1 + kex + kdep)
-    model_fl_dep_max = kex / (1 + kex + kdep_max)
-    model_fl_dep_min = kex / (1 + kex + kdep_min)
+        # compute rate constants
+        kex = green_powers_fine / mW_per_kex_hi * sigma
+        kex_min = 1/(1/kex * 0.93)
+        kex_max = 1/(1/kex * 1.07)
+        kdep = red_powers[-1] / mW_per_kdep_hi * sigma
+        kdep_min = 1/(1/kdep * 0.6)
+        kdep_max = 1/(1/kdep * 1.4)
 
-    # upsample model fit
-    # compute rate constants
-    green_powers_fine = np.arange(0, green_powers[-1], 1)
-    kex_fine = green_powers_fine / mW_per_kex_hi
-    kex_min_fine = kex_fine * 0.93
-    kex_max_fine = kex_fine * 1.07
-    # kdep same as above
-    # predict upsampled fluorescence
-    model_fl_fine = kex_fine / (1 + kex_fine)
-    model_fl_max_fine = kex_max_fine / (1 + kex_max_fine)
-    model_fl_min_fine = kex_min_fine / (1 + kex_min_fine)
-    model_fl_dep_fine = kex_fine / (1 + kex_fine + kdep)
-    model_fl_dep_max_fine = kex_fine / (1 + kex_fine + kdep_max)
-    model_fl_dep_min_fine = kex_fine / (1 + kex_fine + kdep_min)
+        # predict fluorescence
+        model_fl = kex / (1 + kex) * n2
+        model_fl_all[theta_index, :] = model_fl
+        model_fl_max = kex_max / (1 + kex_max) * n2
+        model_fl_max_all[theta_index, :] = model_fl_max
+        model_fl_min = kex_min / (1 + kex_min) * n2
+        model_fl_min_all[theta_index, :] = model_fl_min
+        # predict depleted fluorescence
+        model_fl_dep = kex / (1 + kex + kdep) * n2
+        model_fl_dep_all[theta_index, :] = model_fl_dep
+        model_fl_dep_max = kex / (1 + kex + kdep_max) * n2
+        model_fl_dep_max_all[theta_index, :] = model_fl_dep_max
+        model_fl_dep_min = kex / (1 + kex + kdep_min) * n2
+        model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
+
+    # sum weighted fluorescence over all angles
+    model_fl = model_fl_all.sum(axis=0)
+    model_fl_max = model_fl_max_all.sum(axis=0)
+    model_fl_min = model_fl_min_all.sum(axis=0)
+    model_fl_dep = model_fl_dep_all.sum(axis=0)
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -260,25 +298,25 @@ def main():
     ax1.set_xlabel('Excitation power (mW)', fontsize=16)
     # plot model fit
     ax1.plot(green_powers_fine,
-             model_fl_fine * brightness_hi,
+             model_fl * brightness_hi,
              '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$',
              color='green')
     ax1.fill_between(green_powers_fine,
-                     model_fl_max_fine * brightness_hi,
-                     model_fl_min_fine * brightness_hi,
+                     model_fl_max * brightness_hi,
+                     model_fl_min * brightness_hi,
                      color="#C0FFC0")
     dep_mult = ("{:.2f}".format(kdep))
-    ax1.plot(green_powers_fine, model_fl_dep_fine * brightness_hi, '-',
+    ax1.plot(green_powers_fine, model_fl_dep * brightness_hi, '-',
              label=(r'Model, $h_{stim}\sigma_{23}=' +
                     dep_mult + r'(1/\tau_{fluor})$'),
              color='red')
     ax1.fill_between(green_powers_fine,
-                     model_fl_dep_max_fine * brightness_hi,
-                     model_fl_dep_min_fine * brightness_hi,
+                     model_fl_dep_max * brightness_hi,
+                     model_fl_dep_min * brightness_hi,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
-    plt.axis([0, 1600, 0, 105])
+    plt.axis([0, 1600, 0, 102])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
     plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
@@ -309,45 +347,55 @@ def main():
     plt.savefig(
         './../images/figure_5/fluorescence_depletion_nd_brightness_hi.svg')
     plt.show()
+
+
+    
     
 
     # change brightness / 1.5 and scale rate constant to fit
     brightness_lo = brightness / 1.5
-    rate_const_mod = 2.2
-    extra_kdep_mod = 0.8
+    rate_const_mod = 2
+    extra_kdep_mod = 0.75
     
-    # compute rate constants
+    # modify rate constants to fit new brightness
     mW_per_kex_lo = mW_per_kex / rate_const_mod
-    kex = green_powers / mW_per_kex_lo
-    kex_min = kex * 0.93
-    kex_max = kex * 1.07
-
     mW_per_kdep_lo = mW_per_kdep / rate_const_mod / extra_kdep_mod
-    kdep = red_powers[-1] / mW_per_kdep_lo
-    kdep_min = kdep * 0.6
-    kdep_max = kdep * 1.4
 
-    model_fl = kex / (1 + kex)
-    model_fl_max = kex_max / (1 + kex_max)
-    model_fl_min = kex_min / (1 + kex_min)
-    model_fl_dep = kex / (1 + kex + kdep)
-    model_fl_dep_max = kex / (1 + kex + kdep_max)
-    model_fl_dep_min = kex / (1 + kex + kdep_min)
+    # compute model fluorescence for each angle
+    for theta_index in range(theta.shape[0]):
+        n2 = n2_weight[theta_index]
+        sigma = sigma_weight[theta_index]
 
-    # upsample model fit
-    # compute rate constants
-    green_powers_fine = np.arange(0, green_powers[-1], 1)
-    kex_fine = green_powers_fine / mW_per_kex_lo
-    kex_min_fine = kex_fine * 0.93
-    kex_max_fine = kex_fine * 1.07
-    # kdep same as above
-    # predict upsampled fluorescence
-    model_fl_fine = kex_fine / (1 + kex_fine)
-    model_fl_max_fine = kex_max_fine / (1 + kex_max_fine)
-    model_fl_min_fine = kex_min_fine / (1 + kex_min_fine)
-    model_fl_dep_fine = kex_fine / (1 + kex_fine + kdep)
-    model_fl_dep_max_fine = kex_fine / (1 + kex_fine + kdep_max)
-    model_fl_dep_min_fine = kex_fine / (1 + kex_fine + kdep_min)
+        # compute rate constants
+        kex = green_powers_fine / mW_per_kex_lo * sigma
+        kex_min = 1/(1/kex * 0.93)
+        kex_max = 1/(1/kex * 1.07)
+        kdep = red_powers[-1] / mW_per_kdep_lo * sigma
+        kdep_min = 1/(1/kdep * 0.6)
+        kdep_max = 1/(1/kdep * 1.4)
+
+        # predict fluorescence
+        model_fl = kex / (1 + kex) * n2
+        model_fl_all[theta_index, :] = model_fl
+        model_fl_max = kex_max / (1 + kex_max) * n2
+        model_fl_max_all[theta_index, :] = model_fl_max
+        model_fl_min = kex_min / (1 + kex_min) * n2
+        model_fl_min_all[theta_index, :] = model_fl_min
+        # predict depleted fluorescence
+        model_fl_dep = kex / (1 + kex + kdep) * n2
+        model_fl_dep_all[theta_index, :] = model_fl_dep
+        model_fl_dep_max = kex / (1 + kex + kdep_max) * n2
+        model_fl_dep_max_all[theta_index, :] = model_fl_dep_max
+        model_fl_dep_min = kex / (1 + kex + kdep_min) * n2
+        model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
+
+    # sum weighted fluorescence over all angles
+    model_fl = model_fl_all.sum(axis=0)
+    model_fl_max = model_fl_max_all.sum(axis=0)
+    model_fl_min = model_fl_min_all.sum(axis=0)
+    model_fl_dep = model_fl_dep_all.sum(axis=0)
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -367,25 +415,25 @@ def main():
     ax1.set_xlabel('Excitation power (mW)', fontsize=16)
     # plot model fit
     ax1.plot(green_powers_fine,
-             model_fl_fine * brightness_lo,
+             model_fl * brightness_lo,
              '-',
              label=r'Model, $h_{stim}\sigma_{23}=0$',
              color='green')
     ax1.fill_between(green_powers_fine,
-                     model_fl_max_fine * brightness_lo,
-                     model_fl_min_fine * brightness_lo,
+                     model_fl_max * brightness_lo,
+                     model_fl_min * brightness_lo,
                      color="#C0FFC0")
     dep_mult = ("{:.2f}".format(kdep))
-    ax1.plot(green_powers_fine, model_fl_dep_fine * brightness_lo, '-',
+    ax1.plot(green_powers_fine, model_fl_dep * brightness_lo, '-',
              label=(r'Model, $h_{stim}\sigma_{23}=' +
                     dep_mult + r'(1/\tau_{fluor})$'),
              color='red')
     ax1.fill_between(green_powers_fine,
-                     model_fl_dep_max_fine * brightness_lo,
-                     model_fl_dep_min_fine * brightness_lo,
+                     model_fl_dep_max * brightness_lo,
+                     model_fl_dep_min * brightness_lo,
                      color='#FFD0D0')
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=15)
-    plt.axis([0, 1600, 0, 105])
+    plt.axis([0, 1600, 0, 102])
     leg = plt.legend(loc='lower right', title='Fluorescence', fontsize=14)
     plt.setp(leg.get_title(), fontsize=15)
     plt.grid()
