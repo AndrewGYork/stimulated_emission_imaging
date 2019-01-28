@@ -501,18 +501,25 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 <p><strong>NEW including angular dependence</strong>
 </p>
 
-<p>The excitation and stimulation laser pulses are both linearly co-polarized in our experiments, whereas <strong>(we assume?)</strong> the fluorophores are randomly oriented in our sample. Excitation and stimulation depend on the angle \(\theta\) between the excitation/stimulation electric fields and the fluorophore orientation; the excitation and stimulation cross-sections can be written as \(\sigma_{01}\cos^2(\theta)\) and \(\sigma_{23}\cos^2(\theta)\), respectively. This means that the probability that a fluorophore is in the excited state population also depends on \(\theta\), and we can write this probability \(n_{2,\theta}\) (or simply \(n_2(\theta)\)?)as:
+<p>The excitation and stimulation laser pulses are both linearly co-polarized in our experiments, whereas <strong>(we assume?)</strong> the fluorophores are randomly oriented in our sample. Excitation and stimulation depend on the angle \(\theta\) between the excitation/stimulation electric fields and the fluorophore orientation; the excitation and stimulation cross-sections can be written as \(\sigma_{01}\cos^2(\theta)\) and \(\sigma_{23}\cos^2(\theta)\), respectively. This means that the probability that a fluorophore is in the excited state population also depends on \(\theta\), and we can write this probability \(n_2(\theta)\) as:
 </p>
 
 <div>
-	$$\begin{equation} n_{2,\theta} = \frac{h_{exc}\sigma_{01}\cos^2(\theta)}{h_{exc}\sigma_{01}\cos^2(\theta) + h_{stim}\sigma_{23}\cos^2(\theta) + \frac{1}{\tau_{fluor}}} \end{equation}$$
+	$$\begin{equation} n_2(\theta) = \frac{h_{exc}\sigma_{01}\cos^2(\theta)}{h_{exc}\sigma_{01}\cos^2(\theta) + h_{stim}\sigma_{23}\cos^2(\theta) + \frac{1}{\tau_{fluor}}} \end{equation}$$
 </div>
 
 <p>We can now express the average expected excited state fraction for a group of fluorophores with homogeneously distributed alignment as an integral over (evenly distributed angles in three dimensions/a spherical shell with unity radius):
 </p>
 
 <div>
-	$$\begin{equation} n_2 = \frac{1}{4\pi} \int_0^{2\pi} \int_0^\pi n_{2,\theta}\sin(\theta) d\theta d\phi = \frac{1}{2}\int_0^\pi n_{2,\theta}\sin(\theta) d\theta \end{equation}$$
+	$$\begin{equation} n_2 = \frac{1}{4\pi} \int_0^{2\pi} \int_0^\pi n_2(\theta)\sin(\theta) d\theta d\phi = \frac{1}{2}\int_0^\pi n_2(\theta)\sin(\theta) d\theta \end{equation}$$
+</div>
+
+<p>We compute \(n_2\) numerically for \(\theta\) over the range \([0,\pi]\) with angular spacing \(\Delta\theta=\pi/N\):
+</p>
+
+<div>
+	$$\begin{equation} n_2 = \frac{1}{2}\sum_{n=0}^N n_2(\theta)\sin(\theta)\Delta\theta \end{equation}$$
 </div>
 
 <p><strong>TODO: figure out subscripts</strong>
@@ -529,7 +536,7 @@ Based upon this fit, we estimate that at maximum excitation power, the maximum e
 <p><strong>Fit results for orange beads</strong>Based upon this fit, we estimate that at maximum excitation power, the maximum excitation rate constant is \(h_{exc}\sigma_{01}\approx3.5(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations is \(n_2\approx0.42\). At the maximum available excitation and stimulation powers, we observed negligible depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.046(1/\tau_{fluor})\) <strong>(TODO: say depletion is below threshold for detection and rate constant is negligible?)</strong>.
 </p>
 
-<p><strong>Fit results for nanodiamonds</strong>Based upon this fit, we estimate that at maximum excitation power, the maximum excitation rate constant is \(h_{exc}\sigma_{01}\approx2.9(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations is \(n_2\approx0.39\). At the maximum available excitation and stimulation powers, we observed ~10% depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.62(1/\tau_{fluor})\).
+<p><strong>Fit results for nanodiamonds.</strong>Based upon this fit, we estimate that at maximum excitation power, the maximum excitation rate constant is \(h_{exc}\sigma_{01}\approx2.9(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations is \(n_2\approx0.39\). At the maximum available excitation and stimulation powers, we observed ~10% depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.62(1/\tau_{fluor})\). <strong>TODO: mention that N-v centers can only have four distinct alignment angles for single crystal diamonds, but the model for isotropically aligned fluorophores appears to give a reasonable fit.</strong>
 </p>
 
 <p>become parameters that can be estimated and tuned in order to reasonably fit the model to our measurements. We do not expect to perfectly fit our measurement, but by choosing a range of values for the three parameters, we believe we can predict \(n_2\), kex and kstim with an accuracy of ?%, ?%, and ?%. 
