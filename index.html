@@ -515,12 +515,22 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 	$$\begin{equation} n_2 = \frac{1}{4\pi} \int_0^{2\pi} \int_0^\pi n_2(\theta)\sin(\theta) d\theta d\phi = \frac{1}{2}\int_0^\pi n_2(\theta)\sin(\theta) d\theta \end{equation}$$
 </div>
 
-<p>We compute \(n_2\) numerically for \(\theta\) over the range \([0,\pi]\) with angular spacing \(\Delta\theta=\pi/N\):
+<p>We compute \(n_2\) numerically for \(\theta\) over the range \([0,\pi]\) with angular spacing \(\Delta\theta=\pi/N\) (we choose a large \(N\) for fine angular spacing:
 </p>
 
 <div>
-	$$\begin{equation} n_2 = \frac{1}{2}\sum_{n=0}^N n_2(\theta)\sin(\theta)\Delta\theta \end{equation}$$
+	$$\begin{equation} n_2 = \frac{1}{2}\sum_{n=0}^N n_2(\theta)\sin(\theta)\Delta\theta = \frac{\pi}{2N}\sum_{n=0}^N n_2(\frac{n\pi}{N})\sin(\frac{n\pi}{N}) \end{equation}$$
 </div>
+
+<p>We re-write this relationship in terms of our measured quantities \(C_{fluor}\), \(P_{exc}\), and \(P_{stim}\):
+</p>
+
+<div>
+	$$\begin{equation} R_{fluor} C_{fluor} = \frac{\pi}{2N}\sum_{n=0}^N \frac{R_{exc}P_{exc}\cos^2(\frac{n\pi}{N})}{R_{exc}P_{exc}\cos^2(\frac{n\pi}{N}) + R_{stim}P_{stim}\cos^2(\frac{n\pi}{N}) + 1}\sin(\frac{n\pi}{N}) \end{equation}$$
+</div>
+
+<p>We identified reasonable numeric values for \(R_{fluor}\), \(R_{exc}\), and \(R_{stim}\) that showed the above model is consistent with our data.
+</p>
 
 <p><strong>TODO: figure out subscripts</strong>
 </p>
