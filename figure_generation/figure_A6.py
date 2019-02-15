@@ -82,8 +82,6 @@ def main():
     data = data.mean(axis=0)
     data_ctrl = data_ctrl.mean(axis=0)
     bg_signal = bg_signal.mean(axis=0)
-    print(data.shape)
-    print(bg_signal.shape)
 
     # The first delay is negative. Subtract this from the rest of the
     # data in order to find the time delayed change in the phase
@@ -168,7 +166,7 @@ def main():
         red_delays[0:max_delay_num]*1e3,
         bg_signal_change[0:max_delay_num],
         'o--',color='blue',
-        label='Background beam brightness',
+        label='Background brightness change',
         )
     ax2 = ax.twinx()
     lns2 = ax2.plot(
@@ -208,7 +206,7 @@ def main():
                interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
     plt.xticks([])
     plt.yticks([])
-##    plt.savefig('./../images/figure_A6/phase_contrast_nd_delayed_signal.svg')
+    plt.savefig('./../images/figure_A6/phase_contrast_nd_delayed_signal.svg')
     plt.show()
 ##    plt.close()
     
