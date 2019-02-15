@@ -76,10 +76,14 @@ def main():
         num_reps, num_delays, data.shape[1], data.shape[2])
     data_ctrl = data_ctrl.reshape(
         num_reps, num_delays, data_ctrl.shape[1], data_ctrl.shape[2])
+    bg_signal = local_laser_brightness.reshape(num_reps, num_delays)
 
     # now that brightness is corrected, repetition average the data
     data = data.mean(axis=0)
     data_ctrl = data_ctrl.mean(axis=0)
+    bg_signal = bg_signal.mean(axis=0)
+    print(data.shape)
+    print(bg_signal.shape)
 
     # The first delay is negative. Subtract this from the rest of the
     # data in order to find the time delayed change in the phase
@@ -88,6 +92,7 @@ def main():
     thermal_stack = data - early_data
     early_data_ctrl = np.array([data_ctrl[0,:,:]]*num_delays) # red precedes green
     crosstalk_stack = data_ctrl - early_data_ctrl
+    bg_signal_change = bg_signal - bg_signal[0]
     # subtract AOM effects (even though it doesn't seem like there are any)
     thermal_stack = thermal_stack# - crosstalk_stack
 
@@ -159,6 +164,12 @@ def main():
         'o-',color='red',
         label='Delayed phase contrast signal',
         )
+    lns1b = ax.plot(
+        red_delays[0:max_delay_num]*1e3,
+        bg_signal_change[0:max_delay_num],
+        'o--',color='blue',
+        label='Background beam brightness',
+        )
     ax2 = ax.twinx()
     lns2 = ax2.plot(
         green_pulse_time_axis*1e3,
@@ -167,7 +178,8 @@ def main():
         label='Excitation laser duration',
         )
 
-    lns = lns1 + lns2
+##    lns = lns1 + lns2
+    lns = lns1 + lns1b + lns2
     labs = [l.get_label() for l in lns]
     ax.legend(lns, labs, loc='lower right')
 
@@ -196,7 +208,7 @@ def main():
                interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
     plt.xticks([])
     plt.yticks([])
-    plt.savefig('./../images/figure_A6/phase_contrast_nd_delayed_signal.svg')
+##    plt.savefig('./../images/figure_A6/phase_contrast_nd_delayed_signal.svg')
     plt.show()
 ##    plt.close()
     
