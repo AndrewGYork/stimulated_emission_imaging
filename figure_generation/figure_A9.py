@@ -62,13 +62,12 @@ def main():
 
     # get zero delay images, max delay images and phase contrast images
     zero_delay_images = data[:, 2, :, :] # zero red/green delay
-    max_delay_images = data[
-        :, 0:5:4, :, :].mean(axis=1) # average max and min delay
-    phase_stack = data[:, 0, :, :] # red before green (min delay)
+    max_delay_images = data[:, 0, :, :] # red before green (min delay)
+    phase_stack = max_delay_images
+    max_delay_images = phase_stack # just use red before green
     # also for green off data
     zero_delay_images_ctrl = data_ctrl[:, 2, :, :] # zero red/green delay
-    max_delay_images_ctrl = data_ctrl[
-        :, 0:5:4, :, :].mean(axis=1) # average max and min delay
+    max_delay_images_ctrl = data_ctrl[:, 0, :, :] # red before green (min delay)
 
     # from the image where red/green are simultaneous, subtract the
     # average of the max and min delay images
