@@ -457,22 +457,21 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
  alt="Figure 5" id="Figure_5_image">
  <table class="figure_controls">
   <tr>
+  <td>Fit parameter \(R_{fluor}\): </td><td><select id="Figure_5_fit_parameter" onchange="update_figure_5()">
+    <option value="hi">1.5X higher</option>
+    <option value="optimal" selected="selected">Subjectively optimal</option>
+    <option value="lo">1.5X lower</option>
+  </select></td>
+    </tr>
+  <tr>
   <td>Fluorescent sample type: </td><td><select id="Figure_5_sample_type" onchange="update_figure_5()">
     <option value="crimson_dye" selected="selected">Bead labeled with crimson dye</option>
 	<option value="orange_dye">Bead labeled with orange dye</option>
     <option value="nd">Nanodiamond doped with N-v centers</option>
   </select></td>
     </tr>
-  <tr>
-  <td>Fit parameter \(R_{fluor}\): </td><td><select id="Figure_5_fit_parameter" onchange="update_figure_5()">
-    <option value="hi">1.5X higher</option>
-    <option value="optimal" selected="selected">Subjectively optimal</option>
-    <option value="lo">1.5X lower</option>
-
-  </select></td>
-    </tr>
 </table>
-<figcaption><strong>Figure 5: Our peak excitation rates are comparable to spontaneous emission rates, and larger than our peak stimulated emission rates.</strong> Single-particle fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). Signal is calculated as the average pixel brightness (<a href="./appendix.html#camera">camera</a> digitizer units) within a 420x420 nm<sup>2</sup> region in each single-particle fluorescence image (yellow box in inset; scale bar: 350 nm). The green and red lines show candidate fits to our measurements based on the model described in the text. The green and red shaded areas show variations in the fit parameters \(R_{exc}\) (+/- 7%) and \(R_{stim}\) (+/- 40%). Use the controls above to choose between different fluorescent sample types and to vary the fit parameter \(R_{fluor}\). See the <a href="./appendix.html">Appendix</a> for details of
+<figcaption><strong>Figure 5: Our peak excitation rate constant \(h_{exc}\sigma_{01}\) is comparable to the spontaneous emission rate constant \(1/\tau_{fluor}\), and larger than our peak stimulated emission rate constant \(h_{stim}\sigma_{23}\).</strong> Single-particle fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). Signal is calculated as the average pixel brightness (<a href="./appendix.html#camera">camera</a> digitizer units) within a 420x420 nm<sup>2</sup> region in each single-particle fluorescence image (yellow box in inset; scale bar: 350 nm). The green and red lines show candidate fits to our measurements based on the model described in the text. The green and red shaded areas show variations in the fit parameters \(R_{exc}\) (+/- 7%) and \(R_{stim}\) (+/- 40%). Use the controls above to vary the fit parameter \(R_{fluor}\), and to choose between different fluorescent sample types. See the <a href="./appendix.html">Appendix</a> for details of
 <a href="./appendix.html#Image_acquisition_and_figure_generation">image acquisition and figure generation</a>.
 </figcaption>
 </figure><p></p>
