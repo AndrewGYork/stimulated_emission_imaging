@@ -165,7 +165,7 @@ def main():
     lns1b = ax.plot(
         red_delays[0:max_delay_num]*1e3,
         bg_signal_change[0:max_delay_num],
-        'o--',color='blue',
+        'o--',color='red',
         label='Background brightness change',
         )
     ax2 = ax.twinx()
