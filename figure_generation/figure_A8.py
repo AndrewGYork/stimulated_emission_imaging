@@ -123,12 +123,10 @@ def main():
     my_intensity = 1/pulsewidths
 
     fig, ax1 = plt.subplots()
-    lines = ax1.plot(my_intensity,STE_signal_relative,'o',color='blue',markersize=10)
-    plt.setp(lines, linewidth=3, color='b')
-    ax1.plot(my_intensity,STE_signal_relative,'o',color='blue', markersize=10)
+    ax1.plot(my_intensity,STE_signal_relative,'o',color='black',markersize=10)
     plt.ylim(ymin=0,ymax=196)
-    ax1.set_ylabel('Average signal brightness (pixel counts)', color='blue')
-    ax1.tick_params('y', colors='b')
+    ax1.set_ylabel('Average signal brightness (pixel counts)', color='black')
+    ax1.tick_params('y', colors='k')
     plt.xlabel('Normalized laser intensity (constant energy)')
     plt.grid()
     for i in range(4):
@@ -137,13 +135,15 @@ def main():
                    interpolation='nearest', vmax=STE_max, vmin=STE_min)
         plt.xticks([])
         plt.yticks([])
+
     # plot energy per exposure
     green_uJ = np.array([10, 10, 10, 10])
     red_uJ = np.array([2, 2, 2, 2])
     ax2 = ax1.twinx()
-    ax2.plot(my_intensity, green_uJ, '--g', linewidth=2)
-    ax2.plot(my_intensity, red_uJ, '--r', linewidth=2)
-    ax2.set_ylabel('Energy deposited per exposure (µJ)')
+    ax2.plot(my_intensity, green_uJ, '--b', linewidth=2)
+    ax2.plot(my_intensity, red_uJ, '--b', linewidth=2)
+    ax2.set_ylabel('Fluence per exposure (µJ)',color='blue')
+    ax2.tick_params('y', colors='b')
     ax2.set_ylim(ymin=0, ymax=11.4)
     ax1.set_xlim(xmin=0,xmax=1.125)
 
@@ -168,6 +168,7 @@ def main():
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
+
     plt.savefig('./../images/figure_A8/phase_contrast_dye_pulse_length_scan.svg')
     plt.show()
 ##    plt.close()

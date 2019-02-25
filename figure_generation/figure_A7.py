@@ -39,8 +39,7 @@ def main():
 ##    plot_pos_x = [0.2, 0.26, 0.4, 0.64]
     # this works if no dotted line
     plot_pos_y = [0.655, 0.515, 0.39, 0.11]
-    plot_pos_x = [0.19, 0.25, 0.37, 0.73]
-
+    plot_pos_x = [0.16, 0.22, 0.34, 0.67]
     
     
     STE_signal = np.zeros(4)
@@ -112,13 +111,12 @@ def main():
 ##    my_intensity = np.concatenate((my_zero,1/pulsewidths))
     my_intensity = 1/pulsewidths
 
-    fig = plt.figure()
-    lines = plt.plot(my_intensity,STE_signal_relative,'o',color='black',markersize=10)
-    plt.setp(lines, linewidth=2, color='black')
-##    plt.plot(my_intensity,STE_signal_relative,'o',color='black')
-    plt.xlim(xmin=-0.04,xmax=1.04)
-    plt.ylim(ymin=-140,ymax=5)
-    plt.ylabel('Average signal brightness (pixel counts)')
+    fig, ax1 = plt.subplots()
+    ax1.plot(my_intensity,STE_signal_relative,'o',color='black',markersize=10)
+##    plt.xlim(xmin=-0.04,xmax=1.04)
+    plt.ylim(ymin=-140,ymax=0)#max 5
+    ax1.set_ylabel('Average signal brightness (pixel counts)')
+    ax1.tick_params('y', colors='k')
     plt.xlabel('Normalized laser intensity (constant energy)')
     plt.grid()
     for i in range(4):
@@ -127,6 +125,40 @@ def main():
                    interpolation='nearest', vmax=STE_max, vmin=STE_min)
         plt.xticks([])
         plt.yticks([])
+
+    # plot energy per exposure
+    green_uJ = np.array([54, 54, 54, 54])
+    red_uJ = np.array([10, 10, 10, 10])
+    ax2 = ax1.twinx()
+    ax2.plot(my_intensity, green_uJ, '--b', linewidth=2)
+    ax2.plot(my_intensity, red_uJ, '--b', linewidth=2)
+    ax2.set_ylabel('Fluence per exposure (µJ)',color='blue')
+    ax2.tick_params('y', colors='b')
+    ax2.set_ylim(ymin=-1, ymax=61.5)
+    ax1.set_xlim(xmin=0,xmax=1.125)
+
+    # annotate with red/green pulses
+    im = plt.imread('green_shortpulse.png')
+    a = plt.axes([0.773, 0.812, .08, .08], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
+    im = plt.imread('green_longpulse.png')
+    a = plt.axes([0.24, 0.772, .1, .1], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
+    im = plt.imread('red_shortpulse.png')
+    a = plt.axes([0.773, 0.25, .08, .08], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
+    im = plt.imread('red_longpulse.png')
+    a = plt.axes([0.24, 0.21, .1, .1], frameon=False)
+    plt.imshow(im)
+    plt.xticks([])
+    plt.yticks([])
+
     plt.savefig('./../images/figure_A7/darkfield_nd_pulse_length_scan.svg')
     plt.show()
 
