@@ -278,7 +278,7 @@ Their stimulating beam shape was determined by a complicated combination of cavi
 
 <h3>
 Experimental design</h3>
-<p>Figure 2 shows a photograph and schematic of our experimental setup. The sample is illuminated by two continuous wave lasers (<a href="./appendix.html#green_laser">532 nm</a> wavelength for excitation and <a href="./appendix.html#red_laser">721 nm</a> for stimulation), each gated to ~1.25 &micro;s pulse duration via <a href="./appendix.html#AOM">acousto-optic modulators</a>. For convenience, we chose to deliver the excitation beam parallel to the stimulation beam, rather than perpendicular as in Figure 1a. The sample is positioned at the stimulation beam waist, and the excitation and stimulation beams illuminate a  ~10 &micro;m diameter region of the sample. <a id="Peak_laser_intensity"></a>The peak excitation intensity is ~15 mW/&micro;m<sup>2</sup> and the peak stimulation intensity is ~3 mW/&micro;m<sup>2</sup>.
+<p>Figure 2 shows a photograph and schematic of our experimental setup. The sample is illuminated by two vertically  polarized continuous wave lasers (<a href="./appendix.html#green_laser">532 nm</a> wavelength for excitation and <a href="./appendix.html#red_laser">721 nm</a> for stimulation), each gated to ~1.25 &micro;s pulse duration via <a href="./appendix.html#AOM">acousto-optic modulators</a>. For convenience, we chose to deliver the excitation beam parallel to the stimulation beam, rather than perpendicular as in Figure 1a. The sample is positioned at the stimulation beam waist, and the excitation and stimulation beams illuminate a  ~10 &micro;m diameter region of the sample. <a id="Peak_laser_intensity"></a>The peak excitation intensity is ~15 mW/&micro;m<sup>2</sup> and the peak stimulation intensity is ~3 mW/&micro;m<sup>2</sup>.
 </p>
 
 <figure id="Figure_2">
@@ -434,6 +434,19 @@ reduces to:
 <div>
 	$$\begin{equation} \frac{dn_{2}}{dt} = h_{exc}\sigma_{01}(1-n_2) - h_{stim}\sigma_{23}n_2 - \frac{1}{\tau_{fluor}}n_2 \end{equation}$$
 </div>
+
+<p>More generally, excitation and stimulation rate constants depend on the angle \(\theta\) between the fluorophore's transition dipole moments and the polarization of the illumination. If we define \(\sigma_{01}\) and \(\sigma_{23}\) to be the cross-sections for fluorophores with transition dipole moments oriented parallel to the illumination polarizations, and assume that the transition dipole moments for excitation and stimulated emission are parallel, then we can re-write this equation as a function of \(\theta\):
+</p>
+
+<div>
+	$$\begin{equation} \frac{dn_{2}(\theta)}{dt} = h_{exc}\sigma_{01}\cos^2(\theta)(1-n_2(\theta)) - h_{stim}\sigma_{23}\cos^2(\theta) n_2(\theta) - \frac{1}{\tau_{fluor}}n_2(\theta) \end{equation}$$
+</div>
+
+
+
+<p>This model is appropriate for describing fluorophores whose absorption and stimulated emission dipole moments are parallel to the polarization of the excitation and stimulation light. 
+</p>
+
 
 <p>
 We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the relationships between fundamental quantities (\(h_{exc}\sigma_{01}\), \(h_{stim}\sigma_{23}\), and \(n_2\)) and measured quantities like \(P_{exc}\) (excitation power in milliwatts),  \(P_{stim}\) (stimulation power in milliwatts), and \(C_{fluor}\) (fluorescent counts in <a href="./appendix.html#camera">camera</a> digitizer units). Specifically, we want to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}\tau_{fluor}}{P_{exc}}\) between the normalized excitation rate constant and the measured excitation power, the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}\tau_{fluor}}{P_{stim}}\) between the normalized stimulation rate constant and the measured stimulation power, and the ratio \(R_{fluor}=\frac{n_2}{C_{fluor}}\) between the excited state population fraction and the measured fluorescence.
