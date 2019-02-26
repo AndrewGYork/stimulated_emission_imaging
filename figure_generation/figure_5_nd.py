@@ -32,6 +32,7 @@ def main():
     # ~13 pixel counts of extra light, so we subtract 113.9
     green_powers = green_powers - min(green_powers)
     green_powers = green_powers * green_max_mW / max(green_powers) # units: mW
+    print(green_powers)
 
     # red powers calibrated using power meter and AOM transmitting 1.25us pulses
     red_max_mW = 300 # measured with power meter before sample
@@ -101,11 +102,15 @@ def main():
     mW_per_kdep = 480#1100
     
     # equally spaced fluorophore alignment angles (wrt laser polarization)
-    theta = np.linspace(0, np.pi, 400)
+    K = 400 # number of angles to try
+    theta = np.linspace(0, np.pi, K)
+    N = K - 1 #number of spaces between angles
     
     #population weight for each angle
-    n2_weight = np.sin(theta)
-    n2_weight = n2_weight/np.sum(n2_weight) # normalize so sum will be 1
+    #norm = normalization factor for summation over theta
+    #(phi not necessary due to symmetry)
+    norm = np.pi / 2 / N
+    n2_weight = np.sin(theta) * norm
 
     sigma_weight = (np.cos(theta))**2# cross section weight for each angle
 
@@ -127,7 +132,7 @@ def main():
         (theta.shape[0], green_powers_fine.shape[0]))
 
     # compute model fluorescence for each angle
-    for theta_index in range(theta.shape[0]):
+    for theta_index in range(N):
         n2 = n2_weight[theta_index]
         sigma = sigma_weight[theta_index]
 
@@ -245,7 +250,7 @@ def main():
     mW_per_kdep_hi = mW_per_kdep * rate_const_mod * extra_kdep_mod
 
     # compute model fluorescence for each angle
-    for theta_index in range(theta.shape[0]):
+    for theta_index in range(N):
         n2 = n2_weight[theta_index]
         sigma = sigma_weight[theta_index]
 
@@ -362,7 +367,7 @@ def main():
     mW_per_kdep_lo = mW_per_kdep / rate_const_mod / extra_kdep_mod
 
     # compute model fluorescence for each angle
-    for theta_index in range(theta.shape[0]):
+    for theta_index in range(N):
         n2 = n2_weight[theta_index]
         sigma = sigma_weight[theta_index]
 

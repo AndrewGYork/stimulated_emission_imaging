@@ -30,6 +30,7 @@ def main():
     camera_background_counts = 100
     green_powers = green_powers - camera_background_counts
     green_powers = green_powers * green_max_mW / max(green_powers) # units: mW
+    print(green_powers)
 
     red_max_mW = 240 # measured with power meter before sample
     red_powers = np.array((0, red_max_mW))
@@ -111,9 +112,10 @@ def main():
     N = K - 1 #number of spaces between angles
     
     #population weight for each angle
-    n2_weight = np.sin(theta)
-    #####TODO: NORMALIZE HERE####
-##    n2_weight = n2_weight/np.sum(n2_weight) # normalize so sum will be 1
+    #norm = normalization factor for summation over theta
+    #(phi not necessary due to symmetry)
+    norm = np.pi / 2 / N
+    n2_weight = np.sin(theta) * norm
 
     sigma_weight = (np.cos(theta))**2# cross section weight for each angle
 
@@ -163,13 +165,12 @@ def main():
         model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
 
     # sum weighted fluorescence over all angles
-    norm = np.pi / 2 / N#normalization factor for summation
-    model_fl = model_fl_all.sum(axis=0) * norm
-    model_fl_max = model_fl_max_all.sum(axis=0) * norm
-    model_fl_min = model_fl_min_all.sum(axis=0) * norm
-    model_fl_dep = model_fl_dep_all.sum(axis=0) * norm
-    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0) * norm
-    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0) * norm
+    model_fl = model_fl_all.sum(axis=0)# * norm
+    model_fl_max = model_fl_max_all.sum(axis=0)# * norm
+    model_fl_min = model_fl_min_all.sum(axis=0)# * norm
+    model_fl_dep = model_fl_dep_all.sum(axis=0)# * norm
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)# * norm
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)# * norm
     
     fig = plt.figure()
     ax1 = fig.add_subplot(1,1,1)
@@ -221,8 +222,8 @@ def main():
         (4.6, 3.4), 6, 6,
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-##    plt.savefig(
-##        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_optimal.svg')
+    plt.savefig(
+        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_optimal.svg')
     plt.show()
 
 
@@ -266,12 +267,12 @@ def main():
         model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
 
     # sum weighted fluorescence over all angles
-    model_fl = model_fl_all.sum(axis=0) * norm
-    model_fl_max = model_fl_max_all.sum(axis=0) * norm
-    model_fl_min = model_fl_min_all.sum(axis=0) * norm
-    model_fl_dep = model_fl_dep_all.sum(axis=0) * norm
-    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0) * norm
-    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0) * norm
+    model_fl = model_fl_all.sum(axis=0)# * norm
+    model_fl_max = model_fl_max_all.sum(axis=0)# * norm
+    model_fl_min = model_fl_min_all.sum(axis=0)# * norm
+    model_fl_dep = model_fl_dep_all.sum(axis=0)# * norm
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)# * norm
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)# * norm
     
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -324,8 +325,8 @@ def main():
         (4.6, 3.4), 6, 6,
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-##    plt.savefig(
-##        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_hi.svg')
+    plt.savefig(
+        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_hi.svg')
     plt.show()
 
 
@@ -369,12 +370,12 @@ def main():
         model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
 
     # sum weighted fluorescence over all angles
-    model_fl = model_fl_all.sum(axis=0) * norm
-    model_fl_max = model_fl_max_all.sum(axis=0) * norm
-    model_fl_min = model_fl_min_all.sum(axis=0) * norm
-    model_fl_dep = model_fl_dep_all.sum(axis=0) * norm
-    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0) * norm
-    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0) * norm
+    model_fl = model_fl_all.sum(axis=0)# * norm
+    model_fl_max = model_fl_max_all.sum(axis=0)# * norm
+    model_fl_min = model_fl_min_all.sum(axis=0)# * norm
+    model_fl_dep = model_fl_dep_all.sum(axis=0)# * norm
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)# * norm
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)# * norm
     
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -426,8 +427,8 @@ def main():
         (4.6, 3.4), 6, 6,
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-##    plt.savefig(
-##        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_lo.svg')
+    plt.savefig(
+        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_lo.svg')
     plt.show()
 
 
