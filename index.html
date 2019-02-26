@@ -485,9 +485,6 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 </figcaption>
 </figure><p></p>
 
-<p><strong>CURSOR HERE</strong>
-</p>
-
 <p><strong>did our observations confirm our expectations?</strong> At steady state, \(\frac{dn_{2}(\theta)}{dt} = 0\), yielding:</p>
 
 <div>
@@ -501,27 +498,22 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 	$$\begin{equation} \overline{n_2} = R_{fluor} C_{fluor} = \int_0^{2\pi} \int_0^\pi \frac{R_{exc} P_{exc}}{R_{exc} P_{exc} + R_{stim}P_{stim} + \frac{1}{cos^2(\theta)}} \psi(\phi,\theta) d\theta d\phi \end{equation}$$
 </div>
 
-<p>where \(\psi(\phi,\theta)\) is the normalized density of fluorophores versus orientation. We assume our beads contain a large number of randomly oriented fluorophores, giving \(\psi(\phi,\theta)=\frac{\sin(\theta)}{4\pi}\).
+<p>where \(\psi(\phi,\theta)\) is the normalized density of fluorophores versus orientation. We assume our beads contain a large number of randomly oriented fluorophores, giving \(\psi(\phi,\theta)=\frac{\sin(\theta)}{4\pi}\). Note that randomly oriented fluorophores require much higher illumination intensity to saturate excitation, compared to fluorophores that are oriented parallel to the illumination polarization.
 </p>
 
-<p>Our data is consistent with this model (Figure 5 with <code>Fit parameter </code>\(R_{fluor}\)<code>: Subjectively optimal</code> selected). Using \(R_{fluor}=1.09\times 10^{-2}\) counts<sup>-1</sup>, \(R_{exc}=1.04\) W<sup>-1</sup>, and \(R_{stim}=0.676\) W<sup>-1</sup> gives model predictions (green and red lines) that strongly resemble our experimental data (green and red dots). Neighboring values also produce reasonable fits. The green shaded area shows the range of the \(P_{stim}=0\) model (green line) as we vary \(R_{exc}\) by &plusmn; 7%. The red shaded area shows the range of the \(P_{stim}\neq0\) model (red line) as we vary \(R_{stim}\) by &plusmn; 40%. Grossly different values of \(R_{fluor}\) fit the data poorly for any value of \(R_{exc}\) and \(R_{stim}\) (Figure 5 with <code>Fit parameter </code>\(R_{fluor}\)<code>:</code> (<code>1.5X higher</code> or <code>1.5X lower</code>) selected).
+<p>Our measurements are consistent with this model (Figure 5 with <code>Fit parameter</code>\(R_{fluor}\)<code>: Subjectively optimal</code> selected). Using \(R_{fluor}=1.09\times 10^{-2}\) counts<sup>-1</sup>, \(R_{exc}=1.04\) W<sup>-1</sup>, and \(R_{stim}=0.676\) W<sup>-1</sup> gives model predictions (green and red lines) that strongly resemble our experimental data (green and red dots). Neighboring values also produce reasonable fits. The green shaded area shows the range of the \(P_{stim}=0\) model (green line) as we vary \(R_{exc}\) by &plusmn; 7%. The red shaded area shows the range of the \(P_{stim}\neq0\) model (red line) as we vary \(R_{stim}\) by &plusmn; 40%. Grossly different values of \(R_{fluor}\) fit the data poorly for any value of \(R_{exc}\) and \(R_{stim}\) (Figure 5 with <code>Fit parameter </code>\(R_{fluor}\)<code>:</code> (<code>1.5X higher</code> or <code>1.5X lower</code>) selected).
 </p>
 
-
-<p><strong>Predict "fundamental" values</strong> Based upon this fit, we estimate that at maximum excitation power, the maximum excitation rate constant is \(h_{exc}\sigma_{01}\approx1.9(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations is \(overline{n_2}\approx0.32\). At the maximum available excitation and stimulation powers, we observed ~8% depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.32(1/\tau_{fluor})\).
+<p><strong>Predict "fundamental" values</strong> Based on these fits, we estimate that at maximum excitation power, our excitation rate is slightly higher than spontaneous emission \((h_{exc}\sigma_{01}\approx1.9(1/\tau_{fluor})\), corresponding to \(\overline{n_2}\approx0.32)\). Maximum stimulation power depletes ~8% of this fluorescence, corresponding to a stimulation rate slightly lower than spontaneous emission \(\left(h_{stim}\sigma_{23}\approx0.32(1/\tau_{fluor})\right)\). This confirms our expectation that the stimulation intensity we used in Figures 3 and 4 yields an appreciable level of fluorescence depletion.
 </p>
 
-<p><strong>Highlight take-aways (approach saturation and looks like STE)</strong> The fit to experimental data is not perfect; however, the main inferences we draw from our measurement and fit are (1), that at maximum excitation beam power, excitation approaches saturation, and (2), that the depletion of fluorescence resembles the depletion we would expect from stimulated emission.
+<p><strong>CURSOR HERE</strong>
 </p>
 
-
-<p><strong>Fit results for orange beads</strong>Based upon this fit, we estimate that at maximum excitation power, the maximum excitation rate constant is \(h_{exc}\sigma_{01}\approx3.5(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations is \(n_2\approx0.42\). At the maximum available excitation and stimulation powers, we observed negligible depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.046(1/\tau_{fluor})\) <strong>(TODO: say depletion is below threshold for detection and rate constant is negligible?)</strong>.
+<p><strong>Fit results for orange beads</strong>Based on this fit, we estimate that at maximum excitation power, the excitation rate constant \(h_{exc}\sigma_{01}\approx3.5(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations \(n_2\approx0.42\). At the maximum available excitation and stimulation powers, we observed negligible depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.046(1/\tau_{fluor})\) <strong>(TODO: say depletion is below threshold for detection and rate constant is negligible?)</strong>.
 </p>
 
-<p><strong>Fit results for nanodiamonds.</strong>Based upon this fit, we estimate that at maximum excitation power, the maximum excitation rate constant is \(h_{exc}\sigma_{01}\approx2.9(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations is \(n_2\approx0.39\). At the maximum available excitation and stimulation powers, we observed ~10% depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.62(1/\tau_{fluor})\). <strong>TODO: mention that N-v centers can only have four distinct alignment angles for single crystal diamonds, but the model for isotropically aligned fluorophores appears to give a reasonable fit.</strong>
-</p>
-
-<p><strong>Pulse length scan from crimson beads. Follows from understanding excitation and stim emission rates. Not a good photothermal control, but shows behavior different from simple fluorescence.</strong> As with the change in scattered light signal from N-v centers in nanodiamonds, the magnitude of the signal from the crimson beads <a href="./appendix.html#The_image_signal_depends_on_the_intensity_of_the_excitation_and_stimulation_laser_pulses">increases monotonically</a> as excitation and stimulation intensity increase and fluence is held constant. We would expect this of stimulated emission from crimson beads in the regime where neither excitation nor stimulated emission are fully saturated.
+<p><strong>Fit results for nanodiamonds.</strong>Based on this fit, we estimate that at maximum excitation power, the excitation rate constant \(h_{exc}\sigma_{01}\approx2.9(1/\tau_{fluor})\) and the average excitation fraction over all possible fluorophore angular orientations \(n_2\approx0.39\). At the maximum available excitation and stimulation powers, we observed ~10% depletion and estimated the stimulation rate constant \(h_{stim}\sigma_{23}\approx0.62(1/\tau_{fluor})\). <strong>TODO: mention that N-v centers can only have four distinct alignment angles for single crystal diamonds, but the model for isotropically aligned fluorophores appears to give a reasonable fit.</strong>
 </p>
 
 <p><strong>ORANGE BEAD SECTION. Stim emission cross-section predicts signal strength. Possible side note: it's a different dye</strong>The model in Figure 1c is not fluorophore-specific. Our observations corroborate this implication; we excited both crimson and orange fluorescent beads and generated unambiguous phase contrast difference images of the bead in both cases (Figure 4 with <code>Measurement type: Phase contrast difference imaging</code> selected). We performed this control measurement while keeping the phase plate at an angle that caused the signal to constructively interfere with the transmitted light background. The phase contrast and fluorescence images of the crimson beads are taken with the same parameters as described above: 8 maximum-intensity excitation/stimulation pulse pairs per camera exposure, with 600 &micro;s between pulse pairs. The phase contrast and fluorescence images of the orange beads are taken with 1/8 the maximum excitation power (in order to maintain similar excitation fraction), but otherwise the same exposure parameters as for the crimson beads. The fluorescence bleaching rate of the orange beads is significantly faster than that of the crimson beads (Figure 4 with <code>Measurement type: Fluorescence imaging</code> selected). <strong>TODO: describe experiment parameters</strong> Accordingly, the difference image signal of the orange bead decreases significantly faster than that of the crimson bead during prolonged exposure to excitation energy.
@@ -673,6 +665,9 @@ This fulfills the requirement for destructive interference:
 <figcaption><strong>Figure 6: Axial view of the change in scattered light signal due to excitation of N-v centers. (A)</strong> Transverse dark-field image of a nanodiamond due to scattered light from the stimulation beam alone. (Axial position can be changed with the scroll bar online.) <strong>(B)</strong> The change in (A) due to simultaneous excitation and stimulation beams. <strong>(C)</strong> XZ dark-field image of a nanodiamond due to scattered light from the stimulation beam alone. (YZ view can be toggled with the scroll bar online.) <strong>(D)</strong> The change in (C) due to simultaneous excitation and stimulation beams. For (A-D), adjacent images were taken 200 nm apart in the axial direction, and the scale bar is 250 nm. This figure's images were generated by <code>/figure_generation/figure_6.py</code>. </figcaption>
 </figure><p></p>
 
+<p><strong>Pulse length scan from crimson beads. Follows from understanding excitation and stim emission rates. Not a good photothermal control, but shows behavior different from simple fluorescence.</strong> As with the change in scattered light signal from N-v centers in nanodiamonds, the magnitude of the signal from the crimson beads <a href="./appendix.html#The_image_signal_depends_on_the_intensity_of_the_excitation_and_stimulation_laser_pulses">increases monotonically</a> as excitation and stimulation intensity increase and fluence is held constant. We would expect this of stimulated emission from crimson beads in the regime where neither excitation nor stimulated emission are fully saturated.
+</p>
+
 <h3>
 Discussion</h3>
 
@@ -690,6 +685,9 @@ Discussion</h3>
 
 <p><strong>Instantaneous nonlinearity (Raman) not mentioned anywhere yet.</strong>
 </p>
+
+<p><strong>Number of counts may not indicate stimulated emission intensity because of interference</strong>
+<p>
 
 <p><strong>seems like stim emission</strong>The point-like signal we imaged demonstrates many of the hallmarks of stimulated emission: it interferes coherently with transmitted and scattered light, it seems instantaneous (the time response is 1 &micro;s or shorter), it depends on excitation and stimulation intensity, and its brightness decreases as the fluorescent source bleaches.
 </p>
