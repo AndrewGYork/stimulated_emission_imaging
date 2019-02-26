@@ -106,11 +106,14 @@ def main():
     mW_per_kdep = 750#800
 
     # equally spaced fluorophore alignment angles (wrt laser polarization)
-    theta = np.linspace(0, np.pi, 400)
+    K = 400 # number of angles to try
+    theta = np.linspace(0, np.pi, K)
+    N = K - 1 #number of spaces between angles
     
     #population weight for each angle
     n2_weight = np.sin(theta)
-    n2_weight = n2_weight/np.sum(n2_weight) # normalize so sum will be 1
+    #####TODO: NORMALIZE HERE####
+##    n2_weight = n2_weight/np.sum(n2_weight) # normalize so sum will be 1
 
     sigma_weight = (np.cos(theta))**2# cross section weight for each angle
 
@@ -119,20 +122,20 @@ def main():
 
     # initiate array that contains model fluorescence v. green at every angle
     model_fl_all = np.zeros(
-        (theta.shape[0], green_powers_fine.shape[0]))
+        (N, green_powers_fine.shape[0]))
     model_fl_max_all = np.zeros(
-        (theta.shape[0], green_powers_fine.shape[0]))
+        (N, green_powers_fine.shape[0]))
     model_fl_min_all = np.zeros(
-        (theta.shape[0], green_powers_fine.shape[0]))
+        (N, green_powers_fine.shape[0]))
     model_fl_dep_all = np.zeros(
-        (theta.shape[0], green_powers_fine.shape[0]))
+        (N, green_powers_fine.shape[0]))
     model_fl_dep_max_all = np.zeros(
-        (theta.shape[0], green_powers_fine.shape[0]))
+        (N, green_powers_fine.shape[0]))
     model_fl_dep_min_all = np.zeros(
-        (theta.shape[0], green_powers_fine.shape[0]))
+        (N, green_powers_fine.shape[0]))
 
     # compute model fluorescence for each angle
-    for theta_index in range(theta.shape[0]):
+    for theta_index in range(N):
         n2 = n2_weight[theta_index]
         sigma = sigma_weight[theta_index]
 
@@ -160,12 +163,13 @@ def main():
         model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
 
     # sum weighted fluorescence over all angles
-    model_fl = model_fl_all.sum(axis=0)
-    model_fl_max = model_fl_max_all.sum(axis=0)
-    model_fl_min = model_fl_min_all.sum(axis=0)
-    model_fl_dep = model_fl_dep_all.sum(axis=0)
-    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)
-    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)
+    norm = np.pi / 2 / N#normalization factor for summation
+    model_fl = model_fl_all.sum(axis=0) * norm
+    model_fl_max = model_fl_max_all.sum(axis=0) * norm
+    model_fl_min = model_fl_min_all.sum(axis=0) * norm
+    model_fl_dep = model_fl_dep_all.sum(axis=0) * norm
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0) * norm
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0) * norm
     
     fig = plt.figure()
     ax1 = fig.add_subplot(1,1,1)
@@ -217,8 +221,8 @@ def main():
         (4.6, 3.4), 6, 6,
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-    plt.savefig(
-        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_optimal.svg')
+##    plt.savefig(
+##        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_optimal.svg')
     plt.show()
 
 
@@ -234,7 +238,7 @@ def main():
     mW_per_kdep_hi = mW_per_kdep * rate_const_mod * extra_kdep_mod
 
     # compute model fluorescence for each angle
-    for theta_index in range(theta.shape[0]):
+    for theta_index in range(N):
         n2 = n2_weight[theta_index]
         sigma = sigma_weight[theta_index]
 
@@ -262,12 +266,12 @@ def main():
         model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
 
     # sum weighted fluorescence over all angles
-    model_fl = model_fl_all.sum(axis=0)
-    model_fl_max = model_fl_max_all.sum(axis=0)
-    model_fl_min = model_fl_min_all.sum(axis=0)
-    model_fl_dep = model_fl_dep_all.sum(axis=0)
-    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)
-    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)
+    model_fl = model_fl_all.sum(axis=0) * norm
+    model_fl_max = model_fl_max_all.sum(axis=0) * norm
+    model_fl_min = model_fl_min_all.sum(axis=0) * norm
+    model_fl_dep = model_fl_dep_all.sum(axis=0) * norm
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0) * norm
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0) * norm
     
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -320,8 +324,8 @@ def main():
         (4.6, 3.4), 6, 6,
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-    plt.savefig(
-        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_hi.svg')
+##    plt.savefig(
+##        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_hi.svg')
     plt.show()
 
 
@@ -337,7 +341,7 @@ def main():
     mW_per_kdep_lo = mW_per_kdep / rate_const_mod / extra_kdep_mod
 
     # compute model fluorescence for each angle
-    for theta_index in range(theta.shape[0]):
+    for theta_index in range(N):
         n2 = n2_weight[theta_index]
         sigma = sigma_weight[theta_index]
 
@@ -365,12 +369,12 @@ def main():
         model_fl_dep_min_all[theta_index, :] = model_fl_dep_min
 
     # sum weighted fluorescence over all angles
-    model_fl = model_fl_all.sum(axis=0)
-    model_fl_max = model_fl_max_all.sum(axis=0)
-    model_fl_min = model_fl_min_all.sum(axis=0)
-    model_fl_dep = model_fl_dep_all.sum(axis=0)
-    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0)
-    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0)
+    model_fl = model_fl_all.sum(axis=0) * norm
+    model_fl_max = model_fl_max_all.sum(axis=0) * norm
+    model_fl_min = model_fl_min_all.sum(axis=0) * norm
+    model_fl_dep = model_fl_dep_all.sum(axis=0) * norm
+    model_fl_dep_max = model_fl_dep_max_all.sum(axis=0) * norm
+    model_fl_dep_min = model_fl_dep_min_all.sum(axis=0) * norm
     
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 1, 1)
@@ -422,8 +426,8 @@ def main():
         (4.6, 3.4), 6, 6,
         linewidth=1, linestyle='dashed', edgecolor='y', facecolor='none')
     a.add_patch(rect)
-    plt.savefig(
-        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_lo.svg')
+##    plt.savefig(
+##        './../images/figure_5/fluorescence_depletion_crimson_dye_brightness_lo.svg')
     plt.show()
 
 
