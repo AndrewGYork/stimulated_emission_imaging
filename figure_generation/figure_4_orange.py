@@ -128,7 +128,7 @@ def main():
     STE_display_imgs[:, -2, 1:6] = max_pixel_value # scale bar
 
     # number of accumulated excitation pulses for x axis of bleaching plot
-    pulses_per_exposure = 12
+    pulses_per_exposure = 8
     exposures_per_delay_scan = 3
     num_delay_scans = len(sets) * num_reps
     orig_pulses_axis = (np.arange(num_delay_scans) *
@@ -139,7 +139,6 @@ def main():
         pulses_per_exposure *
         exposures_per_delay_scan *
         signal_bucket_width)
-    
 
     plt.figure(figsize=(13,5))
     plt.plot(
