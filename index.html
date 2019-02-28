@@ -64,12 +64,13 @@ The real text begins here.
 <p><strong>TODO: make a-tags for all sections, sub-sections, and figure titles (as in Results and Figure 3). Any mention of ./index.html before # should be erased</strong>
 </p>
 
-
-<h4>Abstract</h4>
+<a id="Abstract" href="#Abstract" target="_self">
+<h4>Abstract</h4></a>
 <p class="abstract"><strong>TODO: write the abstract properly</strong> We show experimental evidence that stimulated emission from a point-like emitter is distinguishable from the stimulating beam. The emission propagates spherically and coherently interferes with the stimulating beam. Imaging via stimulated emission could potentially combine the high signal rates of transmitted light microscopy with the specificity of fluorescence microscopy.</p>
 
-<h3>
-Introduction</h3>
+
+<a id="Introduction" href="#Introduction" target="_self">
+<h3>Introduction</h3></a>
 
 <p>Fluorescence is a widely-used tool in biological research. Fluorescent dyes and genetically-expressed fluorescent proteins help scientists determine the structure of organelles, track intra-cellular activity, quantify protein expression and distribution, sequence genes, and measure concentration of chemicals.
 </p>
@@ -114,7 +115,7 @@ Unlike spontaneous emission, the stimulated emission rate constant \(h_{stim}\si
 
 while pulsed stimulating light with similar average power (but higher peak power) can yield \(h_{stim}\sigma_{23}\) three orders of magnitude larger than \(1/\tau_{fluor}\)
 
-[<a class="citation" href="https://doi.org/10.1103/PhysRevLett.88.163901" title="Dyba, Marcus, and Stefan W. Hell. &quot;Focal spots of size ?/23 open up far-field florescence microscopy at 33 nm axial resolution.&quot; Physical review letters 88, no. 16 (2002): 163901.">Dyba 2000</a>].
+[<a class="citation" href="https://doi.org/10.1103/PhysRevLett.88.163901" title="Dyba, Marcus, and Stefan W. Hell. &quot;Focal spots of size &lambda;/23 open up far-field florescence microscopy at 33 nm axial resolution.&quot; Physical review letters 88, no. 16 (2002): 163901.">Dyba 2000</a>].
 
 </p>
 
@@ -514,10 +515,27 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 <p><strong>CURSOR HERE</strong>
 </p>
 
-<p><strong>ORANGE BEAD SECTION. Stim emission cross-section predicts signal strength. Possible side note: it's a different dye</strong>The model in Figure 1c is not fluorophore-specific. Our observations corroborate this implication; we excited both crimson and orange fluorescent beads and generated unambiguous phase contrast difference images of the bead in both cases (Figure 4 with <code>Measurement type: Phase contrast difference imaging</code> selected). We performed this control measurement while keeping the phase plate at an angle that caused the signal to constructively interfere with the transmitted light background. The phase contrast and fluorescence images of the crimson beads are taken with the same parameters as described above: 8 maximum-intensity excitation/stimulation pulse pairs per camera exposure, with 600 &micro;s between pulse pairs. The phase contrast and fluorescence images of the orange beads are taken with 1/8 the maximum excitation power (in order to maintain similar excitation fraction), but otherwise the same exposure parameters as for the crimson beads. The fluorescence bleaching rate of the orange beads is significantly faster than that of the crimson beads (Figure 4 with <code>Measurement type: Fluorescence imaging</code> selected). <strong>TODO: describe experiment parameters</strong> Accordingly, the difference image signal of the orange bead decreases significantly faster than that of the crimson bead during prolonged exposure to excitation energy.
+<a id="Orange_beads" href="#Orange_beads" target="_self">
+<h4>Reducing the stimulated emission cross-section reduces the signal in our phase contrast difference images</h4></a>
+
+<p><strong>summarize past sections and introduce new expectation </strong>Our observations of coherent images (link) that photobleach (link) and correspond to fluorescence depletion (link) are all consistent with the model in Figure 1c, which attributes these effects to stimulated emission. Our observations are also consistent with a model where the excitation pulse somehow lowers the refractive index of the bead via interaction with unbleached fluorophores and somehow depletes their fluorescence. One candidate mechanism is changing the temperature, which can deplete fluorescence
+
+[<a class="citation" href="https://doi.org/10.1063/1.2213213" title="Iketaki, Yoshinori, Takeshi Watanabe, Nándor Bokor, and Masaaki Fujii. &quot;Construction of super-resolution microscope based on cw laser light source.&quot; Review of scientific instruments 77, no. 6 (2006): 063112.">Iketaki 2006</a>]
+
+as well as modify refractive index [ref?].
 </p>
 
-<p><strong>TODO: confirm meltmount used for orange bleaching.</strong>
+<p>How can we distinguish between these two models? We expect that if we deliver the same heat load to the particles, while lowering the efficiency of stimulated emission, that the two models will make different predictions. We expect that if we lower the cross-section of stimulated emission, the amount of signal in the coherent images and the amount of depletion will drop. If it's due to heating, the same heat load may give the same amount of refractive index modification and have an unclear effect on fluorescence quenching. To explore this, we use the same beads with a different fluorophore that has a lower fluorescence emission rate at 721 nm. Lower emission rate predicts lower stimulated emission cross-section
+
+[<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
+
+
+</p>
+
+<p><strong>ORANGE BEAD SECTION. Stim emission cross-section predicts signal strength. Possible side note: it's a different dye</strong>The model in Figure 1c is not fluorophore-specific. Our observations corroborate this implication; we excited both crimson and orange fluorescent beads and generated unambiguous phase contrast difference images of the bead in both cases (Figure 4 with <code>Measurement type: Phase contrast difference imaging</code> selected). We performed this control measurement while keeping the phase plate at an angle that caused the signal to constructively interfere with the transmitted light background. The phase contrast and fluorescence images of the crimson beads are taken with the same parameters as described above: 8 maximum-intensity excitation/stimulation pulse pairs per camera exposure, with 600 &micro;s between pulse pairs. The phase contrast and fluorescence images of the orange beads are taken with 1/8 the maximum excitation power (in order to maintain similar excitation fraction), but otherwise the same exposure parameters as for the crimson beads. The fluorescence bleaching rate of the orange beads is significantly faster than that of the crimson beads (Figure 4 with <code>Measurement type: Fluorescence imaging</code> selected). Accordingly, the difference image signal of the orange bead decreases significantly faster than that of the crimson bead during prolonged exposure to excitation energy.
+</p>
+
+<p><strong>Other experiment parameters</strong>Index matched orange beads. Phase contrast bleaching: 9000 images and 216000 max depletion pulses. Fluorescence bleachgin: 15000 images and 360000 130 mJ pulses.
 </p>
 
 <p><strong>from fluorescence section</strong>  We imaged our fluorophores as illustrated in Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected. We exposed the samples to a train of simultaneous excitation and stimulation pulses over a single camera exposure, with 600 &micro;s between consecutive pulse pairs. We used 700 pulse pairs per exposure for the nanodiamonds, and 5 for the beads.
@@ -528,9 +546,12 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 
 <p><strong>Explain no depletion from orange beads</strong>We did not observe depletion of the orange fluorescent dye above the noise floor of our measurement. Our stimulation wavelength of 721 nm is much longer than the emission peak of the orange dye (see spectra in Figure 2b with <code>Fluorescent sample type: Beads labeled with orange dye</code> selected). Stimulation light at 721 nm should then less efficiently deplete orange dye as compared to crimson dye and N-v centers 
 
-[<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
+[dyba ref].
 
 This appears to explain the smaller peak difference image signal we measured when attempting to image stimulated emission from orange beads (Figure 4 with <code>Sample type: Orange fluorescent bead</code> and <code>Measurement type: Phase contrast difference imaging</code> selected.)
+</p>
+
+<p><strong>transition note: fluorophores have different photophysics and we try nanodiamonds to check for consistency between wildly different fluorophores</strong>
 </p>
 
 <h4>
