@@ -418,7 +418,11 @@ which is consistent with our model. This observation is also consistent with a m
 <a id="Fluorescence_measurements" href="#Fluorescence_measurements" target="_self">
 <h4>Quantifying rates of excitation, spontaneous emission, and stimulated emission</h4></a>
 
-<p>Our phase contrast images of fluorescent beads with and without excitation are qualitatively consistent with the model in Figure 1c, which predicts that stimulated emission from excited fluorophores can form images. If we are stimulating emission, we also expect to deplete fluorescence (Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected). How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the spontaneous emission rate via <a href="./appendix.html#FLIM">lifetime imaging</a>, and compared excitation and stimulation rates to the spontaneous emission rate by measuring fluorescent brightness while varying excitation and stimulation intensity.
+<p>Our phase contrast images of fluorescent beads with and without excitation are qualitatively consistent with the model in Figure 1c, which predicts that stimulated emission from excited fluorophores can form images. If we are stimulating emission, we also expect to deplete fluorescence
+
+[<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
+
+How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the spontaneous emission rate via <a href="./appendix.html#FLIM">lifetime imaging</a>, and compared excitation and stimulation rates to the spontaneous emission rate by measuring fluorescent brightness while varying excitation and stimulation intensity (Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected).
 </p>
 
 <p>As discussed in
@@ -518,25 +522,32 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 
 <p><strong>summarize past sections and introduce new expectation </strong>Pulses of 721 nm light yield <a href="#Figure_3" target="_self">coherent images</a> of otherwise-invisible fluorescent beads when they illuminate <a href="#Figure_4" target="_self">excited fluorophores</a>; they also <a href="#Figure_5" target="_self">deplete fluorescence</a>. This is consistent with the model in Figure 1c, which attributes these effects to stimulated emission. This is also consistent with a model where each 532 nm pulse somehow lowers the refractive index of the bead via interaction with unbleached absorbers, and the corresponding 721 nm pulse yields an image of this transient index while incidentally (somehow) depleting fluorescence. We're particularly concerned with heating as a potential mechanism for transient refraction
 
-[<a class="citation" href="https://doi.org/10.1364/OL.5.000377" title="Boccara, A. C., D. Fournier, Warren Jackson, and Nabil M. Amer. &quot;Sensitive photothermal deflection technique for measuring absorption in optically thin media.&quot; Optics Letters 5, no. 9 (1980): 377-379.">Boccara 1980</a>]
-
-and depletion
-
-[<a class="citation" href="https://doi.org/10.1063/1.2213213" title="Iketaki, Yoshinori, Takeshi Watanabe, Nándor Bokor, and Masaaki Fujii. &quot;Construction of super-resolution microscope based on cw laser light source.&quot; Review of scientific instruments 77, no. 6 (2006): 063112.">Iketaki 2006</a>].
+[<a class="citation" href="https://doi.org/10.1364/OL.5.000377" title="Boccara, A. C., D. Fournier, Warren Jackson, and Nabil M. Amer. &quot;Sensitive photothermal deflection technique for measuring absorption in optically thin media.&quot; Optics Letters 5, no. 9 (1980): 377-379.">Boccara 1980</a>].
 </p>
 
 <p><strong>CURSOR HERE</strong>
 </p>
 
-<p>How can we distinguish between these two models? We expect that if we lower the efficiency of stimulated emission while delivering the same heat load to the particles during excitation, stimulated emission will reduce, but transient refraction due to heating won't. Orange beads have a lower spontaneous emission cross-section at 721 nm than crimson beads (Figure 2b, upper right panel, with <code>Fluorescent sample type: Beads labeled with orange dye</code> selected). This implies that their stimulated emission cross-section is also lower
+<p>How can we distinguish between these two models? If we reduce our bead's stimulated emission cross-section, we expect less stimulated emission, but identical heating-induced transient refraction. Substituting
+
+<a href="https://www.thermofisher.com/order/catalog/product/F8809">orange</a>
+
+for
+
+<a href="https://www.thermofisher.com/order/catalog/product/F8806">crimson</a>
+
+dye in our
+
+<a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">fluorescent beads</a>
+
+reduces the spontaneous emission cross-section at 721 nm (Figure 2b, upper right panel, with <code>Fluorescent sample type: ...orange dye</code> selected). This implies that their stimulated emission cross-section is also lower
 
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 
- We expect that if we lower the cross-section of stimulated emission, the amount of signal in the coherent images and the amount of depletion will drop. If it's due to heating, the same heat load may give the same amount of refractive index modification and have an unclear effect on fluorescence quenching. To explore this, we use the same beads with a different fluorophore that has a lower fluorescence emission rate at 721 nm. Lower emission rate predicts lower stimulated emission cross-section
+At 532 nm, excitation cross-section is ~10x higher for orange beads, while quantum efficiency is also ~1.3x higher; in order to deliver the same heat load, we must lower the excitation power by a factor of 8.
+</p>
 
-[<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
-
-
+<p><strong>What do we expect to see in an experiment?</strong>We expect that if we lower the cross-section of stimulated emission, the amount of signal in the coherent images and the amount of depletion will drop. If it's due to heating, the same heat load may give the same amount of refractive index modification and have an unclear effect on fluorescence quenching.
 </p>
 
 <p><strong>Experiment parameters plus some older stuff to delete</strong>The model in Figure 1c is not fluorophore-specific. Our observations corroborate this implication; we excited both crimson and orange fluorescent beads and generated unambiguous phase contrast difference images of the bead in both cases (Figure 4 with <code>Measurement type: Phase contrast difference imaging</code> selected). We performed this control measurement while keeping the phase plate at an angle that caused the signal to constructively interfere with the transmitted light background. The phase contrast and fluorescence images of the crimson beads are taken with the same parameters as described above: 8 maximum-intensity excitation/stimulation pulse pairs per camera exposure, with 600 &micro;s between pulse pairs. The phase contrast and fluorescence images of the orange beads are taken with 1/8 the maximum excitation power (to deliver the same heating load; the orange beads have higher (how much) absorption/excitation cross-section and 2x (confirm?) quantum efficiency), but otherwise the same exposure parameters as for the crimson beads. The fluorescence bleaching rate of the orange beads is significantly faster than that of the crimson beads (Figure 4 with <code>Measurement type: Fluorescence imaging</code> selected). Accordingly, the difference image signal of the orange bead decreases significantly faster than that of the crimson bead during prolonged exposure to excitation energy.
