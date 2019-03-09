@@ -528,23 +528,14 @@ stimulation pulses. At each excitation power, we took three exposures with diffe
 <p><strong>CURSOR HERE</strong>
 </p>
 
-<p>How can we distinguish between these two models? If we reduce our bead's stimulated emission cross-section, we expect less stimulated emission, but identical heating-induced transient refraction. Substituting
-
-<a href="https://www.thermofisher.com/order/catalog/product/F8809">orange</a>
-
-for
-
-<a href="https://www.thermofisher.com/order/catalog/product/F8806">crimson</a>
-
-dye in our
-
-<a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">fluorescent beads</a>
-
-reduces the spontaneous emission cross-section at 721 nm (Figure 2b, upper right panel, with <code>Fluorescent sample type: ...orange dye</code> selected). This implies that their stimulated emission cross-section is also lower
+<p>How can we distinguish between these two models? If we reduce our bead's stimulated emission cross-section, we expect less stimulated emission, but identical heating-induced transient refraction. Figure 1c predicts this would reduce our difference image amplitudes, and also reduce depletion. A heating-based model predicts this would not change difference image amplitudes. Substituting <a href="https://www.thermofisher.com/order/catalog/product/F8809">orange</a> for <a href="https://www.thermofisher.com/order/catalog/product/F8806">crimson</a> dye in our <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">fluorescent beads</a> allows us to test these predictions, by reducing the spontaneous emission cross-section at 721 nm, which implies a lower stimulated emission cross-section
 
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 
-At 532 nm, excitation cross-section is ~10x higher for orange beads, while quantum efficiency is also ~1.3x higher; in order to deliver the same heat load, we must lower the excitation power by a factor of 8.
+This substitution also changes the excitation cross-section, quantum efficiency, and number of fluorophores per bead. In order to cleanly distinguish between the two models, we must be careful to <a href="./appendix.html#Delivering_the_same_heat_load_to_the_orange_beads">deliver the same heat load to the orange beads as we did to the crimson beads</a> during fluorescence, depletion, and phase contrast measurements (Figure 2b with <code>Fluorescent sample type: Beads labeled with orange dye</code> selected).
+</p>
+
+<p>At 532 nm, excitation cross-section is ~10x higher for orange beads, while quantum efficiency is also ~1.3x higher; in order to deliver the same heat load, we must lower the excitation power by a factor of 8.
 </p>
 
 <p><strong>What do we expect to see in an experiment?</strong>We expect that if we lower the cross-section of stimulated emission, the amount of signal in the coherent images and the amount of depletion will drop. If it's due to heating, the same heat load may give the same amount of refractive index modification and have an unclear effect on fluorescence quenching.
