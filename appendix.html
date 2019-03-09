@@ -306,8 +306,18 @@ As with our beads, all of the dyes measured by Panchuk-Voloshina et al. exhibit 
  
  [<a class="citation" href="https://doi.org/10.1021/jp037222e" title="Zondervan, Rob, Florian Kulzer, Mikhail A. Kol'chenk, and Michel Orrit. &quot;Photobleaching of rhodamine 6G in poly (vinyl alcohol) at the ensemble and single-molecule levels.&quot; The Journal of Physical Chemistry A 108, no. 10 (2004): 1657-1665.">Zondervan 2004</a>].
  
- Because of this, we believe that the complicated depletion rates we measured are not unusual. The most we can conclude from our measurements is that bead fluorescence and difference images co-decrease; in order to tell if one truly affects the other, we need a dual-camera setup (or at least a fast filter wheel) to monitor fluorescence and difference image decay from the same bead. <strong>TODO: mention polarization-dependent bleaching as a possible source for multi-exponential fluorescence decay</strong></p>
+ Because of this, we believe that the complicated bleaching rates we measured are not unusual. The most we can conclude from our measurements is that bead fluorescence and difference images co-decrease; in order to tell if one truly affects the other, we need a dual-camera setup (or at least a fast filter wheel) to monitor fluorescence and difference image decay from the same bead. <strong>TODO: mention polarization-dependent bleaching as a possible source for multi-exponential fluorescence decay</strong></p>
 
+ <a id="Delivering_the_same_heat_load_to_the_orange_beads" href="#Delivering_the_same_heat_load_to_the_orange_beads" target="_self">
+<h3>Delivering the same heat load to the orange beads</h3></a>
+
+<p><strong>TODO: write this section.</strong> 
+Rhodamine (supposedly) has a QE of 0.5 at room temp in ethanol (which we used). Orange beads seem to have a QE about half of rhodamine (measuring an absolute QE is hard, so we just measure relative QE vs. rhodamine and pretend rhodamine is 0.5). Crimson beads seem to have a QE about 0.4 of rhodamine. So tentative numbers: Orange: 0.255 Crimson: 0.19
+</p>
+
+<p>At 532 nm excitation cross-section is ~10x higher for orange beads (how did we get this number? Just looking at the spectrum? Then it's 10x relative to optimal wavelength cross-section). Better estimate: use cross-sections from fluorescence plot... crimson bead excitation rate is 1.9 at 950mW, and orange excitation rate const is 3.5 at 130 mW. 3.5 * 950/130 gives max orange rate const 25.6. But that's in terms of 1/tau_fluor (or 1/tau_fluor + Q). We measure the relaxation time to be 2.89 ns for crimson and 3.85 ns for orange. So if crimson relaxation rate constant is 1, then orange is 1 * (1/3.85ns)/(1/2.89ns) = 0.75. So max h_exc*sigma/(relaxation rate const) = 1.9 for crimson and 25.6 for orange, and mult by relaxation rate const ratio to get in terms of relaxation rate constant for crimson. 1.9*1 for crimson and 25.6*0.75 = 19.2. Then the ratio of the rate constants is 10.1. So very close to 10x. Quantum efficiency is also ~1.3x higher. In order to deliver the same heat load, we must lower the excitation power by a factor of 8.
+<p>
+ 
 <a id="Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers" href="#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers" target="_self">
 <h3>Axial view of fluorescence from a nanodiamond doped with N-v centers</h3></a>
 
