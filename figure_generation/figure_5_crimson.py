@@ -30,7 +30,6 @@ def main():
     camera_background_counts = 100
     green_powers = green_powers - camera_background_counts
     green_powers = green_powers * green_max_mW / max(green_powers) # units: mW
-    print(green_powers)
 
     red_max_mW = 240 # measured with power meter before sample
     red_powers = np.array((0, red_max_mW))

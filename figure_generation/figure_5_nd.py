@@ -32,7 +32,6 @@ def main():
     # ~13 pixel counts of extra light, so we subtract 113.9
     green_powers = green_powers - min(green_powers)
     green_powers = green_powers * green_max_mW / max(green_powers) # units: mW
-    print(green_powers)
 
     # red powers calibrated using power meter and AOM transmitting 1.25us pulses
     red_max_mW = 300 # measured with power meter before sample
