@@ -311,29 +311,42 @@ As with our beads, all of the dyes measured by Panchuk-Voloshina et al. exhibit 
  <a id="Delivering_the_same_heat_load_to_the_orange_beads" href="#Delivering_the_same_heat_load_to_the_orange_beads" target="_self">
 <h3>Delivering the same heat load to the orange beads</h3></a>
 
-<p><strong>TODO: write this section.</strong> Our experimentally generated difference images of excited fluorescent crimson beads in Figures 3 and 4 in the main article are consistent with the model proposed in Figure 1c: that stimulated emission emits spherically from a point source and can by imaged via interference with the stimulating beam. However, these results may also be consistent with a model where the excitation pulse heats the bead and causes its refractive index to change. In order to discern between the two models, we imaged orange dyed polystyrene beads, which have a lower stimulated emission cross-section than crimson beads at 721 nm; this allowed us to deliver the same heat load to a bead while decreasing the expected amount of stimulated emission. We expect that if our difference images are stimulated emission images, the orange bead difference image should be dimmer than the crimson bead image. If our difference images are photothermal images, the orange bead image should be the same.
+<p><strong>TODO: write this section.</strong> Our experimentally generated difference images of excited fluorescent crimson beads in Figures 3 and 4 in the main article are consistent with the model proposed in Figure 1c: that stimulated emission emits spherically from a point source and can by imaged via interference with the stimulating beam. However, these results may also be consistent with a model where the excitation pulse heats the bead and causes its refractive index to change. In order to discern between the two models, we additionaly performed phase contrast imaging of excited orange dyed polystyrene beads, which have a lower stimulated emission cross-section than crimson beads at 721 nm; this allowed us to decrease the expected amount of stimulated emission from a bead while delivering the same thermal energy. We expect that if our difference images are stimulated emission images, the orange bead difference images should be dimmer than the crimson bead images. If our difference images are photothermal images, the difference images of the different beads should have the same brightness.
 </p>
 
-<p>In order to deliver the same thermal energy to the orange beads as we did to the crimson beads in earlier experiments, we carefully chose a different excitation beam power by taking into account the fact that orange beads have a different quantum yield and 532 nm excitation cross-section than crimson beads. We first measured the quantum yield of the crimson and orange dye (\(\Phi_{crimson}\) and \(\Phi_{orange}\), respectively) using a <strong>TODO: name the device(s) used</strong>. Measuring absolute quantum yield is difficult, so we used Rhodamine B as a reference standard (\(\Phi=0.49\) in ethanol at room temperature
+<p>In order to deliver the same thermal energy to the orange beads as we did to the crimson beads in earlier experiments through excitation, we had to carefully account for the fact that orange beads have a different quantum yield and 532 nm excitation cross-section than crimson beads. We first measured the quantum yield of the crimson and orange dye (\(\Phi_{crimson}\) and \(\Phi_{orange}\), respectively) using a <strong>TODO: name the device(s) used</strong>. Measuring absolute quantum yield is difficult, so we used Rhodamine B as a reference standard (\(\Phi=0.49\) in ethanol at room temperature
 
 [<a class="citation" href="http://dx.doi.org/10.1021/j100334a023" title="Casey, Kelly G., and Edward L. Quitevis. &quot;Effect of solvent polarity on nonradiative processes in xanthene dyes: Rhodamine B in normal alcohols.&quot; The Journal of Physical Chemistry 92, no. 23 (1988): 6590-6594.">Casey 1988</a>]).
 
 In this way, we measured \(\Phi_{crimson}=0.19\) and \(\Phi_{orange}=0.26\) for the beads dissolved in ethanol. We assumed that the absolute and relative magnitude of the two measurements would not vary significantly from the non-dissolved beads. We also fixed a mixture of crimson and orange beads in index-matched media on a microscope slide as <a href="#Fluorescent_polystyrene_bead_properties_and_mounting" target="_self">described earlier</a> and used a <a href="https://www.leica-microsystems.com/products/confocal-microscopes/details/product/leica-tcs-sp8/">Leica SP8 confocal microscope</a> to measure their total fluorescence under non-saturating 532 nm excitation (imaging spectral range set to 542-784 nm). Under identical excitation power, we measured a fluorescence brightness ratio \(B_{orange}/B_{crimson}=11.2\).
 </p>
 
+<p>If \(E_{tot}\) is the total energy absorbed by a bead, and \(E_{opt}\) is the total optical energy emitted by a bead, then the quantum yield \(\Phi=E_{opt}/E_{tot}\). If the total energy absorbed by the bead is either optically emitted or transferred into heat energy \(H\), then we can solve for \(H\) in terms of \(E_{opt}\):
 
+<div>
+	$$\begin{equation} H=E_{tot}-E_{opt} = \frac{E_{opt}}{\Phi}-E_{opt} = E_{opt}(\frac{1}{\Phi}-1) \end{equation}$$
+</div>
 
+The total optical energy out is proportional to bead brightness \(B\), so:
 
-<p>However, orange beads have a different excitation cross-section and quantum yield at our excitation wavelength; so in order to deliver the same thermal load as a result, we carefully choose the correct 532 nm excitation power to irradiate orange dyed polystyrene beads to the appropriate 532 nm excitation power to deliver the same amount of thermal energy to as we did to the crimson beads while generating phase contrast difference images with 721 nm light.
+<div>
+	$$\begin{equation} H \propto B(\frac{1}{\Phi}-1) \end{equation}$$
+</div>
+
+We can finally solve for \(H_{orange}/H_{crimson}\) at the same excitation power:
+
+<div>
+	$$\begin{equation} \frac{H_{orange}}{H_{crimson}} = \frac{B_{orange}(\frac{1}{\Phi_{orange}}-1)}{B_{crimson}(\frac{1}{\Phi_{crimson}}-1)} = 7.5 \end{equation}$$
+</div>
+</p>
+
+<p>For the same excitation power, we estimate that orange beads will heat at a rate about eight times that of crimson beads. In order to heat orange beads at the same rate, we use one eighth of the crimson bead excitation power for our orange bead experiments (<a href="./index.html#Figure_4">Figure 4</a> and <a href="./index.html#Figure_5">Figure 5</a> with <code>Fluorescent sample type: Bead labeled with orange dye</code> selected).
 </p>
 
 <p>
-Rhodamine (supposedly) has a QE of 0.5 at room temp in ethanol (which we used).
+[<a class="citation" href="http://dx.doi.org/10.1021/j100334a023" title="Casey, Kelly G., and Edward L. Quitevis. &quot;Effect of solvent polarity on nonradiative processes in xanthene dyes: Rhodamine B in normal alcohols.&quot; The Journal of Physical Chemistry 92, no. 23 (1988): 6590-6594.">Casey 1988</a>]
 
-Orange beads seem to have a QE about half of rhodamine (measuring an absolute QE is hard, so we just measure relative QE vs. rhodamine and pretend rhodamine is 0.5). Crimson beads seem to have a QE about 0.4 of rhodamine. So tentative numbers: Orange: 0.255 Crimson: 0.19
-</p>
-
-<p>At 532 nm excitation cross-section is ~10x higher for orange beads (how did we get this number? Just looking at the spectrum? Then it's 10x relative to optimal wavelength cross-section). Better estimate: use cross-sections from fluorescence plot... crimson bead excitation rate is 1.9 at 950mW, and orange excitation rate const is 3.5 at 130 mW. 3.5 * 950/130 gives max orange rate const 25.6. But that's in terms of 1/tau_fluor (or 1/tau_spont + Q). We measure the relaxation time to be 2.89 ns for crimson and 3.85 ns for orange. So if crimson relaxation rate constant is 1, then orange is 1 * (1/3.85ns)/(1/2.89ns) = 0.75. So max h_exc*sigma/(relaxation rate const) = 1.9 for crimson and 25.6 for orange, and mult by relaxation rate const ratio to get in terms of relaxation rate constant for crimson. 1.9*1 for crimson and 25.6*0.75 = 19.2. Then the ratio of the rate constants is 10.1. So very close to 10x. Quantum efficiency is also ~1.3x higher. In order to deliver the same heat load, we must lower the excitation power by a factor of 8.
+claims an uncertainty of 10% in \(\Phi\) for Rhodamine B. If we extend this uncertainty to our measurements of \(\Phi_{crimson}\) and \(\Phi_{orange}\), and include 10% uncertainty in our measurement of \(B_{orange}/B_{crimson}\), we expect an uncertainty in \(H_{orange}/H_{crimson}\) of ~11%.
 </p>
  
 <a id="Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers" href="#Axial_view_of_fluorescence_from_a_nanodiamond_doped_with_N-v_centers" target="_self">
