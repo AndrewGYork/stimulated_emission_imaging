@@ -219,7 +219,8 @@ def main():
         lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness))
     ax2.yaxis.set_major_formatter(formatter)
     ax2.set_ylim(ax1.get_ylim())
-    ax2.set_ylabel(r'Excitation fraction $n_2$', fontsize=17)
+    ax2.set_ylabel(r'Orientation-averaged excitation fraction $\bar n_2$',
+                   fontsize=17)
     # inset image
     a = plt.axes([0.17, 0.6, .25, .25])
     plt.imshow(inset_image, cmap=plt.cm.gray, interpolation='nearest')
@@ -336,7 +337,8 @@ def main():
         lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness_hi))
     ax2.yaxis.set_major_formatter(formatter)
     ax2.set_ylim(ax1.get_ylim())
-    ax2.set_ylabel(r'Excitation fraction $n_2$', fontsize=17)
+    ax2.set_ylabel(r'Orientation-averaged excitation fraction $\bar n_2$',
+                   fontsize=17)
     # inset image
     a = plt.axes([0.17, 0.6, .25, .25])
     plt.imshow(inset_image, cmap=plt.cm.gray, interpolation='nearest')
@@ -453,7 +455,8 @@ def main():
         lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness_lo))
     ax2.yaxis.set_major_formatter(formatter)
     ax2.set_ylim(ax1.get_ylim())
-    ax2.set_ylabel(r'Excitation fraction $n_2$', fontsize=17)
+    ax2.set_ylabel(r'Orientation-averaged excitation fraction $\bar n_2$',
+                   fontsize=17)
     # inset image
     a = plt.axes([0.17, 0.6, .25, .25])
     plt.imshow(inset_image, cmap=plt.cm.gray, interpolation='nearest')
