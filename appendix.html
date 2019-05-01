@@ -53,15 +53,19 @@ The real text begins here.
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>],
 
-the rate at which an excited electron in a fluorophore spontaneously decays over a pathway that results in optical emission is \(1/\tau_{fluor}\), the spontaneous emission rate, while \(Q\) is the nonradiative quenching rate of the excited state. The combined rate \(1/\tau_{exc}=1/\tau_{fluor}+Q\) is the inverse of the excited state lifetime, which is commonly called the fluorescence lifetime <a href="#FLIM" target="_self">when it is measured</a>.
+the rate at which an excited electron in a fluorophore spontaneously decays over a pathway that results in optical emission is \(1/\tau_{fluor}\), the spontaneous emission rate, while \(Q\) is the nonradiative quenching rate of the excited state. The combined rate \(1/\tau_{exc}=1/\tau_{fluor}+Q\) is the inverse of the excited state lifetime, which is commonly called the fluorescence lifetime <a href="#FLIM" target="_self">when it is measured</a>. The quantum yield \(\Phi\) is the ratio between the spontaneous emission rate and the total excited state decay rate: \(\Phi=\tau_{exc}/\tau_{fluor}\).
 </p>
 
-<p>GFP qy 0.79
+<p>In the introduction to the main article, we highlight the difference between the magnitude of the stimulated emission rate and the spontaneous emission rate \(1/\tau_{fluor}\) with GFP and Alexa Fluor 488 dye as examples. The reference for those rates only specify the more easily measured \(\tau_{exc}\) (3.2 ns for GFP and 4.0 ns for Alexa 488)
 
-[<a class="citation" href="https://doi.org/10.1016/S0006-3495(97)78307-3" title="Patterson, George H., Susan M. Knobel, Wallace D. Sharif, Steven R. Kain, and David W. Piston. &quot:Use of the green fluorescent protein and its mutants in quantitative fluorescence microscopy.&quot; Biophysical journal 73, no. 5 (1997): 2782-2790.">Patterson 1997</a>],
+[<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>].
 
-Alexa 488 qy 0.92
-[<a class="citation" href="https://www.thermofisher.com/us/en/home/references/molecular-probes-the-handbook.html" title="Johnson, Iain D. &quot;Molecular Probes Handbook: A Guide to Fluorescent Probes and Labeling Technologies.&quot; Life Technologies Coroporation, 2010">Johnson 2010</a>].
+We compute \(\tau_{fluor}\) by looking up \(\Phi\) for both fluorophores (\(\Phi\) is 0.79 for GFP
+
+[<a class="citation" href="https://doi.org/10.1016/S0006-3495(97)78307-3" title="Patterson, George H., Susan M. Knobel, Wallace D. Sharif, Steven R. Kain, and David W. Piston. &quot:Use of the green fluorescent protein and its mutants in quantitative fluorescence microscopy.&quot; Biophysical journal 73, no. 5 (1997): 2782-2790.">Patterson 1997</a>]
+
+and 0.92 for Alexa 488
+[<a class="citation" href="https://www.thermofisher.com/us/en/home/references/molecular-probes-the-handbook.html" title="Johnson, Iain D. &quot;Molecular Probes Handbook: A Guide to Fluorescent Probes and Labeling Technologies.&quot; Life Technologies Coroporation, 2010">Johnson 2010</a>]) and use the relationship in the previous paragraph to arrive at \(\tau_{fluor}\) of 4.1 ns for GFP and 4.3 for Alexa 488.
 </p>
 
 
