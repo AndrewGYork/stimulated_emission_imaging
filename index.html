@@ -80,13 +80,13 @@ For a group of \(N\) fluorophores, the total emission rate is \(n_2N/\tau_{fluor
 
 [<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>].
 
-The genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{fluor}\) of <a href="./appendix.html#Rate_constants_for_fluorophores">4.1 ns and 4.3 ns</a>, respectively
+The genetically expressed green fluorescent protein (GFP) and the Alexa Fluor 488 dye have \(\tau_{fluor}\) of <a href="./appendix.html#Rate_constants_for_fluorophores">4.1 ns and 4.3 ns</a>, respectively.
 
-[<a class="citation" href="http://dx.doi.org/10.1021/cr900343z" title="Berezin, Mikhail Y., and Samuel Achilefu. &quot;Fluorescence lifetime measurements and biological imaging.&quot; Chemical reviews 110, no. 5 (2010): 2641-2684.">Berezin 2010</a>].
+\(\tau_{fluor}\) depends on the environment (e.g. refractive index), but for typical fluorophores used in microscopy, \(\tau_{fluor}\) ranges from 4 ns to 9 ns
 
-\(\tau_{fluor}\) depends on the environment (e.g. pH, temperature), but for typical fluorophores used in microscopy, \(\tau_{fluor}\) ranges from 0.5 ns to 5 ns <strong>TODO: convert from tau_exc?</strong>
+[<a class="citation" href="https://doi.org/10.1562/0031-8655(2002)0750327FQYATR2.0.CO2" title="Magde, Douglas, Roger Wong, and Paul G. Seybold. &quot;Fluorescence Quantum Yields and Their Relation to Lifetimes of Rhodamine 6G and Fluorescein in Nine Solvents: Improved Absolute Standards for Quantum Yields.&quot; Photochemistry and photobiology 75, no. 4 (2002): 327-334.">Magde 2002</a>,
 
-[<a class="citation" href="https://github.com/FPvisualization/fpvisualization.github.io/tree/24b4fc8f82f3dff74a77f65c38332bb4778c9120" title="Thorn, Kurt. &quot;Visualization of fluorescent protein properties with d3.js.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
+<a class="citation" href="http://nic.ucsf.edu/blog/2017/01/fluorescence-lifetime-and-quantum-yield/" title="Thorn, Kurt. &quot;Fluorescence lifetime and quantum yield.&quot; Online. Posted 3 January, 2017. Accessed 3 November, 2017.">Thorn 2017</a>]
 
 and is not easily tuned.
 </p>
@@ -116,7 +116,7 @@ while pulsed stimulating light with similar average power (but higher peak power
 
 </p>
 
-<p>A fixed spontaneous emission rate constant \(1/\tau_{fluor}\) <strong>TODO: fluorescence lifetime</strong> limits the speed of fluorescent imaging. Given that the stimulated emission rate constant \(h_{stim}\sigma_{23}\) can be orders of magnitude higher, can we use stimulated emission to take images orders of magnitude faster than fluorescence images? Consider the animated thought experiment shown in Figure 1a below.
+<p>A fixed spontaneous emission rate constant \(1/\tau_{fluor}\) limits the speed of fluorescent imaging. Given that the stimulated emission rate constant \(h_{stim}\sigma_{23}\) can be orders of magnitude higher, can we use stimulated emission to take images orders of magnitude faster than fluorescence images? Consider the animated thought experiment shown in Figure 1a below.
 </p>
 
 <figure id="Figure_1a">
@@ -346,7 +346,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 </p>
 
-<p>Figure 3 shows single-bead images for a phase plate angle that maximizes bead visibility. Each panel in the top row shows a <a href="./appendix.html#Phase_contrast_image_generation">phase contrast image</a> of scattered light from a bead, 2.5 &micro;s before excitation. We expect no stimulated emission at this delay, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead <strong>TODO: excited state lifetime</strong> fluorescence lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Note that the index-matched bead \((\Delta n\approx 0\), middle column\()\) is invisible via phase contrast, but visible via fluorescence (inset image in Figure 5 with <code>Sample type: Crimson fluorescent bead</code> selected). The bottom row "difference images" in Figure 3 each show <a href="./appendix.html#Phase_contrast_image_generation">the change in the corresponding top row image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
+<p>Figure 3 shows single-bead images for a phase plate angle that maximizes bead visibility. Each panel in the top row shows a <a href="./appendix.html#Phase_contrast_image_generation">phase contrast image</a> of scattered light from a bead, 2.5 &micro;s before excitation. We expect no stimulated emission at this delay, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead <a href="./appendix.html#Rate_constants_for_fluorophores">excited state lifetime</a> \(\tau_{exc}\) (<a href="./appendix.html#FLIM">2.89 ns</a>). Note that the index-matched bead \((\Delta n\approx 0\), middle column\()\) is invisible via phase contrast, but visible via fluorescence (inset image in Figure 5 with <code>Sample type: Crimson fluorescent bead</code> selected). The bottom row "difference images" in Figure 3 each show <a href="./appendix.html#Phase_contrast_image_generation">the change in the corresponding top row image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
 </p>
 
 <figure id="Figure_3">
@@ -424,7 +424,7 @@ which is consistent with our model. This observation is also consistent with a m
 
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 
-How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the spontaneous emission rate <strong>TODO: nope, we measured spontaneous relaxation</strong> via <a href="./appendix.html#FLIM">lifetime imaging</a>, and compared excitation and stimulation rates to the spontaneous emission rate <strong>TODO: fix</strong> by measuring fluorescent brightness while varying excitation and stimulation intensity (Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected).
+How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the excited state lifetime via <a href="./appendix.html#FLIM">lifetime imaging</a>, and compared excitation and stimulation rates to the spontaneous emission rate <strong>TODO: fix</strong> by measuring fluorescent brightness while varying excitation and stimulation intensity (Figure 2b with <code>Imaging method: Fluorescence depletion imaging</code> selected).
 </p>
 
 <p>As discussed in
