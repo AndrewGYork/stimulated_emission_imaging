@@ -548,23 +548,57 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 <a id="Dark-field_imaging_nanodiamonds" href="#Dark-field_imaging_nanodiamonds" target="_self">
 <h4>Dark-field imaging of stimulated emission</h4></a>
 
-<p>While the model in Figure 1c does not include elastic scattering from the fluorophore, we expect stimulated emission and scattered light&mdash;which are both coherent with the stimulation beam&mdash;to coherently interfere with one another. Fluorescent nanodiamonds are highly scattering particles (due to their high refractive index) and are therefore a useful sample type to test this expectation. Nanodiamonds also don't photobleach, which allows for unlimited images of the same particle. This is useful for testing the expectations stimulated emission images should defocus like scattered light images, and that stimulated emission should increase with increasing excitation and stimulation power.
+<p>While the model in Figure 1c does not include elastic scattering from the fluorophore, we expect stimulated emission and scattered light&mdash;which are both coherent with the stimulation beam&mdash;to coherently interfere with one another. Fluorescent nanodiamonds are highly scattering particles (due to their high refractive index) and are therefore a useful sample type to test this expectation. Nanodiamonds also don't photobleach, which allows for unlimited images of the same particle. This is useful for testing the expectations that stimulated emission images should defocus like scattered light images, and that stimulated emission should increase with increasing excitation and stimulation power (as long as excitation and stimulation are not fully saturated).
 </p>
 
-<p><strong>nanodiamonds not ideal because of scattering; why no phase contrast? see phase contrast results in appendix</strong>Nanodiamonds doped with N-v centers are the third sample type we used to attempt to image stimulated emission. While they do not photobleach, they are not an ideal candidate for phase contrast imaging of stimulated emission. Their extremely high refractive index (2.42) prevents index-matching, yielding bright, coherent scattering. Given our experimental parameters, the stimulating light that is scattered by a nanodiamond can fill the dynamic range of our camera in less than 40 &micro;s. The power of the elastically scattered light dominates that of the nanodiamond fluorescence by a factor of ~6,000:1. Given the ~10% depletion measured, we can extrapolate that the scattered light would dominate stimulated emission by ~60,000:1. The scattered light is coherent, so in phase contrast imaging, the magnitude of the interference term between the transmitted light background and the scattered light would still dominate that between transmitted light and stimulated emission. As with the dark-field results discussed earlier, any stimulated emission would be visible only as a small perturbation of the scattered light signal. We experimentally confirmed this hypothesis, and have made the <a href="./appendix.html#Phase_contrast_imaging_of_a_nanodiamond_doped_with_N-v_centers">results</a> available in the appendix.
+<p><strong>explanation of dark-field imaging and how we expect our experiment to work</strong>We used dark-field imaging to attempt to image stimulated emission from N-v centers in nanodiamonds (Figure 2b with <code>Imaging method: Dark-field imaging of stimulated emission and scattered light</code> and <code>Fluorescent sample type: Nanodiamonds doped with N-v centers</code> selected). This experiment mimics one version of our thought experiment in Figure 1 (Figure 1a, 1b, or 1c with <code>Imaging method: Dark-field</code> selected). We chose dark-field imaging, as opposed to phase contrast imaging, because the coherent background from phase contrast imaging could complicate any interference between the extremely bright scattered light and stimulated emission.
 </p>
 
-<p><strong>explanation of dark-field imaging and how we expect our experiment to work</strong>We used dark-field imaging to attempt to image stimulated emission from N-v centers in nanodiamonds. This experiment mimics one version of our thought experiment in Figure 1 (Figure 1a, 1b, or 1c with <code>Imaging method: Dark-field</code> selected). Dark-field imaging is a technique commonly used to separate high spatial frequency light from wide-field illumination in order to enhance the signal contrast of scattered light. If stimulated emission from a point-like particle propagates spherically from its source, then the spatial frequency bandwidth of the emission should be greater than that of the incident stimulation electromagnetic field, and the two fields should be separable in the back focal plane of the imaging system as long as the stimulation beam is not confined to a diffraction-limited focus of the imaging system. The dark-field filter (an opaque disc in a back focal plane of our imaging system) is a high-pass filter in the Fourier domain. This means that it preferentially passes light with high spatial frequency (i.e. small features in the image plane) while attenuating transmitted light. Most of the stimulating beam does not interact with the nanodiamonds and is blocked. The light that passes around the dark-field filter is comprised of the elastically scattered light from the stimulating beam incident on the nanodiamonds, and possibly stimulated emission light from the N-v centers. Both of these signals are the same color as the stimulating beam, so they both pass through the narrow (10 nm wide) emission filter centered at 720 nm wavelength. We hope to image stimulated emission signal as it appears atop light scattered from a nanodiamond.
+<p><strong>what did we do</strong>We imaged the nanodiamonds by taking five exposures with different excitation pulse delays, yielding dark-field images of nanodiamonds 2.5 &micro;s before excitation, 1.25 &micro;s before excitation, during excitation, 1.25 &micro;s after excitation, and 2.5 &micro;s after excitation. For each exposure, we used 24 <a href="#Peak_laser_intensity" target="_self">full-intensity</a> excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs. We expect efficient and highly selective secitation/stimulation; 532 nm is near the N-v excitation peak but far from the emission spectrum, and vice versa for 721 nm (Figure 2b, upper right panel, with <code>Fluorescent sample type: Nanodiamonds doped with N-v centers</code>).
 </p>
 
-<p><strong>what did we do</strong>When the stimulating beam alone illuminated the sample, we solely observed the scattered light image of the nanodiamond. When both the excitation beam and the stimulating beam were incident upon the sample, we observed a decrease in brightness of the scattered light image of the nanodiamond, possibly due to stimulated emission. We show this observation in Figure 4_old. The scattered light images are taken with a train of 24 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 15 ms camera exposure. The displayed image is an average of 200 such exposures. The decrease in brightness of the scattered light image occurs only when the excitation laser pulses are incident simultaneously with the stimulation pulses (<a href="./appendix.html#Dark-field_image_generation">and not before or after</a>).
+<p>The left panel of Figure 6 (Figure 6a with <code>Z position: 0.0 &micro;m</code> selected) shows a 200-exposure average of dark-field images of an in-focus nanodiamond 2.5 &mcro;s before excitation. As with the crmson beads, we expect no stimulated emission at this delay because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the N-v center <a href="./appendix.html#Rate_constants_for_fluorophores">excited state lifetime</a> \(\tau_{exc}\) (<a href="./appendix.html#FLIM">~12 ns</a>). The "difference image" in the right panel of Figure 6 shows the <a href="./appendix.html#Dark-field_image_generation">the change in the corresponding left panel image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
 </p>
 
-<figure id="Figure_4_old">
-<img src="./images/figure_4_old/darkfield_STE_image.svg"
- alt="Figure 4_old" id="Figure_4_old_image">
-<figcaption><strong><a href="#Figure_4_old" target="_self">Figure 4_old</a>: (A)</strong> Dark-field scattered light image of a nanodiamond from the stimulation beam alone. <strong>(B)</strong> Change in the scattered light image due to simultaneous excitation and stimulation of N-v centers. Scale bar: 250 nm. This figure was generated by <code>/figure_generation/figure_4_old_5_old.py</code>.  </figcaption>
+<figure id="Figure_6">
+<img src="./images/figure_6/darkfield_STE_image_6.svg"
+ alt="Figure 6ab" id="Figure_6ab_image">
+<table class="figure_controls">
+  <tr>
+  <td>Z position: </td><td><select id="Figure_6_z" onchange="update_figure_6ab()">
+    <option value="0">-1.2 &mu;m</option>
+    <option value="1">-1.0 &mu;m</option>
+    <option value="2">-0.8 &mu;m</option>
+    <option value="3">-0.6 &mu;m</option>
+    <option value="4">-0.4 &mu;m</option>
+    <option value="5">-0.2 &mu;m</option>
+    <option value="6" selected="selected">0.0 &mu;m</option>
+    <option value="7">0.2 &mu;m</option>
+    <option value="8">0.4 &mu;m</option>
+	<option value="9">0.6 &mu;m</option>
+	<option value="10">0.8 &mu;m</option>
+    <option value="11">1.0 &mu;m</option>
+    <option value="12">1.2 &mu;m</option>
+    <option value="13">1.4 &mu;m</option>
+    <option value="14">1.6 &mu;m</option>
+  </select></td><td>(change this to adjust the axial position of the image)</td>
+    </tr>
+</table>
+<img src="./images/figure_6/darkfield_STE_image_xz.svg"
+ alt="Figure 6cd" id="Figure_6cd_image">
+<table class="figure_controls">
+  <tr>
+  <td>Axial view: </td><td><select id="Figure_6_view" onchange="update_figure_6cd()">
+	<option value="xz" selected="selected">XZ (Y projection)</option>
+    <option value="yz">YZ (X projection)</option>
+  </select></td><td>(change this to adjust the axial view of the image)</td>
+    </tr>
+</table>
+<figcaption><strong><a href="#Figure_6" target="_self">Figure 6</a>: Axial view of the change in scattered light signal due to excitation of N-v centers. (A)</strong> Transverse dark-field image of a nanodiamond due to scattered light from the stimulation beam alone. (Axial position can be changed with the scroll bar online.) <strong>(B)</strong> The change in (A) due to simultaneous excitation and stimulation beams. <strong>(C)</strong> XZ dark-field image of a nanodiamond due to scattered light from the stimulation beam alone. (YZ view can be toggled with the scroll bar online.) <strong>(D)</strong> The change in (C) due to simultaneous excitation and stimulation beams. For (A-D), adjacent images were taken 200 nm apart in the axial direction, and the scale bar is 250 nm. This figure's images were generated by <code>/figure_generation/figure_6.py</code>. </figcaption>
 </figure><p></p>
+
+<p>When the stimulating beam alone illuminated the sample, we solely observed the scattered light image of the nanodiamond. When both the excitation beam and the stimulating beam were incident upon the sample, we observed a decrease in brightness of the scattered light image of the nanodiamond, possibly due to stimulated emission. We show this observation in Figure 4_old. The scattered light images are taken with a train of 24 simultaneous stimulation and excitation laser pulses, each at peak intensity with 1 &mu;s duration, over a 15 ms camera exposure. The displayed image is an average of 200 such exposures. The decrease in brightness of the scattered light image occurs only when the excitation laser pulses are incident simultaneously with the stimulation pulses (<a href="./appendix.html#Dark-field_image_generation">and not before or after</a>).
+</p>
 
 <p><strong>wtf decrease in signal</strong>The result in Figure 4_old seems counterintuitive. Why would stimulated emission, which we hope to image in addition to the scattered light, make the scattered light image darker? This could happen if the scattered electric field destructively interferes with the stimulated emission electric field. Interference is possible because both stimulated emission and scattered light are coherent with the incident electric field, and therefore have a distinct phase relationship with each other.
 </p>
@@ -600,7 +634,8 @@ This fulfills the requirement for destructive interference:
 	$$\begin{equation} \frac{\pi}{2} \lt \Delta\phi \lt \frac{3\pi}{2} \end{equation}$$
 </div>
 
-
+<p><strong>z stack implies point-like emission</strong>If stimulated emission originates from the N-v centers distributed throughout the nanodiamonds, the point-spread function (PSF) for both stimulated emission and scattered light should be identical. Since stimulated emission and scattering should coherently interfere, an axial scan of the brightness change of the dark-field scattered light should reveal differences, if any, between the PSF of the scattered light and the source of the brightness change. Figure 5_old shows the change in brightness of the main scattered lobe at different axial positions, using maximum excitation and stimulation intensities. For this axial scan, the image acquisition and averaging parameters are the same as that for the data in Figures 5 and 4_old. Note that the change in brightness of the scattered light from the nanodiamond varies axially in a similar manner to the brightness of the scattered light image. This suggests that the PSF of the signal is similar to that of elastically scattered light. <strong>Should I even talk about PSF? I don't necessarily need to; this paragraph is the only one in the paper that uses the term.</strong>
+</p>
 
 <p><strong>we did other controls</strong>We performed a series of control experiments to rule out other possible sources of decreased scattered light image brightness and ascertain that it is a hallmark of dark-field imaging of stimulated emission from N-v centers in our nanodiamonds.
 </p>
@@ -654,47 +689,12 @@ This fulfills the requirement for destructive interference:
 <p><strong>pulse length scan in appendix</strong>We performed a similar control experiment to that in Figure 5_old by increasing the pulse length of the simultaneous excitation and stimulation pulses while maintaining the same amount of energy per pulse. The change in scattered light signal depends on both the excitation and stimulation intensity, and therefore increases quadratically with decreasing excitation and stimulation pulse length. This behavior is also similar to what one would expect of stimulated emission in the non-saturated regime. <a href="./appendix.html#The_image_signal_depends_on_the_intensity_of_the_excitation_and_stimulation_laser_pulses">These results</a> are available in the appendix. <strong>TODO: mention pulse length scan for beads here or earlier?</strong>
 </p>
 
-<p><strong>z stack implies point-like emission</strong>If stimulated emission originates from the N-v centers distributed throughout the nanodiamonds, the point-spread function (PSF) for both stimulated emission and scattered light should be identical. Since stimulated emission and scattering should coherently interfere, an axial scan of the brightness change of the dark-field scattered light should reveal differences, if any, between the PSF of the scattered light and the source of the brightness change. Figure 5_old shows the change in brightness of the main scattered lobe at different axial positions, using maximum excitation and stimulation intensities. For this axial scan, the image acquisition and averaging parameters are the same as that for the data in Figures 5 and 4_old. Note that the change in brightness of the scattered light from the nanodiamond varies axially in a similar manner to the brightness of the scattered light image. This suggests that the PSF of the signal is similar to that of elastically scattered light. <strong>Should I even talk about PSF? I don't necessarily need to; this paragraph is the only one in the paper that uses the term.</strong>
-</p>
 
-<figure id="Figure_6">
-<img src="./images/figure_6/darkfield_STE_image_6.svg"
- alt="Figure 6ab" id="Figure_6ab_image">
-<table class="figure_controls">
-  <tr>
-  <td>Z position: </td><td><select id="Figure_6_z" onchange="update_figure_6ab()">
-    <option value="0">-1.2 &mu;m</option>
-    <option value="1">-1.0 &mu;m</option>
-    <option value="2">-0.8 &mu;m</option>
-    <option value="3">-0.6 &mu;m</option>
-    <option value="4">-0.4 &mu;m</option>
-    <option value="5">-0.2 &mu;m</option>
-    <option value="6" selected="selected">0.0 &mu;m</option>
-    <option value="7">0.2 &mu;m</option>
-    <option value="8">0.4 &mu;m</option>
-	<option value="9">0.6 &mu;m</option>
-	<option value="10">0.8 &mu;m</option>
-    <option value="11">1.0 &mu;m</option>
-    <option value="12">1.2 &mu;m</option>
-    <option value="13">1.4 &mu;m</option>
-    <option value="14">1.6 &mu;m</option>
-  </select></td><td>(change this to adjust the axial position of the image)</td>
-    </tr>
-</table>
-<img src="./images/figure_6/darkfield_STE_image_xz.svg"
- alt="Figure 6cd" id="Figure_6cd_image">
-<table class="figure_controls">
-  <tr>
-  <td>Axial view: </td><td><select id="Figure_6_view" onchange="update_figure_6cd()">
-	<option value="xz" selected="selected">XZ (Y projection)</option>
-    <option value="yz">YZ (X projection)</option>
-  </select></td><td>(change this to adjust the axial view of the image)</td>
-    </tr>
-</table>
-<figcaption><strong><a href="#Figure_6" target="_self">Figure 6</a>: Axial view of the change in scattered light signal due to excitation of N-v centers. (A)</strong> Transverse dark-field image of a nanodiamond due to scattered light from the stimulation beam alone. (Axial position can be changed with the scroll bar online.) <strong>(B)</strong> The change in (A) due to simultaneous excitation and stimulation beams. <strong>(C)</strong> XZ dark-field image of a nanodiamond due to scattered light from the stimulation beam alone. (YZ view can be toggled with the scroll bar online.) <strong>(D)</strong> The change in (C) due to simultaneous excitation and stimulation beams. For (A-D), adjacent images were taken 200 nm apart in the axial direction, and the scale bar is 250 nm. This figure's images were generated by <code>/figure_generation/figure_6.py</code>. </figcaption>
-</figure><p></p>
 
 <p><strong>Pulse length scan from crimson beads. Follows from understanding excitation and stim emission rates. Not a good photothermal control, but shows behavior different from simple fluorescence.</strong> As with the change in scattered light signal from N-v centers in nanodiamonds, the magnitude of the signal from the crimson beads <a href="./appendix.html#The_image_signal_depends_on_the_intensity_of_the_excitation_and_stimulation_laser_pulses">increases monotonically</a> as excitation and stimulation intensity increase and fluence is held constant. We would expect this of stimulated emission from crimson beads in the regime where neither excitation nor stimulated emission are fully saturated.
+</p>
+
+<p><strong>nanodiamonds not ideal because of scattering; why no phase contrast? see phase contrast results in appendix</strong>Nanodiamonds doped with N-v centers are the third sample type we used to attempt to image stimulated emission. While they do not photobleach, they are not an ideal candidate for phase contrast imaging of stimulated emission. Their extremely high refractive index (2.42) prevents index-matching, yielding bright, coherent scattering. Given our experimental parameters, the stimulating light that is scattered by a nanodiamond can fill the dynamic range of our camera in less than 40 &micro;s. The power of the elastically scattered light dominates that of the nanodiamond fluorescence by a factor of ~6,000:1. Given the ~10% depletion measured, we can extrapolate that the scattered light would dominate stimulated emission by ~60,000:1. The scattered light is coherent, so in phase contrast imaging, the magnitude of the interference term between the transmitted light background and the scattered light would still dominate that between transmitted light and stimulated emission. As with the dark-field results discussed earlier, any stimulated emission would be visible only as a small perturbation of the scattered light signal. We experimentally confirmed this hypothesis, and have made the <a href="./appendix.html#Phase_contrast_imaging_of_a_nanodiamond_doped_with_N-v_centers">results</a> available in the appendix.
 </p>
 
 <a id="Discussion" href="#Discussion" target="_self">
