@@ -189,12 +189,12 @@ def main():
                       interpolation='nearest')
     ax0.axis('off')
     cbar0 = fig.colorbar(cax0,ax=ax0)
-    ax0.set_title('C', fontsize=30)
+    ax0.set_title('A', fontsize=30)
 
     cax1 = ax1.imshow(STE_y_z, cmap=plt.cm.gray,
                       interpolation='nearest')
     cbar1 = fig.colorbar(cax1, ax = ax1)
-    ax1.set_title('D', fontsize=30)
+    ax1.set_title('B', fontsize=30)
     ax1.axis('off')
     plt.savefig('./../images/figure_6/darkfield_STE_image_yz.svg')
     plt.show()
@@ -208,12 +208,12 @@ def main():
                       interpolation='nearest')
     ax0.axis('off')
     cbar0 = fig.colorbar(cax0,ax=ax0)
-    ax0.set_title('C', fontsize=30)
+    ax0.set_title('A', fontsize=30)
 
     cax1 = ax1.imshow(STE_x_z, cmap=plt.cm.gray,
                       interpolation='nearest')
     cbar1 = fig.colorbar(cax1, ax = ax1)
-    ax1.set_title('D', fontsize=30)
+    ax1.set_title('B', fontsize=30)
     ax1.axis('off')
     plt.savefig('./../images/figure_6/darkfield_STE_image_xz.svg')
     plt.show()
