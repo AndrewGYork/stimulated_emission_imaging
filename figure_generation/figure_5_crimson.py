@@ -182,7 +182,7 @@ def main():
     dep_mult = ("{:.2f}".format(kdep))
     ax1.plot(green_powers_fine, model_fl_dep * brightness, '-',
              label=(r'Model, $h_{stim}\sigma_{23}=' +
-                    dep_mult + r'(1/\tau_{fluor})$'),
+                    dep_mult + r'(1/\tau_{exc})$'),
              color='red')
     ax1.fill_between(green_powers_fine,
                      model_fl_dep_max * brightness,
@@ -203,7 +203,7 @@ def main():
         lambda green_powers, pos: '{:0.2f}'.format(green_powers/mW_per_kex))
     ax2.xaxis.set_major_formatter(formatter)
     ax2.set_xlim(ax1.get_xlim())
-    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$', fontsize=17)
+    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{exc})$', fontsize=17)
     ax2 = ax1.twinx()
     formatter = FuncFormatter(
         lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness))
@@ -286,7 +286,7 @@ def main():
     ax1.plot(green_powers_fine, model_fl_dep * brightness_hi, '-',
              label=(
                  r'Model, $h_{stim}\sigma_{23}=' +
-                 dep_mult + r'(1/\tau_{fluor})$'),
+                 dep_mult + r'(1/\tau_{exc})$'),
              color='red')
     ax1.fill_between(green_powers_fine,
                      model_fl_dep_max * brightness_hi,
@@ -307,7 +307,7 @@ def main():
         lambda green_powers, pos: '{:0.2f}'.format(green_powers/mW_per_kex))
     ax2.xaxis.set_major_formatter(formatter)
     ax2.set_xlim(ax1.get_xlim())
-    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$', fontsize=17)
+    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{exc})$', fontsize=17)
     ax2 = ax1.twinx()
     formatter = FuncFormatter(
         lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness_hi))
@@ -389,7 +389,7 @@ def main():
     dep_mult = ("{:.2f}".format(kdep))
     ax1.plot(green_powers_fine, model_fl_dep * brightness_lo, '-',
              label=(r'Model, $h_{stim}\sigma_{23}=' +
-                    dep_mult + r'(1/\tau_{fluor})$'),
+                    dep_mult + r'(1/\tau_{exc})$'),
              color='red')
     ax1.fill_between(green_powers_fine,
                      model_fl_dep_max * brightness_lo,
@@ -410,7 +410,7 @@ def main():
         lambda green_powers, pos: '{:0.2f}'.format(green_powers/mW_per_kex))
     ax2.xaxis.set_major_formatter(formatter)
     ax2.set_xlim(ax1.get_xlim())
-    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{fluor})$', fontsize=17)
+    ax2.set_xlabel(r'$h_{exc}\sigma_{01}/(1/\tau_{exc})$', fontsize=17)
     ax2 = ax1.twinx()
     formatter = FuncFormatter(
         lambda model_fl, pos: '{:0.2f}'.format(model_fl/brightness_lo))
