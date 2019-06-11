@@ -116,9 +116,8 @@ def main():
             green_powers,
             STE_signal_corrected[pow_num,:],
             yerr=STE_signal_std[pow_num,:]/(200**0.5),
-            label=('Red power = '+str(rd_pow)+' mW'))
-    plt.title('Change in signal in main scattered light lobe')
-    plt.xlabel('Green power (mW)')
+            label=('Stimulation power = '+str(rd_pow)+' mW'))
+    plt.xlabel('Excitation power (mW)')
     plt.ylabel('Change in scattered light signal (CMOS pixel counts)')
     plt.legend(loc='lower left')
     plt.ylim(-52, 6)
@@ -136,15 +135,14 @@ def main():
                 green_powers,
                 STE_signal_corrected[pow_num,:],
                 yerr=STE_signal_std[pow_num,:]/(200**0.5),
-                label=('Red power = '+str(rd_pow)+' mW'))
-    plt.title('Change in signal in main scattered light lobe')
-    plt.xlabel('Green power (mW)')
+                label=('Stimulation power = '+str(rd_pow)+' mW'))
+    plt.xlabel('Excitation power (mW)')
     plt.ylabel('Change in scattered light signal (CMOS pixel counts)')
     plt.legend(loc='lower left')
     plt.ylim(-40, 6)
     plt.xlim(-15, 1465)
     plt.grid()
-    plt.savefig('./../images/figure_5/STE_v_green_power_sparse.svg')
+    plt.savefig('./../images/figure_5_old/STE_v_green_power_sparse.svg')
     plt.show()
 
     #all red powers, sparse green powers
@@ -155,9 +153,8 @@ def main():
                 red_powers,
                 STE_signal_corrected[:, pow_num],
                 yerr=STE_signal_std[:, pow_num] / (200 ** 0.5),
-                label=('Green power = ' + str(gr_pow) + ' mW'))
-    plt.title('Change in signal in main scattered light lobe')
-    plt.xlabel('Red power (mW)')
+                label=('Excitation power = ' + str(gr_pow) + ' mW'))
+    plt.xlabel('Stimulation power (mW)')
     plt.ylabel('Change in scattered light signal (CMOS pixel counts)')
     plt.legend(loc='lower left')
     plt.xlim(-3, 303)
