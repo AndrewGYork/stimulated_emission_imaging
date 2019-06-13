@@ -271,7 +271,7 @@ though single N-v centers in nanodiamonds with diameter less than the wavelength
 <a id="Phase_contrast_difference_image_processing" href="#Phase_contrast_difference_image_processing" target="_self">
 <h4>Phase contrast difference image processing</h4></a>
 
-<p>The difference between the first and second exposure should let us know the effect of excitation on the phase contrast image of the beam. However, simply subtracting one image from the other is not sufficient; the red laser intensity fluctuates between those two exposures. In our image extraction code (<strong>TODO link to example figure generation code?</strong>) we re-scale the two images prior to subtraction in this manner:
+<p>The difference between the first and second exposure (of the three listed above) should let us know the effect of excitation on the phase contrast image of the beam. However, simply subtracting one image from the other is not sufficient; the red laser intensity fluctuates between those two exposures. In our image extraction code (<strong>TODO link to example figure generation code?</strong>) we re-scale the two images prior to subtraction in this manner:
 </p>
 <p>
 <ol>
@@ -381,6 +381,41 @@ claims an uncertainty of 10% in their measured \(\Phi\) for Rhodamine B. If this
 <h3>Dark-field image generation</h3></a>
 
 <p><strong>TODO: make this section mirror the phase contrast image generation section.</strong>
+</p>
+
+<a id="Dark_field_acquisition_details" href="#Dark_field_image_acquisition_details" target="_self">
+<h4>Dark field image acqusition details</h4></a>
+
+<p>We perform dark-field imaging of excited fluorescent nanodiamonds in a setup outlined in the main article (<a href="./index.html#Figure_2">Figure 2b</a> with <code>Imaging method: Dark-field imaging of stimulated emission and scattered light</code> and <code>Fluorescent sample type: Nanodiamonds doped with N-v centers</code> selected). We illuminate the nanodiamonds with a train of several green excitation (532 nm) laser pulses as well as several pulses of red (721 nm) laser light in order to stimulate emission from the samples. We place a chrome disc in a back focal plane of the imaging path in order to block the transmitted stimulation light and allow the scattered light and stimulated emission to reach the camera. The excitation and stimulation laser pulses are always the same duration as each other, and they are typically 1.25 &micro;s (our shortest available duration). The excitation and stimulation trains have 600 &micro;s between pulses of the same color. Our experiments involve five sequential camera exposures:
+</p>
+
+<p>
+<ol>
+  <li>During the first exposure, the red pulse train precedes the green pulse train by 2.5 &micro;s. Because 600 &micro;s is much longer than the excitation lifetime, there should be no stimulated emission.</li>
+  <li>During the second exposure, the red pulse train precedes the green pulse train by 1.25 &micro;s. The falling tails of the red pulses very slightly overlap with the rising edges of the green pulses, so a small amount of stimulated emission may be possible.</li>
+  <li>During the third exposure, the red and green pulses are simultaneous. Stimulated emission should be possible.</li>
+  <li>During the fourth exposure, the red pulse train follows the green pulse train by 1.25 &micro;s. The rising edges of the red pulses very slightly overlap with the falling tails of the green pulses, so a small amount of stimulated emission may be possible.</li>
+  <li>During the fifth exposure, the green pulse train precedes the red pulse train by 2.5 &micro;s. Because 2.5 &micro;s is much longer than the excitation lifetime, there should be no stimulated emission. If the green pulse modifies the sample in a time-delayed fashion (e.g. heating) and this effect persists longer than 2.5 &micro;s, there may be some effect on the dark-field image.</li>
+</ol>
+</p>
+
+<p>We additionally take a second five-exposure sequence with the green beam blocked. This a control for a small effect of the green AOM operation on the red AOM transmission.
+</p>
+
+<a id="Dark_field_and_difference_image_processing" href="#Dark_field_and_difference_image_processing" target="_self">
+<h4>Dark field and difference image processing</h4></a>
+
+<p>The difference between the first and third exposure (of the five listed above) should let us know the effect of excitation on the phase contrast image of the beam. However, the stimulation laser intensity fluctuations are larger than the change due to excitation, so we typically take hundreds of five-exposure sequences and average the result to improve our sensitivity. Because the sample moves over the time required to take all of those exposures, so we employ image registration prior to averaging. (<strong>TODO: link to example figure generation code?</strong>) This is the image processing sequence that returns scattered light images that allow us to observe changes due to excitation:
+</p>
+
+<p>
+<ol>
+  <li>During the first exposure, the red pulse train precedes the green pulse train by 2.5 &micro;s. Because 600 &micro;s is much longer than the excitation lifetime, there should be no stimulated emission.</li>
+  <li>During the second exposure, the red pulse train precedes the green pulse train by 1.25 &micro;s. The falling tails of the red pulses very slightly overlap with the rising edges of the green pulses, so a small amount of stimulated emission may be possible.</li>
+  <li>During the third exposure, the red and green pulses are simultaneous. Stimulated emission should be possible.</li>
+  <li>During the fourth exposure, the red pulse train follows the green pulse train by 1.25 &micro;s. The rising edges of the red pulses very slightly overlap with the falling tails of the green pulses, so a small amount of stimulated emission may be possible.</li>
+  <li>During the fifth exposure, the green pulse train precedes the red pulse train by 2.5 &micro;s. Because 2.5 &micro;s is much longer than the excitation lifetime, there should be no stimulated emission. If the green pulse modifies the sample in a time-delayed fashion (e.g. heating) and this effect persists longer than 2.5 &micro;s, there may be some effect on the dark-field image.</li>
+</ol>
 </p>
 
 <p>In our experiments, we irradiated fluorescent samples with 1 &micro;s duration excitation and stimulation laser pulses. Figure A5 shows a sample dark-field image of a N-v center-doped nanodiamond when irradiated solely by the stimulation laser pulses, along with the change in the image due to excitation laser pulses with variable delay relative to the stimulation pulses. When the excitation and stimulation pulses were simultaneous, we observed maximal decrease in brightness of the dark field scattered light image. When the stimulation pulse irradiated the sample just microseconds after the excitation pulse, we observed no change in brightness. From this, we conclude that the change in brightness occurs on a timescale faster than ~ 1 &micro;s, as we would expect from stimulated emission.
