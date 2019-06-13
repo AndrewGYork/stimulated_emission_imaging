@@ -289,7 +289,7 @@ though single N-v centers in nanodiamonds with diameter less than the wavelength
 <figure id="Figure_A5b">
 <img src="./images/figure_A5/phase_bead_delay_scan.svg"
  alt="Figure A5b" id="Figure_A5b_image">
-<figcaption><strong><a href="#Figure_A5b" target="_self">Figure A5b</a>: The change in the phase contrast bead image due to excitation has a sub-microsecond response time.</strong> Scanning the delay between the excitation (green) and stimulation (red) laser pulses shows the observed change in the phase contrast signal has a timescale at least as short as the laser pulse duration (~ 1 &micro;s). Scale bar: 350 nm.</figcaption>
+<figcaption><strong><a href="#Figure_A5b" target="_self">Figure A5b</a>: The change in the phase contrast bead image due to excitation has a sub-microsecond response time.</strong> Scanning the delay between the excitation (green) and stimulation (red) laser pulses shows the observed change in the phase contrast signal has a timescale at least as short as the laser pulse duration (1.25 &micro;s). Scale bar: 350 nm.</figcaption>
 </figure><p></p>
 
 <a id="Extra_processing_for_phase_contrast_imaging_of_weakly_scattered_light" href="#Extra_processing_for_phase_contrast_imaging_of_weakly_scattered_light" target="_self">
@@ -380,9 +380,6 @@ claims an uncertainty of 10% in their measured \(\Phi\) for Rhodamine B. If this
 <a id="Dark-field_image_generation" href="#Dark-field_image_generation" target="_self">
 <h3>Dark-field image generation</h3></a>
 
-<p><strong>TODO: make this section mirror the phase contrast image generation section.</strong>
-</p>
-
 <a id="Dark_field_acquisition_details" href="#Dark_field_image_acquisition_details" target="_self">
 <h4>Dark field image acqusition details</h4></a>
 
@@ -399,32 +396,36 @@ claims an uncertainty of 10% in their measured \(\Phi\) for Rhodamine B. If this
 </ol>
 </p>
 
-<p>We additionally take a second five-exposure sequence with the green beam blocked. This a control for a small effect of the green AOM operation on the red AOM transmission.
+<p>We additionally take a second five-exposure sequence with the green beam blocked. This a control for "crosstalk", a small effect of the green AOM operation on the red AOM transmission.
 </p>
 
 <a id="Dark_field_and_difference_image_processing" href="#Dark_field_and_difference_image_processing" target="_self">
 <h4>Dark field and difference image processing</h4></a>
 
-<p>The difference between the first and third exposure (of the five listed above) should let us know the effect of excitation on the phase contrast image of the beam. However, the stimulation laser intensity fluctuations are larger than the change due to excitation, so we typically take hundreds of five-exposure sequences and average the result to improve our sensitivity. Because the sample moves over the time required to take all of those exposures, so we employ image registration prior to averaging. (<strong>TODO: link to example figure generation code?</strong>) This is the image processing sequence that returns scattered light images that allow us to observe changes due to excitation:
+<p>The difference between the first and third exposure (of the five listed above) should let us know the effect of excitation on the phase contrast image of the beam. However, the stimulation laser intensity fluctuations are larger than the change due to excitation, so we typically take hundreds of five-exposure sequences and average the result to improve our sensitivity, and we also use the 4000-count coherent background to estimate stimulation laser brightness and re-scale the image. Because the sample moves over the time required to acquire all of the exposures, we employ image registration prior to averaging. (<strong>TODO: link to example figure generation code?</strong>) This is the image processing sequence that returns scattered light images that allow us to observe changes due to excitation:
 </p>
 
 <p>
 <ol>
-  <li>During the first exposure, the red pulse train precedes the green pulse train by 2.5 &micro;s. Because 600 &micro;s is much longer than the excitation lifetime, there should be no stimulated emission.</li>
-  <li>During the second exposure, the red pulse train precedes the green pulse train by 1.25 &micro;s. The falling tails of the red pulses very slightly overlap with the rising edges of the green pulses, so a small amount of stimulated emission may be possible.</li>
-  <li>During the third exposure, the red and green pulses are simultaneous. Stimulated emission should be possible.</li>
-  <li>During the fourth exposure, the red pulse train follows the green pulse train by 1.25 &micro;s. The rising edges of the red pulses very slightly overlap with the falling tails of the green pulses, so a small amount of stimulated emission may be possible.</li>
-  <li>During the fifth exposure, the green pulse train precedes the red pulse train by 2.5 &micro;s. Because 2.5 &micro;s is much longer than the excitation lifetime, there should be no stimulated emission. If the green pulse modifies the sample in a time-delayed fashion (e.g. heating) and this effect persists longer than 2.5 &micro;s, there may be some effect on the dark-field image.</li>
+  <li>We estimate the average brightness of the red laser by averaging all dark-field images and then finding the mean pixel value of the regions of the image that do not contain the nanodiamond (the background).</li>
+  <li>We estimate the brightness of the red laser in each exposure by finding the mean pixel value of the background of each exposure.</li>
+  <li>We re-scale individual exposures by a factor of the ratio of the average background to the individual exposure background.</li>
+  <li>We choose a nanodiamond image as the registration reference, and then register each scattered light image to the reference. Doing this well involves careful tuning of registration parameters.</li>
+  <li>Average the scattered light images for each of the five excitation/stimulation delays.</li>
+  <li>Compute "difference images": the difference between a particular scattered light image and the scattered light image when the stimulation pulse precedes excitation. Compute a second set of difference images in the case of the blocked green light, and subtract the "green blocked" from "green on" difference images to get the crosstalk-corrected difference image that accurately shows the change in scattering due to excitation.</li>
 </ol>
 </p>
 
-<p>In our experiments, we irradiated fluorescent samples with 1 &micro;s duration excitation and stimulation laser pulses. Figure A5 shows a sample dark-field image of a N-v center-doped nanodiamond when irradiated solely by the stimulation laser pulses, along with the change in the image due to excitation laser pulses with variable delay relative to the stimulation pulses. When the excitation and stimulation pulses were simultaneous, we observed maximal decrease in brightness of the dark field scattered light image. When the stimulation pulse irradiated the sample just microseconds after the excitation pulse, we observed no change in brightness. From this, we conclude that the change in brightness occurs on a timescale faster than ~ 1 &micro;s, as we would expect from stimulated emission.
+<p>While we use 750x total magnification (8.7 nm/pixel) to give large dynamic range, this is not great for viewing our difference images, because intra-pixel fluctuations can appear to swamp the signal. Prior do displaying the scattered light and difference images of the nanodiamonds, we bin 8 x 8 regions of pixels to give a more typical size (69.6 nm/pixel).
+</p>
+
+<p>Figure A5a shows a sample scattered light image of a nanodiamond prior to excitation, and the change in that image before, during and after excitation, based on the experimental method and image processing steps delineated above. For each exposure, we used 25 maximum-intensity excitation/stimulation pulse pairs, and the images are a 200-exposure average.
 </p>
 
 <figure id="Figure_A5a">
 <img src="./images/figure_A5/darkfield_nd_delay_scan.svg"
  alt="Figure A5a" id="Figure_A5a_image">
-<figcaption><strong><a href="#Figure_A5a" target="_self">Figure A5a</a>: The change in the dark-field nanodiamond image due to excitation has a sub-microsecond response time.</strong> Scanning the delay between the excitation (green) and stimulation (red) laser pulses shows the observed change in the scattered red light signal has a timescale at least as short as the laser pulse duration (~ 1 &micro;s). Scale bar: 280 nm.</figcaption>
+<figcaption><strong><a href="#Figure_A5a" target="_self">Figure A5a</a>: The change in the dark-field nanodiamond image due to excitation has a sub-microsecond response time.</strong> Scanning the delay between the excitation (green) and stimulation (red) laser pulses shows the observed change in the scattered red light signal has a timescale at least as short as the laser pulse duration (1.25 &micro;s). Scale bar: 280 nm.</figcaption>
 </figure><p></p>
 
 <a id="Axial_view_nanodiamond" href="#Axial_view_nanodiamond" target="_self">
