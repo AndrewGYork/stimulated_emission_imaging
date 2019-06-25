@@ -8,8 +8,8 @@ from stack_registration import bucket
 
 def main():
     assert os.path.isdir('./../images')
-    if not os.path.isdir('./../images/figure_5'):
-        os.mkdir('./../images/figure_5')
+    if not os.path.isdir('./../images/Figure_A5'):
+        os.mkdir('./../images/Figure_A5')
 
     # meltmount mix data
     data = np_tif.tif_to_array(
