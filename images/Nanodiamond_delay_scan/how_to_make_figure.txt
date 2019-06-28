@@ -1,0 +1,6 @@
+1. Run nanodiamond_delay_scan.py in figure generation folder.
+2. Copy svg images into nanodiamond_delay_scan.odp file and make illustrations.
+3. Export to pdf (nanodiamond_delay_scan.pdf).
+4. Copy nanodiamond_delay_scan.pdf into the pdf2svg folder
+5. In command prompt, type: pdf2svg nanodiamond_delay_scan.pdf darkfield_nd_delay_scan.svg
+6. Place darkfield_nd_delay_scan.svg back into images/Nanodiamond_delay_scan.
