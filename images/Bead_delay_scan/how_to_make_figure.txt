@@ -1,6 +1,0 @@
-1. Run bead_delay_scan.py in figure generation folder.
-2. Copy svg images into bead_delay_scan.odp file and make illustrations.
-3. Export to pdf (bead_delay_scan.pdf).
-4. Copy bead_delay_scan.pdf into the pdf2svg folder
-5. In command prompt, type: pdf2svg bead_delay_scan.pdf phase_bead_delay_scan.svg
-6. Place phase_bead_delay_scan.svg back into images/Bead_delay_scan.
