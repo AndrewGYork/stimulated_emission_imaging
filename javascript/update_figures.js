@@ -74,7 +74,6 @@ function update_figure_5_old() {
   image.src = filename;
 }
 
-
 // Figure 6ab interactively loads static images, stored locally
 function update_figure_6ab() {
   var z = document.getElementById("Figure_6_z").value;
@@ -83,11 +82,11 @@ function update_figure_6ab() {
   image.src = filename;
 }
 
-// Figure 6cd interactively loads static images, stored locally
-function update_figure_6cd() {
-  var view = document.getElementById("Figure_6_view").value;
-  var filename = "./images/figure_6/darkfield_STE_image_" + view + ".svg";
-  var image = document.getElementById("Figure_6cd_image");
+// Figure A5 interactively loads static images, stored locally
+function update_figure_A5() {
+  var view = document.getElementById("Figure_A5_view").value;
+  var filename = "./images/figure_A5/darkfield_STE_image_" + view + ".svg";
+  var image = document.getElementById("Figure_A5_image");
   image.src = filename;
 }
 
