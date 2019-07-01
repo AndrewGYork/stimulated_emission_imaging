@@ -1,0 +1,6 @@
+1. Run figure_A2.py in figure generation folder.
+2. Copy svg images into figure_A2.odp file and make illustrations.
+3. Export to pdf (figure_A2.pdf).
+4. Copy figure_A2.pdf into the pdf2svg folder
+5. In command prompt, type: pdf2svg figure_A2.pdf phase_bead_delay_scan.svg
+6. Place phase_bead_delay_scan.svg back into images/figure_A2.
