@@ -66,19 +66,11 @@ function update_figure_5() {
   image.src = filename;
 }
 
-// Figure A6 interactively loads static images, stored locally
-function update_figure_A6() {
-  var my_powers = document.getElementById("Figure_A6_data_subset").value;
-  var filename = "./images/figure_A6/STE_v_" + my_powers + ".svg";
-  var image = document.getElementById("Figure_A6_image");
-  image.src = filename;
-}
-
-// Figure 6ab interactively loads static images, stored locally
-function update_figure_6ab() {
+// Figure 6 interactively loads static images, stored locally
+function update_figure_6() {
   var z = document.getElementById("Figure_6_z").value;
   var filename = "./images/figure_6/darkfield_STE_image_" + z + ".svg";
-  var image = document.getElementById("Figure_6ab_image");
+  var image = document.getElementById("Figure_6_image");
   image.src = filename;
 }
 
@@ -87,6 +79,14 @@ function update_figure_A5() {
   var view = document.getElementById("Figure_A5_view").value;
   var filename = "./images/figure_A5/darkfield_STE_image_" + view + ".svg";
   var image = document.getElementById("Figure_A5_image");
+  image.src = filename;
+}
+
+// Figure A6 interactively loads static images, stored locally
+function update_figure_A6() {
+  var my_powers = document.getElementById("Figure_A6_data_subset").value;
+  var filename = "./images/figure_A6/STE_v_" + my_powers + ".svg";
+  var image = document.getElementById("Figure_A6_image");
   image.src = filename;
 }
 
