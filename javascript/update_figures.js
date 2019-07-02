@@ -90,10 +90,10 @@ function update_figure_A5() {
   image.src = filename;
 }
 
-// Figure A9 interactively loads static images, stored locally
-function update_figure_A9() {
-  var angle = document.getElementById("Figure_A9_angle").value;
-  var filename = "./images/figure_A9/phase_STE_image_" + angle + ".svg";
-  var image = document.getElementById("Figure_A9_image");
+// Figure A10 interactively loads static images, stored locally
+function update_figure_A10() {
+  var angle = document.getElementById("Figure_A10_angle").value;
+  var filename = "./images/figure_A10/phase_STE_image_" + angle + ".svg";
+  var image = document.getElementById("Figure_A10_image");
   image.src = filename;
 }
