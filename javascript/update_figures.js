@@ -66,11 +66,11 @@ function update_figure_5() {
   image.src = filename;
 }
 
-// Figure 5_old interactively loads static images, stored locally
-function update_figure_5_old() {
-  var my_powers = document.getElementById("Figure_5_old_data_subset").value;
-  var filename = "./images/figure_5_old/STE_v_" + my_powers + ".svg";
-  var image = document.getElementById("Figure_5_old_image");
+// Figure A6 interactively loads static images, stored locally
+function update_figure_A6() {
+  var my_powers = document.getElementById("Figure_A6_data_subset").value;
+  var filename = "./images/figure_A6/STE_v_" + my_powers + ".svg";
+  var image = document.getElementById("Figure_A6_image");
   image.src = filename;
 }
 
