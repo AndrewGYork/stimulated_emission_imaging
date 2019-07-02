@@ -1,9 +1,8 @@
 import os
 import numpy as np
-from scipy.ndimage import gaussian_filter
 import matplotlib.pyplot as plt
-from stack_registration import bucket
 import np_tif
+from stack_registration import bucket
 
 def main():
 
@@ -16,169 +15,200 @@ def main():
 
     filename = (
         './../../stimulated_emission_imaging-data' +
-        '/2016_10_31_STE_phase_scan_re-center_phase_plate'
-        '/dataset_green_1500mW.tif')
+        '/2017_08_25_STE_phase_thermal_nanodiamond_4_5x_longest_delays' +
+        '/STE_phase_angle_10_green_1350mW_red_300mW.tif')
     filename_ctrl = (
         './../../stimulated_emission_imaging-data' +
-        '/2016_10_31_STE_phase_scan_re-center_phase_plate'
-        '/dataset_green_0mW.tif')
+        '/2017_08_25_STE_phase_thermal_nanodiamond_4_5x_longest_delays' +
+        '/STE_phase_angle_10_green_0mW_red_300mW.tif')
     data = np_tif.tif_to_array(filename).astype(np.float64)
     data_ctrl = np_tif.tif_to_array(filename_ctrl).astype(np.float64)
 
-    # reshape to hyperstack
-    num_delays = 5
-    data = data.reshape((
-        data.shape[0]/num_delays,
-        num_delays,
-        data.shape[1],
-        data.shape[2],
-        ))
-    data_ctrl = data_ctrl.reshape((
-        data_ctrl.shape[0]/num_delays,
-        num_delays,
-        data_ctrl.shape[1],
-        data_ctrl.shape[2],
-        ))
+    # get rid of overexposed rows at top and bottom of images
+    less_rows = 3
+    data = data[:,0+less_rows:data.shape[1]-less_rows,:]
+    data_ctrl = data_ctrl[:,0+less_rows:data_ctrl.shape[1]-less_rows,:]
 
     # Get the average pixel brightness in the background region of the
-    # phase contrast images. We'll use it to account for laser intensity
-    # fluctuations. This was already done for all reps at a particular
-    # angle, but now we should do it across all angles
-    avg_laser_brightness = get_bg_level(data.mean(axis=(0, 1)))
-
+    # phase contrast image. We'll use it to account for laser intensity
+    # fluctuations
+    avg_laser_brightness = get_bg_level(data.mean(axis=0))
+    
     # scale all images to have the same background brightness. This
     # amounts to a correction of roughly 1% or less
-    # ... for "green on" data
     local_laser_brightness = get_bg_level(data)
-    data = data * (avg_laser_brightness / local_laser_brightness).reshape(
-        data.shape[0], data.shape[1], 1, 1)
-    # ... for "green off" data
-    # scale all images to have the same background brightness. This
-    # amounts to a correction of roughly 1% or less
-    local_laser_brightness = get_bg_level(data_ctrl)
-    data_ctrl = data_ctrl * (
+    data = data * (
         avg_laser_brightness / local_laser_brightness).reshape(
-            data_ctrl.shape[0], data_ctrl.shape[1], 1, 1)
+            data.shape[0], 1, 1)
+    # do the same for control (green off) data
+    local_laser_brightness_ctrl = get_bg_level(data_ctrl)
+    data_ctrl = data_ctrl * (
+        avg_laser_brightness / local_laser_brightness_ctrl).reshape(
+            data_ctrl.shape[0], 1, 1)
 
-    # get zero delay images, max delay images and phase contrast images
-    zero_delay_images = data[:, 2, :, :] # zero red/green delay
-    max_delay_images = data[:, 0, :, :] # red before green (min delay)
-    phase_stack = max_delay_images
-    max_delay_images = phase_stack # just use red before green
-    # also for green off data
-    zero_delay_images_ctrl = data_ctrl[:, 2, :, :] # zero red/green delay
-    max_delay_images_ctrl = data_ctrl[:, 0, :, :] # red before green (min delay)
+    # get delays from code copied from
+    # modulated_imaging_one_z_STE_phase_thermal.py
+    num_reps = 50
+    daq_rate = 8e5
+    red_pulse_duration_pixels = 4
+    green_pulse_duration_pixels = 20
+    red_beginning_pixels = np.array([
+        -10,
+        0,
+        30,
+        50,
+        100,
+        150,
+        ])
+    red_step_pixels = 200
+    red_last_pixel = 7200
+    red_end_pixels = np.arange(
+        red_step_pixels, red_last_pixel, red_step_pixels)
+    red_start_pixel_array = np.append(red_beginning_pixels, red_end_pixels)
+    red_delays = red_start_pixel_array/daq_rate
+    red_pulse_duration = red_pulse_duration_pixels/daq_rate
+    green_pulse_duration = green_pulse_duration_pixels/daq_rate
+    
+    num_delays = red_delays.shape[0]
 
-    # from the image where red/green are simultaneous, subtract the
-    # average of the max and min delay images
-    STE_stack = zero_delay_images - max_delay_images
-    STE_stack_ctrl = zero_delay_images_ctrl - max_delay_images_ctrl
-    # subtract crosstalk signal
-    STE_stack -= STE_stack_ctrl
+    # reshape data by reps
+    data = data.reshape(
+        num_reps, num_delays, data.shape[1], data.shape[2])
+    data_ctrl = data_ctrl.reshape(
+        num_reps, num_delays, data_ctrl.shape[1], data_ctrl.shape[2])
+    bg_signal = local_laser_brightness.reshape(num_reps, num_delays)
 
-    # The background phase contrast image noise is comprised of stripes
-    # that are completely outside of the microscope's spatial pass-band.
-    # The smoothing step below strongly attenuates this striping
-    # artifact with almost no effect on spatial frequencies due to the
-    # sample.
-    sigma = 9 # tune this parameter to reject high spatial frequencies
-    STE_stack = gaussian_filter(STE_stack, sigma=(0, sigma, sigma))
-    STE_stack_ctrl = gaussian_filter(STE_stack_ctrl, sigma=(0, sigma, sigma))
-    phase_stack = gaussian_filter(phase_stack, sigma=(0, sigma, sigma))
+    # now that brightness is corrected, repetition average the data
+    data = data.mean(axis=0)
+    data_ctrl = data_ctrl.mean(axis=0)
+    bg_signal = bg_signal.mean(axis=0)
 
-    # crop images to center bead
+    # The first delay is negative. Subtract this from the rest of the
+    # data in order to find the time delayed change in the phase
+    # contrast image due to the excitation pulse.
+    early_data = np.array([data[0,:,:]]*num_delays) # red precedes green
+    thermal_stack = data - early_data
+    early_data_ctrl = np.array([data_ctrl[0,:,:]]*num_delays) # red precedes green
+    crosstalk_stack = data_ctrl - early_data_ctrl
+    bg_signal_change = bg_signal - bg_signal[0]
+    # subtract AOM effects (even though it doesn't seem like there are any)
+    thermal_stack = thermal_stack# - crosstalk_stack
+
+    # plot phase contrast image and thermal signal
     top = 0
-    bot = 122
-    left = 59
-    right = 311
-    phase_cropped = phase_stack[:,top:bot,left:right]
-    # also subtract crosstalk
-    STE_cropped = (STE_stack[:,top:bot,left:right] -
-                   STE_stack_ctrl[:,top:bot,left:right])
+    bot = 98
+    left = 94
+    right = 252
+    thermal_cropped = thermal_stack[:,top:bot,left:right]
 
     # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
     # This is not great for viewing, because fluctuations can swamp the
     # signal. This step bins the pixels into a more typical size.
     bucket_width = 8 # bucket width in pixels
-    phase_cropped = bucket(
-        phase_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
-    STE_cropped = bucket(
-        STE_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
+    thermal_cropped = bucket(
+        thermal_cropped, (1, bucket_width, bucket_width)) / bucket_width**2
 
-    # find min and max values of 
-    phase_max = np.amax(phase_cropped)
-    phase_min = np.amin(phase_cropped)
-    STE_max = np.amax(STE_cropped)
-    STE_min = np.amin(STE_cropped)
+    # choose three representative thermal images
+    thermal_first = thermal_cropped[6,:,:]
+    thermal_middle = thermal_cropped[10,:,:]
+    thermal_last = thermal_cropped[28,:,:]
 
-    for angle_num in range(STE_cropped.shape[0]):
-        STE_image = STE_cropped[angle_num,:,:]
-        phase_image = phase_cropped[angle_num,:,:]
-
-        # generate and save plot
-        phase_image[-2:-1, 1:6] = phase_max# scale bar
-        STE_image[-2:-1, 1:6] = STE_min# scale bar
-        
-        fig, (ax0, ax1) = plt.subplots(nrows=2,ncols=1,figsize=(9,8))
-
-        cax0 = ax0.imshow(phase_image, cmap=plt.cm.gray,
-                          interpolation='nearest',
-                          vmax=phase_max, vmin=phase_min)
-        ax0.axis('off')
-        cbar0 = fig.colorbar(cax0,ax=ax0)
-        ax0.set_title('Phase contrast image of nanodiamond')
-
-        cax1 = ax1.imshow(STE_image, cmap=plt.cm.gray,
-                          interpolation='nearest',
-                          vmax=STE_max, vmin=STE_min)
-        cbar1 = fig.colorbar(cax1, ax = ax1)
-        ax1.set_title('Change in phase contrast image due to N-v excitation')
-        ax1.axis('off')
-        plt.savefig('./../images/figure_A9/phase_STE_image_' +
-                    str(angle_num)+'.svg')
-        plt.close()
+    # combine into single array
+    three_images = np.array([thermal_first, thermal_middle, thermal_last])
+    # get max/min values
+    thermal_max = np.amax(three_images)
+    thermal_min = np.amin(three_images)
+    # scale bar
+    three_images[:, -2:-1, 1:6] = thermal_min
+    
     
     # average points around center lobe of the nanodiamond image to get
     # "average signal level" for darkfield and STE images
-    top = 9
-    bot = 84
-    left = 153
-    right = 232
-    STE_signal = (
-        STE_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    STE_signal_ctrl = (
-        STE_stack_ctrl[:,top:bot,left:right].mean(axis=2).mean(axis=1))
-    phase_signal = (
-        phase_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
+    top = 13
+    bot = top + 48
+    left = 148
+    right = left + 48
+    thermal_signal = (
+        thermal_stack[:,top:bot,left:right].mean(axis=2).mean(axis=1))
+    green_pulse = np.array([
+        0,
+        0,
+        0.95,
+        0.95,
+        0,
+        0,
+        ])
+##    green_pulse = (1 - green_pulse) * np.amin(thermal_signal)
+    dt = 1e-9
+    green_pulse_tail = 5e-5
+    green_pulse_time_axis = np.array([
+        -green_pulse_tail,
+        0-dt,
+        0,
+        green_pulse_duration,
+        green_pulse_duration + dt,
+        green_pulse_duration + green_pulse_tail,
+        ])
+        
+
     
     # plot signal v phase
-    angles = range(32)
-    true_signal = STE_signal - STE_signal_ctrl
-    plt.figure()
-    plt.plot(angles,phase_signal,'.-',color='black')
-    plt.title('Phase contrast image main lobe brightness')
-    plt.xlabel('Relative phase (arb. units)')
-    plt.ylabel('Average intensity (CMOS pixel counts)')
-    plt.grid()
-##    plt.savefig('darkfield_v_z.svg')
-    plt.figure()
-    plt.plot(angles,STE_signal,'.-',label='STE signal',color='blue')
-    plt.plot(angles,STE_signal_ctrl,'.-',label='AOM crosstalk',color='green')
-    plt.title('Stimulated emission signal main lobe intensity')
-    plt.xlabel('Relative phase (arb. units)')
-    plt.ylabel('Change in phase contrast signal (CMOS pixel counts)')
-    plt.legend(loc='lower right')
-    plt.grid()
-##    plt.savefig('darkfield_STE_v_z.svg')
-    plt.figure()
-    plt.plot(angles,true_signal,'.-',label='STE signal',color='red')
-    plt.title('Corrected stimulated emission signal main lobe intensity')
-    plt.xlabel('Relative phase (arb. units)')
-    plt.ylabel('Change in phase contrast signal (CMOS pixel counts)')
-    plt.legend(loc='lower right')
-    plt.grid()
-##    plt.savefig('darkfield_STE_v_z.svg')
+    max_delay_num = 28
+    fig = plt.figure(figsize = (12.5,4.5))
+    ax = fig.add_subplot(111)
+    lns1 = ax.plot(
+        red_delays[0:max_delay_num]*1e3,
+        thermal_signal[0:max_delay_num],
+        'o-',color='red',
+        label='Delayed phase contrast signal',
+        )
+    lns1b = ax.plot(
+        red_delays[0:max_delay_num]*1e3,
+        bg_signal_change[0:max_delay_num],
+        'o--',color='red',
+        label='Background brightness change',
+        )
+    ax2 = ax.twinx()
+    lns2 = ax2.plot(
+        green_pulse_time_axis*1e3,
+        green_pulse,
+        '-',color='green',
+        label='Excitation laser duration',
+        )
+
+##    lns = lns1 + lns2
+    lns = lns1 + lns1b + lns2
+    labs = [l.get_label() for l in lns]
+    ax.legend(lns, labs, loc='lower right')
+
+    ax.grid()
+    ax.set_xlabel('Time delay between red and green pulses (ms)')
+    ax.set_ylabel('Average pixel count', color='red')
+    ax.tick_params('y', colors='red')
+    ax2.set_ylabel('Laser power (arb. units)', color='green')
+    ax2.tick_params('y', colors='green')
+    ax.set_xlim([-0.25,5.75])
+    ax.set_ylim(-524,24)
+    ax2.set_ylim([-0.05,1.045])
+
+    a = plt.axes([.21, .13, .18, .18])
+    plt.imshow(three_images[0], cmap=plt.cm.gray,
+               interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
+    plt.xticks([])
+    plt.yticks([])
+    a = plt.axes([.33, .36, .18, .18])
+    plt.imshow(three_images[1], cmap=plt.cm.gray,
+               interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
+    plt.xticks([])
+    plt.yticks([])
+    a = plt.axes([.7, .53, .18, .18])
+    plt.imshow(three_images[2], cmap=plt.cm.gray,
+               interpolation='nearest', vmax=thermal_max, vmin=thermal_min)
+    plt.xticks([])
+    plt.yticks([])
+    plt.savefig('./../images/figure_A9/phase_contrast_nd_delayed_signal.svg')
     plt.show()
+##    plt.close()
     
 
     return None
