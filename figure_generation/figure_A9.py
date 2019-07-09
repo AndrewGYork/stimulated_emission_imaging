@@ -138,7 +138,7 @@ def main():
         0,
         0,
         ])
-##    green_pulse = (1 - green_pulse) * np.amin(thermal_signal)
+
     dt = 1e-9
     green_pulse_tail = 5e-5
     green_pulse_time_axis = np.array([
@@ -176,7 +176,6 @@ def main():
         label='Excitation laser duration',
         )
 
-##    lns = lns1 + lns2
     lns = lns1 + lns1b + lns2
     labs = [l.get_label() for l in lns]
     ax.legend(lns, labs, loc='lower right')
@@ -208,7 +207,6 @@ def main():
     plt.yticks([])
     plt.savefig('./../images/figure_A9/phase_contrast_nd_delayed_signal.svg')
     plt.show()
-##    plt.close()
     
 
     return None

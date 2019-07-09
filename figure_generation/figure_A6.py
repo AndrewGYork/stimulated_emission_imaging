@@ -196,7 +196,6 @@ def main():
 
     ax0.text(0.4,2.2,'A',fontsize=72,color='white',fontweight='bold')
     ax1.text(0.4,2.2,'B',fontsize=72,color='black',fontweight='bold')
-##    plt.savefig('./../images/figure_A6/darkfield_STE_image.svg')
     plt.show()
 
     return None

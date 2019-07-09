@@ -163,12 +163,9 @@ def main():
         cbar1 = fig.colorbar(cax1, ax = ax1)
         ax1.set_title('B', fontsize=30)
         ax1.axis('off')
-##        plt.savefig('./../images/Nanodiamond_fluorescence_axial/fluorescence_depletion_image_' +
-##                    str(z_num)+'.svg')
         plt.close()
-##        plt.show()
 
-    # save x and y projections of stack of fluorescence images
+    # x and y projections of stack of fluorescence images
     fluorescence_y_z[-2:-1, 1:6] =  np.max(fluorescence_y_z,(0,1))# scale bar
     fluorescence_x_z[-2:-1, 1:6] =  np.max(fluorescence_x_z,(0,1))# scale bar
     fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2, figsize=(14,14))
@@ -183,10 +180,9 @@ def main():
     cbar1 = fig.colorbar(cax1, ax = ax1)
     ax1.set_title('B', fontsize=30)
     ax1.axis('off')
-##    plt.savefig('./../images/Nanodiamond_fluorescence_axial/fluorescence_nd_image_yz_xz.svg')
     plt.show()
 
-    # save x projection of stack of fluorescence and depletion images
+    # x projection of stack of fluorescence and depletion images
     fluorescence_y_z[-2:-1, 1:6] =  np.max(fluorescence_y_z,(0,1))# scale bar
     depletion_y_z[-2:-1, 1:6] =  np.min(depletion_y_z,(0,1))# scale bar
     fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2, figsize=(14,14))
@@ -201,10 +197,9 @@ def main():
     cbar1 = fig.colorbar(cax1, ax = ax1)
     ax1.set_title('B', fontsize=30)
     ax1.axis('off')
-##    plt.savefig('./../images/Nanodiamond_fluorescence_axial/fluorescence_nd_image_yz.svg')
     plt.show()
 
-    # save y projection of stack of fluorescence and depletion images
+    # y projection of stack of fluorescence and depletion images
     fluorescence_x_z[-2:-1, 1:6] =  np.max(fluorescence_x_z,(0,1))# scale bar
     depletion_x_z[-2:-1, 1:6] =  np.min(depletion_x_z,(0,1))# scale bar
 

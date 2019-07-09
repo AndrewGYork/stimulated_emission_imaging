@@ -27,10 +27,6 @@ def main():
     crop_height = 118
 
     # where on the plot should the cropped images be
-    #these work if dotted line connects data
-##    plot_pos_y = [0.105, 0.245, 0.37, 0.61]
-##    plot_pos_x = [0.25, 0.4, 0.53, 0.77]
-    #these work if there is no dotted line to connect data
     plot_pos_y = [0.105, 0.245, 0.37, 0.62]
     plot_pos_x = [0.25, 0.34, 0.51, 0.77]
     
@@ -117,9 +113,6 @@ def main():
     STE_min = np.amin(STE_image_cropped)
     STE_image_cropped[:, -2:-1, 1:6] = STE_max # scale bar
 
-##    my_zero = np.zeros(1)
-##    STE_signal_relative = np.concatenate((my_zero,STE_signal_relative))
-##    my_intensity = np.concatenate((my_zero,1/pulsewidths))
     my_intensity = 1/pulsewidths
 
     fig, ax1 = plt.subplots()
@@ -171,7 +164,6 @@ def main():
 
     plt.savefig('./../images/figure_A8/phase_contrast_dye_pulse_length_scan.svg')
     plt.show()
-##    plt.close()
 
     return None
 

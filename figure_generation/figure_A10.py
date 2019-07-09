@@ -160,7 +160,7 @@ def main():
     plt.xlabel('Relative phase (arb. units)')
     plt.ylabel('Average intensity (CMOS pixel counts)')
     plt.grid()
-##    plt.savefig('darkfield_v_z.svg')
+
     plt.figure()
     plt.plot(angles,STE_signal,'.-',label='STE signal',color='blue')
     plt.plot(angles,STE_signal_ctrl,'.-',label='AOM crosstalk',color='green')
@@ -169,7 +169,7 @@ def main():
     plt.ylabel('Change in phase contrast signal (CMOS pixel counts)')
     plt.legend(loc='lower right')
     plt.grid()
-##    plt.savefig('darkfield_STE_v_z.svg')
+
     plt.figure()
     plt.plot(angles,true_signal,'.-',label='STE signal',color='red')
     plt.title('Corrected stimulated emission signal main lobe intensity')
@@ -177,7 +177,7 @@ def main():
     plt.ylabel('Change in phase contrast signal (CMOS pixel counts)')
     plt.legend(loc='lower right')
     plt.grid()
-##    plt.savefig('darkfield_STE_v_z.svg')
+
     plt.show()
     
 

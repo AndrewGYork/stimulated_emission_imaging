@@ -148,48 +148,18 @@ def main():
     plt.plot(pulses_axis, STE_signal, color='red')
 
     # lines from images to data points
-##    plt.plot(
-##        [pulses_axis[0], 50189],
-##        [STE_signal[0], 76],
-##        'k--', lw=2
-##        )
-##    plt.plot(
-##        [pulses_axis[0], 162113],
-##        [STE_signal[0], 76],
-##        'k--', lw=2
-##        )
     for x in np.arange(50189, 162114, 1000):
         plt.plot(
             [pulses_axis[0], x],
             [STE_signal[0], 76],
             'k', lw=0.1,
             )
-##    plt.plot(
-##        [pulses_axis[int(pulses_axis.shape[0] / 2)], 213673],
-##        [STE_signal[int(STE_signal.shape[0] / 2)], 76],
-##        'k--', lw=2
-##        )
-##    plt.plot(
-##        [pulses_axis[int(pulses_axis.shape[0] / 2)], 325597],
-##        [STE_signal[int(STE_signal.shape[0] / 2)], 76],
-##        'k--', lw=2
-##        )
     for x in np.arange(213673, 325598, 1000):
         plt.plot(
             [pulses_axis[int(pulses_axis.shape[0] / 2)], x],
             [STE_signal[int(STE_signal.shape[0] / 2)], 76],
             'k', lw=0.1,
             )
-##    plt.plot(
-##        [pulses_axis[-1], 377157],
-##        [STE_signal[-1], 76],
-##        'k--', lw=2
-##        )
-##    plt.plot(
-##        [pulses_axis[-1], 489080],
-##        [STE_signal[-1], 76],
-##        'k--', lw=2
-##        )
     for x in np.arange(377157, 489081, 1000):
         plt.plot(
             [pulses_axis[-1], x],
@@ -197,10 +167,7 @@ def main():
             'k', lw=0.1,
             )
 
-    
-##    plt.axis([0-2000, 74000, -25, 110])
     plt.axis([-2000, 502800 + 2000, -25, 110])
-##    plt.axis([0, np.max(pulses_axis), -25, 50])
     plt.grid()
     plt.ylabel('Average pixel brightness (sCMOS counts)', fontsize=14)
     plt.xlabel('Number of excitation pulses delivered to sample', fontsize=18)

@@ -26,8 +26,6 @@ def main():
     width = 380
     height = 128
     less_rows = 3
-##    data = np.zeros((num_delays, height - less_rows * 2, width))
-##    data_ctrl = np.zeros((num_delays, height - less_rows * 2, width))
 
     filename = (
         './../../stimulated_emission_imaging-data' +

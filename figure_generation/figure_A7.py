@@ -34,10 +34,6 @@ def main():
     crop_height = 85
 
     # where on the plot should the cropped images be
-    # this works if dotted line connects data points
-##    plot_pos_y = [0.6, 0.46, 0.36, 0.12]
-##    plot_pos_x = [0.2, 0.26, 0.4, 0.64]
-    # this works if no dotted line
     plot_pos_y = [0.655, 0.515, 0.39, 0.11]
     plot_pos_x = [0.16, 0.22, 0.34, 0.67]
     
@@ -106,15 +102,11 @@ def main():
     STE_min = np.amin(STE_image_cropped)
     STE_image_cropped[:, -2:-1, 1:5] = STE_min # scale bar
 
-##    my_zero = np.zeros(1)
-##    STE_signal_relative = np.concatenate((my_zero,STE_signal_relative))
-##    my_intensity = np.concatenate((my_zero,1/pulsewidths))
     my_intensity = 1/pulsewidths
 
     fig, ax1 = plt.subplots()
     ax1.plot(my_intensity,STE_signal_relative,'o',color='black',markersize=10)
-##    plt.xlim(xmin=-0.04,xmax=1.04)
-    plt.ylim(ymin=-140,ymax=0)#max 5
+    plt.ylim(ymin=-140,ymax=0)
     ax1.set_ylabel('Average signal brightness (pixel counts)')
     ax1.tick_params('y', colors='k')
     plt.xlabel('Normalized laser intensity (constant energy)')
@@ -161,12 +153,6 @@ def main():
 
     plt.savefig('./../images/figure_A7/darkfield_nd_pulse_length_scan.svg')
     plt.show()
-
-##    plt.close()
-    
-        
-        
-
 
     return None
 
