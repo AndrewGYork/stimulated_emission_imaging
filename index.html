@@ -64,11 +64,11 @@ The real text begins here.
 <a id="Abstract" href="#Abstract" target="_self">
 
 <h4>Abstract <strong>TODO: Abstract version 1.</strong></h4></a>
-<p class="abstract">Stimulated emission is often described as indistinguishable from the stimulating beam, having the same phase, frequency, polarization, and direction of travel. What direction does stimulated emission travel when the emitter is pointlike? Pointlike sources typically emit in all directions (a spherical wave), but if the stimulating beam is nearly monodirectional (effectively a plane wave), will the stimulated emission propagate in all directions, or just one? We perform simple experiments to explore this apparent paradox, with an eye towards applications. In particular, does stimulated emission encode information about an emitter's location? Can lenses use this stimulated emission to form images of emitter distributions?  If so, this suggests a way to combine the high signal rates of transmitted light microscopy with the specificity of fluorescence microscopy.
+<p class="abstract">Stimulated emission is often described as indistinguishable from the stimulating beam, sharing the same phase, frequency, polarization, and direction of travel. What direction does stimulated emission travel when the emitter is pointlike? Pointlike sources typically emit in all directions (a spherical wave), but if the stimulating beam is nearly monodirectional (a plane wave), will the stimulated emission propagate in all directions, or just one? We perform simple experiments to explore this apparent paradox, with an eye towards technological utility. In particular, does stimulated emission encode information about an emitter's location? Can lenses use this stimulated emission to form images of emitter distributions?  If so, this suggests a way to combine the high signal rates of transmitted light microscopy with the specificity of fluorescence microscopy.
 </p>
 
 <h4>Abstract <strong>TODO: Abstract version 2</strong></h4></a>
-<p class="abstract">Imagine stimulating emission from an excited pointlike fluorescent particle, via a highly directional beam of light. What direction does this stimulated emission go? Stimulated emission is typically described as indistinguishable from the stimulating beam (a plane wave in this case), but pointlike sources typically emit in all directions (a spherical wave). We perform simple experiments to explore this apparent paradox, with an eye towards applications. In particular, does stimulated emission encode information about an emitter's location? Can lenses use this stimulated emission to form an image of the emitter?  If so, this suggests a way to combine the high signal rates of transmitted light microscopy with the specificity of fluorescence microscopy.
+<p class="abstract">Imagine stimulating emission from an excited pointlike fluorescent particle, via a highly directional beam of light. What direction does this stimulated emission go? Stimulated emission is typically described as indistinguishable from the stimulating beam (a plane wave in this case), but pointlike sources typically emit in all directions (a spherical wave). We perform simple experiments to explore this apparent paradox, with an eye towards technological utility. In particular, does stimulated emission encode information about an emitter's location? Can lenses use this stimulated emission to form an image of the emitter?  If so, this suggests a way to combine the high signal rates of transmitted light microscopy with the specificity of fluorescence microscopy.
 </p>
 
 <a id="Introduction" href="#Introduction" target="_self">
@@ -368,7 +368,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <a href="./appendix.html#Image_acquisition_and_figure_generation">figure generation</a>.</figcaption>
 </figure><p></p>
 
-<p>The \(\Delta n\approx 0\) difference image in Figure 3 clearly depicts the bead. If this difference image is due to stimulated emission, it contradicts the model in Figure 1b, and supports the model in Figure 1c. This is suggestive, but certainly not conclusive. To rule out alternative explanations, we must compare Figure 1c's predictions against a wide variety of observations. What else does our model predict, and what other phenomena might explain our observations?
+<p>The \(\Delta n\approx 0\) difference image in Figure 3 clearly depicts the bead. If this difference image is due to stimulated emission, it contradicts the model in Figure 1b, and supports Figure 1c as our preferred model. This is suggestive, but certainly not conclusive. To rule out alternative explanations, we must compare Figure 1c's predictions against a wide variety of observations. What else does our model predict, and what other phenomena might explain our observations?
 </p>
 
 <p>Our model predicts that a phase plate can tune the magnitude and sign of interference between the stimulated emission image and the background (Figure 1c with <code>Imaging method: Phase contrast</code> (<code>destructive</code> or <code>constructive</code>) <code>interference</code> selected). Indeed, rotating our phase plate tunes each difference image continuously from negative to positive contrast (Figure 3 with <code>Scattered light phase retardation:</code> (<code>-&lambda;/4</code> or <code>+&lambda;/4</code>) selected).
@@ -426,7 +426,7 @@ which is consistent with our model. This observation is also consistent with a m
 
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 
-How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the excited state lifetime via <a href="./appendix.html#FLIM">lifetime imaging</a>, and compared excitation and stimulation rates to the excited state decay rate by measuring fluorescent brightness while varying excitation and stimulation intensity (<a href="#Figure_2" target="_self">Figure 2b</a> with <code>Imaging method: Fluorescence depletion imaging</code> selected).
+How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the excited state lifetime via <a href="./appendix.html#FLIM">time-correlated single-photon counting</a>, and compared excitation and stimulation rates to the excited state decay rate by measuring fluorescent brightness while varying excitation and stimulation intensity (<a href="#Figure_2" target="_self">Figure 2b</a> with <code>Imaging method: Fluorescence depletion imaging</code> selected).
 </p>
 
 <p>As discussed in
@@ -468,7 +468,7 @@ We'd like to confirm that our fluorescent signals are consistent with this model
 <p>We imaged a bead from the same sample as the middle panels of Figure 3 with variable-power excitation pulses and <a href="#Peak_laser_intensity" target="_self">full-power</a> stimulation pulses. At each excitation power, we took three exposures with different stimulation pulse delays, yielding fluorescence images of beads excited 2.5 &micro;s before stimulation, during stimulation, and 2.5 &micro;s after stimulation. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
 </p>
 
-<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect fluorescence depletion during stimulation. We expect no depletion when excitation is delivered before/after stimulation, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead excited state lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
+<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect fluorescence depletion during stimulation. We expect no depletion when excitation is delivered before/after stimulation, because the stimulation and excitation pulses don't overlap in time, and both the interpulse spacing (2.5 &micro;s) and the pulse pair repetition time (600 &micro;s) are orders of magnitude larger than the crimson bead excited state lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
 </p>
 
 <figure id="Figure_5">
@@ -495,7 +495,7 @@ We'd like to confirm that our fluorescent signals are consistent with this model
 </figcaption>
 </figure><p></p>
 
-<p>At steady state, \(\frac{dn_{2}(\theta)}{dt} = 0\), yielding:</p>
+<p>At steady state, \(\frac{dn_{2}(\theta)}{dt} = 0\), which yields:</p>
 
 <div>
 	$$\begin{equation} n_2(\theta) = \frac{h_{exc}\sigma_{01}\cos^2(\theta)}{h_{exc}\sigma_{01}\cos^2(\theta) + h_{stim}\sigma_{23}\cos^2(\theta) + \frac{1}{\tau_{exc}}} \end{equation}$$
