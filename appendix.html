@@ -378,6 +378,73 @@ We can finally solve for \(H_{orange}/H_{crimson}\) at the same excitation power
 claims an uncertainty of 10% in their measured \(\Phi\) for Rhodamine B. If this were the only source of error in our measurements, we would expect the uncertainty in our estimate of \(H_{orange}/H_{crimson}\) to be 1%. If we propose an additional 5% uncertainty (2.5% standard deviation) to our measurements of \(\eta_{crimson}\) and \(\eta_{orange}\), as well as 10% uncertainty (5% standard deviation) in our measurement of \(B_{orange}/B_{crimson}\), we expect an uncertainty of 14% in our final estimate of \(H_{orange}/H_{crimson}\). By choosing to excite the orange beads with 1/8 of the laser power that we used to excite the crimson beads, we estimate that we heated the two bead types fairly similarly.
 </p>
 
+<a id="Crimson_bead_excitation_and_emission_rates" href="#Crimson_bead_excitation_and_emission_rates" target="_self">
+<h3>Crimson bead excitation and emission rates</h3></a>
+
+<p><strong>TODO: fix links from this section to index and appendix, as well as wording to make it all hang together</strong>
+</p>
+
+<p>As discussed in
+
+[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>],
+
+the excited state population fraction \(n_2\) depends on the excited state decay rate constant \(1/\tau_{exc}\), the excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\), as well as the vibrational relaxation rate constant \(1/\tau_{vibr}\). In fluorophores, \(1/\tau_{vibr}\) dominates \(1/\tau_{exc}\), and given our modest laser intensities, it also dominates \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
+
+[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
+
+reduces to:
+</p>
+
+<div>
+	$$\begin{equation} \frac{dn_{2}}{dt} = h_{exc}\sigma_{01}(1-n_2) - h_{stim}\sigma_{23}n_2 - \frac{1}{\tau_{exc}}n_2 \end{equation}$$
+</div>
+
+<p>More generally, excitation and stimulation rate constants depend on the angle \(\theta\) between the fluorophore's transition dipole moments and the polarization of the illumination
+
+[<a class="citation" href="http://dx.doi.org/10.1021/cr900267p" title="Jameson, David M., and Justin A. Ross. &quot;Fluorescence polarization/anisotropy in diagnostics and imaging.&quot; Chemical reviews 110, no. 5 (2010): 2685-2708.">Jameson 2010</a>].
+
+If we define \(\sigma_{01}\) and \(\sigma_{23}\) to be the cross-sections for fluorophores with transition dipole moments oriented parallel to the illumination polarization, and assume that the transition dipole moments for excitation and stimulated emission are parallel to each other, we can re-write this equation as a function of \(\theta\):
+</p>
+
+<div>
+	$$\begin{equation} \frac{dn_{2}(\theta)}{dt} = h_{exc}\sigma_{01}\cos^2(\theta)(1-n_2(\theta)) - h_{stim}\sigma_{23}\cos^2(\theta) n_2(\theta) - \frac{1}{\tau_{exc}}n_2(\theta) \end{equation}$$
+</div>
+
+
+
+<p>where \(n_2(\theta)\) is the excited state population fraction for molecules with orientation \(\theta\).
+</p>
+
+
+<p>
+We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the relationships between fundamental quantities (\(h_{exc}\sigma_{01}\), \(h_{stim}\sigma_{23}\), and \(n_2\)) and measured quantities like \(P_{exc}\) (excitation power in milliwatts),  \(P_{stim}\) (stimulation power in milliwatts), and \(C_{fluor}\) (fluorescent counts in <a href="./appendix.html#camera">camera</a> digitizer units). Specifically, we want to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}\tau_{exc}}{P_{exc}}\) between the normalized excitation rate constant and the measured excitation power, the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}\tau_{exc}}{P_{stim}}\) between the normalized stimulation rate constant and the measured stimulation power, and the ratio \(R_{fluor}=\frac{\overline{n_2}}{C_{fluor}}\) between the excited state population fraction \(\overline{n_2}\) (averaged over fluorophore orientations) and the measured fluorescence.
+</p>
+
+<p>We imaged a bead from the same sample as the middle panels of Figure 3 with variable-power excitation pulses and <a href="./index.html#Peak_laser_intensity">full-power</a> stimulation pulses. At each excitation power, we took three exposures with different stimulation pulse delays, yielding fluorescence images of beads excited 2.5 &micro;s before stimulation, during stimulation, and 2.5 &micro;s after stimulation. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
+</p>
+
+<p>At steady state, \(\frac{dn_{2}(\theta)}{dt} = 0\), which yields:</p>
+
+<div>
+	$$\begin{equation} n_2(\theta) = \frac{h_{exc}\sigma_{01}\cos^2(\theta)}{h_{exc}\sigma_{01}\cos^2(\theta) + h_{stim}\sigma_{23}\cos^2(\theta) + \frac{1}{\tau_{exc}}} \end{equation}$$
+</div>
+
+<p>We re-write this relationship in terms of our measured quantities \(C_{fluor}\), \(P_{exc}\), and \(P_{stim}\):
+</p>
+
+<div>
+	$$\begin{equation} \overline{n_2} = R_{fluor} C_{fluor} = \int_0^{2\pi} \int_0^\pi \frac{R_{exc} P_{exc}}{R_{exc} P_{exc} + R_{stim}P_{stim} + \frac{1}{cos^2(\theta)}} \psi(\phi,\theta) d\theta d\phi \end{equation}$$
+</div>
+
+<p>where \(\psi(\phi,\theta)\) is the normalized density of fluorophores versus orientation. We assume our beads contain a large number of randomly oriented fluorophores, giving \(\psi(\phi,\theta)=\frac{\sin(\theta)}{4\pi}\). Note that randomly oriented fluorophores require much higher illumination intensity to saturate excitation, compared to fluorophores that are oriented parallel to the illumination polarization.
+</p>
+
+<p>Our measurements are consistent with this model (Figure 5 with <code>Fit parameter</code>\(R_{fluor}\)<code>: Subjectively optimal</code> selected). Using \(R_{fluor}=6.94\times 10^{-3}\) counts<sup>-1</sup>, \(R_{exc}=2.04\) W<sup>-1</sup>, and \(R_{stim}=1.33\) W<sup>-1</sup> gives model predictions (green and red lines) that strongly resemble our experimental data (green and red dots). Neighboring values also produce reasonable fits. The green shaded area shows the range of the \(P_{stim}=0\) model (green line) as we vary \(R_{exc}\) by &plusmn; 7%. The red shaded area shows the range of the \(P_{stim}\neq0\) model (red line) as we vary \(R_{stim}\) by &plusmn; 40%. Grossly different values of \(R_{fluor}\) fit the data poorly for any value of \(R_{exc}\) and \(R_{stim}\) (Figure 5 with <code>Fit parameter </code>\(R_{fluor}\)<code>:</code> (<code>1.5X higher</code> or <code>1.5X lower</code>) selected).
+</p>
+
+<p>Based on these fits, we estimate that at maximum excitation power, our \(\theta=0\) excitation rate is slightly higher than excited state decay \(\bigl((h_{exc}\sigma_{01}\approx1.9(1/\tau_{exc})\), corresponding to \(\overline{n_2}\approx0.32\bigr)\). Maximum stimulation power depletes ~8% of this fluorescence, corresponding to a \(\theta=0\) stimulation rate slightly lower than excited state decay \(\left(h_{stim}\sigma_{23}\approx0.32(1/\tau_{exc})\right)\). This confirms our expectation that the stimulation intensity we used in Figures 3 and 4 yields an appreciable level of fluorescence depletion.
+</p>
+
 <a id="Orange_bead_excitation_and_emission_rates" href="#Orange_bead_excitation_and_emission_rates" target="_self">
 <h3>Orange bead excitation and emission rates</h3></a>
 
