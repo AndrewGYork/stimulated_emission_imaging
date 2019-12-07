@@ -469,24 +469,33 @@ How much emission are we stimulating, and how much fluorescence are we depleting
 </p>
 
 <a id="Orange_beads" href="#Orange_beads" target="_self">
-<h4>Reducing the stimulated emission cross-section reduces the signal in our phase contrast difference images</h4></a>
+<h4>Our difference images aren't photothermal artifacts</h4></a>
 
-<p><strong>summarize past sections and introduce new expectation </strong>Pulses of 721 nm light yield <a href="#Figure_3" target="_self">coherent images</a> of otherwise-invisible fluorescent beads when they illuminate <a href="#Figure_4" target="_self">excited fluorophores</a>; they also <a href="#Figure_5" target="_self">deplete fluorescence</a>. This is consistent with the model in Figure 1c, which attributes these effects to stimulated emission. This is also consistent with a model where each 532 nm pulse somehow lowers the refractive index of the bead via interaction with unbleached absorbers, and the corresponding 721 nm pulse yields an image of this transient index while incidentally (somehow) depleting fluorescence. We're particularly concerned with heating as a potential mechanism for transient refraction
+<p>Pulses of 721 nm light yield <a href="#Figure_3" target="_self">coherent images</a> of otherwise-invisible fluorescent beads when they illuminate <a href="#Figure_4" target="_self">excited fluorophores</a>; they also <a href="#Figure_5" target="_self">deplete fluorescence</a>. This is consistent with the model in Figure 1c, which attributes these effects to stimulated emission. This is also consistent with a model where each 532 nm pulse somehow lowers the refractive index of the bead via interaction with unbleached absorbers, and the corresponding 721 nm pulse yields an image of this transient index while incidentally (somehow) depleting fluorescence. We're particularly concerned with heating as a potential mechanism for transient refraction
 
 [<a class="citation" href="https://doi.org/10.1364/OL.5.000377" title="Boccara, A. C., D. Fournier, Warren Jackson, and Nabil M. Amer. &quot;Sensitive photothermal deflection technique for measuring absorption in optically thin media.&quot; Optics Letters 5, no. 9 (1980): 377-379.">Boccara 1980</a>].
-</p>
-
-<p><strong>CURSOR HERE</strong>
 </p>
 
 <p>How can we distinguish between these two models? If we reduce our bead's stimulated emission cross-section, we expect less stimulated emission, but identical heating-induced transient refraction. Figure 1c predicts this would reduce our difference image amplitudes, and also reduce depletion. A heating-based model predicts this would not change difference image amplitudes. Substituting <a href="https://www.thermofisher.com/order/catalog/product/F8809">orange</a> for <a href="https://www.thermofisher.com/order/catalog/product/F8806">crimson</a> dye in our <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">fluorescent beads</a> allows us to test these predictions, by reducing the spontaneous emission cross-section at 721 nm, which implies a lower stimulated emission cross-section
 
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 
-This substitution also changes the excitation cross-section, quantum efficiency, and number of fluorophores per bead. In order to cleanly distinguish between the two models, we must be careful to <a href="./appendix.html#Delivering_the_same_heat_load_to_the_orange_beads">deliver the same heat load to the orange beads as we did to the crimson beads</a> during fluorescence, depletion, and phase contrast measurements (<a href="#Figure_2" target="_self">Figure 2b</a> with <code>Fluorescent sample type: Beads labeled with orange dye</code> selected).
+This substitution also changes the excitation cross-section, quantum efficiency, and number of fluorophores per bead. In order to cleanly distinguish between the two models, we must be careful to <a href="./appendix.html#Delivering_the_same_heat_load_to_the_orange_beads">deliver the same heat load to the orange beads as we did to the crimson beads</a> during fluorescence, depletion, and phase contrast measurements (<a href="#Figure_2" target="_self">Figure 2b</a> with <code>Fluorescent sample type: ...orange dye</code> selected).
 </p>
 
-<p><strong>Main results: lower signal suggests that it is not thermally-induced refraction.</strong>We took phase contrast difference images of excited, index matched orange beads (<a href="#Figure_4" target="_self">Figure 4</a> with <code>Imaging method: Phase contrast difference imaging of stimulated emission</code> and <code>Fluorescent sample type: Bead labeled with orange dye</code> using the same phase plate angle and exposure parameters as those used for the crimson beads in Figure 4, with the exception that we used 1/8 the excitation power in order to deliver the same heat load. Prior to photobleaching, we observed a 60% decrease in difference image signal magnitude when we changed from crimson to orange beads. This confirms our expectation that a decrease in stimulated emission cross-section would decrease the difference image signal and that the signal is not likely thermally-induced refraction (the observed percent change is much greater than what we would expect from a thermal signal if we made any <a href="./appendix.html#Delivering_the_same_heat_load_to_the_orange_beads">error in our estimation</a> of the excitation power necessary to heat the crimson and orange beads identically).
+
+<p>Indeed, orange beads produce substantially smaller phase contrast difference signals than identically heated crimson beads (<a href="#Figure_4" target="_self">Figure 4</a> with <code>Imaging method: ...stimulated emission</code> and <code>Fluorescent sample type: ...orange dye</code> selected). Orange beads also show much less fluorescence depletion than identically stimulated crimson beads, and their fluorescence vs. excitation/stimulation intensity <a href="./appendix.html#Orange_bead_excitation_and_emission_rates">fits</a> a much lower stimulated emission cross-section (<a href="#Figure_5" target="_self">Figure 5</a> with <code>Fluorescent sample type: ...orange dye</code> selected). 
+</p>
+
+<p>Yet again, our results are consistent with the model in Figure 1c, and finally seem to rule out photothermal artifacts. At this point, we genuinely can't think of an alternative model consistent with all our observations, and we're tempted to conclude we're imaging via stimulated emission. Our primary remaining fear is an "unknown unknown"&mdash;some alternative photophysics explains our observations, but we're too ignorant to check for it.
+</p>
+
+<p><strong>TODO: link "substantially dimmer" to orange bead experiment details section</strong>
+</p>
+
+<p><strong>CURSOR HERE</strong>
+</p>
+<p><strong>Main results: lower signal suggests that it is not thermally-induced refraction.</strong>When we took phase contrast difference images of excited, index matched orange beads (<a href="#Figure_4" target="_self">Figure 4</a> with <code>Imaging method: ...stimulated emission</code> and <code>Fluorescent sample type: Bead labeled with orange dye</code>) using the same phase plate angle and exposure parameters as those used for the crimson beads in Figure 4, with the exception that we used 1/8 the excitation power in order to deliver the same heat load. Prior to photobleaching, we observed a 60% decrease in difference image signal magnitude when we changed from crimson to orange beads. This confirms our expectation that a decrease in stimulated emission cross-section would decrease the difference image signal and that the signal is not likely thermally-induced refraction (the observed percent change is much greater than what we would expect from a thermal signal if we made any <a href="./appendix.html#Delivering_the_same_heat_load_to_the_orange_beads">error in our estimation</a> of the excitation power necessary to heat the crimson and orange beads identically).
 </p>
 
 <p><strong>Photobleaching results and acquisition details.</strong> As with the crimson beads, the orange bead's difference images fade over extended exposure to the excitation laser. The 9,000 difference images exposed the orange bead to 216,000 130 mJ excitation pulses. Under identical exposure parameters, the fluorescence images of another orange bead similarly fade (<a href="#Figure_4" target="_self">Figure 4</a> with <code>Imaging method: Fluorescence imaging</code> and <code>Fluorescent sample type: Bead labeled with orange dye</code> selected). The 15,000 fluorescence images in this panel exposed the orange bead to 360,000 130 mJ excitation pulses. The orange bead difference image signal decreases more quickly than that from the crimson bead due to extended excitation, as one would predict from their differing <a href="#Photobleaching_rates" target="_self">fluorescence photobleaching rates</a>.
@@ -497,6 +506,9 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 
 <a id="Dark-field_imaging_nanodiamonds" href="#Dark-field_imaging_nanodiamonds" target="_self">
 <h4>Dark-field imaging of stimulated emission</h4></a>
+
+<p><strong>ability to image through scatter is bad for clear physics demo, but good for applications
+</p>
 
 <p><strong>1)show that stim emission imaging works in different context </strong>While our experimental results using fluorescent beads appear to fulfill the expectations of our model for stimulated emission, this model is not fluorophore-specific. We expect that switching to a different type of fluorophore&mdash;nanodiamonds doped with fluorescent nitrogen vacancy centers&mdash;should yield similar results, and should allow us to test several other expectations.
 </p>
