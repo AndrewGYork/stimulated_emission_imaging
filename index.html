@@ -333,7 +333,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <h3>Results</h3></a>
 
 <a id="Phase_contrast_imaging_of_stimulated_emission" href="#Phase_contrast_imaging_of_stimulated_emission" target="_self">
-<h4>Phase contrast imaging of stimulated emission</h4></a>
+<h4>Phase contrast imaging tests our thought experiment</h4></a>
 
 <p>We expect stimulated emission (unlike fluorescence) to coherently interfere with the stimulating beam. Phase contrast microscopy of <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">index-matched beads</a> allows us to test that expectation (<a href="#Figure_2" target="_self">Figure 2b</a> with <code>Imaging method: Phase contrast imaging of stimulated emission...</code> and <code>Fluorescent sample type: Beads...</code> selected). Because index matching minimizes scattering, this closely resembles our thought experiment (Figure 1a with <code>Imaging method: Phase contrast...</code> selected), where the stimulating beam provides a bright, uniform, coherent background for the stimulated emission to interfere with.
 </p>
@@ -347,6 +347,9 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 </p>
+
+<a id="Stimulated_emission_forms_images" href="#Stimulated_emission_forms_images" target="_self">
+<h4>Phase contrast imaging of stimulated emission appears to form images</h4></a>
 
 <p>Figure 3 shows single-bead images for a phase plate angle that maximizes bead visibility. Each panel in the top row shows a <a href="./appendix.html#Phase_contrast_image_generation">phase contrast image</a> of scattered light from a bead, 2.5 &micro;s before excitation. We expect no stimulated emission at this delay, because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the crimson bead <a href="./appendix.html#Rate_constants_for_fluorophores">excited state lifetime</a> \(\tau_{exc}\) (<a href="./appendix.html#FLIM">2.89 ns</a>). Note that the index-matched bead \((\Delta n\approx 0\), middle column\()\) is invisible via phase contrast, but visible via fluorescence (inset image in Figure 5 with <code>Sample type: Crimson fluorescent bead</code> selected). The bottom row "difference images" in Figure 3 each show <a href="./appendix.html#Phase_contrast_image_generation">the change in the corresponding top row image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
 </p>
@@ -371,11 +374,17 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <p>The \(\Delta n\approx 0\) difference image in Figure 3 clearly depicts the bead. If this difference image is due to stimulated emission, it contradicts the model in Figure 1b, and supports Figure 1c as our preferred model. This is suggestive, but certainly not conclusive. To rule out alternative explanations, we must compare Figure 1c's predictions against a wide variety of observations. What else does our model predict, and what other phenomena might explain our observations?
 </p>
 
+<a id="Difference_images_are_coherent" href="#Difference_images_are_coherent" target="_self">
+<h4>Our difference image signal is coherent with the stimulation beam</h4></a>
+
 <p>Our model predicts that a phase plate can tune the magnitude and sign of interference between the stimulated emission image and the background (Figure 1c with <code>Imaging method: Phase contrast</code> (<code>destructive</code> or <code>constructive</code>) <code>interference</code> selected). Indeed, rotating our phase plate tunes each difference image continuously from negative to positive contrast (Figure 3 with <code>Scattered light phase retardation:</code> (<code>-&lambda;/4</code> or <code>+&lambda;/4</code>) selected).
 </p>
 
  <p>Rotating our phase plate also tunes the scattered light images from negative to positive contrast for \(\Delta n\lt 0\) (Figure 3, top right panel), and vice versa for \(\Delta n\gt 0\) (Figure 3, top left panel). The difference images' contrast matches the scattered light images' contrast when \(\Delta n\lt 0\), and is opposite when \(\Delta n\gt 0\). If stimulated emission destructively interferes with scattered light from high-index particles, this observation is consistent with our model. This observation is also consistent with a model where the excitation pulse somehow lowers the refractive index of the beads (<strong>TODO: possibly link to discussion section</strong>). The difference image persists when \(\Delta n\approx 0\) (Figure 3, bottom center panel), which rules out a model where the excitation pulse somehow modulates the diameter of the beads without changing their index.
  </p>
+
+<a id="Stimulation_must_contact_excitation" href="#Stimulation_must_contact_excitation" target="_self">
+<h4>Our difference images require excited fluorophores</h4></a>
 
 <p>Our model predicts that the signal in our difference images will originate from the points in space and time where the stimulating pulse illuminates excited fluorophores. Indeed, we observe that the difference image of each bead vanishes if the stimulation pulse arrives <a href="./appendix.html#Figure_A2">too early or too late</a>, <strong>TODO: change to correct figure number after order is set</strong> or if the excitation pulse is blocked entirely. Similarly, the fluorescence image of each bead, which shows the location of its excited fluorophores, consistently predicts the location of each bead's difference image.  
 </p>
@@ -420,55 +429,16 @@ which is consistent with our model. This observation is also consistent with a m
 </p>
 
 <a id="Fluorescence_measurements" href="#Fluorescence_measurements" target="_self">
-<h4>Quantifying rates of excitation, spontaneous emission, and stimulated emission</h4></a>
+<h4>Our difference images correlate with fluorescence depletion</h4></a>
 
-<p>Our phase contrast images of fluorescent beads with and without excitation are qualitatively consistent with the model in Figure 1c, which predicts that stimulated emission from excited fluorophores can form images. If we are stimulating emission, we also expect to deplete fluorescence
+<p>Our phase contrast images of crimson beads with and without excitation are qualitatively consistent with the model in Figure 1c, which predicts that stimulated emission from excited fluorophores can form images. If we are stimulating emission, we also expect to deplete fluorescence
 
 [<a class="citation" href="https://doi.org/10.1016/j.cplett.2007.06.017" title="Rittweger, E., B. R. Rankin, V. Westphal, and S. W. Hell. &quot;Fluorescence depletion mechanisms in super-resolving STED microscopy.&quot;  Chemical physics letters 442, no. 4-6 (2007): 483-487.">Rittweger 2007</a>].
 
 How much emission are we stimulating, and how much fluorescence are we depleting? To quantify, we measured the excited state lifetime via <a href="./appendix.html#FLIM">time-correlated single-photon counting</a>, and compared excitation and stimulation rates to the excited state decay rate by measuring fluorescent brightness while varying excitation and stimulation intensity (<a href="#Figure_2" target="_self">Figure 2b</a> with <code>Imaging method: Fluorescence depletion imaging</code> selected).
 </p>
 
-<p>As discussed in
-
-[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>],
-
-the excited state population fraction \(n_2\) depends on the excited state decay rate constant \(1/\tau_{exc}\), the excitation and stimulated emission rate constants \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\), as well as the vibrational relaxation rate constant \(1/\tau_{vibr}\). In fluorophores, \(1/\tau_{vibr}\) dominates \(1/\tau_{exc}\), and given our modest laser intensities, it also dominates \(h_{exc}\sigma_{01}\) and \(h_{stim}\sigma_{23}\). In this limit, the model from
-
-[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>]
-
-reduces to:
-</p>
-
-<div>
-	$$\begin{equation} \frac{dn_{2}}{dt} = h_{exc}\sigma_{01}(1-n_2) - h_{stim}\sigma_{23}n_2 - \frac{1}{\tau_{exc}}n_2 \end{equation}$$
-</div>
-
-<p>More generally, excitation and stimulation rate constants depend on the angle \(\theta\) between the fluorophore's transition dipole moments and the polarization of the illumination
-
-[<a class="citation" href="http://dx.doi.org/10.1021/cr900267p" title="Jameson, David M., and Justin A. Ross. &quot;Fluorescence polarization/anisotropy in diagnostics and imaging.&quot; Chemical reviews 110, no. 5 (2010): 2685-2708.">Jameson 2010</a>].
-
-If we define \(\sigma_{01}\) and \(\sigma_{23}\) to be the cross-sections for fluorophores with transition dipole moments oriented parallel to the illumination polarization, and assume that the transition dipole moments for excitation and stimulated emission are parallel to each other, we can re-write this equation as a function of \(\theta\):
-</p>
-
-<div>
-	$$\begin{equation} \frac{dn_{2}(\theta)}{dt} = h_{exc}\sigma_{01}\cos^2(\theta)(1-n_2(\theta)) - h_{stim}\sigma_{23}\cos^2(\theta) n_2(\theta) - \frac{1}{\tau_{exc}}n_2(\theta) \end{equation}$$
-</div>
-
-
-
-<p>where \(n_2(\theta)\) is the excited state population fraction for molecules with orientation \(\theta\).
-</p>
-
-
-<p>
-We'd like to confirm that our fluorescent signals are consistent with this model. We'd also like to estimate the relationships between fundamental quantities (\(h_{exc}\sigma_{01}\), \(h_{stim}\sigma_{23}\), and \(n_2\)) and measured quantities like \(P_{exc}\) (excitation power in milliwatts),  \(P_{stim}\) (stimulation power in milliwatts), and \(C_{fluor}\) (fluorescent counts in <a href="./appendix.html#camera">camera</a> digitizer units). Specifically, we want to estimate the ratio \(R_{exc}=\frac{h_{exc}\sigma_{01}\tau_{exc}}{P_{exc}}\) between the normalized excitation rate constant and the measured excitation power, the ratio \(R_{stim}=\frac{h_{stim}\sigma_{23}\tau_{exc}}{P_{stim}}\) between the normalized stimulation rate constant and the measured stimulation power, and the ratio \(R_{fluor}=\frac{\overline{n_2}}{C_{fluor}}\) between the excited state population fraction \(\overline{n_2}\) (averaged over fluorophore orientations) and the measured fluorescence.
-</p>
-
-<p>We imaged a bead from the same sample as the middle panels of Figure 3 with variable-power excitation pulses and <a href="#Peak_laser_intensity" target="_self">full-power</a> stimulation pulses. At each excitation power, we took three exposures with different stimulation pulse delays, yielding fluorescence images of beads excited 2.5 &micro;s before stimulation, during stimulation, and 2.5 &micro;s after stimulation. For each exposure, we used 8 excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs.
-</p>
-
-<p>Figure 5 shows fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). We expect fluorescence depletion during stimulation. We expect no depletion when excitation is delivered before/after stimulation, because the stimulation and excitation pulses don't overlap in time, and both the interpulse spacing (2.5 &micro;s) and the pulse pair repetition time (600 &micro;s) are orders of magnitude larger than the crimson bead excited state lifetime (<a href="./appendix.html#FLIM">2.89 ns</a>). Indeed, we observe that the crimson bead fluorescence decreases during stimulation (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
+<p>Figure 5 shows fluorescence signal versus excitation power <a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">during stimulation</a> (red dots) and an average of <a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">before/after stimulation</a> (green dots). We expect fluorescence depletion during stimulation. We expect no depletion when excitation is delivered before/after stimulation, because the stimulation and excitation pulses don't overlap in time, and both the interpulse spacing (<a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">2.5 &micro;s</a>) and the pulse pair repetition time (<a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">600 &micro;s</a>) are orders of magnitude larger than our fluorophores' nanosecond-scale <a href="./appendix.html#FLIM">excited state lifetimes</a>. Indeed, we observe that stimulation reduces fluorescence from the crimson beads used in Figure 3 (Figure 5 with <code>Fluorescent sample type: Bead labeled with crimson dye</code> selected).
 </p>
 
 <figure id="Figure_5">
@@ -490,31 +460,12 @@ We'd like to confirm that our fluorescent signals are consistent with this model
   </select></td>
     </tr>
 </table>
-<figcaption><a href="#Figure_5" target="_self"><strong>Figure 5</strong></a><strong>: Our peak excitation rate constant \(h_{exc}\sigma_{01}\) is comparable to the excited state decay rate constant \(1/\tau_{exc}\), and larger than our peak stimulated emission rate constant \(h_{stim}\sigma_{23}\).</strong> Single-particle fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). Signal is calculated as the average pixel brightness (<a href="./appendix.html#camera">camera</a> digitizer units) within a 420x420 nm<sup>2</sup> region in each single-particle fluorescence image (yellow box in inset; scale bar: 350 nm). The green and red lines show candidate fits to our measurements based on the model described in the text. The green and red shaded areas show variations in the fit parameters \(R_{exc}\) (+/- 7%) and \(R_{stim}\) (+/- 40%). Use the controls above to vary the fit parameter \(R_{fluor}\), and to choose between different fluorescent sample types. See the <a href="./appendix.html">Appendix</a> for details of
+<figcaption><a href="#Figure_5" target="_self"><strong>Figure 5</strong></a><strong>: Our peak excitation rate constant \(h_{exc}\sigma_{01}\) is comparable to the excited state decay rate constant \(1/\tau_{exc}\), and larger than our peak stimulated emission rate constant \(h_{stim}\sigma_{23}\).</strong> Single-particle fluorescence signal versus excitation power during stimulation (red dots) and an average of before/after stimulation (green dots). Signal is calculated as the average pixel brightness (<a href="./appendix.html#camera">camera</a> digitizer units) within a 420x420 nm<sup>2</sup> region in each single-particle fluorescence image (yellow box in inset; scale bar: 350 nm). The green and red lines show candidate fits to our measurements based on the <a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">model described in the appendix</a>. The green and red shaded areas show variations in the fit parameters \(R_{exc}\) (+/- 7%) and \(R_{stim}\) (+/- 40%). Use the controls above to vary the fit parameter \(R_{fluor}\), and to choose between different fluorescent sample types. See the <a href="./appendix.html">Appendix</a> for details of
 <a href="./appendix.html#Image_acquisition_and_figure_generation">image acquisition and figure generation</a>.
 </figcaption>
 </figure><p></p>
 
-<p>At steady state, \(\frac{dn_{2}(\theta)}{dt} = 0\), which yields:</p>
-
-<div>
-	$$\begin{equation} n_2(\theta) = \frac{h_{exc}\sigma_{01}\cos^2(\theta)}{h_{exc}\sigma_{01}\cos^2(\theta) + h_{stim}\sigma_{23}\cos^2(\theta) + \frac{1}{\tau_{exc}}} \end{equation}$$
-</div>
-
-<p>We re-write this relationship in terms of our measured quantities \(C_{fluor}\), \(P_{exc}\), and \(P_{stim}\):
-</p>
-
-<div>
-	$$\begin{equation} \overline{n_2} = R_{fluor} C_{fluor} = \int_0^{2\pi} \int_0^\pi \frac{R_{exc} P_{exc}}{R_{exc} P_{exc} + R_{stim}P_{stim} + \frac{1}{cos^2(\theta)}} \psi(\phi,\theta) d\theta d\phi \end{equation}$$
-</div>
-
-<p>where \(\psi(\phi,\theta)\) is the normalized density of fluorophores versus orientation. We assume our beads contain a large number of randomly oriented fluorophores, giving \(\psi(\phi,\theta)=\frac{\sin(\theta)}{4\pi}\). Note that randomly oriented fluorophores require much higher illumination intensity to saturate excitation, compared to fluorophores that are oriented parallel to the illumination polarization.
-</p>
-
-<p>Our measurements are consistent with this model (Figure 5 with <code>Fit parameter</code>\(R_{fluor}\)<code>: Subjectively optimal</code> selected). Using \(R_{fluor}=6.94\times 10^{-3}\) counts<sup>-1</sup>, \(R_{exc}=2.04\) W<sup>-1</sup>, and \(R_{stim}=1.33\) W<sup>-1</sup> gives model predictions (green and red lines) that strongly resemble our experimental data (green and red dots). Neighboring values also produce reasonable fits. The green shaded area shows the range of the \(P_{stim}=0\) model (green line) as we vary \(R_{exc}\) by &plusmn; 7%. The red shaded area shows the range of the \(P_{stim}\neq0\) model (red line) as we vary \(R_{stim}\) by &plusmn; 40%. Grossly different values of \(R_{fluor}\) fit the data poorly for any value of \(R_{exc}\) and \(R_{stim}\) (Figure 5 with <code>Fit parameter </code>\(R_{fluor}\)<code>:</code> (<code>1.5X higher</code> or <code>1.5X lower</code>) selected).
-</p>
-
-<p>Based on these fits, we estimate that at maximum excitation power, our \(\theta=0\) excitation rate is slightly higher than excited state decay \(\bigl((h_{exc}\sigma_{01}\approx1.9(1/\tau_{exc})\), corresponding to \(\overline{n_2}\approx0.32\bigr)\). Maximum stimulation power depletes ~8% of this fluorescence, corresponding to a \(\theta=0\) stimulation rate slightly lower than excited state decay \(\left(h_{stim}\sigma_{23}\approx0.32(1/\tau_{exc})\right)\). This confirms our expectation that the stimulation intensity we used in Figures 3 and 4 yields an appreciable level of fluorescence depletion.
+<p>Based on <a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">Figure 5's fits</a>, we estimate that at maximum excitation power, our <a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">\(\theta=0\) excitation rate</a> is slightly higher than excited state decay (\(h_{exc}\sigma_{01}\approx 1.9(1/\tau_{exc})\), corresponding to <a href="./appendix.html#Crimson_bead_excitation_and_emission_rates">\(\overline{n_2}\approx 0.32\)</a>). Maximum stimulation power depletes ~8% of this fluorescence, corresponding to a \(\theta=0\) stimulation rate slightly lower than excited state decay \(\left(h_{stim}\sigma_{23}\approx0.32(1/\tau_{exc})\right)\). This matches our expectation that if we are appreciably stimulating emission in Figures 3 and 4, we are also appreciably depleting fluorescence.
 </p>
 
 <a id="Orange_beads" href="#Orange_beads" target="_self">
