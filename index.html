@@ -495,80 +495,17 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 
 <p><strong>CURSOR HERE</strong>
 </p>
-<p><strong>Main results: lower signal suggests that it is not thermally-induced refraction.</strong>When we took phase contrast difference images of excited, index matched orange beads (<a href="#Figure_4" target="_self">Figure 4</a> with <code>Imaging method: ...stimulated emission</code> and <code>Fluorescent sample type: Bead labeled with orange dye</code>) using the same phase plate angle and exposure parameters as those used for the crimson beads in Figure 4, with the exception that we used 1/8 the excitation power in order to deliver the same heat load. Prior to photobleaching, we observed a 60% decrease in difference image signal magnitude when we changed from crimson to orange beads. This confirms our expectation that a decrease in stimulated emission cross-section would decrease the difference image signal and that the signal is not likely thermally-induced refraction (the observed percent change is much greater than what we would expect from a thermal signal if we made any <a href="./appendix.html#Delivering_the_same_heat_load_to_the_orange_beads">error in our estimation</a> of the excitation power necessary to heat the crimson and orange beads identically).
+
+<a id="Nanodiamonds_not_beads" href="#Nanodiamonds_not_beads" target="_self">
+<h4>We observe similar results from a vastly different fluorophore</h4></a>
+
+<p>
 </p>
 
-<p><strong>Photobleaching results and acquisition details.</strong> As with the crimson beads, the orange bead's difference images fade over extended exposure to the excitation laser. The 9,000 difference images exposed the orange bead to 216,000 130 mJ excitation pulses. Under identical exposure parameters, the fluorescence images of another orange bead similarly fade (<a href="#Figure_4" target="_self">Figure 4</a> with <code>Imaging method: Fluorescence imaging</code> and <code>Fluorescent sample type: Bead labeled with orange dye</code> selected). The 15,000 fluorescence images in this panel exposed the orange bead to 360,000 130 mJ excitation pulses. The orange bead difference image signal decreases more quickly than that from the crimson bead due to extended excitation, as one would predict from their differing <a href="#Photobleaching_rates" target="_self">fluorescence photobleaching rates</a>.
+<p><strong>ability to image through scatter is bad for clear physics demo, but good for applications</strong>
 </p>
 
-<p><strong>Excitation/emission rate estimation from fluorescence measurements</strong> We additionally imaged fluorescence of an orange bead in order to quantify excitation, spontaneous emission, and stimulated emission rates (<a href="#Figure_2" target="_self">Figure 2b</a> with <code>Imaging method: Fluorescence depletion imaging</code> and <code>Fluorescent sample type: Beads labeled with orange dye</code> selected). As predicted, we observed efficient excitation and diminished stimulation rates as compared to the excited state decay rate (<a href="#Figure_5" target="_self">Figure 5</a> with <code>Fluorescent sample type: Beads labeled with orange dye</code> selected). Please see the appendix for our estimates of the <a href="./appendix.html#Orange_bead_excitation_and_emission_rates">rate constants and excited state population fraction for the orange beads</a>.
-</p>
-
-<a id="Dark-field_imaging_nanodiamonds" href="#Dark-field_imaging_nanodiamonds" target="_self">
-<h4>Dark-field imaging of stimulated emission</h4></a>
-
-<p><strong>ability to image through scatter is bad for clear physics demo, but good for applications
-</p>
-
-<p><strong>1)show that stim emission imaging works in different context </strong>While our experimental results using fluorescent beads appear to fulfill the expectations of our model for stimulated emission, this model is not fluorophore-specific. We expect that switching to a different type of fluorophore&mdash;nanodiamonds doped with fluorescent nitrogen vacancy centers&mdash;should yield similar results, and should allow us to test several other expectations.
-</p>
-
-<p><strong>2)coherence with scattering.</strong> Although the model in Figure 1c does not include elastic scattering from the fluorescent particle, we expect stimulated emission and scattered light&mdash;which are both coherent with the stimulation beam&mdash;to coherently interfere with one another. Fluorescent nanodiamonds are highly scattering particles (due to their high refractive index) and are therefore a useful sample type to test this expectation.
-</p>
-
-</p><strong>3)lets us take unlimited images (good for defocus like a scattered light image, and power dependence)</strong>Fluorescent nanodiamonds don't photobleach, which allows for unlimited images of the same particle. Acquiring images of the sample at many axial positions is useful for testing the expectations that stimulated emission images should defocus like scattered light images. Acquiring images of the sample with many different excitation and stimulation powers allows us to test the expectation that stimulated emission should increase with increasing excitation and stimulation power. We expect this because the stimulated emission rate depends on both stimulation intensity \(h_{stim}\) and excitation fraction \(n_{2}\)
-
-[<a class="citation" href="http://dx.doi.org/10.1364/OL.19.000780" title="Hell, Stefan W., and Jan Wichmann. &quot;Breaking the diffraction resolution limit by stimulated emission: stimulated-emission-depletion fluorescence microscopy.&quot; Optics letters 19, no. 11 (1994): 780-782.">Hell 1994</a>],
-
-and because our nanodiamond fluorescence and depletion measurements (<a href="#Figure_5" target="_self">Figure 5</a> with <code>Fluorescent sample type: Nanodiamonds doped with N-v centers</code> selected) indicate that our lasers <a href="./appendix.html#Nanodiamond_excitation_and_emission_rates">do not saturate either excitation or stimulation</a>. 
-</p>
-
-<p><strong>how do we test for our question above</strong>We used dark-field imaging to attempt to image stimulated emission from N-v centers in nanodiamonds (Figure 2b with <code>Imaging method: Dark-field imaging of stimulated emission and scattered light</code> and <code>Fluorescent sample type: Nanodiamonds doped with N-v centers</code> selected). This experiment mimics one version of our thought experiment in Figure 1 (Figure 1a, 1b, or 1c with <code>Imaging method: Dark-field</code> selected). We chose dark-field imaging, as opposed to phase contrast imaging, because the coherent background from phase contrast imaging could complicate any interference between the extremely bright scattered light and stimulated emission <strong>TODO: link to phase contrast nanodiamond section?</strong>.
-</p>
-
-<p><strong>how do we specifically do what we suggest above</strong>We imaged the nanodiamonds by taking five exposures with different excitation pulse delays, yielding dark-field images of nanodiamonds 2.5 &micro;s before excitation, 1.25 &micro;s before excitation, during excitation, 1.25 &micro;s after excitation, and 2.5 &micro;s after excitation. For each exposure, we used 24 <a href="#Peak_laser_intensity" target="_self">full-intensity</a> excitation/stimulation pulse pairs with 1.25 &micro;s pulse duration and 600 &micro;s between consecutive pairs. We expect efficient and highly selective excitation/stimulation; 532 nm is near the N-v excitation peak but far from the emission peak, and vice versa for 721 nm (Figure 2b, upper right panel, with <code>Fluorescent sample type: Nanodiamonds doped with N-v centers</code>).
-</p>
-
-<p><strong>set reader up to look at figure 6</strong>The left panel of Figure 6 (Figure 6a with <code>Z position: 0.0 &micro;m</code> selected) shows a 200-exposure average of dark-field images of an in-focus nanodiamond 2.5 &micro;s before excitation. As with the crimson beads, we expect no stimulated emission at this delay because the stimulation and excitation pulses don't overlap in time, and the pulse pair repetition time (600 &micro;s) is orders of magnitude larger than the N-v center <a href="./appendix.html#Rate_constants_for_fluorophores">excited state lifetime</a> \(\tau_{exc}\) (<a href="./appendix.html#FLIM">~12 ns</a>). The "difference image" in the right panel of Figure 6 shows the <a href="./appendix.html#Figure_A4">the change in the corresponding left panel image</a> when the excitation and stimulation pulses overlap in time, compared to when they don't.
-</p>
-
-<figure id="Figure_6">
-<img src="./images/figure_6/darkfield_STE_image_6.svg"
- alt="Figure 6" id="Figure_6_image">
-<table class="figure_controls">
-  <tr>
-  <td>Z position: </td><td><select id="Figure_6_z" onchange="update_figure_6()">
-    <option value="0">-1.2 &mu;m</option>
-    <option value="1">-1.0 &mu;m</option>
-    <option value="2">-0.8 &mu;m</option>
-    <option value="3">-0.6 &mu;m</option>
-    <option value="4">-0.4 &mu;m</option>
-    <option value="5">-0.2 &mu;m</option>
-    <option value="6" selected="selected">0.0 &mu;m</option>
-    <option value="7">0.2 &mu;m</option>
-    <option value="8">0.4 &mu;m</option>
-	<option value="9">0.6 &mu;m</option>
-	<option value="10">0.8 &mu;m</option>
-    <option value="11">1.0 &mu;m</option>
-    <option value="12">1.2 &mu;m</option>
-    <option value="13">1.4 &mu;m</option>
-    <option value="14">1.6 &mu;m</option>
-  </select></td><td>(change this to adjust the axial position of the nanodiamond)</td>
-    </tr>
-</table>
-<figcaption><a href="#Figure_6" target="_self"><strong>Figure 6</strong></a><strong>: The change in scattered light from nanodiamonds due to excitation. (A)</strong> Transverse dark-field image of a nanodiamond due to scattered light from the stimulation beam alone. <strong>(B)</strong> The change in (A) due to simultaneous excitation and stimulation beams. Use the <code>Z position</code> control above to change the axial focus of the images in steps of 200 nm, or <a href="./appendix.html#Axial_view_nanodiamond">click here</a> for axial views (XZ and YZ) of the images. Scale bar: 250 nm. See the <a href="./appendix.html">Appendix</a> for details of
-<a href="./appendix.html#Image_acquisition_and_figure_generation">image acquisition</a>,
-<a href="./appendix.html#Dark-field_image_generation">image processing</a>, and
-<a href="./appendix.html#Image_acquisition_and_figure_generation">figure generation</a>.</figcaption>
-</figure><p></p>
-
-<p><strong>works for vastly different fluorophore and coherent with scatter</strong>The difference image in Figure 6b clearly depicts the nanodiamond. If this difference image is due to stimulated emission, it contradicts the model in Figure 1b (which predicts that stimulated emission cannot convey information about the location of the emitter) and supports the model in Figure 1c, which predicts a point-like stimulated emission image for any point-like fluorescent particle. Interference between stimulated emission and scattering can explain the scattered light image of the nanodiamond appearing to dim due to excitation (<a href="./appendix.html#Phase_between_stimulated_emission_and_scattering">click here</a> for an estimation of the relative phase between stimulated emission and nanodiamond scattering).
-</p>
-
-<p><strong>defocus like a point particle</strong>The model in Figure 1c also predicts that stimulated emission from a point-like fluorescent particle should defocus identically to scattering from the particle. To test this prediction, we moved the nanodiamond in Figure 6 to fourteen different axial positions outside the focus of the imaging system and acquired scattered light and difference images (Figure 6 with <code>Z position: -1.4 &micro;m to 1.6 &micro;m</code>). We found that the difference image defocused very similarly to the scattered light image, which is consistent with our model.
-</p>
-
-<p><strong>power scan </strong>If the dark-field difference images in Figure 6 are due to stimulated emission from the nanodiamonds, we expect that the magnitude of the difference image signal should increase with increasing excitation and stimulation power. Using the same image acquisition and averaging parameters as we did for Figure 6, while varying the excitation and stimulation power, we found that the magnitude of the difference image signal from the nanodiamond <a href="./appendix.html#Difference_image_signal_depends_on_excitation_and_stimulation_power">increased with increasing excitation and stimulation</a>.
+<p><strong>link to appendix for darkfield and fluorescence measurements</strong>
 </p>
 
 <a id="Discussion" href="#Discussion" target="_self">
