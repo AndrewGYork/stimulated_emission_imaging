@@ -4,96 +4,84 @@ import matplotlib.pyplot as plt
 import np_tif
 from stack_registration import bucket
 
-
 def main():
 
     assert os.path.isdir('./../images')
     if not os.path.isdir('./../images/figure_A8'):
         os.mkdir('./../images/figure_A8')
-    folder_string = (
+    root_string = (
         './../../stimulated_emission_imaging-data' +
-        '/2017_05_09_pulse_length_scan_')
+        '/2016_10_24_pulse_length')
+    pulse_text = [
+        '_4x_long_pulse/',
+        '_3x_long_pulse/',
+        '_2x_long_pulse/',
+        '/',
+        ]
 
-    pulsewidths = np.array([8,4,2,1])
+    pulsewidths = np.array([4,3,2,1])
     
     # location of center lobe
-    bright_spot_x = np.array([219, 235, 204, 207])-1
-    bright_spot_y = np.array([47, 71, 37, 66])-1
-
+    bright_spot_x = np.array([160, 160, 162, 182])
+    bright_spot_y = np.array([86, 86, 83, 78])-3
+    # half of roughtly half width of center lobe
+    qtr_width = 10
+    
     # cropping area defined
-    top_left_x = [133, 146, 114, 118]
-    top_left_y = [0, 4, 0, 4]#[0, 7, 0, 5]
-    crop_width = 175
-    crop_height = 118
+    top_left_x = np.array([110, 110, 111, 130])
+    top_left_y = np.array([39, 39, 37, 33]) - 3
+    crop_width = 98
+    crop_height = 85
 
     # where on the plot should the cropped images be
-    plot_pos_y = [0.105, 0.245, 0.37, 0.62]
-    plot_pos_x = [0.25, 0.34, 0.51, 0.77]
+    plot_pos_y = [0.655, 0.515, 0.39, 0.11]
+    plot_pos_x = [0.16, 0.22, 0.34, 0.67]
+    
     
     STE_signal = np.zeros(4)
     STE_signal_relative = np.zeros(4)
-    STE_image_cropped = np.zeros((4,14,21))
-    qtr_width = 12
-    num_reps = 50
-    num_delays = 3
+    STE_image_cropped = np.zeros((4,10,12))
+    num_reps = 200
+    num_delays = 5
+
     for i in range(4):
         pulsewidth = pulsewidths[i]
-        extra_text = ''
-        if pulsewidth == 4: extra_text = '_again_good'
-        rest_of_folder_string = (str(pulsewidth) + 'us' + extra_text)
-        filename = (folder_string + rest_of_folder_string +
-                    '/STE_phase_angle_2_green_1395mW_red_300mW.tif')
+        folder_string = root_string + '/nanodiamond_7' + pulse_text[i]
+        filename = (folder_string +
+                    'STE_darkfield_117_5_green_1500mW_red_300mW_many_delays.tif')
         assert os.path.exists(filename)
         data = np_tif.tif_to_array(filename).astype(np.float64)
-        filename = (folder_string + rest_of_folder_string +
-                    '/STE_phase_angle_2_green_0mW_red_300mW.tif')
+        filename = (folder_string +
+                    'STE_darkfield_117_5_green_0mW_red_300mW' +
+                    '_many_delays.tif')
         assert os.path.exists(filename)
-        data_ctrl = np_tif.tif_to_array(filename).astype(np.float64)
-        # get rid of overexposed rows at top and bottom of images
-        less_rows = 3
-        data = data[:, less_rows:data.shape[1] - less_rows, :]
-        data_ctrl = data_ctrl[:,less_rows:data_ctrl.shape[1] - less_rows, :]
-        # Get the average pixel brightness in the background region of the
-        # phase contrast image. We'll use it to account for laser intensity
-        # fluctuations
-        avg_laser_brightness = get_bg_level(data.mean(axis=0))
-        # scale all images to have the same background brightness. This
-        # amounts to a correction of roughly 1% or less
-        local_laser_brightness = get_bg_level(data)
-        data = data * (
-            avg_laser_brightness / local_laser_brightness).reshape(
-                data.shape[0], 1, 1)
-        # do the same for control (green off) data
-        local_laser_brightness_ctrl = get_bg_level(data_ctrl)
-        data_ctrl = data_ctrl * (
-            avg_laser_brightness / local_laser_brightness_ctrl).reshape(
-                data_ctrl.shape[0], 1, 1)
+        data_bg = np_tif.tif_to_array(filename).astype(np.float64)
         # reshape to hyperstack
         data = data.reshape(
             num_reps, num_delays, data.shape[1], data.shape[2])
-        data_ctrl = data_ctrl.reshape(
-            num_reps, num_delays, data_ctrl.shape[1], data_ctrl.shape[2])
-        # now that brightness is corrected, repetition average the data
+        data_bg = data_bg.reshape(
+            num_reps, num_delays, data_bg.shape[1], data_bg.shape[2])
+        # get rid of overexposed rows at top and bottom of images
+        less_rows = 3
+        data = data[:, :, less_rows:data.shape[2]-less_rows, :]
+        data_bg = data_bg[:, :, less_rows:data_bg.shape[2]-less_rows, :]
+        # repetition average
         data = data.mean(axis=0)
-        data_ctrl = data_ctrl.mean(axis=0)
+        data_bg = data_bg.mean(axis=0)
+        # subtract crosstalk
+        data = data - data_bg
         # subtract avg of green off images from green on images
-        data_simult = data[1, :, :]
-        data_non_simult = 0.5 * (data[0, :, :] + data[2, :, :])
+        data_simult = data[2,:,:]
+        data_non_simult = 0.5 * (data[0,:,:] + data[4,:,:])
         STE_image = data_simult - data_non_simult
-        data_simult_ctrl = data_ctrl[1, :, :]
-        data_non_simult_ctrl = 0.5 * (data_ctrl[0, :, :] + data_ctrl[2, :, :])
-        STE_image_ctrl = data_simult_ctrl - data_non_simult_ctrl
-        # subtract AOM effects (even though it doesn't seem like there are any)
-        STE_image = STE_image# - STE_image_ctrl
         # capture stim emission signal
         my_col = bright_spot_x[i]
         my_row = bright_spot_y[i]
         main_lobe = STE_image[
             my_row-qtr_width:my_row+qtr_width,
             my_col-qtr_width:my_col+qtr_width]
-        left_edge = STE_image[:,qtr_width*2]
         STE_signal[i] = np.mean(main_lobe)
-        STE_signal_relative[i] = STE_signal[i] - np.mean(left_edge)
+        STE_signal_relative[i] = STE_signal[i]
         # crop stim emission image
         STE_image_cropped_single = STE_image[
             top_left_y[i]:top_left_y[i] + crop_height,
@@ -106,19 +94,20 @@ def main():
         STE_image_cropped_single = bucket(
             STE_image_cropped_single, (bucket_width, bucket_width)
             ) / bucket_width**2
+        # load into final image array
         STE_image_cropped[i, :, :] = STE_image_cropped_single
 
-    # get max/min values for plot color scaling
+    # get max and min vals
     STE_max = np.amax(STE_image_cropped)
     STE_min = np.amin(STE_image_cropped)
-    STE_image_cropped[:, -2:-1, 1:6] = STE_max # scale bar
+    STE_image_cropped[:, -2:-1, 1:5] = STE_min # scale bar
 
     my_intensity = 1/pulsewidths
 
     fig, ax1 = plt.subplots()
     ax1.plot(my_intensity,STE_signal_relative,'o',color='black',markersize=10)
-    plt.ylim(ymin=0,ymax=196)
-    ax1.set_ylabel('Average signal brightness (pixel counts)', color='black')
+    plt.ylim(ymin=-140,ymax=0)
+    ax1.set_ylabel('Average signal brightness (pixel counts)')
     ax1.tick_params('y', colors='k')
     plt.xlabel('Normalized laser intensity (constant energy)')
     plt.grid()
@@ -130,24 +119,24 @@ def main():
         plt.yticks([])
 
     # plot energy per exposure
-    green_uJ = np.array([10, 10, 10, 10])
-    red_uJ = np.array([2, 2, 2, 2])
+    green_uJ = np.array([54, 54, 54, 54])
+    red_uJ = np.array([10, 10, 10, 10])
     ax2 = ax1.twinx()
     ax2.plot(my_intensity, green_uJ, '--b', linewidth=2)
     ax2.plot(my_intensity, red_uJ, '--b', linewidth=2)
     ax2.set_ylabel('Fluence per exposure (µJ)',color='blue')
     ax2.tick_params('y', colors='b')
-    ax2.set_ylim(ymin=0, ymax=11.4)
+    ax2.set_ylim(ymin=-1, ymax=61.5)
     ax1.set_xlim(xmin=0,xmax=1.125)
 
     # annotate with red/green pulses
     im = plt.imread('green_shortpulse.png')
-    a = plt.axes([0.773, 0.81, .08, .08], frameon=False)
+    a = plt.axes([0.773, 0.812, .08, .08], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
     im = plt.imread('green_longpulse.png')
-    a = plt.axes([0.16, 0.77, .1, .1], frameon=False)
+    a = plt.axes([0.24, 0.772, .1, .1], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
@@ -157,33 +146,30 @@ def main():
     plt.xticks([])
     plt.yticks([])
     im = plt.imread('red_longpulse.png')
-    a = plt.axes([0.16, 0.21, .1, .1], frameon=False)
+    a = plt.axes([0.24, 0.21, .1, .1], frameon=False)
     plt.imshow(im)
     plt.xticks([])
     plt.yticks([])
 
-    plt.savefig('./../images/figure_A8/phase_contrast_dye_pulse_length_scan.svg')
+    plt.savefig('./../images/figure_A8/darkfield_nd_pulse_length_scan.svg')
     plt.show()
 
     return None
 
-def get_bg_level(data):
-    num_regions = 2
-    
-    # region 1
-    bg_up = 2
-    bg_down = 120
-    bg_left = 285
-    bg_right = 379
-    bg_level = data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
 
-    # region 2
-    bg_up = 2
-    bg_down = 120
-    bg_left = 1
-    bg_right = 81
-    bg_level += data[..., bg_up:bg_down, bg_left:bg_right].mean(axis=(-2, -1))
+def annular_filter(x, r1, r2):
+    assert r2 > r1 >= 0
 
-    return(bg_level / num_regions)
+    x_ft = np.fft.fftn(x)
+    n_y, n_x = x.shape[-2:]
+    kx = np.fft.fftfreq(n_x).reshape(1, 1, n_x)
+    ky = np.fft.fftfreq(n_y).reshape(1, n_y, 1)
+
+    x_ft[kx**2 + ky**2 > r2**2] = 0
+    x_ft[kx**2 + ky**2 < r1**2] = 0
+
+    x_filtered = np.fft.ifftn(x_ft).real
+
+    return x_filtered
 
 main()

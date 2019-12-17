@@ -1,175 +1,205 @@
 import os
 import numpy as np
-import matplotlib.pyplot as plt
-import np_tif
 from stack_registration import bucket
+import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
+import matplotlib.patches as patches
+import np_tif
 
 def main():
 
     assert os.path.isdir('./../images')
     if not os.path.isdir('./../images/figure_A7'):
         os.mkdir('./../images/figure_A7')
-    root_string = (
-        './../../stimulated_emission_imaging-data' +
-        '/2016_10_24_pulse_length')
-    pulse_text = [
-        '_4x_long_pulse/',
-        '_3x_long_pulse/',
-        '_2x_long_pulse/',
-        '/',
-        ]
 
-    pulsewidths = np.array([4,3,2,1])
-    
-    # location of center lobe
-    bright_spot_x = np.array([160, 160, 162, 182])
-    bright_spot_y = np.array([86, 86, 83, 78])-3
-    # half of roughtly half width of center lobe
-    qtr_width = 10
-    
-    # cropping area defined
-    top_left_x = np.array([110, 110, 111, 130])
-    top_left_y = np.array([39, 39, 37, 33]) - 3
-    crop_width = 98
-    crop_height = 85
+    data_path = ('./../../stimulated_emission_imaging-data' +
+                 '/2016_11_18_modulated_imaging_darkfield_nanodiamond_7' +
+                 '_extra_green_filter/')
 
-    # where on the plot should the cropped images be
-    plot_pos_y = [0.655, 0.515, 0.39, 0.11]
-    plot_pos_x = [0.16, 0.22, 0.34, 0.67]
-    
-    
-    STE_signal = np.zeros(4)
-    STE_signal_relative = np.zeros(4)
-    STE_image_cropped = np.zeros((4,10,12))
-    num_reps = 200
+    num_reps = 200 # number of times a power/delay stack was taken
     num_delays = 5
 
-    for i in range(4):
-        pulsewidth = pulsewidths[i]
-        folder_string = root_string + '/nanodiamond_7' + pulse_text[i]
-        filename = (folder_string +
-                    'STE_darkfield_117_5_green_1500mW_red_300mW_many_delays.tif')
-        assert os.path.exists(filename)
-        data = np_tif.tif_to_array(filename).astype(np.float64)
-        filename = (folder_string +
-                    'STE_darkfield_117_5_green_0mW_red_300mW' +
-                    '_many_delays.tif')
-        assert os.path.exists(filename)
-        data_bg = np_tif.tif_to_array(filename).astype(np.float64)
-        # reshape to hyperstack
-        data = data.reshape(
-            num_reps, num_delays, data.shape[1], data.shape[2])
-        data_bg = data_bg.reshape(
-            num_reps, num_delays, data_bg.shape[1], data_bg.shape[2])
-        # get rid of overexposed rows at top and bottom of images
-        less_rows = 3
-        data = data[:, :, less_rows:data.shape[2]-less_rows, :]
-        data_bg = data_bg[:, :, less_rows:data_bg.shape[2]-less_rows, :]
-        # repetition average
-        data = data.mean(axis=0)
-        data_bg = data_bg.mean(axis=0)
-        # subtract crosstalk
-        data = data - data_bg
-        # subtract avg of green off images from green on images
-        data_simult = data[2,:,:]
-        data_non_simult = 0.5 * (data[0,:,:] + data[4,:,:])
-        STE_image = data_simult - data_non_simult
-        # capture stim emission signal
-        my_col = bright_spot_x[i]
-        my_row = bright_spot_y[i]
-        main_lobe = STE_image[
-            my_row-qtr_width:my_row+qtr_width,
-            my_col-qtr_width:my_col+qtr_width]
-        STE_signal[i] = np.mean(main_lobe)
-        STE_signal_relative[i] = STE_signal[i]
-        # crop stim emission image
-        STE_image_cropped_single = STE_image[
-            top_left_y[i]:top_left_y[i] + crop_height,
-            top_left_x[i]:top_left_x[i] + crop_width,
-            ]
-        # Our pixels are tiny (8.7 nm/pixel) to give large dynamic range.
-        # This is not great for viewing, because fluctuations can swamp the
-        # signal. This step bins the pixels into a more typical size.
-        bucket_width = 8 # bucket width in pixels
-        STE_image_cropped_single = bucket(
-            STE_image_cropped_single, (bucket_width, bucket_width)
-            ) / bucket_width**2
-        # load into final image array
-        STE_image_cropped[i, :, :] = STE_image_cropped_single
+    # power calibration
+    # red max power is 300 mW
+    # green max power is 1450 mW
+    # green powers calibrated using camera
+    green_max_mW = 1450
+    green_powers = np.array(
+        (113.9,119.6,124.5,135,145.5,159.5,175.3,193.1,234.5,272.2,334.1,385.7,446.1))
+    # 0th power is AOM with 0 volts
+    green_powers = green_powers - min(green_powers)
+    green_powers = green_powers * green_max_mW / max(green_powers)
+    green_powers = np.around(green_powers).astype(int)
+    sparse_green_nums = [0,7,10,12]
+    green_powers_sparse = green_powers[sparse_green_nums]
 
-    # get max and min vals
-    STE_max = np.amax(STE_image_cropped)
-    STE_min = np.amin(STE_image_cropped)
-    STE_image_cropped[:, -2:-1, 1:5] = STE_min # scale bar
+    # red powers calibrated using camera
+    red_max_mW = 300
+    red_powers = np.array(
+        (26.6, 113, 198, 276, 353, 438, 537))
+    # 0th power is AOM with 0 volts
+    red_powers = red_powers - min(red_powers)
+    red_powers = red_powers * red_max_mW / max(red_powers)
+    red_powers = np.around(red_powers).astype(int)
+    sparse_red_nums = [0,3,6]
+    red_powers_sparse = red_powers[sparse_red_nums]
 
-    my_intensity = 1/pulsewidths
+    # load representative images
+    STE_image_filename = (data_path + 'STE_image_avg.tif')
+    STE_image = np_tif.tif_to_array(STE_image_filename).astype(np.float64)
+    STE_image_bg_filename = (data_path + 'STE_image_bg_avg.tif')
+    STE_image_bg = np_tif.tif_to_array(STE_image_bg_filename).astype(np.float64)
+    darkfield_image_filename = (data_path + 'darkfield_image_avg.tif')
+    darkfield_image = np_tif.tif_to_array(
+        darkfield_image_filename).astype(np.float64)
+    darkfield_image_bg_filename = (data_path + 'darkfield_image_bg_avg.tif')
+    darkfield_image_bg = np_tif.tif_to_array(
+        darkfield_image_bg_filename).astype(np.float64)
+    STE_delta_image = STE_image - darkfield_image
+    STE_delta_image_bg = STE_image_bg - darkfield_image_bg
+    # crosstalk correction
+    STE_delta_image_corrected = STE_delta_image - STE_delta_image_bg
 
-    fig, ax1 = plt.subplots()
-    ax1.plot(my_intensity,STE_signal_relative,'o',color='black',markersize=10)
-    plt.ylim(ymin=-140,ymax=0)
-    ax1.set_ylabel('Average signal brightness (pixel counts)')
-    ax1.tick_params('y', colors='k')
-    plt.xlabel('Normalized laser intensity (constant energy)')
+    # load space-averaged signal data
+    filename = (data_path + 'signal_all_scaled.tif')
+    data = np_tif.tif_to_array(filename).astype(np.float64)
+    bg_filename = (data_path + 'signal_green_blocked_all_scaled.tif')
+    bg = np_tif.tif_to_array(bg_filename).astype(np.float64)
+    
+    # reshape to hyperstack
+    data = data.reshape((
+        num_reps,
+        len(red_powers),
+        len(green_powers),
+        num_delays,
+        ))
+    bg = bg.reshape((
+        num_reps,
+        len(red_powers),
+        len(green_powers),
+        num_delays,
+        ))
+
+    # compute STE signal
+    # (delay #2 -> 0 us delay, delay #0 and #4 -> +/- 2.5 us delay)
+    STE_signal = data[:,:,:,2] - 0.5*(data[:,:,:,0] + data[:,:,:,4])
+    STE_signal_bg = bg[:,:,:,2] - 0.5*(bg[:,:,:,0] + bg[:,:,:,4])
+
+    # crosstalk correction
+    STE_signal_corrected = STE_signal - STE_signal_bg
+
+    # remove bad repetition(s)
+    STE_signal_corrected = np.delete(STE_signal_corrected, 188, 0)
+    STE_signal_corrected = np.delete(STE_signal_corrected, 185, 0)
+    STE_signal_corrected = np.delete(STE_signal_corrected, 148, 0)
+    STE_signal_corrected = np.delete(STE_signal_corrected, 63, 0)
+    STE_signal_corrected = np.delete(STE_signal_corrected, 5, 0)
+    # also for regular signal in order to compute correct standard
+    # deviation without outliers
+    STE_signal = np.delete(STE_signal, 188, 0)
+    STE_signal = np.delete(STE_signal, 185, 0)
+    STE_signal = np.delete(STE_signal, 148, 0)
+    STE_signal = np.delete(STE_signal, 63, 0)
+    STE_signal = np.delete(STE_signal, 5, 0)
+
+    # standard deviation
+    STE_signal_std = np.std(STE_signal,axis=0)
+
+    # repetition average
+    STE_signal_corrected = STE_signal_corrected.mean(axis=0)
+
+    plt.figure()
+    for (pow_num,rd_pow) in enumerate(red_powers):
+        plt.errorbar(
+            green_powers,
+            STE_signal_corrected[pow_num,:],
+            yerr=STE_signal_std[pow_num,:]/(200**0.5),
+            label=('Stimulation power = '+str(rd_pow)+' mW'))
+    plt.xlabel('Excitation power (mW)')
+    plt.ylabel('Change in scattered light signal (CMOS pixel counts)')
+    plt.legend(loc='lower left')
+    plt.ylim(-52, 6)
+    plt.xlim(-15, 1465)
     plt.grid()
-    for i in range(4):
-        a = plt.axes([plot_pos_x[i], plot_pos_y[i], .12, .12])
-        plt.imshow(STE_image_cropped[i,:,:], cmap=plt.cm.gray,
-                   interpolation='nearest', vmax=STE_max, vmin=STE_min)
-        plt.xticks([])
-        plt.yticks([])
+    plt.savefig('./../images/figure_A7/STE_v_green_power.svg')
+    plt.show()
 
-    # plot energy per exposure
-    green_uJ = np.array([54, 54, 54, 54])
-    red_uJ = np.array([10, 10, 10, 10])
-    ax2 = ax1.twinx()
-    ax2.plot(my_intensity, green_uJ, '--b', linewidth=2)
-    ax2.plot(my_intensity, red_uJ, '--b', linewidth=2)
-    ax2.set_ylabel('Fluence per exposure (µJ)',color='blue')
-    ax2.tick_params('y', colors='b')
-    ax2.set_ylim(ymin=-1, ymax=61.5)
-    ax1.set_xlim(xmin=0,xmax=1.125)
+    # plot sparse power scan data
+    # all green powers, sparse red powers
+    plt.figure()
+    for (pow_num,rd_pow) in enumerate(red_powers):
+        if pow_num in sparse_red_nums:
+            plt.errorbar(
+                green_powers,
+                STE_signal_corrected[pow_num,:],
+                yerr=STE_signal_std[pow_num,:]/(200**0.5),
+                label=('Stimulation power = '+str(rd_pow)+' mW'))
+    plt.xlabel('Excitation power (mW)')
+    plt.ylabel('Change in scattered light signal (CMOS pixel counts)')
+    plt.legend(loc='lower left')
+    plt.ylim(-40, 6)
+    plt.xlim(-15, 1465)
+    plt.grid()
+    plt.savefig('./../images/figure_A7/STE_v_green_power_sparse.svg')
+    plt.show()
 
-    # annotate with red/green pulses
-    im = plt.imread('green_shortpulse.png')
-    a = plt.axes([0.773, 0.812, .08, .08], frameon=False)
-    plt.imshow(im)
-    plt.xticks([])
-    plt.yticks([])
-    im = plt.imread('green_longpulse.png')
-    a = plt.axes([0.24, 0.772, .1, .1], frameon=False)
-    plt.imshow(im)
-    plt.xticks([])
-    plt.yticks([])
-    im = plt.imread('red_shortpulse.png')
-    a = plt.axes([0.773, 0.25, .08, .08], frameon=False)
-    plt.imshow(im)
-    plt.xticks([])
-    plt.yticks([])
-    im = plt.imread('red_longpulse.png')
-    a = plt.axes([0.24, 0.21, .1, .1], frameon=False)
-    plt.imshow(im)
-    plt.xticks([])
-    plt.yticks([])
+    #all red powers, sparse green powers
+    plt.figure()
+    for (pow_num,gr_pow) in enumerate(green_powers):
+        if pow_num in sparse_green_nums:
+            plt.errorbar(
+                red_powers,
+                STE_signal_corrected[:, pow_num],
+                yerr=STE_signal_std[:, pow_num] / (200 ** 0.5),
+                label=('Excitation power = ' + str(gr_pow) + ' mW'))
+    plt.xlabel('Stimulation power (mW)')
+    plt.ylabel('Change in scattered light signal (CMOS pixel counts)')
+    plt.legend(loc='lower left')
+    plt.xlim(-3, 303)
+    plt.grid()
+    plt.savefig('./../images/figure_A7/STE_v_red_power_sparse.svg')
+    plt.show()
 
-    plt.savefig('./../images/figure_A7/darkfield_nd_pulse_length_scan.svg')
+
+    # plot darkfield and stim emission images
+
+    darkfield_image = darkfield_image[0,0:-1,:]
+    STE_delta_image = STE_delta_image[0,0:-1,:]
+    STE_delta_image_corrected = STE_delta_image_corrected[0,0:-1,:]
+
+    # downsample darkfield and STE delta images
+    bucket_width = 8
+    bucket_shape = (bucket_width, bucket_width)
+    darkfield_image = bucket(
+        darkfield_image, bucket_shape) / bucket_width**2
+    STE_delta_image = bucket(
+        STE_delta_image, bucket_shape) / bucket_width**2
+    STE_delta_image_corrected = bucket(
+        STE_delta_image_corrected, bucket_shape) / bucket_width**2
+
+    # scale bar
+    darkfield_image[-2:-1, 1:6] = np.max(darkfield_image)
+    STE_delta_image[-2:-1, 1:6] = np.min(STE_delta_image)
+    STE_delta_image_corrected[-2:-1, 1:6] = np.min(STE_delta_image_corrected)
+
+    fig, (ax0, ax1) = plt.subplots(nrows=1,ncols=2,figsize=(19,5))
+
+    cax0 = ax0.imshow(darkfield_image, cmap=plt.cm.gray,
+                      interpolation='nearest')
+    ax0.axis('off')
+    cbar0 = fig.colorbar(cax0, ax = ax0)
+
+    cax1 = ax1.imshow(STE_delta_image_corrected, cmap=plt.cm.gray,
+                      interpolation='nearest')
+    cbar1 = fig.colorbar(cax1, ax = ax1)
+    ax1.axis('off')
+
+    ax0.text(0.4,2.2,'A',fontsize=72,color='white',fontweight='bold')
+    ax1.text(0.4,2.2,'B',fontsize=72,color='black',fontweight='bold')
     plt.show()
 
     return None
 
 
-def annular_filter(x, r1, r2):
-    assert r2 > r1 >= 0
-
-    x_ft = np.fft.fftn(x)
-    n_y, n_x = x.shape[-2:]
-    kx = np.fft.fftfreq(n_x).reshape(1, 1, n_x)
-    ky = np.fft.fftfreq(n_y).reshape(1, n_y, 1)
-
-    x_ft[kx**2 + ky**2 > r2**2] = 0
-    x_ft[kx**2 + ky**2 < r1**2] = 0
-
-    x_filtered = np.fft.ifftn(x_ft).real
-
-    return x_filtered
-
-main()
+if __name__ == '__main__':
+    main()
