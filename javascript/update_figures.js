@@ -66,34 +66,34 @@ function update_figure_5() {
   image.src = filename;
 }
 
-// Figure 6 interactively loads static images, stored locally
-function update_figure_6() {
-  var z = document.getElementById("Figure_6_z").value;
-  var filename = "./images/figure_6/darkfield_STE_image_" + z + ".svg";
-  var image = document.getElementById("Figure_6_image");
-  image.src = filename;
-}
-
-// Figure A5 interactively loads static images, stored locally
-function update_figure_A5() {
-  var view = document.getElementById("Figure_A5_view").value;
-  var filename = "./images/figure_A5/darkfield_STE_image_" + view + ".svg";
-  var image = document.getElementById("Figure_A5_image");
+// Figure A3 interactively loads static images, stored locally
+function update_figure_A3() {
+  var z = document.getElementById("Figure_A3_z").value;
+  var filename = "./images/figure_A3/darkfield_STE_image_" + z + ".svg";
+  var image = document.getElementById("Figure_A3_image");
   image.src = filename;
 }
 
 // Figure A6 interactively loads static images, stored locally
 function update_figure_A6() {
-  var my_powers = document.getElementById("Figure_A6_data_subset").value;
-  var filename = "./images/figure_A6/STE_v_" + my_powers + ".svg";
+  var view = document.getElementById("Figure_A6_view").value;
+  var filename = "./images/figure_A6/darkfield_STE_image_" + view + ".svg";
   var image = document.getElementById("Figure_A6_image");
   image.src = filename;
 }
 
-// Figure A9 interactively loads static images, stored locally
-function update_figure_A9() {
-  var angle = document.getElementById("Figure_A9_angle").value;
-  var filename = "./images/figure_A9/phase_STE_image_" + angle + ".svg";
-  var image = document.getElementById("Figure_A9_image");
+// Figure A7 interactively loads static images, stored locally
+function update_figure_A7() {
+  var my_powers = document.getElementById("Figure_A7_data_subset").value;
+  var filename = "./images/figure_A7/STE_v_" + my_powers + ".svg";
+  var image = document.getElementById("Figure_A7_image");
+  image.src = filename;
+}
+
+// Figure A10 interactively loads static images, stored locally
+function update_figure_A10() {
+  var angle = document.getElementById("Figure_A10_angle").value;
+  var filename = "./images/figure_A10/phase_STE_image_" + angle + ".svg";
+  var image = document.getElementById("Figure_A10_image");
   image.src = filename;
 }
