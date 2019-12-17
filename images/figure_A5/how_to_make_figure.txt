@@ -1,0 +1,6 @@
+1. Run figure_A4.py in figure generation folder.
+2. Copy svg images into figure_A4.odp file and make illustrations.
+3. Export to pdf (figure_A4.pdf).
+4. Copy figure_A4.pdf into the pdf2svg folder
+5. In command prompt, type: pdf2svg figure_A4.pdf darkfield_nd_delay_scan.svg
+6. Place darkfield_nd_delay_scan.svg back into images/figure_A4.
