@@ -62,13 +62,8 @@ The real text begins here.
 
 
 <a id="Abstract" href="#Abstract" target="_self">
-
-<h4>Abstract <strong>TODO: Abstract version 1.</strong></h4></a>
+<h4>Abstract</h4></a>
 <p class="abstract">Stimulated emission is often described as indistinguishable from the stimulating beam, sharing the same phase, frequency, polarization, and direction of travel. What direction does stimulated emission travel when the emitter is pointlike? Pointlike sources typically emit in all directions (a spherical wave), but if the stimulating beam is nearly monodirectional (a plane wave), will the stimulated emission propagate in all directions, or just one? We perform simple experiments to explore this apparent paradox, with an eye towards technological utility. In particular, does stimulated emission encode information about an emitter's location? Can lenses use this stimulated emission to form images of emitter distributions?  If so, this suggests a way to combine the high signal rates of transmitted light microscopy with the specificity of fluorescence microscopy.
-</p>
-
-<h4>Abstract <strong>TODO: Abstract version 2</strong></h4></a>
-<p class="abstract">Imagine stimulating emission from an excited pointlike fluorescent particle, via a highly directional beam of light. What direction does this stimulated emission go? Stimulated emission is typically described as indistinguishable from the stimulating beam (a plane wave in this case), but pointlike sources typically emit in all directions (a spherical wave). We perform simple experiments to explore this apparent paradox, with an eye towards technological utility. In particular, does stimulated emission encode information about an emitter's location? Can lenses use this stimulated emission to form an image of the emitter?  If so, this suggests a way to combine the high signal rates of transmitted light microscopy with the specificity of fluorescence microscopy.
 </p>
 
 <a id="Introduction" href="#Introduction" target="_self">
@@ -326,7 +321,7 @@ See the <a href="./appendix.html">Appendix</a> for a full <a href="./appendix.ht
 <p>A <a href="./appendix.html#excitation_stop_filter">spectral filter</a> immediately after the collection objective blocks the excitation beam. For fluorescence or fluorescence depletion imaging, a <a href="./appendix.html#wide_pass_filter">band-pass filter</a> stops the stimulation beam and passes roughly half of the fluorescence emission band for <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">crimson dye</a> and <a href="./appendix.html#Nanodiamond_properties_and_mounting">nitrogen vacancies</a> and 1/6 of the emission band for <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">orange dye</a> (Figure 2b with <code>Imaging method: Fluorescence...</code> selected). For stimulated emission or scattered light imaging, a <a href="./appendix.html#narrow_pass_filter">notch filter</a> stops >99% of the fluorescent light and passes the stimulation beam, scattered light, and stimulated emission (Figure 2b with <code>Imaging method: Dark-field...</code> or <code>Imaging method: Phase contrast...</code> selected).
 </p>
 
-<p>We used this microscope to image single <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">fluorescent beads</a> dyed either crimson or orange, and single <a href="./appendix.html#Nanodiamond_properties_and_mounting">fluorescent nanodiamonds</a>. Like the point-like fluorescent particle in our thought experiment, the beads (~200 nm diameter) and the nanodiamonds (~80 nm diameter) are substantially smaller than the wavelengths of light we use to image them (600-720 nm). We mount the beads in a medium with <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">matched refractive index</a> (~1.6) to minimize scattering; this mimics our thought experiment, which ignores light scattered by the fluorescent particle. <a id="Photobleaching_rates" target="_self"></a>The crimson bead fluorescence <a href="./appendix.html#Fitting_to_the_photobleaching_curve">photobleaches</a> by 50% after ~1600 excitation pulses and 75% after ~55,000 excitation pulses at 950 mW peak power. The orange bead fluorescence <a href="./appendix.html#Fitting_to_the_photobleaching_curve">photobleaches</a> by 50% after ~1700 excitation pulses and 75% after ~11,000 excitation pulses at 130 mW peak power. This impedes extended acquisitions, but also lets us check our expectation that fluorescence and stimulated emission decrease with photobleaching, unlike scattering. Nanodiamonds don't photobleach, allowing unlimited images of the same particle, but their extremely high refractive index (2.42) prevents index-matching, yielding bright, coherent scattering. Unlike fluorescence, this scatter cannot be spectrally filtered independently from stimulated emission, and unlike the transmitted light background, this scatter's intensity and phase cannot be spatially filtered independently from other high-NA emission from the sample. The scattered light background deviates from our thought experiment, but lets us check our expectation that stimulated emission is coherent with scatter. Finally, we hope that consistent results from very different fluorophores suggest that our observations are general features of stimulated emission, rather than fluorophore-specific artifacts.
+<p>We used this microscope to image single <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">fluorescent beads</a> dyed either crimson or orange, and single <a href="./appendix.html#Nanodiamond_properties_and_mounting">fluorescent nanodiamonds</a>. Like the point-like fluorescent particle in our thought experiment, the beads (~200 nm diameter) and the nanodiamonds (~80 nm diameter) are substantially smaller than the wavelengths of light we use to image them (600-720 nm). We mount the beads in a medium with <a href="./appendix.html#Fluorescent_polystyrene_bead_properties_and_mounting">matched refractive index</a> (~1.6) to minimize scattering; this mimics our thought experiment, which ignores light scattered by the fluorescent particle. <a id="Photobleaching_rates" href="#Photobleaching_rates"></a>The crimson bead fluorescence <a href="./appendix.html#Fitting_to_the_photobleaching_curve">photobleaches</a> by 50% after ~1600 excitation pulses and 75% after ~55,000 excitation pulses at 950 mW peak power. The orange bead fluorescence <a href="./appendix.html#Fitting_to_the_photobleaching_curve">photobleaches</a> by 50% after ~1700 excitation pulses and 75% after ~11,000 excitation pulses at 130 mW peak power. This impedes extended acquisitions, but also lets us check our expectation that fluorescence and stimulated emission decrease with photobleaching, unlike scattering. Nanodiamonds don't photobleach, allowing unlimited images of the same particle, but their extremely high refractive index (2.42) prevents index-matching, yielding bright, coherent scattering. Unlike fluorescence, this scatter cannot be spectrally filtered independently from stimulated emission, and unlike the transmitted light background, this scatter's intensity and phase cannot be spatially filtered independently from other high-NA emission from the sample. The scattered light background deviates from our thought experiment, but lets us check our expectation that stimulated emission is coherent with scatter. Finally, we hope that consistent results from very different fluorophores suggest that our observations are general features of stimulated emission, rather than fluorophore-specific artifacts.
 </p>
 
 <a id="Results" href="#Results" target="_self">
@@ -496,13 +491,106 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 <a id="Nanodiamonds_not_beads" href="#Nanodiamonds_not_beads" target="_self">
 <h4>We observe similar results from a vastly different fluorophore</h4></a>
 
-<p>The model in Figure 1c is not fluorophore-specific, and switching samples to a fluorophore vastly different from dyed polystyrene beads allows us to test the expectation that our observations in Figures <a href="#Figure_3" target="_self">3</a> and <a href="#Figure_4" target="_self">4</a> are not bead-specific photophysical effects. As expected, when we attempted to image stimulated emission from highly scattering fluorescent nanodiamonds (Figure 2b with <code>Imaging method: Dark-field imaging of stimulated emission and scattered light</code> and <code>Fluorescent sample type: Nanodiamonds doped with N-v centers</code> selected), we observed <a href="./appendix.html#Dark-field_imaging_nanodiamonds">very similar results</a> as compared to those from the fluorescent beads: the <a href="./appendix.html#Figure_6">difference images</a> showed a point-like object at the same location as the fluorophores. While the presence of the non-uniform, coherent scattered light background complicates the more simple model of Figure 1c, our apparent ability to image stimulated emission through scatter is promising for practical applications. <strong>TODO: "difference images" link correct to appendix figure after figure number is set</strong>
+<p>The model in Figure 1c is not fluorophore-specific. Switching samples to a different fluorophore (nitrogen vacancies) in a different substrate (nanodiamonds) mounted in a different medium (microscope immersion oil) allows us to test our expectation that the results in Figures <a href="#Figure_3" target="_self">3</a> and <a href="#Figure_4" target="_self">4</a> are not specific to crimson dye, polystyrene beads, or thermoplastic mounting media. Despite these differences, we observed <a href="./appendix.html#Dark-field_imaging_nanodiamonds">equivalent results</a> in nanodiamonds and beads, as we expected.</p>
+
+<p>We looked for stimulated emission from our nanodiamonds (Figures 2 and 5 with <code>Fluorescent sample type: Nanodiamonds...</code> selected) via dark-field imaging (Figures 1 and 2 with <code>Imaging method: Dark-field...</code> selected). As with beads, the nanodiamond <a href="./appendix.html#Figure_6">difference images</a> match the location of fluorescence images, vanish if the stimulation pulse <a href="./appendix.html#Figure_A4">is early or late</a>,  and correlate with fluorescence depletion (Figure 5 with <code>Fluorescent sample type: Nanodiamonds...</code> selected).
+</p>
+
+<p>While not conclusive, we find these results reassuring: if our result is an artifact, it's a fairly general one. Finally we note that our apparent ability to image stimulated emission despite a strong nonuniform scattered background is promising for practical applications. <strong>TODO: "difference images" link correct to appendix figure after figure number is set</strong>
 </p>
 
 <a id="Discussion" href="#Discussion" target="_self">
 <h3>Discussion</h3></a>
 
-<h4>Why do we think this is stimulated emission? What should/did the detector see versus what is stimulated emission?</h4>
+<a id="obvious_or_surprising" href="#obvious_or_surprising" target="_self">
+<h4>Are our results obvious, or surprising?</h4></a>
+<p>Since 2013, we've conducted a continuous informal survey of our peers, asking them to predict the detected signal in Figure 1a's thought experiment. We estimate we've surveyed ~100 optical physicists, primarily specialists in fluorescence microscopy, including several Nobel prize winners. Our colleagues broadly agreed on two details: the question is simple, and the answer is obvious.
+</p>
+
+<p>Beyond these details, opinions diverged. Roughly half predicted results consistent with Figure 1b, explaining that stimulated emission is indistinguishable from the stimulating beam (often referring to photons and Einstein). Roughly half predicted results consistent with Figure 1c, explaining that pointlike sources emit spherical waves (often referring to electromagnetic fields and Maxwell). These discussions convinced us that the question may be simple and the answer may be obvious, but even to experienced specialists, the <em>correct</em> answer is not obvious.
+</p>
+
+
+<a id="was_einstein_wrong" href="#was_einstein_wrong" target="_self">
+<h4>Was Einstein wrong?</h4></a>
+<p>Nearly every colleague whose prediction resembled Figure 1b attributed their prediction to Einstein. These predictions did not match our results. Assuming both Einstein and our results are correct, how can we resolve this apparent paradox? We don't know, but we offer several observations:
+</p>
+
+<ul>
+<li>
+<p>Einstein's 1917 argument for directional emission is based on momentum conservation:</p>
+
+<blockquote>"...the momentum \(h\nu/c\) is always transferred to the molecule, ...in the case of [stimulated] emission in the opposite direction [of the moving beam]."
+
+[<a class="citation" href="http://inspirehep.net/record/858448/files/eng.pdf" title="Einstein, A. &quot;On the quantum theory of radiation.&quot; Phys Z 18, 121 (1917).">Einstein 1917</a>]
+
+</blockquote><p></p>
+
+<p>This assumes free molecules in a gas, wheras our emitters are firmly tethered.
+</p>
+</li>
+
+<li>
+<p>Quantum electrodynamics typically considers only "transverse" electromagnetic fields for calculations predicting stimulated emission of indistinguishable photons:</p>
+
+<blockquote>"The set of degrees of freedom associated with the transverse field [\(E_{\perp}\)] is usually designated as 'radiation'"
+
+[<a class="citation" href="https://doi.org/10.1002/9783527617197.app1" title="Claude Cohen‐Tannoudji, Jacques Dupont‐Roc, Gilbert Grynberg &quot;Quantum Electrodynamics in the Coulomb Gauge - Summary of the Essential Results&quot; In Atom—Photon Interactions: Basic Process and Appilcations, pp. 625. Wiley, 1998. ISBN 9783527617197">Cohen-Tannoudji 1998</a>]
+
+</blockquote><p></p>
+
+<p>Note that transverse fields alone are unphysical and do not obey causality:</p>
+
+<blockquote>"...the longitudinal electric field [\(E_{\parallel}\)] instantly responds to a change in the distribution of charge... the transverse field \(E_{\perp}\) also has an instantaneous component which exactly cancels that of \(E_{\parallel}\) ... only the total electric field [\(E_{\perp} + E_{\parallel}\)] has a physical meaning... "
+
+[<a class="citation" href="https://doi.org/10.1002/9783527618422.ch1" title="Claude Cohen‐Tannoudji, Jacques Dupont‐Roc, Gilbert Grynberg &quot;Classical Electrodynamics: The Fundamental Equations and the Dynamical Variables&quot; In Photons and Atoms: Introduction to Quantum Electrodynamics, pp. 16. Wiley, 1997. ISBN 9783527618422">Cohen-Tannoudji 1997</a>]
+
+</blockquote><p></p>
+
+<p>Perhaps it is not surprising that the indistinguishability-inspired model in Figure 1b seems superluminal. Recall that the model in Figure 1c (which matched our results) was motivated by an appeal to non-superluminal causality.
+</p>
+</li>
+
+<li>There's a subtle but important distinction between the question "what will the detector in Figure 1a see?", and the question "does stimulated emission go the same direction as the stimulating beam?". The first question is answered by a measurement; the second question requires precise definitions of "stimulated emission" and "stimulating beam". Does "the stimulating beam" refer to the collimated laser beam we intended for stimulation, or does it refer only to the region of this beam which contacts our pointlike emitter? Does "stimulated emission" refer to the electromagnetic field revealed in our difference images, or only the subset of these photons accounted for by amplification, rather than scattering from an excited state?
+</li>
+</ul>
+
+<p>Regardless what Einstein may have said or meant, we cannot imagine a wavelike emission process that is both directional (like a plane wave) and causal (like a spherical wave).</p>
+
+<a id="further_predictions" href="#further_predictions" target="_self">
+<h4>What else should we expect?</h4></a>
+<p>As experimentalists, perhaps we should focus on predictions and measurements, rather than interpretation. There are many simple but interesting questions we have not yet addressed, and we challenge you to make your own predictions. For example:
+</p>
+
+<ul>
+<li>What would we measure if we detected in a "reflected" rather than "transmitted" geometry?
+</li>
+<li>Our excitation/stimulation pulse durations are much longer than our fluorescent lifetimes; how would our images change if we used subnanosecond pulses?
+</li>
+<li>Similarly, what if we also used subnanosecond time-gated detection?
+</li>
+<li>Does the polarization of the light causing our difference images follow the fluorophore orientations, or the stimulation beam polarization?
+</li>
+</ul>
+
+
+<a id="technological_applications" href="#technological_applications" target="_self">
+<h4>Is this technologically useful?</h4></a>
+
+<p>Finally, we return to our original question: can we use stimulated emission to take images orders of magnitude faster than fluorescence images? While our modest laser intensities don't demonstrate this directly, our results suggest the answer could be 'yes'. Note that the bottom middle panel of Figure 3 was collected with effectively 10 &micro;s of excitation.
+</p>
+
+<p>Phase contrast SNR vs background-free SNR? Coherent amplification -> read noise irrelevant -> ultrafast cameras</p>
+<p>Photobleaching rates?</p>
+<p>Finish on fantasies about obvious applications.</p>
+
+
+<p><strong>SECOND CURSOR HERE</strong>
+</p>
+
+
+<p><strong>Why do we think this is stimulated emission? What should/did the detector see versus what is stimulated emission?</strong>
+</p>
 
 <p><strong>seems like stim emission</strong>The 721 nm emission we measured from excited and stimulated fluorophores demonstrates many of the hallmarks of stimulated emission: it conveys information about the location of the fluorophores, it interferes coherently with transmitted and scattered light, it seems instantaneous (the time response is 1 &micro;s or shorter), it depends on excitation and stimulation intensity, its brightness decreases as the fluorescent source bleaches, and it appears to form images of three different types of fluorescent particle.
 </p>
@@ -516,7 +604,8 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 
 <br>
 <br>
-<h4>Why might this not be stimulated emission? We meant to test hypothesis in Figure 1. Did we?</h4>
+<p><strong>Why might this not be stimulated emission? We meant to test hypothesis in Figure 1. Did we?</strong>
+</p>
 
 <p><strong>Crosstalk</strong> not yet addressed in either phase contrast or darkfield section. It is mentioned in the <a href="./appendix.html#Dark-field_image_generation">Dark-field image generation</a> section of the appendix. We don't see any crosstalk in our phase contrast difference images.
 </p>
@@ -536,7 +625,8 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 
 <br>
 <br>
-<h4>If we are right, what cool things are possible?</h4>
+<p><strong>If we are right, what cool things are possible?</strong>
+</p>
 
 <p><strong>speculate on benefits of higher emission rate</strong>There are many imaging and detection applications that could significantly benefit from the high signal rate and coherent detection capability made possible by stimulated emission. Stimulated emission may make it easier to track fast sub-cellular processes such as electrochemical impulses (stimulated emission could better utilize the time resolution of voltage-sensitive fluorescent dyes by increasing emission rate). It may also become easier to visualize and quantify low-abundance proteins (e.g. transcription factors) and cellular structures tagged with dim fluorophores. While fluorophore brightness may not be the major bottleneck in next-generation genetic sequencing speed or reliability, sequencing could still benefit from the ability to squeeze more signal from fluorophores.
 </p>
