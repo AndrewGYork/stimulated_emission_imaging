@@ -485,9 +485,6 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 <p>Yet again, our results are consistent with the model in Figure 1c, and finally seem to rule out photothermal artifacts. At this point, we genuinely can't think of an alternative model consistent with all our observations, and we're tempted to conclude we're imaging via stimulated emission. Our primary remaining fear is an "unknown unknown"&mdash;some alternative photophysics explains our observations, but we're too ignorant to check for it.
 </p>
 
-<p><strong>CURSOR HERE</strong>
-</p>
-
 <a id="Nanodiamonds_not_beads" href="#Nanodiamonds_not_beads" target="_self">
 <h4>We observe similar results from a vastly different fluorophore</h4></a>
 
@@ -504,7 +501,7 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 
 <a id="obvious_or_surprising" href="#obvious_or_surprising" target="_self">
 <h4>Are our results obvious, or surprising?</h4></a>
-<p>Since 2013, we've conducted a continuous informal survey of our peers, asking them to predict the detected signal in Figure 1a's thought experiment. We estimate we've surveyed ~100 optical physicists, primarily specialists in fluorescence microscopy, including several Nobel prize winners. Our colleagues broadly agreed on two details: the question is simple, and the answer is obvious.
+<p>Since 2013, we've conducted a continuous informal survey of our peers, asking them to predict the detected signal in Figure 1a's thought experiment. We estimate we've surveyed a hundred optical physicists, primarily specialists in fluorescence microscopy, including several Nobel prize winners. Our colleagues broadly agreed on two details: the question is simple, and the answer is obvious.
 </p>
 
 <p>Beyond these details, opinions diverged. Roughly half predicted results consistent with Figure 1b, explaining that stimulated emission is indistinguishable from the stimulating beam (often referring to photons and Einstein). Roughly half predicted results consistent with Figure 1c, explaining that pointlike sources emit spherical waves (often referring to electromagnetic fields and Maxwell). These discussions convinced us that the question may be simple and the answer may be obvious, but even to experienced specialists, the <em>correct</em> answer is not obvious.
@@ -559,13 +556,13 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 
 <a id="further_predictions" href="#further_predictions" target="_self">
 <h4>What else should we expect?</h4></a>
-<p>As experimentalists, perhaps we should focus on predictions and measurements, rather than interpretation. There are many simple but interesting questions we have not yet addressed, and we challenge you to make your own predictions. For example:
+<p>As experimentalists, we value interpretations primarily because they allow us to make predictions, which we test via measurements. We hope you have developed your own interpretation of our question and our results, and we challenge you to use it to make further predictions. For example, there are many simple but interesting measurements we have not yet attempted:
 </p>
 
 <ul>
 <li>What would we measure if we detected in a "reflected" rather than "transmitted" geometry?
 </li>
-<li>Our excitation/stimulation pulse durations are much longer than our fluorescent lifetimes; how would our images change if we used subnanosecond pulses?
+<li>Our excitation/stimulation pulse durations are much longer than our fluorescent lifetimes; how would our measurements change if we used subnanosecond pulses?
 </li>
 <li>Similarly, what if we also used subnanosecond time-gated detection?
 </li>
@@ -573,13 +570,43 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 </li>
 </ul>
 
+<p>What results does your model predict for these measurements?
+</p>
 
 <a id="technological_applications" href="#technological_applications" target="_self">
 <h4>Is this technologically useful?</h4></a>
 
-<p>Finally, we return to our original question: can we use stimulated emission to take images orders of magnitude faster than fluorescence images? While our modest laser intensities don't demonstrate this directly, our results suggest the answer could be 'yes'. Note that the bottom middle panel of Figure 3 was collected with effectively 10 &micro;s of excitation. Also note that the fluorescence images of the crimson beads were collected with the same duration of excitation, but stimulated emission has a much higher possible emission rate. Fluorescence and stimulated emission imaging having similar signal levels even though with our current parameters, the theta=0 stimulated emission rate is one third of the total excited state decay rate and we are only stimulating 8% of the available excitation. (Is it worth comparing stim emission and spont emission rates? It seems that they may be fairly similar, given our estimate of the quantum efficiency of crimson beads (0.2).)
+<p>Regardless how we interpret our signal, what can we use it for? We've shown a fluorophore-specific coherent contrast mechanism that forms multipixel images, like Figure 1c. We predict that intense short-pulse excitation/stimulation would enhance photon emission rates by orders of magnitude, but our modest laser intensites don't prove it. Despite this, we find our technique is already useful: it's effectively immune to <a href="https://doi.org/10.1007/978-0-387-45524-2_4">read noise</a> from the camera.
 </p>
 
+<p>Immunity to read noise is critical for super-fast imaging. For example, both the fluorescence and difference images in Figures 3 and 4 were collected with only 10 &micro;s of excitation. This suggests that a faster camera would enable imaging rates well in excess of 100 kHz. Cameras with MHz frame rates exist
+
+[<a class="citation" href="https://doi.org/10.1109/ESSCIRC.2018.8494287" title="Laurent Millet, Margaux Vigier, Gilles Sicard, Wilfried Uhring, Nils Margotat, Fabrice Guellec, Sebastien Martin. &quot;A 5 Million Frames Per Second 3D Stacked Image Sensor With In-Pixel Digital Storage&quot; IEEE 44th European Solid State Circuits Conference IEEE (2018).">Millet 2018</a>],
+
+but their per-pixel, per-frame read noise is typically 10-100 \(e^{-}\). For our difference images, this is no problem: as shown in Figures 3 and 4, our per-pixel signal levels are larger than this read noise. In contrast, this much read noise noise is lethal for fluorescence; our fluorescent signals are typically two orders of magnitude smaller, and their excellent signal-to-noise ratio (SNR) requires extremely low read noise from our camera (&lt;1 \(e^{-}\)).
+</p>
+
+<p>Recall that phase-contrast microscopy (imaging on a bright, coherent background)
+
+[<a class="citation" href="https://doi.org/10.1038/ncb1942" title="Das Phasenkontrastverfahren bei der mikroskopischen Beobachtung; F. Zernike; Z. technische Physik vol 16, p454–457 (1935)">Zernike 1935</a>,
+<a class="citation" href="https://doi.org/10.1016/S0031-8914(42)80035-X" title="Phase contrast, a new method for the microscopic observation of transparent objects; F. Zernike; Physica, Vol 9, p686-698 (1942)">Zernike 1942</a>]
+
+was awarded the 1953 Nobel prize in physics, even though dark-field microscopy (a background-free technique)
+
+[<a class="citation" href="https://doi.org/10.1002/andp.19023150102" title="Uber Sichtbarmachung und Größenbestimmung ultramikoskopischer Teilchen, mit besonderer Anwendung auf Goldrubingläser; H. Siedentopf and R. Zsigmondy; Ann. Phys., 315: 1-39 (1902)">Siedentopf 1902</a>]
+
+already won a Nobel in 1925. The two techniques reveal refractive/absorptive inhomogeneity with similar SNR, but with one key difference: the absolute signal levels in phase contrast are much higher, because of interference with the bright coherent background
+
+[<a class="citation" href="http://doi.org/10.5281/zenodo.1463274" title="Andrew G. York, & Sanjay R. Varma. &quot;What is the signal-to-noise ratio of phase-contrast imaging? Can it be infinite?&quot; andrewgyork.github.io/adaptive_interference_inference (2018)">York 2018</a>]. So while the Poisson-dominated SNR is (in principle) only two times better for phase contrast, this effective amplification via interference means all <em>other</em> sources of noise wash out. This applies to camera read noise, but also background signals like stray light.
+</p>
+
+<p>
+Point out that iSCAT is awesome, but it's basically just phase contrast done carefully.
+</p>
+
+
+
+[<a class="citation" href="https://doi.org/10.1088/1361-6501/aa5748" title="Gary S Settles and Michael J Hargather. &quot;A review of recent developments in schlieren and shadowgraph techniques.&quot; Measurement Science and Technology 28 no. 4 (2017).">Settles 2017</a>]
 <p>Phase contrast SNR vs background-free SNR? Coherent amplification -> read noise irrelevant -> ultrafast cameras</p>
 
 <p>The absence of a saturation limit on stimulated emission would greatly aid measuring fluorophores in flow cytometry devices, which usually have only microseconds to collect as much signal as possible. Additionally, coherently detected signals do not require low read noise detectors, so one could imagine replacing the fast, low noise, point detectors currently part of flow cytometry devices with array detectors that are just as fast. Flow cytometry that outputs images instead of one-dimensional signals would break the Poisson loading limit while also measuring valuable multi-dimensional information (e.g. aggregation).
