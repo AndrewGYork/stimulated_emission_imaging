@@ -82,8 +82,7 @@ def main():
     all_fl_images = bucket(
         all_fl_images, (bucket_width, 1, 1)) / bucket_width
 
-##    orig_fl_signal_norm = orig_fl_signal/max(orig_fl_signal) # normalize
-    fl_signal = fl_signal / max(fl_signal) # normalize
+##    fl_signal = fl_signal / max(fl_signal) # normalize
 
     # average consecutive STE signal levels for better SNR (optional)
     signal_bucket_width = 50
@@ -154,26 +153,26 @@ def main():
     for x in np.arange(60878, 151424, 2000):
         plt.plot(
             [pulses_axis[0], x],
-            [fl_signal[0], 0.76],
+            [fl_signal[0], 27.7],
             'k', lw=0.1,
             )
     for x in np.arange(224362, 314908, 1000):
         plt.plot(
             [pulses_axis[int(pulses_axis.shape[0] / 2)], x],
-            [fl_signal[int(fl_signal.shape[0] / 2)], 0.76],
+            [fl_signal[int(fl_signal.shape[0] / 2)], 27.7],
             'k', lw=0.1,
             )
     for x in np.arange(387846, 478392, 1000):
         plt.plot(
             [pulses_axis[-1], x],
-            [fl_signal[-1], 0.76],
+            [fl_signal[-1], 27.7],
             'k', lw=0.1,
             )
 
-    plt.axis([0-2000, 502800 + 2000, -.25, 1.10])
+    plt.axis([0-2000, 502800 + 2000, -9, 40])
 
     plt.grid()
-    plt.ylabel('Fluorescence brightness (arb. units)', fontsize=14)
+    plt.ylabel('Fluorescence brightness (sCMOS counts)', fontsize=14)
     plt.xlabel('Number of excitation pulses delivered to sample', fontsize=18)
     a = plt.axes([.2, .7, .18, .18])
     plt.imshow(
