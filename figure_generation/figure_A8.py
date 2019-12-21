@@ -124,7 +124,7 @@ def main():
     ax2 = ax1.twinx()
     ax2.plot(my_intensity, green_uJ, '--b', linewidth=2)
     ax2.plot(my_intensity, red_uJ, '--b', linewidth=2)
-    ax2.set_ylabel('Fluence per exposure (µJ)',color='blue')
+    ax2.set_ylabel('Energy per exposure (µJ)',color='blue')
     ax2.tick_params('y', colors='b')
     ax2.set_ylim(ymin=-1, ymax=61.5)
     ax1.set_xlim(xmin=0,xmax=1.125)
