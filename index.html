@@ -482,7 +482,7 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 <p>Indeed, orange beads produce substantially smaller phase contrast difference signals than identically heated crimson beads (<a href="#Figure_4" target="_self">Figure 4</a> with <code>Imaging method: ...stimulated emission</code> and <code>Fluorescent sample type: ...orange dye</code> selected). Orange beads also show much less fluorescence depletion than identically stimulated crimson beads, and their fluorescence vs. excitation/stimulation intensity <a href="./appendix.html#Orange_bead_excitation_and_emission_rates">fits</a> a much lower stimulated emission cross-section (<a href="#Figure_5" target="_self">Figure 5</a> with <code>Fluorescent sample type: ...orange dye</code> selected). 
 </p>
 
-<p>Yet again, our results are consistent with the model in Figure 1c, and finally seem to rule out photothermal artifacts. At this point, we genuinely can't think of an alternative model consistent with all our observations, and we're tempted to conclude we're imaging via stimulated emission. Our primary remaining fear is an "unknown unknown"&mdash;some alternative photophysics explains our observations, but we're too ignorant to check for it.
+<p>Yet again, our results are consistent with the model in Figure 1c, and finally seem to rule out photothermal artifacts. At this point, we genuinely can't think of an alternative model consistent with all our observations, and we're tempted to conclude our imaging contrast is due to stimulated emission. Our primary remaining fear is an "unknown unknown"&mdash;some alternative photophysics explains our observations, but we're too ignorant to check for it.
 </p>
 
 <a id="Nanodiamonds_not_beads" href="#Nanodiamonds_not_beads" target="_self">
@@ -523,7 +523,7 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 
 </blockquote><p></p>
 
-<p>This assumes free molecules in a gas, wheras our emitters are firmly tethered.
+<p>This assumes free molecules in a gas, wheras our emitters are firmly tethered. It's not obvious to us that this detail changes Einstein's conclusions, but one should always be careful when extrapolating a proof to a domain where its assumptions do not hold.
 </p>
 </li>
 
@@ -552,17 +552,17 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 </li>
 </ul>
 
-<p>Regardless what Einstein may have said or meant, we cannot imagine a wavelike emission process that is both directional (like a plane wave) and causal (like a spherical wave).</p>
+<p>Regardless what Einstein may have said or meant, we cannot imagine a wavelike emission process from a point source that is both directional (like a plane wave) and causal (like a spherical wave).</p>
 
 <a id="further_predictions" href="#further_predictions" target="_self">
 <h4>What else should we expect?</h4></a>
-<p>As experimentalists, we value interpretations primarily because they allow us to make predictions, which we test via measurements. We hope you have developed your own interpretation of our question and our results, and we challenge you to use it to make further predictions. For example, there are many simple but interesting measurements we have not yet attempted:
+<p>As experimentalists, we value interpretations primarily because they allow us to make predictions, which we test via measurements. We hope you have developed your own interpretation of our question and our results, and we challenge you to use your interpretation to make further predictions. For example, there are many simple but interesting measurements we have not yet reported:
 </p>
 
 <ul>
 <li>What would we measure if we detected in a "reflected" rather than "transmitted" geometry?
 </li>
-<li>Our excitation/stimulation pulse durations are much longer than our fluorescent lifetimes; how would our measurements change if we used subnanosecond pulses?
+<li>How would our measurements change if we used subnanosecond excitation/stimulation pulses, instead of pulse durations which are much longer than our fluorescent lifetimes?
 </li>
 <li>Similarly, what if we also used subnanosecond time-gated detection?
 </li>
@@ -570,138 +570,73 @@ This substitution also changes the excitation cross-section, quantum efficiency,
 </li>
 </ul>
 
-<p>What results does your model predict for these measurements?
+<p>What results does your interpretation predict for these measurements?
 </p>
 
-<a id="technological_applications" href="#technological_applications" target="_self">
-<h4>Is this technologically useful?</h4></a>
+<a id="advantages_vs_fluorescence" href="#advantages_vs_fluorescence" target="_self">
+<h4>Is this any better than fluoresence?</h4></a>
 
-<p>Regardless how we interpret our signal, what can we use it for? We've shown a fluorophore-specific coherent contrast mechanism that forms multipixel images, like Figure 1c. We predict that intense short-pulse excitation/stimulation would enhance photon emission rates by orders of magnitude, but our modest laser intensites don't prove it. Despite this, we find our technique is already useful: it's effectively immune to <a href="https://doi.org/10.1007/978-0-387-45524-2_4">read noise</a> from the camera.
+<p>We've shown a fluorophore-specific coherent contrast mechanism that forms multipixel images, like Figure 1c. Regardless how we interpret this signal, is it useful? We expect this contrast will have two important advantages compared to fluorescence: it tolerates background noise sources, and it doesn't saturate.
 </p>
 
-<p>Immunity to read noise is critical for super-fast imaging. For example, both the fluorescence and difference images in Figures 3 and 4 were collected with only 10 &micro;s of excitation. This suggests that a faster camera would enable imaging rates well in excess of 100 kHz. Cameras with MHz frame rates exist
+<p>As discussed in <a href="#Introduction" target="_self">our introduction</a>, faster fluorescent imaging fundamentally yields fewer signal photoelectrons, due to saturation. Unfortunately, faster fluorescent imaging requires <em>more</em> signal photoelectrons, due to increased <a href="https://doi.org/10.1007/978-0-387-45524-2_4">camera read noise</a>. Cameras with multi-MHz frame rates exist
 
 [<a class="citation" href="https://doi.org/10.1109/ESSCIRC.2018.8494287" title="Laurent Millet, Margaux Vigier, Gilles Sicard, Wilfried Uhring, Nils Margotat, Fabrice Guellec, Sebastien Martin. &quot;A 5 Million Frames Per Second 3D Stacked Image Sensor With In-Pixel Digital Storage&quot; IEEE 44th European Solid State Circuits Conference IEEE (2018).">Millet 2018</a>],
 
-but their per-pixel, per-frame read noise is typically 10-100 \(e^{-}\). For our difference images, this is no problem: as shown in Figures 3 and 4, our per-pixel signal levels are larger than this read noise. In contrast, this much read noise noise is lethal for fluorescence; our fluorescent signals are typically two orders of magnitude smaller, and their excellent signal-to-noise ratio (SNR) requires extremely low read noise from our camera (&lt;1 \(e^{-}\)).
+but their read noise approaches 100 \(e^{-}\), orders of magnitude worse than the &lt;1 \(e^{-}\) read noise of our (much slower) camera. This yields a fundamentally unfavorable tradeoff between speed and signal-to-noise ratio (SNR), since good SNR in fluorescent images is almost invariably due to low noise rather than high signal.
 </p>
 
-<p>Recall that phase-contrast microscopy (imaging on a bright, coherent background)
+<p>Consider why phase contrast microscopy
 
 [<a class="citation" href="https://doi.org/10.1038/ncb1942" title="Das Phasenkontrastverfahren bei der mikroskopischen Beobachtung; F. Zernike; Z. technische Physik vol 16, p454–457 (1935)">Zernike 1935</a>,
 <a class="citation" href="https://doi.org/10.1016/S0031-8914(42)80035-X" title="Phase contrast, a new method for the microscopic observation of transparent objects; F. Zernike; Physica, Vol 9, p686-698 (1942)">Zernike 1942</a>]
 
-was awarded the 1953 Nobel prize in physics, even though dark-field microscopy (a background-free technique)
+won a 1953 Nobel prize, even though dark-field microscopy
 
 [<a class="citation" href="https://doi.org/10.1002/andp.19023150102" title="Uber Sichtbarmachung und Größenbestimmung ultramikoskopischer Teilchen, mit besonderer Anwendung auf Goldrubingläser; H. Siedentopf and R. Zsigmondy; Ann. Phys., 315: 1-39 (1902)">Siedentopf 1902</a>]
 
-already won a Nobel in 1925. The two techniques reveal refractive/absorptive inhomogeneity with similar SNR, but with one key difference: the absolute signal levels in phase contrast are much higher, because of interference with the bright coherent background
+already had a 1925 Nobel. Both techniques reveal the same refractive/absorptive inhomogeneities with similar SNR, but the absolute signal levels in phase contrast are much higher due to coherent interference
 
-[<a class="citation" href="http://doi.org/10.5281/zenodo.1463274" title="Andrew G. York, & Sanjay R. Varma. &quot;What is the signal-to-noise ratio of phase-contrast imaging? Can it be infinite?&quot; andrewgyork.github.io/adaptive_interference_inference (2018)">York 2018</a>]. So while the Poisson-dominated SNR is (in principle) only two times better for phase contrast, this effective amplification via interference means all <em>other</em> sources of noise wash out. This applies to camera read noise, but also background signals like stray light.
+[<a class="citation" href="http://doi.org/10.5281/zenodo.1463274" title="Andrew G. York, & Sanjay R. Varma. &quot;What is the signal-to-noise ratio of phase-contrast imaging? Can it be infinite?&quot; andrewgyork.github.io/adaptive_interference_inference (2018)">York 2018</a>].
+
+This interference-based signal amplification means most <em>other</em> sources of noise wash out.
 </p>
 
-<p>
-Point out that iSCAT is awesome, but it's basically just phase contrast done carefully.
+<p>We predict that stimulated emission phase contrast will have the same effect on fluorescence measurements that phase contrast had on dark-field scattering measurements, for the same reasons. This applies to background signals like stray light, but especially to camera read noise, which was completely irrelevant to the SNR of the phase contrast difference images in Figure 3. Stimulated emission contrast also doesn't saturate in the same way as fluorescent contrast: if the stimulation beam depletes the excited fluorophores, you can simply turn up the excitation beam to compensate.
 </p>
 
+<a id="photodamage_mechanisms" href="#photodamage_mechanisms" target="_self">
+<h4>What about photodamage?</h4></a>
 
-
-[<a class="citation" href="https://doi.org/10.1088/1361-6501/aa5748" title="Gary S Settles and Michael J Hargather. &quot;A review of recent developments in schlieren and shadowgraph techniques.&quot; Measurement Science and Technology 28 no. 4 (2017).">Settles 2017</a>]
-<p>Phase contrast SNR vs background-free SNR? Coherent amplification -> read noise irrelevant -> ultrafast cameras</p>
-
-<p>The absence of a saturation limit on stimulated emission would greatly aid measuring fluorophores in flow cytometry devices, which usually have only microseconds to collect as much signal as possible. Additionally, coherently detected signals do not require low read noise detectors, so one could imagine replacing the fast, low noise, point detectors currently part of flow cytometry devices with array detectors that are just as fast. Flow cytometry that outputs images instead of one-dimensional signals would break the Poisson loading limit while also measuring valuable multi-dimensional information (e.g. aggregation).
+<p>In fluorescent measurements, we're used to a constant ratio between the number of input photons, the number of output photons, and the amount of time our fluorophores spend in an excited state. Which of these parameters determines photodamage? The utility of our technique depends sensitively on the answer, because stimulated emission breaks these rules.
 </p>
 
-<p>Photobleaching rates?</p>
-
-<p>Because stimulated emission can be extracted from an excited fluorophore in less time than spontaneous emission, the fluorophore would spend less time in the excited state for the same amount of optical output. Photobleaching, in some cases, is thought to depend on the amount of time spent in the excited state
-
-[<a class="citation" href="http://dx.doi.org/10.1364/OE.23.003770" title="Li, Weixing, Simon C. Stein, Ingo Gregor, and J&ouml;rg Enderlein. &quot;Ultra-stable and versatile widefield cryo-fluorescence microscope for single-molecule localization with sub-nanometer accuracy.&quot; Optics express 23, no. 3 (2015): 3770-3783.">Li 2015</a>].
-
-Stimulated emission imaging could significantly enhance the signal available from fluorophores subject to photobleaching due to inter-molecular collisions while in the excited state.
+<p>If transient excitation of excited fluorophores by the excitation or stimulation beams is a dominant mechanism for photodamage, our technique would do substantially more damage per emitted photon compared to fluorescence. If, on the other hand, collisions between excited fluorophores and (for example) oxygen molecules is a dominant mechanism for photodamage, then stimulated emission would do substantially better, because intense short-pulse excitation/stimulation can yield many photons from a single fluorophore in a single fluorescent lifetime.
 </p>
 
-<p>Finish on fantasies about obvious applications.</p>
+<a id="technological_applications" href="#technological_applications" target="_self">
+<h4>What technologies could this enable?</h4></a>
 
-<p>There are many imaging and detection applications that could significantly benefit from the high signal rate and coherent detection capability made possible by stimulated emission. Stimulated emission may make it easier to track fast sub-cellular processes such as electrochemical impulses (stimulated emission could better utilize the time resolution of voltage-sensitive fluorescent dyes by increasing emission rate). It may also become easier to visualize and quantify low-abundance proteins (e.g. transcription factors) and cellular structures tagged with dim fluorophores. While fluorophore brightness may not be the major bottleneck in next-generation genetic sequencing speed or reliability, sequencing could still benefit from the ability to squeeze more signal from fluorophores.
+<p>Modern forms of phase contrast microscopy
+
+[<a class="citation" href="https://doi.org/10.1364/OPEX.14.000405" title="Volker Jacobsen, Patrick Stoller, Christian Brunner, Viola Vogel, and Vahid Sandoghdar. &quot;Interferometric optical detection and tracking of very small gold nanoparticles at a water-glass interface&quot; Optics Express Vol. 14, Issue 1, pp. 405-414 (2006).">Jacobsen 2006</a>]
+
+give incredible speed and SNR, enough to track single unlabeled motor proteins in vitro
+
+[<a class="citation" href="https://doi.org/10.1021/nl500234t" title="J. Ortega Arroyo, J. Andrecka, K. M. Spillane, N. Billington, Y. Takagi, J. R. Sellers, P. Kukura. &quot;Label-Free, All-Optical Detection, Imaging, and Tracking of a Single Protein&quot; Nano Lett. 14, 4, 2065-2070 (2014).">Ortega Arroyo 2014</a>].
+
+However, these techniques lack the specificity required for in vivo use, since they reveal <em>everything</em> that's moving, which is profoundly ambiguous in a living cell. The addition of fluorescent tags and a modulated excitation beam could convert such setups to stimulated emission contrast, yielding a similar but protein-specific measurement. 
 </p>
 
-
-<p><strong>SECOND CURSOR HERE</strong>
+<p>For another example, flow cytometry devices usually have only microseconds to collect signal. One could imagine replacing the low-noise point detectors typical of fluorescent flow cytometry measurements with high-noise array detectors, and tolerating this detector noise via stimulated emission contrast. Flow cytometry that outputs high-SNR images instead of one-dimensional signals would allow sorting by structural parameters like aggregation, and could help break the Poisson loading limit.
 </p>
 
-<br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br>
-<p><strong>Why do we think this is stimulated emission? What should/did the detector see versus what is stimulated emission?</strong>
+<p>More generally, we speculate that stimulated emission contrast could improve any form of fluorescent measurement where high speed and high SNR are desirable.
 </p>
-
-<p><strong>seems like stim emission</strong>The 721 nm emission we measured from excited and stimulated fluorophores demonstrates many of the hallmarks of stimulated emission: it conveys information about the location of the fluorophores, it interferes coherently with transmitted and scattered light, it seems instantaneous (the time response is 1 &micro;s or shorter), it depends on excitation and stimulation intensity, its brightness decreases as the fluorescent source bleaches, and it appears to form images of three different types of fluorescent particle.
-</p>
-
-<p><strong>(Andy quote)</strong> We asked lots of people what they'd expect (what the detector would see) and many guessed wrong and gave the "indistinguishable" explanation. If a slab of scattering material is indistinguishable from the incident beam, why don't we say that point scattering is indistinguishable from the stimulating field, as we do with stim emission?
-</p>
-
-<p><strong>Include any arguments from Einstein derivation/QED (transverse field is time invariant), or from Cray or Vahala theory papers?</strong> Vahala 1992 gives a nice description of our paradox and suggests that an excited fluorophore doesn't know the direction of the stimulating field. However, he then counter-intuitively concludes that, because of some "photon recoil" type thing that I don't understand, the dipole emits exactly into the stimulating field.
-</p>
-
-
-<br>
-<br>
-<p><strong>Why might this not be stimulated emission? We meant to test hypothesis in Figure 1. Did we?</strong>
-</p>
-
-<p><strong>Crosstalk</strong> not yet addressed in either phase contrast or darkfield section. It is mentioned in the <a href="./appendix.html#Dark-field_image_generation">Dark-field image generation</a> section of the appendix. We don't see any crosstalk in our phase contrast difference images.
-</p>
-
-<p><strong>Fluorescence leak through</strong> Discussed in experimental design section. Specify red blocked measurement. less than 0.5 count, whereas actual signal is many times that.
-</p>
-
-<p><strong>Heating</strong> orange bead section shows we are probably not heating. Refer to heating section in the appendix, which shows that our time resolution may not be good enough temporally separate heating and stimulated emission effects. (link to "somehow lowers refractive index" sentence in results section?)
-</p>
-
-<p><strong>Instantaneous nonlinearity (Raman) not mentioned anywhere yet.</strong>link to "somehow lowers refractive index" sentence in results section?)
-</p>
-
-<p><strong>Number of counts may not indicate stimulated emission intensity because of interference</strong>
-<p>
-
-
-<br>
-<br>
-<p><strong>If we are right, what cool things are possible?</strong>
-</p>
-
-<p><strong>speculate on benefits of higher emission rate</strong>There are many imaging and detection applications that could significantly benefit from the high signal rate and coherent detection capability made possible by stimulated emission. Stimulated emission may make it easier to track fast sub-cellular processes such as electrochemical impulses (stimulated emission could better utilize the time resolution of voltage-sensitive fluorescent dyes by increasing emission rate). It may also become easier to visualize and quantify low-abundance proteins (e.g. transcription factors) and cellular structures tagged with dim fluorophores. While fluorophore brightness may not be the major bottleneck in next-generation genetic sequencing speed or reliability, sequencing could still benefit from the ability to squeeze more signal from fluorophores.
-</p>
-
-<p><strong>flow cytometry + imaging</strong>No saturation limit on emission would greatly aid measuring fluorophores in flow cytometry devices, which usually have only microseconds to collect as much signal as possible. Additionally, coherently detected signals do not require low read noise detectors, so one could imagine replacing the fast, low noise, point detectors currently part of flow cytometry devices with array detectors that are just as fast. Flow cytometry that outputs images instead of one-dimensional signals would break the Poisson loading limit while also measuring valuable multi-dimensional information (e.g. aggregation).
-</p>
-
-<p><strong>minimize bleaching</strong>Because stimulated emission can be extracted from an excited fluorophore in less time than spontaneous emission, the fluorophore would spend less time in the excited state for the same amount of optical output. Photobleaching, in some cases, is thought to depend on the amount of time spent in the excited state
-
-[<a class="citation" href="http://dx.doi.org/10.1364/OE.23.003770" title="Li, Weixing, Simon C. Stein, Ingo Gregor, and J&ouml;rg Enderlein. &quot;Ultra-stable and versatile widefield cryo-fluorescence microscope for single-molecule localization with sub-nanometer accuracy.&quot; Optics express 23, no. 3 (2015): 3770-3783.">Li 2015</a>].
-
-Stimulated emission imaging could significantly enhance the signal available from fluorophores subject to photobleaching due to inter-molecular collisions while in the excited state.
-</p>
-
-
-<br>
-<br>
-<p><strong>Future plans. This was to make the physicist's argument. Now how about the engineer?</strong>
-</p>
-
-<p><strong>plan to beat spont emission and also conclusively rule out heating</strong>We have yet to demonstrate an enhanced signal rate as compared with fluorescence due to lack of intensity in our stimulating laser beam (we had max ~10% depletion). Additionally, sub-nanosecond duration excitation and stimulation laser pulses should allow us to rule out heating (if the difference images disappear when the stimulation pulse follows the excitation pulse long after the excited state lifetime).
-</p>
-
-
 
 <a id="Acknowledgements" href="#Acknowledgements" target="_self">
 <h3>Acknowledgements</h3></a>
-<p>We thank Maria Ingaramo for excited state lifetime and quantum yield measurements of fluorophores, as well as for helping to develop the process for mounting and index-matching polystyrene beads. We thank Keir Neumann for making the N-v center-doped nanodiamond samples, and we thank Benjamin Cooper, Alfred Millett-Sikking, and our colleagues at Calico Labs for helpful discussion and inspiration.
+<p>We thank Maria Ingaramo for excited state lifetime and quantum yield measurements of fluorophores, as well as for helping to develop the process for mounting and index-matching polystyrene beads. We thank Keir Neumann for making the N-v center-doped nanodiamond samples, and we thank Benjamin Cooper, Alfred Millett-Sikking, and our colleagues at Calico Labs for inspiration and helpful discussion.
 </p>
 
 <h3><a href="./appendix.html">Appendix</a></h3>
