@@ -171,7 +171,7 @@ def main():
     plt.axis([0-2000, 502800 + 2000, -14.7, 65.5])
 
     plt.grid()
-    plt.ylabel('Fluorescence brightness (arb. units)', fontsize=14)
+    plt.ylabel('Fluorescence brightness (sCMOS counts)', fontsize=14)
     plt.xlabel('Number of excitation pulses delivered to sample', fontsize=18)
     a = plt.axes([.2, .7, .18, .18])
     plt.imshow(
