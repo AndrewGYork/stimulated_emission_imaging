@@ -1,0 +1,11 @@
+1) Create animation files using Libreoffice Impress (Powerpoint-like).
+
+2) Save as html (this will generate numbered png files). These can be found in the zipped folder fl_vs_stim_png_files.zip.
+
+3) Open ImageJ and use File>Import>Image sequence... and select the first png in the list in the "png" folder. Select RGB conversion.
+
+4) Open the ImageJ macro Macro_fl_vs_stim_3x_final.ijm. Make sure the "A" is selected in the ImageJ tool panel (Text tool). Run the macro. This will take a little while.
+
+5) Use Image>Type> to convert to 8-bit color and select 256 colors.
+
+6) Use File>Save as>Gif to save as a gif.
