@@ -2,7 +2,7 @@
 
 <a href="https://doi.org/TODO"><img src="https://zenodo.org/badge/DOI/TODO.svg" alt="DOI"></a>
 
-A scientific publication that describes experiments to explore whether or not stimulated emission from a pointlike emitter is distinguishable from the stimulating beam. This repository hosts everything you need to reproduce our results. Read the publication here:
+A scientific publication that describes experiments to explore whether stimulated emission from a pointlike emitter is distinguishable from the stimulating beam. This repository hosts everything you need to reproduce our results. Read the publication here:
 https://calico.github.io/stimulated_emission_imaging (hosted via the Calico Labs institutional GitHub account)
 or here:
 https://sanjayvijay.github.io/stimulated_emission_imaging (hosted via Sanjay Varma's personal GitHub account)
