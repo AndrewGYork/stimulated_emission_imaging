@@ -1,3 +1,5 @@
+HOW TO PROCESS RAW DATA AND GENERATE FIGURES
+
 1. Get the raw data as described in the "Image Acquisition and Figure Generation" section of the appendix.
 
 2. Create a new folder called "stimulated_emission_imaging-data" in the same root folder as "stimulated_emission_imaging-master".
