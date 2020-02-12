@@ -1,6 +1,6 @@
 # Stimulated Emission Imaging
 
-<a href="https://doi.org/TODO"><img src="https://zenodo.org/badge/DOI/TODO.svg" alt="DOI"></a>
+<a href="https://doi.org/10.5281/zenodo.3665824"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3665824.svg" alt="DOI"></a>
 
 A scientific publication that describes experiments to explore whether stimulated emission from a pointlike emitter is distinguishable from the stimulating beam. This repository hosts everything you need to reproduce our results. Read the publication here:
 https://andrewgyork.github.io/stimulated_emission_imaging (hosted via Andrew York's personal GitHub account)
