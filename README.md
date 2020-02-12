@@ -5,9 +5,9 @@
 A scientific publication that describes experiments to explore whether stimulated emission from a pointlike emitter is distinguishable from the stimulating beam. This repository hosts everything you need to reproduce our results. Read the publication here:
 https://andrewgyork.github.io/stimulated_emission_imaging (hosted via Andrew York's personal GitHub account)
 or here:
-https://sanjayvijay.github.io/stimulated_emission_imaging (hosted via Sanjay Varma's personal GitHub account)
+~~https://sanjayvijay.github.io/stimulated_emission_imaging~~ (hosted via Sanjay Varma's personal GitHub account)
 or here:
-https://calico.github.io/stimulated_emission_imaging (hosted via the Calico Labs institutional GitHub account)
+~~https://calico.github.io/stimulated_emission_imaging~~ (hosted via the Calico Labs institutional GitHub account)
 
 This repository is intended to hold a (mostly) self-contained scientific publication. It contains:
 
