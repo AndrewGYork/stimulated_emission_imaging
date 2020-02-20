@@ -7,7 +7,7 @@ https://andrewgyork.github.io/stimulated_emission_imaging (hosted via Andrew Yor
 or here:
 https://sanjayvijay.github.io/stimulated_emission_imaging (hosted via Sanjay Varma's personal GitHub account)
 or here:
-~~https://calico.github.io/stimulated_emission_imaging~~ (hosted via the Calico Labs institutional GitHub account)
+https://calico.github.io/stimulated_emission_imaging (hosted via the Calico Labs institutional GitHub account)
 
 This repository is intended to hold a (mostly) self-contained scientific publication. It contains:
 
