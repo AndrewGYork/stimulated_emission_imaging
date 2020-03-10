@@ -2,7 +2,7 @@
 
 **Reviewer: Francesco Reina, PhD, Researcher in Biophysical Imaging at the Leibniz IPHT, Jena, DE.**
 
-**Reviewer contact: [https://www.nano-immunology.org/francesco-reina.html] (https://www.nano-immunology.org/francesco-reina.html)**
+**Reviewer contact: https://www.nano-immunology.org/francesco-reina.html**
 
 **Date of review: March 4, 2020.**
 
