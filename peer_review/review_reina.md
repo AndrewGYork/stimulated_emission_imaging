@@ -1,6 +1,6 @@
 # Stimulated Emission Imaging: Review #3
 
-**Reviewer: Francesco Reina, PhD, Researcher in Biophysical Imaging at the Leibniz IPHT, Jena, DE.**
+**Reviewer: Francesco Reina, PhD, Researcher in Biophysical Imaging at the Leibniz IPHT, Jena, Germany.**
 
 **Reviewer contact: https://www.nano-immunology.org/francesco-reina.html**
 
